@@ -5,13 +5,14 @@ import { css, styled } from 'styled-components';
 type StyledTitleProps = {
   centered?: boolean;
   line?: boolean;
+  bold?: boolean;
 };
 
 export const StyledTitle = styled.span<StyledTitleProps>`
-  font-size: 150%;
+  font-size: 125%;
   padding-top: 5px;
-  padding-bottom: 0.5rem;
   position: relative;
+  font-weight: ${(props) => props.bold && 'bold'};
 
   ${(props) =>
     props.line &&
@@ -43,10 +44,14 @@ const Title: React.FC<Props> = (props) => {
       textCentered={props.centered}
       centered={props.centered}
     >
-      <StyledTitle line={props.line} centered={props.centered}>
+      <StyledTitle line={props.line} bold={props.bold} centered={props.centered}>
         {props.title}
       </StyledTitle>
-      {props.description && <Container xs={'500px'}>{props.description}</Container>}
+      {props.description && (
+        <Container xs={'500px'} padding={'sm'}>
+          {props.description}
+        </Container>
+      )}
     </Container>
   );
 };

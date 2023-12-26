@@ -1,3 +1,4 @@
+import Icon from 'components/Icon';
 import React from 'react';
 import { css, styled } from 'styled-components';
 
@@ -60,7 +61,11 @@ const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | str
 
 const StyledButton = styled.button<StyledProps>`
   ${({ themeType = 'default', size = 'small', maxContent = false, ...props }) => css`
-    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    padding: 8px;
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
     color: ${themes[themeType]['color']};
@@ -94,10 +99,20 @@ const StyledButton = styled.button<StyledProps>`
   `}
 `;
 
-type Props = StyledProps & React.ComponentProps<'button'>;
+type Props = StyledProps &
+  React.ComponentProps<'button'> & {
+    icon?: React.ReactNode;
+  };
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(({ themeType, ...props }, ref) => {
-  return <StyledButton ref={ref} themeType={themeType} {...props} />;
+const Button = React.forwardRef<HTMLButtonElement, Props>(({ themeType, children, icon, ...props }, ref) => {
+  return (
+    <div>
+      <StyledButton ref={ref} themeType={themeType} {...props}>
+        {icon && <Icon icon={icon} width="15px" />}
+        <span>{children}</span>
+      </StyledButton>
+    </div>
+  );
 });
 
 Button.displayName = 'Button';

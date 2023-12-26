@@ -1,15 +1,16 @@
 import { css } from '@emotion/css';
+import Button from 'components/Button';
 import Container from 'components/Container';
+import Icon from 'components/Icon';
 import Transition, { TransitionHandle } from 'components/Transition';
 import { useTranslation } from 'hooks';
 import React, { useRef, useState } from 'react';
+import { SlArrowDown, SlArrowRight } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import { styled } from 'styled-components';
-import { SlArrowDown } from 'react-icons/sl';
-import Icon from 'components/Icon';
 
-const StyledNavigation = styled(Container)`
+const StyledNavigationWrapper = styled.nav`
   background-color: #046af2;
   box-shadow: 0 4px 2px -2px rgb(0 0 0 / 0.2);
   position: relative;
@@ -56,6 +57,11 @@ const StyledDropdownWrapper = styled.div<StyledDropdownWrapperProps>`
   left: ${(props) => props.fullwidth && 0};
   width: ${(props) => props.fullwidth && '100%'};
   z-index: 1;
+  box-shadow: 0px 1px 6px 3px rgba(35, 35, 35, 0.05);
+`;
+
+const StyledButtonInside = styled(Button)`
+  padding: 15px 150px 15px 10px;
 `;
 
 const Navigation: React.FC = () => {
@@ -65,13 +71,12 @@ const Navigation: React.FC = () => {
   const [dropdownRef, setDropdownRef] = useState<HTMLDivElement | null>(null);
 
   return (
-    <nav>
-      <StyledNavigation direction="row" wrap itemsCentered>
+    <StyledNavigationWrapper>
+      <Container direction="row" wrap itemsCentered>
         <Container sm={12} md="max-content">
           <StyledButton
             onClick={() => {
               animationRef.current?.toggle();
-              console.log(animationRef.current);
             }}
           >
             <Icon icon={<SlArrowDown />} width="13px" />
@@ -87,7 +92,14 @@ const Navigation: React.FC = () => {
             }}
           >
             <StyledDropdownWrapper ref={setDropdownRef}>
-              <Container padding={{ top: 'md', bottom: 'md', left: 'lg', right: 'lg' }}>aassafdsu</Container>
+              <Container sm="1400px" centered>
+                <StyledButtonInside icon={<SlArrowRight />} size="large" themeType="link">
+                  Parts
+                </StyledButtonInside>
+                <StyledButtonInside size="large" themeType="link">
+                  Autos
+                </StyledButtonInside>
+              </Container>
             </StyledDropdownWrapper>
           </Transition>
         </Container>
@@ -103,8 +115,8 @@ const Navigation: React.FC = () => {
         <Container sm={12} md="max-content">
           <StyledButton onClick={() => navigate(Routes.CONTACT)}>{t('contact')}</StyledButton>
         </Container>
-      </StyledNavigation>
-    </nav>
+      </Container>
+    </StyledNavigationWrapper>
   );
 };
 

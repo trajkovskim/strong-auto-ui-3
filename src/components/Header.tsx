@@ -82,12 +82,14 @@ const Header: React.FC = () => {
         <Input name="search" fullwidth label="Search for anything" />
         <div>
           <div>
-            <Icon
-              onClick={() => navigate(Routes.MY_CART)}
-              badge={'0'}
-              icon={<PiShoppingCartThin title={'0'} />}
-              width="40px"
-            />
+            <div>
+              <Icon
+                onClick={() => navigate(Routes.MY_CART)}
+                badge={'0'}
+                icon={<PiShoppingCartThin title={'0'} />}
+                width="40px"
+              />
+            </div>
             <Text type="primary" fontSize="sm">
               My cart
             </Text>

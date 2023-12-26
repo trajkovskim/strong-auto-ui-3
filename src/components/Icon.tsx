@@ -8,7 +8,7 @@ type IconWrapperProps = {
 };
 
 const IconWrapper = styled.span<IconWrapperProps>`
-  display: block;
+  display: inline-block;
   position: relative;
 
   user-select: none;

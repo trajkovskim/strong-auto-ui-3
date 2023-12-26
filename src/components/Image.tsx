@@ -3,6 +3,7 @@ import { styled } from 'styled-components';
 
 type StyledImageProps = {
   centered?: boolean;
+  verticalCentered?: boolean;
   objectFit?: React.CSSProperties['objectFit'];
   shadow?: boolean;
 };
@@ -18,6 +19,9 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   height: ${(props) => props.height};
 
   width: 100%;
+
+  margin-top: ${(props) => props.verticalCentered && 'auto'};
+  margin-bottom: ${(props) => props.verticalCentered && 'auto'};
 
   margin-left: ${(props) => props.centered && 'auto'};
   margin-right: ${(props) => props.centered && 'auto'};
