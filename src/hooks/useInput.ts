@@ -1,0 +1,63 @@
+import { ChangeEventHandler, FocusEventHandler, useEffect, useState } from 'react';
+import { Validator } from 'validators';
+
+const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+  defaultValue?: string | number | readonly string[] | undefined,
+  onChange1?: ChangeEventHandler<T>,
+  onFocus1?: FocusEventHandler<T>,
+  onBlur1?: FocusEventHandler<T>,
+  validate?: Validator
+) => {
+  const [value, setValue] = useState<string | undefined>(defaultValue?.toString()); // value
+  const [error, setError] = useState<string>(); // error message
+  const [touched, setTouched] = useState<boolean>(); // whether element has been ever blured (defocused)
+  const [visited, setVisited] = useState<boolean>(); // whether element has been ever focused
+  const [modified, setModified] = useState<boolean>(); // whether element has been ever modified
+  const [active, setActive] = useState<boolean>(); // whether element has focus now
+  const [dirty, setDirty] = useState<boolean>(); // whether element value is different from the initial
+  const [validating, setValidating] = useState<boolean>();
+  const valid = !error; // whether element has valid value
+  const initial = defaultValue; // initial value using the prop defaultValue
+
+  useEffect(() => {
+    if (!validate) {
+      return;
+    }
+
+    setValidating(true);
+    const timeout = setTimeout(() => setValidating(false), 200);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [value, validate]);
+
+  const onChange: ChangeEventHandler<T> = (event) => {
+    onChange1 && onChange1(event);
+    const message = validate && validate(event.target.value);
+    setValue(event.target.value);
+    setError(message);
+    setModified(true);
+    setDirty(initial !== event.target.value);
+  };
+
+  const onFocus: FocusEventHandler<T> = (event) => {
+    onFocus1 && onFocus1(event);
+    setVisited(true);
+    setActive(true);
+  };
+
+  const onBlur: FocusEventHandler<T> = (event) => {
+    onBlur1 && onBlur1(event);
+    setTouched(true);
+    setActive(false);
+  };
+
+  return {
+    onChange,
+    onFocus,
+    onBlur,
+    state: { value, error, touched, validating, visited, modified, active, dirty, valid, initial },
+  };
+};
+export default useInput;

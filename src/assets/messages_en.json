@@ -1,0 +1,40 @@
+{
+  "kostadinka": {
+    "languages": {
+      "title": "Language",
+      "mk": "Macedonian",
+      "en": "English"
+    },
+    "nav": {
+      "home": "Home",
+      "shop": "Shop",
+      "offers": "Offers",
+      "products": "Products",
+      "contact": "Contact"
+    },
+    "footer": {
+      "text": "Copyright ©2021 Herbalife International of America, Inc. No reproduction in whole or in part without written permission. All Rights Reserved. All trademarks and product images exhibited on this site, unless otherwise, are the property of Herbalife International, Inc.",
+      "informations": "Checkout our social media profiles for even more information"
+    },
+    "home": {
+      "startYourDayCorrectly": {
+        "title": "Start your day correctly",
+        "description": "By starting your day correctly we mean to take nutrients. Refresh yourself. Keep your self hydrated. Start your day with our balanced breakfast that is quick to prepare. Get the essential nutrients your body needs with a delicious Formula 1 shake."
+      },
+      "career": {
+        "title": "Build your own career",
+        "description": "Become a distributor with Herbalife nutrition - one of the leader world wide. Start today, use our respect as a leader in the industry, and put the foundations of your business",
+        "button": "Begin now",
+        "buildPack": {
+          "description": "Order your International Business Pack, which gives you the essential tools and literature to get you up and running. Build your own business with Herbalife Nutrition - one of the worlds leading direct sales brands. Start today - benefit from our proven success as industry leaders and decades of experience and lay the foundations of your own business.",
+          "question": "What will you get in the build pack?",
+          "order": "Order now"
+        }
+      },
+      "programs": {
+        "title": "Our programs",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim justo, congue quis egest as sed, molestie et neque"
+      }
+    }
+  }
+}
