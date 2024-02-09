@@ -1,14 +1,14 @@
+import { textFontSize } from 'components/typography/constants';
+import { FontSize, TextType } from 'components/typography/types';
 import React from 'react';
 import styled from 'styled-components';
-
-type TextType = 'sub' | 'base' | 'primary';
-type FontSize = 'sm' | 'md' | 'lg' | 'xl' | 'default';
 
 type StyledTextProps = {
   type?: TextType;
   textAlign?: React.CSSProperties['textAlign'];
   fontSize?: FontSize;
   bold?: boolean;
+  maxContent?: boolean;
 };
 
 const colors: Record<TextType, string> = {
@@ -17,27 +17,23 @@ const colors: Record<TextType, string> = {
   sub: '#a5a5a5',
 };
 
-const fontSize: Record<FontSize, string> = {
-  sm: '12px',
-  md: '16px',
-  lg: '20px',
-  xl: '24px',
-  default: 'inherit',
-};
-
 const StyledText = styled.span<StyledTextProps>`
+  display: inline-block;
   color: ${(props) => colors[props.type ?? 'base']};
   text-align: ${(props) => props.textAlign};
+  width: ${(props) => props.maxContent && 'max-content'};
 
-  font-size: ${(props) => fontSize[props.fontSize ?? 'default']};
+  font-size: ${(props) => textFontSize[props.fontSize ?? 'default']};
   font-weight: ${(props) => props.bold && 'bold'};
   cursor: ${(props) => props.onClick && 'pointer'};
 `;
 
 type Props = React.ComponentProps<'span'> & React.PropsWithChildren & StyledTextProps;
 
-const Text: React.FC<Props> = (props) => {
-  return <StyledText {...props} />;
-};
+const Text = React.forwardRef<HTMLSpanElement, Props>((props, ref) => {
+  return <StyledText ref={ref} {...props} />;
+});
+
+Text.displayName = 'Text';
 
 export default Text;

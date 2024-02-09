@@ -26,5 +26,6 @@ type WithMessageValidator<M extends Message = Message, T = unknown> = (params: M
 export const requiredValidator: WithMessageValidator =
   ({ message }) =>
   (value) => {
-    return value === '' || value === null || value === undefined ? message : undefined;
+    const trimedValue = value?.trim();
+    return trimedValue === '' || trimedValue === null || trimedValue === undefined ? message : undefined;
   };

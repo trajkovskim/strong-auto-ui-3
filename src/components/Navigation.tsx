@@ -11,26 +11,25 @@ import { Routes } from 'routes';
 import { styled } from 'styled-components';
 
 const StyledNavigationWrapper = styled.nav`
-  background-color: #046af2;
-  box-shadow: 0 4px 2px -2px rgb(0 0 0 / 0.2);
   position: relative;
 `;
 
 const StyledButton = styled.div`
   display: flex;
   justify-content: center;
-  gap: 10px;
 
   color: white;
 
-  padding: 15px 25px;
+  padding: 10px 20px;
   cursor: pointer;
 
   transition: all 200ms;
   user-select: none;
 
+  border-bottom: 1px solid transparent;
+
   &:hover {
-    background-color: #255a94a7 !important;
+    border-bottom-color: white;
   }
 `;
 
@@ -56,7 +55,6 @@ const StyledDropdownWrapper = styled.div<StyledDropdownWrapperProps>`
   color: #000;
   left: ${(props) => props.fullwidth && 0};
   width: ${(props) => props.fullwidth && '100%'};
-  z-index: 1;
   box-shadow: 0px 1px 6px 3px rgba(35, 35, 35, 0.05);
 `;
 
@@ -72,7 +70,7 @@ const Navigation: React.FC = () => {
 
   return (
     <StyledNavigationWrapper>
-      <Container direction="row" wrap itemsCentered>
+      <Container direction="row" padding={'md'} justifyContent="flex-end">
         <Container sm={12} md="max-content">
           <StyledButton
             onClick={() => {

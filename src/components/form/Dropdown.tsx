@@ -11,6 +11,8 @@ import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Validator } from 'validators';
+import { SlArrowDown } from 'react-icons/sl';
+import Icon from 'components/Icon';
 
 const sizes: Record<Size, Record<string, string>> = {
   small: {

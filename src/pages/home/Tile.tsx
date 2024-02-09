@@ -1,48 +1,76 @@
+import { Ribbon, RibbonProps } from 'components/Card';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Image from 'components/Image';
-import Text from 'components/Text';
+import Text from 'components/typography/Text';
 import React from 'react';
-import { MdOutlineStarPurple500 } from 'react-icons/md';
+import { BsSpeedometer } from 'react-icons/bs';
 import styled from 'styled-components';
+import { formatNumber } from 'utils';
 
 const StyledTile = styled.div`
-  box-sizing: border-box;
-  box-shadow: 0px 1px 6px 3px rgba(35, 35, 35, 0.08);
-  border-radius: 0.625rem;
+  background-color: #fff;
+  border: 1px solid #eee;
   padding: 1.5rem;
+  position: relative;
+
+  &:hover {
+    border-color: #ccc;
+  }
 `;
+
+type RibbonType = 'sold' | 'featured' | 'recent';
+
+const ribbons: Record<RibbonType, RibbonProps> = {
+  sold: {
+    background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
+    color: '#fff',
+    label: 'SOLD',
+  },
+  featured: {
+    background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
+    color: '#fff',
+    label: 'FEATURED',
+  },
+  recent: {
+    background: 'linear-gradient(#9ef13f 0, #6ccb35 100%)',
+    color: '#fff',
+    label: 'RECENT',
+  },
+};
 
 type Props = React.ComponentProps<'div'> & {
   imageSrc?: string;
   title?: string;
   rating?: number;
   price?: number;
+  ribbon?: RibbonType;
 };
 
-const StyledStarIcon = styled(Icon)`
-  margin-bottom: -5px;
-  svg {
-    fill: #046af2;
-  }
+const StyledTileWrapper = styled(Container)`
+  overflow: hidden;
 `;
 
-const Tile: React.FC<Props> = ({ imageSrc, title, rating, price, ...props }) => {
+const Tile: React.FC<Props> = ({ imageSrc, title, rating, price, ribbon, ...props }) => {
   return (
-    <StyledTile {...props}>
-      <Container direction="row" gap="1rem">
-        <Image src={imageSrc} objectFit="contain" width="120px" verticalCentered />
-        <Container gap="0.3rem">
-          <Text>{title}</Text>
-          <Container direction="row">
-            {new Array(3).fill(0).map((_, index) => (
-              <StyledStarIcon key={index} icon={<MdOutlineStarPurple500 />} width="25px" />
-            ))}
+    <StyledTileWrapper preserveWhenXs padding="xs">
+      <StyledTile {...props}>
+        <Container preserveWhenXs direction="row" gap="1rem">
+          {ribbon && <Ribbon {...ribbons[ribbon]}>{ribbons[ribbon].label}</Ribbon>}
+          <Image src={imageSrc} objectFit="contain" width="120px" verticalCentered />
+          <Container gap="0.3rem">
+            <Text fontSize="lg">{title}</Text>
+            <Container preserveWhenXs direction="row" gap="3px">
+              <Icon icon={<BsSpeedometer />} width="15px" /> <Text>{formatNumber(200000)}km</Text>
+            </Container>
+            <Text fontSize="sm" type="sub">
+              Petrol | 2000 CC | Manual
+            </Text>
+            <Text fontSize="lg">${price?.toFixed(2)}</Text>
           </Container>
-          <Text fontSize="lg">${price?.toFixed(2)}</Text>
         </Container>
-      </Container>
-    </StyledTile>
+      </StyledTile>
+    </StyledTileWrapper>
   );
 };
 

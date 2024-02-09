@@ -32,13 +32,17 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
     };
   }, [value, validate]);
 
-  const onChange: ChangeEventHandler<T> = (event) => {
-    onChange1 && onChange1(event);
-    const message = validate && validate(event.target.value);
-    setValue(event.target.value);
+  const changeValue = (value: string | undefined) => {
+    const message = validate && validate(value);
+    setValue(value);
     setError(message);
     setModified(true);
-    setDirty(initial !== event.target.value);
+    setDirty(initial !== value);
+  };
+
+  const onChange: ChangeEventHandler<T> = (event) => {
+    onChange1 && onChange1(event);
+    changeValue(event.target.value);
   };
 
   const onFocus: FocusEventHandler<T> = (event) => {
@@ -57,6 +61,7 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
     onChange,
     onFocus,
     onBlur,
+    changeValue,
     state: { value, error, touched, validating, visited, modified, active, dirty, valid, initial },
   };
 };

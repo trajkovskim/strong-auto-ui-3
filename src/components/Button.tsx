@@ -10,18 +10,19 @@ type StyledProps = {
   size?: Size;
   bold?: boolean;
   maxContent?: boolean;
+  centered?: boolean;
 };
 
 const themes: Record<ThemeType, Record<string, string>> = {
   default: {
-    'background-color': '#2ea44f',
-    'background-color-hover': '#2c974b',
-    'background-color-active': '#298e46',
-    'box-shadow-focus': 'rgba(46, 164, 79, 0.4) 0 0 0 3px',
+    'background-color': '#046af2',
+    'background-color-hover': '#075ebb',
+    'background-color-active': '#255b9475',
+    'box-shadow-focus': '#046bf257 0 0 0 3px',
     'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#fff',
-    'border-radius': '6px',
+    'border-radius': '25px',
   },
   link: {
     'background-color': 'transparent',
@@ -32,12 +33,11 @@ const themes: Record<ThemeType, Record<string, string>> = {
   },
   ghost: {
     'background-color': 'transparent',
-    'background-color-hover': '#2c974b',
-    border: '1px solid rgba(27, 31, 35, 0.15);',
-    color: '#000',
+    'background-color-hover': '#046af2',
+    border: '1px solid rgba(58, 62, 66, 0.527);',
     'color-hover': '#fff',
     'color-active': '#fff',
-    'border-radius': '0px',
+    'border-radius': '25px',
   },
 };
 
@@ -60,21 +60,25 @@ const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | str
 };
 
 const StyledButton = styled.button<StyledProps>`
-  ${({ themeType = 'default', size = 'small', maxContent = false, ...props }) => css`
-    display: flex;
+  ${({ themeType = 'default', size = 'small', maxContent = false, centered = false, ...props }) => css`
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
 
     padding: 8px;
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
-    color: ${themes[themeType]['color']};
+    color: ${themes[themeType]['color'] ?? 'inherit'};
     font-weight: ${props.bold && 'bold'};
+    text-align: center;
 
     transition: all 200ms ease-in-out;
     cursor: pointer;
-    z-index: 1;
+    position: relative;
     user-select: none;
+
+    margin-left: ${centered && 'auto'};
+    margin-right: ${centered && 'auto'};
 
     width: 100%;
     max-width: ${maxContent ? 'max-content' : sizes[size]['max-width']};
@@ -99,6 +103,10 @@ const StyledButton = styled.button<StyledProps>`
   `}
 `;
 
+const ButtonWrapper = styled.div`
+  height: 100%;
+`;
+
 type Props = StyledProps &
   React.ComponentProps<'button'> & {
     icon?: React.ReactNode;
@@ -106,12 +114,12 @@ type Props = StyledProps &
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(({ themeType, children, icon, ...props }, ref) => {
   return (
-    <div>
+    <ButtonWrapper>
       <StyledButton ref={ref} themeType={themeType} {...props}>
         {icon && <Icon icon={icon} width="15px" />}
-        <span>{children}</span>
+        {children && <span>{children}</span>}
       </StyledButton>
-    </div>
+    </ButtonWrapper>
   );
 });
 

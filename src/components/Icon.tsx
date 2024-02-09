@@ -8,15 +8,16 @@ type IconWrapperProps = {
 };
 
 const IconWrapper = styled.span<IconWrapperProps>`
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-
   user-select: none;
 
   cursor: ${(props) => props.onClick && 'pointer'};
 
   svg {
-    display: block;
+    display: inline-block;
     margin: auto;
 
     width: ${(props) => props.width ?? '100%'};
@@ -25,7 +26,7 @@ const IconWrapper = styled.span<IconWrapperProps>`
 `;
 
 const IconBadge = styled.span`
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   height: 25px;

@@ -3,42 +3,17 @@ import {
   StyledContainer,
   StyledContainerProps,
   StyledGiCheckMark,
+  StyledInput,
+  StyledInputProps,
   StyledRightContainer,
   StyledSpinner,
 } from 'components/form/Input.styled';
 import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
-import { styled } from 'styled-components';
 import { Validator } from 'validators';
 
-type StyledInputProps = {
-  rightContainerWidth?: number;
-};
-
-const StyledInput = styled.input<StyledInputProps>`
-  box-sizing: border-box;
-  width: 100%;
-  height: 49px;
-  padding: 7px;
-  font-size: 18px;
-  line-height: 20px;
-  outline: none;
-  border-radius: 0;
-  border: 1px solid #dcdcdc;
-
-  padding-right: ${(props) => `${props.rightContainerWidth}px`};
-
-  &::placeholder {
-    font-size: 18px;
-  }
-
-  &:focus {
-    border-color: #cdcdcd;
-    background-color: #fdfdfd;
-  }
-`;
-
-type Props = React.ComponentProps<'input'> &
+type Props = Omit<React.ComponentProps<'input'>, keyof StyledInputProps> &
+  StyledInputProps &
   StyledContainerProps & {
     label?: string;
     rightContainer?: React.ReactNode;
@@ -59,29 +34,26 @@ const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, validate, ..
   const events = { onChange, onBlur, onFocus };
 
   return (
-    <StyledContainer fullwidth={fullwidth}>
-      <StyledInput
-        {...props}
-        {...events}
-        rightContainerWidth={rightContainerRef.current?.offsetWidth}
-        placeholder={label}
-      />
-      <StyledRightContainer ref={rightContainerRef}>
-        {state.dirty && validate && (
-          <span>
-            {state.validating ? (
-              <StyledSpinner />
-            ) : state.valid ? (
-              <StyledGiCheckMark />
-            ) : (
-              <StyledBiErrorCircle title={state.error} />
-            )}
-          </span>
-        )}
-        {rightContainer}
-      </StyledRightContainer>
+    <>
+      <StyledContainer fullwidth={fullwidth}>
+        <StyledInput {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
+        <StyledRightContainer ref={rightContainerRef}>
+          {state.dirty && validate && (
+            <span>
+              {state.validating ? (
+                <StyledSpinner />
+              ) : state.valid ? (
+                <StyledGiCheckMark />
+              ) : (
+                <StyledBiErrorCircle title={state.error} />
+              )}
+            </span>
+          )}
+          {rightContainer}
+        </StyledRightContainer>
+      </StyledContainer>
       {!state.valid && <div>{state.error}</div>}
-    </StyledContainer>
+    </>
   );
 };
 

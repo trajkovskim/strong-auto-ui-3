@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import Container from 'components/Container';
-import Text from 'components/Text';
+import Text from 'components/typography/Text';
 import React, { useCallback, useState } from 'react';
 import { GiCheckMark } from 'react-icons/gi';
 import { styled } from 'styled-components';

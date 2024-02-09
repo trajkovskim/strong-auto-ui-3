@@ -19,6 +19,7 @@ type StyledContainerProps = {
   direction?: React.CSSProperties['flexDirection'];
   alignItems?: React.CSSProperties['alignItems'];
   alignSelf?: React.CSSProperties['alignSelf'];
+  justifySelf?: React.CSSProperties['justifySelf'];
   justifyContent?: React.CSSProperties['justifyContent'];
   textAlign?: React.CSSProperties['textAlign'];
   userSelect?: React.CSSProperties['userSelect'];
@@ -30,6 +31,7 @@ type StyledContainerProps = {
   bordered?: boolean;
   parentGap?: React.CSSProperties['gap'];
   preserveWhenXs?: boolean;
+  relative?: boolean;
 };
 
 const MAX_COLUMNS = 12;
@@ -58,6 +60,7 @@ const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?
 
 const StyledContainer = styled.div<StyledContainerProps>`
   display: flex;
+  position: ${(props) => props.relative && 'relative'};
 
   padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>
@@ -95,6 +98,7 @@ const StyledContainer = styled.div<StyledContainerProps>`
   align-items: ${(props) => props.itemsCentered && 'center'};
 
   align-self: ${(props) => props.alignSelf};
+  justify-self: ${(props) => props.justifySelf};
 
   justify-content: ${(props) => props.justifyContent};
   justify-content: ${(props) => props.itemsCentered && 'center'};

@@ -1,38 +1,69 @@
+import Container from 'components/Container';
 import Image from 'components/Image';
-import Title from 'components/Title';
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledCard = styled.div`
-  box-sizing: border-box;
-  box-shadow: 0px 1px 6px 3px rgba(35, 35, 35, 0.08);
-  max-width: 314px;
-  padding: 1.5rem;
-  border-radius: 0.625rem;
+type StyledCardProps = {
+  type: 'column' | 'row';
+};
 
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+const StyledCard = styled(Container)<StyledCardProps>`
+  background: white;
+  color: black;
+  border: 1px solid #eee;
+
+  gap: 0.3rem;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+  width: 100%;
+  max-width: ${(props) => (props.type === 'column' ? '320px' : '660px')};
+  border-radius: 25px;
 `;
 
 const StyledFooterWrapper = styled.div`
   margin-top: auto;
 `;
 
-type Props = {
+export type RibbonProps = {
+  label: React.ReactNode;
+  background: React.CSSProperties['background'];
+  color?: React.CSSProperties['color'];
+};
+
+type Props = StyledCardProps & {
   title?: React.ReactNode;
+  description?: React.ReactNode;
   footer?: React.ReactNode;
   imageSrc?: React.ImgHTMLAttributes<HTMLImageElement>['src'];
   body?: React.ReactNode;
+  className?: string;
 };
 
 const Card: React.FC<Props> = (props) => {
   return (
-    <StyledCard>
-      <Image shadow objectFit="contain" height="150px" src={props.imageSrc} />
-      {props.title && <Title title={props.title as string} />}
-      {props.body}
-      <StyledFooterWrapper>{props.footer}</StyledFooterWrapper>
+    <StyledCard relative gap="0.3rem" direction={props.type} type={props.type}>
+      <Image
+        shadow
+        objectFit="contain"
+        height={props.type === 'column' ? '200px' : '100%'}
+        width={props.type === 'row' ? '300px' : undefined}
+        src={props.imageSrc}
+      />
+      <Container
+        padding={{ top: 'md', bottom: 'md', left: 'lg', right: 'lg' }}
+        margin={props.type === 'row' ? { right: 'lg' } : undefined}
+        gap="0.5rem"
+      >
+        <div>
+          <div>{props.title}</div>
+          <div>{props.description}</div>
+        </div>
+        {props.body}
+        <StyledFooterWrapper>{props.footer}</StyledFooterWrapper>
+      </Container>
     </StyledCard>
   );
 };

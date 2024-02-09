@@ -52,6 +52,7 @@ const StyledMdArrowForwardIos = styled(MdArrowForwardIos)`
 
 const StyledCarouselItem = styled.div`
   width: 100%;
+  height: 100%;
   position: absolute;
 `;
 

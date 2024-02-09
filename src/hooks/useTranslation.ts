@@ -28,9 +28,9 @@ const getDataByPath = (data: any, path: string, discriminator: string): string =
   return data;
 };
 
-const useTranslation = (prefix: string, discriminator = '.') => {
+const useTranslation = (prefix = '', discriminator = '.') => {
   const { language } = useLanguage();
-  const basePrefix = `kostadinka.${prefix}`;
+  const basePrefix = prefix.length == 0 ? 'kostadinka' : `kostadinka.${prefix}`;
 
   return useCallback(
     (key: string): string => {

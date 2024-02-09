@@ -1,64 +1,122 @@
-import Card from 'components/Card';
+import Button from 'components/Button';
+import Card, { RibbonProps } from 'components/Card';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
-import Text from 'components/Text';
+import Line from 'components/Line';
+import Text from 'components/typography/Text';
 import React from 'react';
-import { BsCartCheck, BsCartPlus } from 'react-icons/bs';
+import { BsArrowUpRight, BsSpeedometer } from 'react-icons/bs';
 import styled from 'styled-components';
-import { MdOutlineStarPurple500 } from 'react-icons/md';
+import { formatNumber } from 'utils';
+
+type RibbonType = 'sold' | 'featured';
+
+const ribbons: Record<RibbonType, RibbonProps> = {
+  sold: {
+    background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
+    color: '#fff',
+    label: 'SOLD',
+  },
+  featured: {
+    background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
+    color: '#fff',
+    label: 'FEATURED',
+  },
+};
 
 type Props = {
   rating?: number;
   title: string;
+  description?: string;
   price: number;
   imageSrc?: string;
-  onAddToCart?: () => void;
-  onRemoveFromCart?: () => void;
+  onView?: () => void;
   inCart?: boolean;
+  ribbon?: RibbonType;
+  type?: 'column' | 'row';
 };
 
-const StyledIcon = styled(Icon)`
-  svg {
-    transition: all 100ms;
-
-    &:hover {
-      fill: #046af2;
-    }
-  }
+const StyledLine = styled(Line)`
+  border-color: gray;
 `;
 
-const StyledStarIcon = styled(Icon)`
-  margin-bottom: -5px;
-  svg {
-    fill: #046af2;
-  }
+const StyledDescription = styled(Text)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
-const ProductCard: React.FC<Props> = (props) => {
+const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
   const body = (
-    <>
-      <Container direction="row">
-        {new Array(3).fill(0).map((_, index) => (
-          <StyledStarIcon key={index} icon={<MdOutlineStarPurple500 />} width="25px" />
-        ))}
+    <div>
+      {type === 'column' && <StyledLine />}
+      <Container
+        padding={{ top: 'sm', bottom: 'sm' }}
+        direction={type === 'row' ? 'column' : 'row'}
+        justifyContent="space-between"
+        gap="10px"
+      >
+        <Container
+          direction={type}
+          alignItems={type === 'column' ? 'center' : undefined}
+          justifyContent={type === 'column' ? 'center' : undefined}
+          gap="3px"
+        >
+          <Icon icon={<BsSpeedometer />} width="27px" />
+          <Text fontSize="md">{formatNumber(200000)}km</Text>
+        </Container>
+        <Container
+          direction={type}
+          alignItems={type === 'column' ? 'center' : undefined}
+          justifyContent={type === 'column' ? 'center' : undefined}
+          gap="3px"
+        >
+          <Icon icon={<BsSpeedometer />} width="27px" />
+          <Text fontSize="md">Petrol</Text>
+        </Container>
+        <Container
+          direction={type}
+          alignItems={type === 'column' ? 'center' : undefined}
+          justifyContent={type === 'column' ? 'center' : undefined}
+          gap="3px"
+        >
+          <Icon icon={<BsSpeedometer />} width="27px" />
+          <Text fontSize="md">Manual</Text>
+        </Container>
       </Container>
-    </>
+      {type === 'column' && <StyledLine />}
+    </div>
   );
 
   const footer = (
-    <Container direction="row" justifyContent="space-between" alignItems="flex-end">
-      <Text type="primary" fontSize="xl">
+    <Container direction="row" justifyContent="space-between" alignItems="center">
+      <Text type="primary" fontSize="lg">
         ${props.price.toFixed(2)}
       </Text>
-      {props.inCart ? (
-        <StyledIcon icon={<BsCartCheck />} width="30px" onClick={props.onRemoveFromCart} />
-      ) : (
-        <StyledIcon icon={<BsCartPlus />} width="30px" onClick={props.onAddToCart} />
-      )}
+      <Container direction="row" alignItems="flex-end">
+        <Button themeType="link" size="large">
+          <Text fontSize="md">View details</Text> <Icon icon={<BsArrowUpRight />} width="10px" />
+        </Button>
+      </Container>
     </Container>
   );
 
-  return <Card body={body} footer={footer} imageSrc={props.imageSrc} title={props.title} />;
+  const description = (
+    <StyledDescription fontSize="md" title={props.description}>
+      {props.description}
+    </StyledDescription>
+  );
+
+  return (
+    <Card
+      type={type}
+      body={body}
+      footer={footer}
+      imageSrc={props.imageSrc}
+      title={<Text fontSize="lg">{props.title}</Text>}
+      description={description}
+    />
+  );
 };
 
 export default ProductCard;
