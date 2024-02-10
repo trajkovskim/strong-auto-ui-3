@@ -8,7 +8,7 @@ import React from 'react';
 
 const OtherServices: React.FC = () => {
   return (
-    <Container padding={{ top: 'lg', bottom: 'lg' }} gap="1rem" centered sm="1400px">
+    <Container padding={{ top: 'lg', bottom: 'lg', left: 'md', right: 'md' }} gap="1rem" centered>
       <Title title="Other services we provide to you" fontSize="2xl" bold />
       <Line />
       <Container
@@ -30,7 +30,7 @@ const OtherServices: React.FC = () => {
             Know more
           </Button>
         </Container>
-        <Image src={TowTruckImage} objectFit="cover" width="600px" />
+        <Image src={TowTruckImage} objectFit="cover" width="900px" />
       </Container>
     </Container>
   );

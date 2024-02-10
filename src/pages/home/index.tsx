@@ -1,4 +1,5 @@
-import SUVBodyTypeImage from 'assets/SUV.png';
+import CarSideViewToLeftImage from 'assets/car-side-view-to-left.png';
+import CarSideViewToRightImage from 'assets/car-side-view-to-right.png';
 import Logo from 'assets/logo.png';
 import ToyotaCamryImage from 'assets/toyota-camry.jpg';
 import Button from 'components/Button';
@@ -11,7 +12,7 @@ import ProductCard from 'components/ProductCard';
 import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import BodyTypeTile from 'pages/home/BodyTypeTile';
+import BodyTypes from 'pages/home/BodyTypes';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import CarLot from 'pages/home/CarLot';
 import HorizontalList from 'pages/home/HorizontalList';
@@ -20,7 +21,6 @@ import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsArrowUpRight } from 'react-icons/bs';
-import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import styled from 'styled-components';
@@ -74,6 +74,32 @@ const StyledSearchButton = styled(Button)`
 const PopularMakesWrapper = styled(Container)`
   background-color: #232323;
   color: #fff;
+`;
+
+const StyledImage1 = styled(Image)`
+  position: relative;
+  left: -200px;
+`;
+
+const StyledImage2 = styled(Image)`
+  position: relative;
+  right: -200px;
+`;
+
+const CantFindVehicleContainer = styled(Container)`
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.1;
+  }
+
+  > * {
+    z-index: 1;
+  }
 `;
 
 const Home: React.FC = () => {
@@ -161,8 +187,6 @@ const Home: React.FC = () => {
 
   const popularMakesProducts = exploreAllVehiclesProducts;
 
-  const bodyTypes = new Array(4).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
-
   return (
     <div>
       <StyledContainer gap="2rem">
@@ -179,7 +203,7 @@ const Home: React.FC = () => {
         </Container>
         <Container itemsCentered alignSelf="center">
           <Text textAlign="center" fontSize="lg">
-            Find cars for sale and for rent near you
+            Find cars for sale
           </Text>
           <Title textAlign="center" fontSize="3xl" bold title="Find Your Perfect Car" />
         </Container>
@@ -207,22 +231,7 @@ const Home: React.FC = () => {
         </SearchBoxWrapper>
       </StyledContainer>
 
-      <Container sm="1400px" centered gap="2rem" padding={{ top: 'lg', bottom: 'lg' }}>
-        <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-          <Title title="Browse by body type" fontSize="2xl" bold />
-        </Container>
-        <Container direction="row" gap="1rem" justifyContent="space-between">
-          {bodyTypes.map((bodyType, index) => (
-            <BodyTypeTile key={index} {...bodyType} />
-          ))}
-        </Container>
-        <Container centered>
-          <Button maxContent themeType="link">
-            <div>Show more</div>
-            <Icon icon={<MdKeyboardDoubleArrowDown />} width="25px" />
-          </Button>
-        </Container>
-      </Container>
+      <BodyTypes />
 
       <Container padding={{ top: 'lg', bottom: 'xl' }} gap="2rem">
         <Container sm="1400px" centered gap="2rem">
@@ -257,6 +266,28 @@ const Home: React.FC = () => {
         </HorizontalList>
       </PopularMakesWrapper>
       <OtherServices />
+      <CantFindVehicleContainer
+        direction="row"
+        padding={{ top: 'xl', bottom: 'xl' }}
+        alignItems="center"
+        gap="1rem"
+        relative
+      >
+        <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="100%" />
+        <Container sm="600px" itemsCentered centered gap="2rem">
+          <Title
+            centered
+            title="Can't find the car you are looking for?"
+            description="Reach out to us and we will help you looking"
+            gap="1rem"
+            fontSize="xl"
+          />
+          <Button size="large" maxContent>
+            Know more
+          </Button>
+        </Container>
+        <StyledImage2 src={CarSideViewToLeftImage} objectFit="cover" width="100%" />
+      </CantFindVehicleContainer>
       <Line />
       <CarLot />
       <WhyChooseUs />
