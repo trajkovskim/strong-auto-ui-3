@@ -1,5 +1,6 @@
-import FiatLogo from 'assets/fiat-logo.png';
+import SUVBodyTypeImage from 'assets/SUV.png';
 import Logo from 'assets/logo.png';
+import ToyotaCamryImage from 'assets/toyota-camry.jpg';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
@@ -10,10 +11,16 @@ import ProductCard from 'components/ProductCard';
 import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
+import BodyTypeTile from 'pages/home/BodyTypeTile';
+import TabButtonsGroup from 'pages/home/ButtonsGroup';
+import CarLot from 'pages/home/CarLot';
+import HorizontalList from 'pages/home/HorizontalList';
+import OtherServices from 'pages/home/OtherServices';
+import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsArrowUpRight } from 'react-icons/bs';
-import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import styled from 'styled-components';
@@ -64,31 +71,97 @@ const StyledSearchButton = styled(Button)`
   white-space: nowrap;
 `;
 
-const Tile = styled(Container)`
-  border-radius: 10px;
-  width: 100%;
-  max-width: 250px;
-  max-height: 200px;
-`;
-
-const StyledArrowButton = styled(Button)`
-  padding-left: 20px;
-  padding-right: 20px;
-`;
-
 const PopularMakesWrapper = styled(Container)`
   background-color: #232323;
   color: #fff;
 `;
 
-const HorizontalList = styled(Container)`
-  > * {
-    flex: 1 0 100%;
-  }
-`;
-
 const Home: React.FC = () => {
   const navigate = useNavigate();
+
+  const exploreAllVehiclesProducts = [
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 95000,
+      title: 'Toyota Camry New 0',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 1',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 2',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 3',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 4',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 5',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 6',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 7',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 8',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 9',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+    {
+      imageSrc: ToyotaCamryImage,
+      ribbon: 'sold',
+      price: 90000,
+      title: 'Toyota Camry New 10',
+      description: '3.5D Power pulse Momentum 5dr RWD',
+    },
+  ];
+
+  const popularMakesProducts = exploreAllVehiclesProducts;
+
+  const bodyTypes = new Array(4).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
 
   return (
     <div>
@@ -134,141 +207,59 @@ const Home: React.FC = () => {
         </SearchBoxWrapper>
       </StyledContainer>
 
-      <Container sm="1400px" centered gap="4rem" padding={{ top: 'xl', bottom: 'xl' }}>
+      <Container sm="1400px" centered gap="2rem" padding={{ top: 'lg', bottom: 'lg' }}>
         <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-          <Title title="Browse by body work" fontSize="2xl" bold />
-          <Button themeType="link" size="large">
-            <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
-          </Button>
+          <Title title="Browse by body type" fontSize="2xl" bold />
         </Container>
         <Container direction="row" gap="1rem" justifyContent="space-between">
-          <Tile textCentered padding="md" gap="1rem">
-            <Image src={FiatLogo} alt="Fiat" objectFit="contain" width="200px" centered />
-            <Text>SUV</Text>
-          </Tile>
-          <Tile textCentered padding="md" gap="1rem">
-            <Image src={FiatLogo} alt="Fiat" objectFit="contain" width="200px" centered />
-            <Text>SUV</Text>
-          </Tile>
-          <Tile textCentered padding="md" gap="1rem">
-            <Image src={FiatLogo} alt="Fiat" objectFit="contain" width="200px" centered />
-            <Text>SUV</Text>
-          </Tile>
-          <Tile textCentered padding="md" gap="1rem">
-            <Image src={FiatLogo} alt="Fiat" objectFit="contain" width="200px" centered />
-            <Text>SUV</Text>
-          </Tile>
+          {bodyTypes.map((bodyType, index) => (
+            <BodyTypeTile key={index} {...bodyType} />
+          ))}
+        </Container>
+        <Container centered>
+          <Button maxContent themeType="link">
+            <div>Show more</div>
+            <Icon icon={<MdKeyboardDoubleArrowDown />} width="25px" />
+          </Button>
         </Container>
       </Container>
 
-      <Container sm="1400px" centered gap="4rem" padding={{ top: 'xl', bottom: 'xl' }}>
-        <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-          <Title title="Explore All Vehicles" fontSize="2xl" bold />
-          <Button themeType="link" size="large">
-            <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
-          </Button>
+      <Container padding={{ top: 'lg', bottom: 'xl' }} gap="2rem">
+        <Container sm="1400px" centered gap="2rem">
+          <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
+            <Title title="Explore All Vehicles" fontSize="2xl" bold />
+            <Button themeType="link" size="large">
+              <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
+            </Button>
+          </Container>
+          <TabButtonsGroup buttons={[{ label: 'Used', defaultActive: true }, { label: 'Featured' }]} />
         </Container>
-        <Line />
-        <HorizontalList direction="row" gap="1rem">
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
-          <ProductCard
-            ribbon="sold"
-            price={95000}
-            title="Toyota Camry New"
-            description="3.5D Power pulse Momentum 5dr RWD"
-          />
+        <HorizontalList>
+          {exploreAllVehiclesProducts.map((product, index) => (
+            <ProductCard {...product} key={index} />
+          ))}
         </HorizontalList>
-        <Container preserveWhenXs direction="row" gap="1rem">
-          <StyledArrowButton icon={<MdArrowBackIos />} themeType="ghost" />
-          <StyledArrowButton icon={<MdArrowForwardIos />} themeType="ghost" />
-        </Container>
       </Container>
-      <PopularMakesWrapper padding={{ top: 'xl', bottom: 'xl' }}>
-        <Container sm="1400px" centered gap="4rem" margin={{ left: '2xl' }}>
+      <PopularMakesWrapper padding={{ top: 'xl', bottom: 'xl' }} gap="2rem">
+        <Container sm="1400px" centered gap="2rem">
           <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
             <Title title="Popular Makes" fontSize="2xl" bold />
             <Button themeType="link" size="large">
               <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
             </Button>
           </Container>
-          <Line />
-          <HorizontalList direction="row" gap="1rem">
-            <ProductCard
-              type="row"
-              ribbon="sold"
-              price={95000}
-              title="Toyota Camry New"
-              description="3.5D Power pulse Momentum 5dr RWD"
-            />
-            <ProductCard
-              type="row"
-              ribbon="sold"
-              price={95000}
-              title="Toyota Camry New"
-              description="3.5D Power pulse Momentum 5dr RWD"
-            />
-            <ProductCard
-              type="row"
-              ribbon="sold"
-              price={95000}
-              title="Toyota Camry New"
-              description="3.5D Power pulse Momentum 5dr RWD"
-            />
-            <ProductCard
-              type="row"
-              ribbon="sold"
-              price={95000}
-              title="Toyota Camry New"
-              description="3.5D Power pulse Momentum 5dr RWD"
-            />
-          </HorizontalList>
-          <Container preserveWhenXs xs={'max-content'} centered direction="row" gap="1rem">
-            <StyledArrowButton icon={<MdArrowBackIos />} themeType="ghost" />
-            <StyledArrowButton icon={<MdArrowForwardIos />} themeType="ghost" />
-          </Container>
+          <TabButtonsGroup buttons={[{ label: 'Audi', defaultActive: true }, { label: 'BMW' }, { label: 'Toyota' }]} />
         </Container>
+        <HorizontalList>
+          {popularMakesProducts.map((product, index) => (
+            <ProductCard type="row" {...product} key={index} />
+          ))}
+        </HorizontalList>
       </PopularMakesWrapper>
+      <OtherServices />
+      <Line />
+      <CarLot />
+      <WhyChooseUs />
     </div>
   );
 };

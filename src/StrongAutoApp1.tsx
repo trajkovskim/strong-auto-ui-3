@@ -9,6 +9,7 @@ import styled from 'styled-components';
 const StyledLayout = styled.div`
   height: 100%;
   background-color: #f5f7f9;
+  overflow-x: hidden;
 `;
 
 const BackToTopButton = styled(Button)`

@@ -26,8 +26,8 @@ const themes: Record<ThemeType, Record<string, string>> = {
   },
   link: {
     'background-color': 'transparent',
-    'color-hover': '#3888dd',
-    'color-active': '#298e46',
+    'color-hover': '#075ebb',
+    'color-active': '#255b9475',
     border: '0px',
     'border-radius': '0px',
   },

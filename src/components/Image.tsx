@@ -10,7 +10,7 @@ type StyledImageProps = {
 
 const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   display: block;
-  object-fit: ${(props) => props.objectFit && 'contain'};
+  object-fit: ${(props) => props.objectFit};
 
   filter: ${(props) => props.shadow && 'drop-shadow(0 0 0.05rem #aaa5a5)'};
 
@@ -31,7 +31,7 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
 export type Props = React.ComponentProps<'img'> & StyledImageProps;
 
 const Image: React.FC<Props> = (props) => {
-  return <StyledImage pointer={!!props.onClick} {...props} />;
+  return <StyledImage draggable="false" pointer={!!props.onClick} {...props} />;
 };
 
 export default Image;

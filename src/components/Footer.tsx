@@ -82,12 +82,10 @@ const Footer: React.FC = () => {
             <Text onClick={() => call('+38977648648')}>
               General:
               <br />
-              <br />
               +38977648648
             </Text>
             <Text onClick={() => call('+38977648648')}>
               Email:
-              <br />
               <br />
               +38977648648
             </Text>

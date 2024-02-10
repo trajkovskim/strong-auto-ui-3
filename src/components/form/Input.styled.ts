@@ -31,7 +31,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   line-height: 20px;
   outline: none;
   border: ${(props) => (props.noBorder ? 'none' : '1px solid #dcdcdc')};
-  border-radius: 25px;
+  border-radius: 15px;
 
   padding-right: ${(props) => `${props.rightContainerWidth}px`};
 

@@ -10,7 +10,6 @@ type StyledCardProps = {
 const StyledCard = styled(Container)<StyledCardProps>`
   background: white;
   color: black;
-  border: 1px solid #eee;
 
   gap: 0.3rem;
 
@@ -20,11 +19,25 @@ const StyledCard = styled(Container)<StyledCardProps>`
 
   width: 100%;
   max-width: ${(props) => (props.type === 'column' ? '320px' : '660px')};
-  border-radius: 25px;
+  border-radius: 15px;
+`;
+
+const StyledContentWrapper = styled(Container)<StyledCardProps>`
+  border: 1px solid #eee;
+  border-top: ${(props) => props.type === 'column' && 'none'};
+  border-left: ${(props) => props.type === 'row' && 'none'};
+  border-right: ${(props) => props.type === 'row' && 'none'};
 `;
 
 const StyledFooterWrapper = styled.div`
   margin-top: auto;
+`;
+
+const StyledImage = styled(Image)`
+  transition: all 200ms;
+  &:hover {
+    transform: scale(1.02);
+  }
 `;
 
 export type RibbonProps = {
@@ -45,14 +58,15 @@ type Props = StyledCardProps & {
 const Card: React.FC<Props> = (props) => {
   return (
     <StyledCard relative gap="0.3rem" direction={props.type} type={props.type}>
-      <Image
+      <StyledImage
         shadow
-        objectFit="contain"
+        objectFit="cover"
         height={props.type === 'column' ? '200px' : '100%'}
         width={props.type === 'row' ? '300px' : undefined}
         src={props.imageSrc}
       />
-      <Container
+      <StyledContentWrapper
+        type={props.type}
         padding={{ top: 'md', bottom: 'md', left: 'lg', right: 'lg' }}
         margin={props.type === 'row' ? { right: 'lg' } : undefined}
         gap="0.5rem"
@@ -63,7 +77,7 @@ const Card: React.FC<Props> = (props) => {
         </div>
         {props.body}
         <StyledFooterWrapper>{props.footer}</StyledFooterWrapper>
-      </Container>
+      </StyledContentWrapper>
     </StyledCard>
   );
 };

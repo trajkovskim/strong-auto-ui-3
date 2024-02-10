@@ -49,7 +49,7 @@ const StyledDescription = styled(Text)`
 const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
   const body = (
     <div>
-      {type === 'column' && <StyledLine />}
+      <StyledLine />
       <Container
         padding={{ top: 'sm', bottom: 'sm' }}
         direction={type === 'row' ? 'column' : 'row'}
