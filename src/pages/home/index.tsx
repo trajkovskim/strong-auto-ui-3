@@ -1,5 +1,3 @@
-import CarSideViewToLeftImage from 'assets/car-side-view-to-left.png';
-import CarSideViewToRightImage from 'assets/car-side-view-to-right.png';
 import Logo from 'assets/logo.png';
 import ToyotaCamryImage from 'assets/toyota-camry.jpg';
 import Button from 'components/Button';
@@ -14,9 +12,10 @@ import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import BodyTypes from 'pages/home/BodyTypes';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
+import CantFindVehicle from 'pages/home/CantFindVehicle';
 import CarLot from 'pages/home/CarLot';
 import HorizontalList from 'pages/home/HorizontalList';
-import OtherServices from 'pages/home/OtherServices';
+import TowingService from 'pages/home/TowingService';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
@@ -74,32 +73,6 @@ const StyledSearchButton = styled(Button)`
 const PopularMakesWrapper = styled(Container)`
   background-color: #232323;
   color: #fff;
-`;
-
-const StyledImage1 = styled(Image)`
-  position: relative;
-  left: -200px;
-`;
-
-const StyledImage2 = styled(Image)`
-  position: relative;
-  right: -200px;
-`;
-
-const CantFindVehicleContainer = styled(Container)`
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.1;
-  }
-
-  > * {
-    z-index: 1;
-  }
 `;
 
 const Home: React.FC = () => {
@@ -233,9 +206,9 @@ const Home: React.FC = () => {
 
       <BodyTypes />
 
-      <Container padding={{ top: 'lg', bottom: 'xl' }} gap="2rem">
-        <Container sm="1400px" centered gap="2rem">
-          <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
+      <Container padding={{ top: 'lg', bottom: 'xl', left: 'md' }} gap="1rem">
+        <Container gap="1rem" padding={{ right: 'md' }}>
+          <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
             <Title title="Explore All Vehicles" fontSize="2xl" bold />
             <Button themeType="link" size="large">
               <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
@@ -249,9 +222,9 @@ const Home: React.FC = () => {
           ))}
         </HorizontalList>
       </Container>
-      <PopularMakesWrapper padding={{ top: 'xl', bottom: 'xl' }} gap="2rem">
-        <Container sm="1400px" centered gap="2rem">
-          <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
+      <PopularMakesWrapper padding={{ top: 'lg', bottom: 'xl', left: 'md' }} gap="1rem">
+        <Container gap="1rem" padding={{ right: 'md' }}>
+          <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
             <Title title="Popular Makes" fontSize="2xl" bold />
             <Button themeType="link" size="large">
               <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
@@ -265,31 +238,17 @@ const Home: React.FC = () => {
           ))}
         </HorizontalList>
       </PopularMakesWrapper>
-      <OtherServices />
-      <CantFindVehicleContainer
-        direction="row"
-        padding={{ top: 'xl', bottom: 'xl' }}
-        alignItems="center"
-        gap="1rem"
-        relative
-      >
-        <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="100%" />
-        <Container sm="600px" itemsCentered centered gap="2rem">
-          <Title
-            centered
-            title="Can't find the car you are looking for?"
-            description="Reach out to us and we will help you looking"
-            gap="1rem"
-            fontSize="xl"
-          />
-          <Button size="large" maxContent>
-            Know more
-          </Button>
+      <Container direction="row" wrap alignItems="stretch">
+        <Container sm={12} md={12} lg={6} xl={7}>
+          <CantFindVehicle />
         </Container>
-        <StyledImage2 src={CarSideViewToLeftImage} objectFit="cover" width="100%" />
-      </CantFindVehicleContainer>
-      <Line />
-      <CarLot />
+        <Container sm={12} md={12} lg={6} xl={5}>
+          <TowingService />
+        </Container>
+        <Container sm={12} md={12} lg={12} xl={12}>
+          <CarLot />
+        </Container>
+      </Container>
       <WhyChooseUs />
     </div>
   );

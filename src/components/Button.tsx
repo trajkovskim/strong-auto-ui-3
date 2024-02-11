@@ -11,6 +11,7 @@ type StyledProps = {
   bold?: boolean;
   maxContent?: boolean;
   centered?: boolean;
+  fullwidth?: boolean;
 };
 
 const themes: Record<ThemeType, Record<string, string>> = {
@@ -30,6 +31,7 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-active': '#255b9475',
     border: '0px',
     'border-radius': '0px',
+    paddin: '0px',
   },
   ghost: {
     'background-color': 'transparent',
@@ -60,12 +62,20 @@ const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | str
 };
 
 const StyledButton = styled.button<StyledProps>`
-  ${({ themeType = 'default', size = 'small', maxContent = false, centered = false, ...props }) => css`
+  ${({
+    themeType = 'default',
+    size = 'small',
+    maxContent = false,
+    centered = false,
+    fullwidth = false,
+    ...props
+  }) => css`
     display: inline-flex;
+    justify-content: center;
     align-items: center;
     gap: 0.5rem;
 
-    padding: 8px;
+    padding: ${themes[themeType]['padding']};
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
     color: ${themes[themeType]['color'] ?? 'inherit'};
@@ -82,6 +92,7 @@ const StyledButton = styled.button<StyledProps>`
 
     width: 100%;
     max-width: ${maxContent ? 'max-content' : sizes[size]['max-width']};
+    max-width: ${fullwidth ? '100%' : sizes[size]['max-width']};
     height: ${sizes[size]['height'][themeType]};
     font-size: ${sizes[size]['font-size']};
     border: ${themes[themeType]['border']};
@@ -103,10 +114,6 @@ const StyledButton = styled.button<StyledProps>`
   `}
 `;
 
-const ButtonWrapper = styled.div`
-  height: 100%;
-`;
-
 type Props = StyledProps &
   React.ComponentProps<'button'> & {
     icon?: React.ReactNode;
@@ -114,12 +121,10 @@ type Props = StyledProps &
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(({ themeType, children, icon, ...props }, ref) => {
   return (
-    <ButtonWrapper>
-      <StyledButton ref={ref} themeType={themeType} {...props}>
-        {icon && <Icon icon={icon} width="15px" />}
-        {children && <span>{children}</span>}
-      </StyledButton>
-    </ButtonWrapper>
+    <StyledButton ref={ref} themeType={themeType} {...props}>
+      {icon && <Icon icon={icon} width="15px" />}
+      {children && <span>{children}</span>}
+    </StyledButton>
   );
 });
 

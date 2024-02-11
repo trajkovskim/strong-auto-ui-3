@@ -59,6 +59,7 @@ const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?
 };
 
 const StyledContainer = styled.div<StyledContainerProps>`
+  box-sizing: border-box;
   display: flex;
   position: ${(props) => props.relative && 'relative'};
 

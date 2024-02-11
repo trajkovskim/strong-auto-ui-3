@@ -5,6 +5,10 @@ import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
   border-bottom: 1px solid #bdb9b976;
+
+  > * {
+    width: 100%;
+  }
 `;
 
 type StyledButtonProps = {
@@ -12,6 +16,7 @@ type StyledButtonProps = {
 };
 
 const StyledButton = styled(Button)<StyledButtonProps>`
+  padding-bottom: 8px;
   border-bottom: 2px solid ${(props) => (props.active ? '#046af2' : 'transparent')};
   color: ${(props) => props.active && '#046af2'};
   transition: all 200ms;
@@ -44,7 +49,7 @@ const TabButtonsGroup: React.FC<Props> = (props) => {
   }, [defaultActiveIndex, props.buttons]);
 
   return (
-    <StyledContainer direction="row" alignItems="flex-start" gap="1rem">
+    <StyledContainer preserveWhenXs direction="row" alignItems="flex-start" gap="1rem">
       {props.buttons.map((button, index) => (
         <StyledButton
           key={index}
