@@ -1,4 +1,5 @@
 import { css } from '@emotion/css';
+import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Transition, { TransitionHandle } from 'components/Transition';
 import {
@@ -30,6 +31,8 @@ const StyledOptionsWrapper = styled.div`
   border-radius: 0.625rem;
   background-color: #fff;
   user-select: none;
+  bottom: 0;
+  transform: translateY(calc(100% + 2px));
 
   > * + * {
     border-top: 1px solid #dcdcdc;
@@ -67,8 +70,7 @@ type Props = Omit<React.ComponentProps<'input'>, keyof StyledInputProps> &
     clearButton?: boolean;
   };
 
-const InputWrapper = styled.div`
-  position: relative;
+const InputWrapper = styled(Container)`
   height: 100%;
 `;
 
@@ -122,7 +124,7 @@ const Autocomplete: React.FC<Props> = ({
 
   return (
     <StyledContainer fullwidth={fullwidth}>
-      <InputWrapper>
+      <InputWrapper gap="1rem">
         <StyledInput
           {...props}
           {...events}

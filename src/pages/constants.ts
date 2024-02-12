@@ -1,0 +1,81 @@
+import ToyotaCamryImage from 'assets/toyota-camry.jpg';
+
+export const exploreAllVehiclesProducts = [
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 95000,
+    title: 'Toyota Camry New 0',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 1',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 2',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 3',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 4',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 5',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 6',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 7',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 8',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 9',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+  {
+    imageSrc: ToyotaCamryImage,
+    ribbon: 'sold',
+    price: 90000,
+    title: 'Toyota Camry New 10',
+    description: '3.5D Power pulse Momentum 5dr RWD',
+  },
+];

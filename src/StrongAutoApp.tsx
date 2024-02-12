@@ -22,6 +22,7 @@ const BackToTopButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 `;
 
 const StrongAutoApp: React.FC = () => {

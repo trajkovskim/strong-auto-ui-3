@@ -49,6 +49,8 @@ export const StyledRightContainer = styled.span`
   right: 0;
   top: 0;
   height: 100%;
+  display: flex;
+  align-items: center;
 `;
 
 export const iconCss = css`
@@ -79,5 +81,5 @@ export type StyledContainerProps = {
 export const StyledContainer = styled.div<StyledContainerProps>`
   position: relative;
   width: 100%;
-  max-width: ${(props) => (props.fullwidth ? '100%' : '400px')};
+  max-width: ${(props) => (props.fullwidth ? '100%' : 'max-content')};
 `;

@@ -27,6 +27,7 @@ const StyledContentWrapper = styled(Container)<StyledCardProps>`
   border-top: ${(props) => props.type === 'column' && 'none'};
   border-left: ${(props) => props.type === 'row' && 'none'};
   border-right: ${(props) => props.type === 'row' && 'none'};
+  overflow: hidden;
 `;
 
 const StyledFooterWrapper = styled.div`

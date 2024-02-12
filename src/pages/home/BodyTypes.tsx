@@ -8,7 +8,7 @@ import Transition, { TransitionHandle } from 'components/Transition';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
-import List from 'pages/home/List';
+import List from 'components/List';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { MdKeyboardDoubleArrowDown } from 'react-icons/md';

@@ -9,6 +9,7 @@ type StyledTextProps = {
   fontSize?: FontSize;
   bold?: boolean;
   maxContent?: boolean;
+  nowrap?: boolean;
 };
 
 const colors: Record<TextType, string> = {
@@ -26,6 +27,7 @@ const StyledText = styled.span<StyledTextProps>`
   font-size: ${(props) => textFontSize[props.fontSize ?? 'default']};
   font-weight: ${(props) => props.bold && 'bold'};
   cursor: ${(props) => props.onClick && 'pointer'};
+  white-space: ${(props) => props.nowrap && 'nowrap'};
 `;
 
 type Props = React.ComponentProps<'span'> & React.PropsWithChildren & StyledTextProps;
