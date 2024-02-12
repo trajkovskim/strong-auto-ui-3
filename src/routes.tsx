@@ -1,6 +1,7 @@
 import StrongAutoApp from 'StrongAutoApp';
 import { Home, Shop } from 'pages';
 import Layout from 'pages/Layout';
+import ViewDetails from 'pages/view-details';
 import React from 'react';
 import { Route } from 'react-router-dom';
 
@@ -8,6 +9,7 @@ export enum Routes {
   INDEX = '',
   ANY_WITH_LAYOUT = '/',
   SHOP = '/shop',
+  VIEW_DETAILS = '/shop/:id',
   CONTACT = '/contact',
   MY_CART = '/my-cart',
 }
@@ -30,6 +32,9 @@ const routes: RouteOptions = {
         children: {
           [Routes.SHOP]: {
             element: <Shop />,
+          },
+          [Routes.VIEW_DETAILS]: {
+            element: <ViewDetails />,
           },
           [Routes.CONTACT]: {
             element: <Shop />,
