@@ -64,15 +64,13 @@ const HorizontalList: React.FC<Props> = (props) => {
     listRef.scrollTo({ left: lastChild?.offsetWidth });
 
     const interval = setInterval(() => {
-      if (mouseOver || !listRef.firstElementChild) {
+      if (mouseOver) {
         return;
       }
-      const listScrollLeft = listRef.scrollLeft;
+
       const deltaX = getButtonClickDeltaX() ?? 0;
 
-      scrollEventHandler(listScrollLeft + deltaX, false);
-
-      listRef.scrollTo({ left: listScrollLeft + deltaX, behavior: 'smooth' });
+      listRef.scrollTo({ left: listRef.scrollLeft + deltaX, behavior: 'smooth' });
     }, 3000);
 
     const handleScroll = () => scrollEventHandler(listRef.scrollLeft, true);

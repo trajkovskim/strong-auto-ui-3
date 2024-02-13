@@ -64,7 +64,7 @@ const BodyTypes: React.FC = () => {
     <Container centered gap="1rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
       <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
         <Title title="Browse by body type" fontSize="2xl" bold />
-        <Button themeType="link" size="large">
+        <Button themeType="link" size="lg">
           <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
         </Button>
       </Container>
@@ -77,7 +77,7 @@ const BodyTypes: React.FC = () => {
         </List>
       </Transition>
       <Container centered>
-        <Button maxContent themeType="link" onClick={() => transitionRef.current?.toggle()}>
+        <Button textAlign="center" maxContent themeType="link" onClick={() => transitionRef.current?.toggle()}>
           <div>Show more</div>
           <Icon icon={<MdKeyboardDoubleArrowDown />} width="25px" />
         </Button>

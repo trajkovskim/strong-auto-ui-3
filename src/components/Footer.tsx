@@ -8,8 +8,10 @@ import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import React from 'react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { call, goto } from 'utils';
+import { call, goto, mailTo } from 'utils';
+import { Routes } from 'routes';
 
 const StyledFooter = styled.footer`
   background-color: #232323;
@@ -33,6 +35,8 @@ const StyledNewsLetterFormContainer = styled(Container)`
 `;
 
 const Footer: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <StyledFooter>
       <Container centered sm="1200px" gap="2rem">
@@ -79,16 +83,36 @@ const Footer: React.FC = () => {
             <Text type="sub" bold fontSize="sm">
               Contacts
             </Text>
-            <Text onClick={() => call('+38977648648')}>
+            <Button size="md" maxContent themeType="link" onClick={() => call('+38977648648')}>
               General:
               <br />
               +38977648648
-            </Text>
-            <Text onClick={() => call('+38977648648')}>
+            </Button>
+            <Button size="md" maxContent themeType="link" onClick={() => mailTo('vane.stamenov@gmail.com')}>
               Email:
               <br />
-              +38977648648
-            </Text>
+              vane.stamenov@gmail.com
+            </Button>
+          </Container>
+          <Container sm={2.5} gap="2rem">
+            <Text>Useful links:</Text>
+            <Container gap="0.5rem">
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.INDEX)}>
+                Home
+              </Button>
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.SHOP)}>
+                Shop
+              </Button>
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.BLOG)}>
+                Blog
+              </Button>
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.BLOG)}>
+                About us
+              </Button>
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.CONTACT)}>
+                Contact
+              </Button>
+            </Container>
           </Container>
         </Container>
       </Container>

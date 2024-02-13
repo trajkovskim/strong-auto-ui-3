@@ -6,6 +6,7 @@ import styled from 'styled-components';
 type StyledTextProps = {
   type?: TextType;
   textAlign?: React.CSSProperties['textAlign'];
+  textDecoration?: React.CSSProperties['textDecoration'];
   fontSize?: FontSize;
   bold?: boolean;
   maxContent?: boolean;
@@ -28,6 +29,7 @@ const StyledText = styled.span<StyledTextProps>`
   font-weight: ${(props) => props.bold && 'bold'};
   cursor: ${(props) => props.onClick && 'pointer'};
   white-space: ${(props) => props.nowrap && 'nowrap'};
+  text-decoration: ${(props) => props.textDecoration};
 `;
 
 type Props = React.ComponentProps<'span'> & React.PropsWithChildren & StyledTextProps;

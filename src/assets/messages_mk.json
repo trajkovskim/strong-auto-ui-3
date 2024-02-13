@@ -8,8 +8,8 @@
     "nav": {
       "home": "Дома",
       "shop": "Продавница",
-      "offers": "Понуди",
-      "products": "Продукти",
+      "blog": "Блог",
+      "aboutUs": "За нас",
       "contact": "Контакт"
     },
     "footer": {

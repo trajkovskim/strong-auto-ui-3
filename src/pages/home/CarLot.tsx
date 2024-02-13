@@ -45,7 +45,7 @@ const CarLot: React.FC = () => {
           bold={{ title: true }}
           description="See what you buy and before you buy it, come check us out!"
         />
-        <StyledButton bold size="large" maxContent themeType="link">
+        <StyledButton bold size="lg" maxContent themeType="link">
           More info
           <Icon icon={<MdKeyboardDoubleArrowRight />} />
         </StyledButton>

@@ -9,7 +9,8 @@ import ProductCard from 'components/ProductCard';
 import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import { exploreAllVehiclesProducts } from 'pages/constants';
+import { products } from 'pages/constants';
+import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import BodyTypes from 'pages/home/BodyTypes';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import CantFindVehicle from 'pages/home/CantFindVehicle';
@@ -65,8 +66,7 @@ const SearchBoxWrapper = styled(Container)`
 
 const StyledSearchButton = styled(Button)`
   height: 100%;
-  width: 500px;
-  flex-grow: 2;
+  flex-grow: 3;
   white-space: nowrap;
 `;
 
@@ -78,7 +78,7 @@ const PopularMakesWrapper = styled(Container)`
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
-  const popularMakesProducts = exploreAllVehiclesProducts;
+  const popularMakesProducts = products;
 
   return (
     <div>
@@ -118,7 +118,7 @@ const Home: React.FC = () => {
             <Line type="vertical" />
             <Autocomplete noBorder placeholder="Any price" options={[{ value: 'audi' }]} />
           </Container>
-          <StyledSearchButton size="large" icon={<BiSearch />}>
+          <StyledSearchButton maxContent size="md" icon={<BiSearch />}>
             Search cars
           </StyledSearchButton>
         </SearchBoxWrapper>
@@ -130,14 +130,14 @@ const Home: React.FC = () => {
         <Container gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
             <Title title="Explore All Vehicles" fontSize="2xl" bold />
-            <Button themeType="link" size="large">
+            <Button themeType="link" size="lg">
               <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Used', defaultActive: true }, { label: 'Featured' }]} />
         </Container>
         <HorizontalList>
-          {exploreAllVehiclesProducts.map((product, index) => (
+          {products.map((product, index) => (
             <ProductCard {...product} key={index} />
           ))}
         </HorizontalList>
@@ -146,7 +146,7 @@ const Home: React.FC = () => {
         <Container gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
             <Title title="Popular Makes" fontSize="2xl" bold />
-            <Button themeType="link" size="large">
+            <Button themeType="link" size="lg">
               <Text fontSize="lg">View all</Text> <Icon icon={<BsArrowUpRight />} width="16px" />
             </Button>
           </Container>
@@ -170,6 +170,7 @@ const Home: React.FC = () => {
         </Container>
       </Container>
       <WhyChooseUs />
+      <LatestBlogPosts />
     </div>
   );
 };

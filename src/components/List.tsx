@@ -10,13 +10,14 @@ export enum ListView {
 
 type StyledListProps = {
   gap?: React.CSSProperties['gap'];
+  justifyContent?: React.CSSProperties['justifyContent'];
   view?: ListView;
 };
 
 const StyledList = styled.div<StyledListProps>`
   display: grid;
   gap: ${(props) => props.gap};
-  justify-content: space-evenly;
+  justify-content: ${(props) => props.justifyContent ?? 'space-evenly'};
 
   grid-template: auto / ${(props) => (props.view === ListView.LIST ? 'auto' : ' repeat(5, auto)')};
 

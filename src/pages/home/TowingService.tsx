@@ -38,7 +38,7 @@ const TowingService: React.FC = () => {
           description="When it is not possible to fix a vehicle on-site, we utilise our extensive network of local providers across Europe to deliver a professional and reliable towing service."
           fontSize="xl"
         />
-        <Button size="large" maxContent>
+        <Button size="lg" maxContent>
           Know more
         </Button>
       </Container>

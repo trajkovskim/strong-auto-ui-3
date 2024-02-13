@@ -1,6 +1,8 @@
 import StrongAutoApp from 'StrongAutoApp';
 import { Home, Shop } from 'pages';
 import Layout from 'pages/Layout';
+import Blog from 'pages/blog';
+import BlogViewPost from 'pages/blog-view-post/BlogViewPost';
 import ViewDetails from 'pages/view-details';
 import React from 'react';
 import { Route } from 'react-router-dom';
@@ -9,9 +11,10 @@ export enum Routes {
   INDEX = '',
   ANY_WITH_LAYOUT = '/',
   SHOP = '/shop',
-  VIEW_DETAILS = '/shop/:id',
+  SHOP_VIEW_DETAILS = '/shop/:id',
+  BLOG = '/blog',
+  BLOG_VIEW_POST = '/blog/:id',
   CONTACT = '/contact',
-  MY_CART = '/my-cart',
 }
 
 export type RouteOption = Omit<React.ComponentProps<typeof Route>, 'children'> & {
@@ -33,14 +36,17 @@ const routes: RouteOptions = {
           [Routes.SHOP]: {
             element: <Shop />,
           },
-          [Routes.VIEW_DETAILS]: {
+          [Routes.SHOP_VIEW_DETAILS]: {
             element: <ViewDetails />,
           },
           [Routes.CONTACT]: {
             element: <Shop />,
           },
-          [Routes.MY_CART]: {
-            element: <Shop />,
+          [Routes.BLOG]: {
+            element: <Blog />,
+          },
+          [Routes.BLOG_VIEW_POST]: {
+            element: <BlogViewPost />,
           },
         },
       },

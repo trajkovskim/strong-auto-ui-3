@@ -5,10 +5,12 @@ import ProductCard from 'components/ProductCard';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import { exploreAllVehiclesProducts } from 'pages/constants';
+import { products } from 'pages/constants';
 import Filters from 'pages/shop/Filters';
 import React, { useState } from 'react';
 import { MdGridView, MdMenu } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
@@ -21,11 +23,12 @@ const mapToProductCart: Record<ListView, 'column' | 'row'> = {
 };
 
 const Shop: React.FC = () => {
+  const navigate = useNavigate();
   const [listView, setListView] = useState<ListView>(ListView.GRID);
   const pageSize = 10;
   const totalContentNumber = 34792;
 
-  const products = exploreAllVehiclesProducts.slice(0, pageSize);
+  const mappedProducts = products.slice(0, pageSize);
 
   const toggleListView = () => {
     listView === ListView.GRID ? setListView(ListView.LIST) : setListView(ListView.GRID);
@@ -67,8 +70,16 @@ const Shop: React.FC = () => {
             </Container>
           </Container>
           <List gap="1rem" view={listView}>
-            {products.map((product, index) => (
-              <ProductCard {...product} type={mapToProductCart[listView]} key={index} />
+            {mappedProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                price={product.price}
+                title={product.title}
+                imageSrc={product.imageSrc}
+                description={product.description}
+                type={mapToProductCart[listView]}
+                onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+              />
             ))}
           </List>
         </Container>

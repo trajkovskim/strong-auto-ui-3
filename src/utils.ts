@@ -1,9 +1,13 @@
-export const goto = (url: string) => {
+export const goto = (url: string, blank = false) => {
   window.location.replace(url);
 };
 
 export const call = (tel: string) => {
   window.open(`tel:${tel}`);
+};
+
+export const mailTo = (emailTo: string) => {
+  window.open(`mailto:${emailTo}`, '_self');
 };
 
 export const formatNumber = (num: string | number, separator = ',') => {

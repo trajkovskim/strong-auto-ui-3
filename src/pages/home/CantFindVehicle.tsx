@@ -48,7 +48,7 @@ const CantFindVehicle: React.FC = () => {
           gap="1rem"
           fontSize="xl"
         />
-        <Button size="large" maxContent>
+        <Button size="lg" maxContent>
           Know more
         </Button>
       </Container>

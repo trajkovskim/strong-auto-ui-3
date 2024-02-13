@@ -1,11 +1,8 @@
-import { css } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
-import Transition, { TransitionHandle } from 'components/Transition';
+import { TransitionHandle } from 'components/Transition';
 import { useTranslation } from 'hooks';
 import React, { useRef, useState } from 'react';
-import { SlArrowDown, SlArrowRight } from 'react-icons/sl';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import { styled } from 'styled-components';
@@ -71,7 +68,7 @@ const Navigation: React.FC = () => {
   return (
     <StyledNavigationWrapper>
       <Container direction="row" padding={'md'} justifyContent="flex-end">
-        <Container sm={12} md="max-content">
+        {/* <Container sm={12} md="max-content">
           <StyledButton
             onClick={() => {
               animationRef.current?.toggle();
@@ -91,24 +88,27 @@ const Navigation: React.FC = () => {
           >
             <StyledDropdownWrapper ref={setDropdownRef}>
               <Container sm="1400px" centered>
-                <StyledButtonInside icon={<SlArrowRight />} size="large" themeType="link">
+                <StyledButtonInside icon={<SlArrowRight />} size="lg" themeType="link">
                   Parts
                 </StyledButtonInside>
-                <StyledButtonInside size="large" themeType="link">
+                <StyledButtonInside size="lg" themeType="link">
                   Autos
                 </StyledButtonInside>
               </Container>
             </StyledDropdownWrapper>
           </Transition>
+        </Container> */}
+        <Container sm={12} md="max-content">
+          <StyledButton onClick={() => navigate(Routes.INDEX)}>{t('home')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
           <StyledButton onClick={() => navigate(Routes.SHOP)}>{t('shop')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
-          <StyledButton onClick={() => navigate(Routes.SHOP)}>{t('offers')}</StyledButton>
+          <StyledButton onClick={() => navigate(Routes.BLOG)}>{t('blog')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
-          <StyledButton onClick={() => navigate(Routes.SHOP)}>{t('products')}</StyledButton>
+          <StyledButton onClick={() => navigate(Routes.SHOP)}>{t('aboutUs')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
           <StyledButton onClick={() => navigate(Routes.CONTACT)}>{t('contact')}</StyledButton>

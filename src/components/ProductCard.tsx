@@ -28,7 +28,11 @@ type Props = {
   rating?: number;
   title: string;
   description?: string;
-  price: number;
+  price: {
+    total: number;
+    totalPromo: number;
+    saving: number;
+  };
   imageSrc?: string;
   onView?: () => void;
   inCart?: boolean;
@@ -90,11 +94,25 @@ const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
 
   const footer = (
     <Container direction="row" justifyContent="space-between" alignItems="center">
-      <Text type="primary" fontSize="lg">
-        ${props.price.toFixed(2)}
-      </Text>
+      {props.price?.totalPromo && (
+        <div>
+          <Text fontSize="md" textDecoration="line-through">
+            {formatNumber(props.price.total)}
+          </Text>{' '}
+          <Text fontSize="lg" bold>
+            {formatNumber(props.price.totalPromo)}
+          </Text>
+        </div>
+      )}
+      {!props.price?.totalPromo && (
+        <div>
+          <Text fontSize="lg" bold>
+            {formatNumber(props.price.total)}
+          </Text>
+        </div>
+      )}
       <Container direction="row" alignItems="flex-end">
-        <Button themeType="link" size="large">
+        <Button themeType="link" size="lg" onClick={props.onView}>
           <Text fontSize="md">View details</Text> <Icon icon={<BsArrowUpRight />} width="10px" />
         </Button>
       </Container>

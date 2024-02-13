@@ -1,9 +1,10 @@
 import Icon from 'components/Icon';
+import { textFontSize } from 'components/typography/constants';
 import React from 'react';
 import { css, styled } from 'styled-components';
 
 type ThemeType = 'link' | 'default' | 'ghost';
-type Size = 'small' | 'medium' | 'large';
+type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 type StyledProps = {
   themeType?: ThemeType;
@@ -12,6 +13,7 @@ type StyledProps = {
   maxContent?: boolean;
   centered?: boolean;
   fullwidth?: boolean;
+  textAlign?: React.CSSProperties['textAlign'];
 };
 
 const themes: Record<ThemeType, Record<string, string>> = {
@@ -23,7 +25,10 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#fff',
+    paddin: '0px',
     'border-radius': '25px',
+    'padding-right': '10px',
+    'padding-left': '10px',
   },
   link: {
     'background-color': 'transparent',
@@ -35,7 +40,7 @@ const themes: Record<ThemeType, Record<string, string>> = {
   },
   ghost: {
     'background-color': 'transparent',
-    'background-color-hover': '#046af2',
+    'background-color-hover': '#050B20',
     border: '1px solid rgba(58, 62, 66, 0.527);',
     'color-hover': '#fff',
     'color-active': '#fff',
@@ -44,30 +49,46 @@ const themes: Record<ThemeType, Record<string, string>> = {
 };
 
 const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | string>>> = {
-  small: {
-    'font-size': '12px',
+  sm: {
+    'font-size': textFontSize.sm,
     'max-width': '80px',
     height: { default: '38px', ghost: '30px' },
   },
-  medium: {
-    'font-size': '14px',
+  md: {
+    'font-size': textFontSize.md,
     'max-width': '100px',
     height: { default: '38px', ghost: '38px' },
   },
-  large: {
-    'font-size': '16px',
+  lg: {
+    'font-size': textFontSize.lg,
     'max-width': '120px',
     height: { default: '45px', ghost: '45px' },
+  },
+  xl: {
+    'font-size': textFontSize.xl,
+    'max-width': '120px',
+    height: { default: '55px', ghost: '50px' },
+  },
+  '2xl': {
+    'font-size': textFontSize['2xl'],
+    'max-width': '120px',
+    height: { default: '45px', ghost: '45px' },
+  },
+  '3xl': {
+    'font-size': textFontSize['3xl'],
+    'max-width': '120px',
+    height: { default: '55px', ghost: '50px' },
   },
 };
 
 const StyledButton = styled.button<StyledProps>`
   ${({
     themeType = 'default',
-    size = 'small',
+    size = 'sm',
     maxContent = false,
     centered = false,
     fullwidth = false,
+    textAlign,
     ...props
   }) => css`
     display: inline-flex;
@@ -75,12 +96,16 @@ const StyledButton = styled.button<StyledProps>`
     align-items: center;
     gap: 0.5rem;
 
-    padding: ${themes[themeType]['padding']};
+    padding-top: ${themes[themeType]['padding-top']};
+    padding-right: ${themes[themeType]['padding-right']};
+    padding-bottom: ${themes[themeType]['padding-bottom']};
+    padding-left: ${themes[themeType]['padding-left']};
+
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
     color: ${themes[themeType]['color'] ?? 'inherit'};
     font-weight: ${props.bold && 'bold'};
-    text-align: center;
+    text-align: ${textAlign};
 
     transition: all 200ms ease-in-out;
     cursor: pointer;
@@ -91,10 +116,10 @@ const StyledButton = styled.button<StyledProps>`
     margin-right: ${centered && 'auto'};
 
     width: 100%;
-    max-width: ${maxContent ? 'max-content' : sizes[size]['max-width']};
-    max-width: ${fullwidth ? '100%' : sizes[size]['max-width']};
-    height: ${sizes[size]['height'][themeType]};
-    font-size: ${sizes[size]['font-size']};
+    max-width: ${(maxContent && !fullwidth) || !sizes[size] ? 'max-content' : sizes[size]['max-width']};
+    max-width: ${fullwidth && '100%'};
+    height: ${sizes[size] && sizes[size]['height'][themeType]};
+    font-size: ${sizes[size] && sizes[size]['font-size']};
     border: ${themes[themeType]['border']};
 
     &:focus {
@@ -119,14 +144,31 @@ type Props = StyledProps &
     icon?: React.ReactNode;
   };
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(({ themeType, children, icon, ...props }, ref) => {
-  return (
-    <StyledButton ref={ref} themeType={themeType} {...props}>
-      {icon && <Icon icon={icon} width="15px" />}
-      {children && <span>{children}</span>}
-    </StyledButton>
-  );
-});
+const Button = React.forwardRef<HTMLButtonElement, Props>(
+  (
+    {
+      themeType = 'default',
+      size = 'sm',
+      maxContent = false,
+      centered = false,
+      fullwidth = false,
+      textAlign,
+      children,
+      icon,
+      ...props
+    },
+    ref
+  ) => {
+    const defaultedProps = { themeType, size, maxContent, centered, fullwidth };
+
+    return (
+      <StyledButton ref={ref} textAlign={textAlign} {...defaultedProps} {...props}>
+        {icon && <Icon icon={icon} width="15px" />}
+        {children && <span>{children}</span>}
+      </StyledButton>
+    );
+  }
+);
 
 Button.displayName = 'Button';
 

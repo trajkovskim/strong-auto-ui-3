@@ -8,8 +8,8 @@
     "nav": {
       "home": "Home",
       "shop": "Shop",
-      "offers": "Offers",
-      "products": "Products",
+      "blog": "Offers",
+      "aboutUs": "About us",
       "contact": "Contact"
     },
     "footer": {
