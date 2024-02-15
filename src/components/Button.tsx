@@ -67,12 +67,12 @@ const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | str
   xl: {
     'font-size': textFontSize.xl,
     'max-width': '120px',
-    height: { default: '55px', ghost: '50px' },
+    height: { default: '45px', ghost: '45px' },
   },
   '2xl': {
     'font-size': textFontSize['2xl'],
     'max-width': '120px',
-    height: { default: '45px', ghost: '45px' },
+    height: { default: '50px', ghost: '50px' },
   },
   '3xl': {
     'font-size': textFontSize['3xl'],
@@ -142,6 +142,8 @@ const StyledButton = styled.button<StyledProps>`
 type Props = StyledProps &
   React.ComponentProps<'button'> & {
     icon?: React.ReactNode;
+    iconRight?: React.ReactNode;
+    iconSize?: Size;
   };
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(
@@ -149,22 +151,27 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     {
       themeType = 'default',
       size = 'sm',
+      iconSize = size,
       maxContent = false,
       centered = false,
       fullwidth = false,
-      textAlign,
+      textAlign = 'left',
       children,
       icon,
+      iconRight,
       ...props
     },
     ref
   ) => {
     const defaultedProps = { themeType, size, maxContent, centered, fullwidth };
 
+    const iconWidth = textFontSize[iconSize] ? textFontSize[iconSize] : '15px';
+
     return (
       <StyledButton ref={ref} textAlign={textAlign} {...defaultedProps} {...props}>
-        {icon && <Icon icon={icon} width="15px" />}
+        {icon && <Icon icon={icon} width={iconWidth} />}
         {children && <span>{children}</span>}
+        {iconRight && <Icon icon={iconRight} width={iconWidth} />}
       </StyledButton>
     );
   }

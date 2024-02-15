@@ -5,12 +5,16 @@ type StyledImageProps = {
   centered?: boolean;
   verticalCentered?: boolean;
   objectFit?: React.CSSProperties['objectFit'];
+  objectPosition?: React.CSSProperties['objectPosition'];
   shadow?: boolean;
+  rounded?: boolean;
 };
 
 const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   display: block;
   object-fit: ${(props) => props.objectFit};
+  object-position: ${(props) => props.objectPosition};
+  border-radius: ${(props) => props.rounded && '25px'};
 
   filter: ${(props) => props.shadow && 'drop-shadow(0 0 0.05rem #aaa5a5)'};
 
@@ -31,7 +35,7 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
 export type Props = React.ComponentProps<'img'> & StyledImageProps;
 
 const Image: React.FC<Props> = (props) => {
-  return <StyledImage draggable="false" pointer={!!props.onClick} {...props} />;
+  return <StyledImage draggable="false" rounded={props.rounded} pointer={!!props.onClick} {...props} />;
 };
 
 export default Image;

@@ -48,6 +48,8 @@ const StyledOption = styled.option<StyledOptionProps>`
   font-size: ${(props) => props.size && fontSize[props.size]};
   padding: 7px;
   color: black;
+  display: flex;
+  align-items: center;
 
   &:hover,
   &:active {
@@ -145,7 +147,7 @@ const Autocomplete: React.FC<Props> = ({
             final: css`
               opacity: 1;
               overflow: auto;
-              max-height: 600px;
+              max-height: 230px;
             `,
           }}
         >

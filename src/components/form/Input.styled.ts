@@ -1,5 +1,7 @@
 import Spinner from 'components/Spinner';
 import { Size } from 'components/form/types';
+import { textFontSize } from 'components/typography/constants';
+import { FontSize } from 'components/typography/types';
 import { BiErrorCircle } from 'react-icons/bi';
 import { GiCheckMark } from 'react-icons/gi';
 import styled, { css } from 'styled-components';
@@ -10,16 +12,16 @@ export type StyledInputProps = {
 };
 
 export const size: Record<Size, string> = {
-  small: '32px',
-  medium: '39px',
-  large: '49px',
+  sm: '32px',
+  md: '38px',
+  lg: '45px',
+  xl: '55px',
+  '2xl': '55px',
+  '3xl': '55px',
+  default: 'auto',
 };
 
-export const fontSize: Record<Size, string> = {
-  small: '12px',
-  medium: '16px',
-  large: '18px',
-};
+export const fontSize: Record<FontSize, string> = textFontSize;
 
 export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth?: number }>`
   width: 100%;
@@ -31,7 +33,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   line-height: 20px;
   outline: none;
   border: ${(props) => (props.noBorder ? 'none' : '1px solid #dcdcdc')};
-  border-radius: 15px;
+  border-radius: 10px;
 
   padding-right: ${(props) => `${props.rightContainerWidth}px`};
 

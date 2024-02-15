@@ -1,19 +1,22 @@
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 import { css as emitionCss } from '@emotion/css';
 
 type StyledCarouselProps = {
-  height: string;
+  minHeight?: string;
+  maxHeight?: string;
+  absolute?: boolean;
 };
 
 const StyledCarousel = styled.div<StyledCarouselProps>`
   width: 100%;
-  min-height: ${(props) => props.height};
-  position: relative;
+  overflow: hidden;
+  min-height: ${(props) => props.minHeight};
+  max-height: ${(props) => props.maxHeight};
+  position: ${(props) => (props.absolute ? 'absolute' : 'relative')};
   user-select: none;
-  color: #fff;
 `;
 
 const arrowCss = css`
@@ -56,10 +59,20 @@ const StyledCarouselItem = styled.div`
   position: absolute;
 `;
 
-type Props = React.PropsWithChildren & StyledCarouselProps & { ms?: number };
+type Props = React.PropsWithChildren &
+  StyledCarouselProps & {
+    ms?: number;
+    noCommands?: boolean;
+  };
 
-const Carousel: React.FC<Props> = ({ ms = 10000, ...props }) => {
+export type CarouselHandle = {
+  next: () => void;
+  prev: () => void;
+};
+
+const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noCommands = false, ...props }, ref) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [minHeight, setMinHeight] = useState(0);
 
   const children = React.Children.toArray(props.children);
 
@@ -94,6 +107,7 @@ const Carousel: React.FC<Props> = ({ ms = 10000, ...props }) => {
       }
       ref?.gotoInitialState();
     });
+    setMinHeight(Math.max(...(childrenRefs.current?.map((child) => child?.scrollHeight ?? 0) ?? [])));
   }, [currentIndex, updateZIndex]);
 
   useEffect(() => {
@@ -104,9 +118,18 @@ const Carousel: React.FC<Props> = ({ ms = 10000, ...props }) => {
     };
   }, [handleOnBackward, currentIndex, ms]);
 
+  useImperativeHandle(ref, () => ({
+    next: handleOnForward,
+    prev: handleOnBackward,
+  }));
+
   return (
     <div>
-      <StyledCarousel height={props.height}>
+      <StyledCarousel
+        minHeight={props.minHeight ?? `${minHeight}px`}
+        maxHeight={props.maxHeight}
+        absolute={props.absolute}
+      >
         {children.map((child, index) => (
           <Transition
             key={index}
@@ -133,11 +156,13 @@ const Carousel: React.FC<Props> = ({ ms = 10000, ...props }) => {
             </StyledCarouselItem>
           </Transition>
         ))}
-        <StyledMdArrowForwardIos onClick={handleOnForward} />
-        <StyledMdArrowBackIos onClick={handleOnBackward} />
+        {!noCommands && <StyledMdArrowForwardIos onClick={handleOnForward} />}
+        {!noCommands && <StyledMdArrowBackIos onClick={handleOnBackward} />}
       </StyledCarousel>
     </div>
   );
-};
+});
+
+Carousel.displayName = 'Carousel';
 
 export default Carousel;

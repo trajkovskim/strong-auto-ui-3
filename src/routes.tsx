@@ -1,9 +1,6 @@
 import StrongAutoApp from 'StrongAutoApp';
-import { Home, Shop } from 'pages';
+import { AboutUs, Blog, BlogViewPost, Contact, Home, Shop, ViewDetails } from 'pages';
 import Layout from 'pages/Layout';
-import Blog from 'pages/blog';
-import BlogViewPost from 'pages/blog-view-post/BlogViewPost';
-import ViewDetails from 'pages/view-details';
 import React from 'react';
 import { Route } from 'react-router-dom';
 
@@ -15,6 +12,7 @@ export enum Routes {
   BLOG = '/blog',
   BLOG_VIEW_POST = '/blog/:id',
   CONTACT = '/contact',
+  ABOUT_US = '/about-us',
 }
 
 export type RouteOption = Omit<React.ComponentProps<typeof Route>, 'children'> & {
@@ -40,7 +38,10 @@ const routes: RouteOptions = {
             element: <ViewDetails />,
           },
           [Routes.CONTACT]: {
-            element: <Shop />,
+            element: <Contact />,
+          },
+          [Routes.ABOUT_US]: {
+            element: <AboutUs />,
           },
           [Routes.BLOG]: {
             element: <Blog />,

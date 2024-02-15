@@ -29,6 +29,7 @@ type StyledContainerProps = {
   itemsCentered?: boolean;
   textCentered?: boolean;
   bordered?: boolean;
+  rounded?: boolean;
   parentGap?: React.CSSProperties['gap'];
   preserveWhenXs?: boolean;
   relative?: boolean;
@@ -90,7 +91,8 @@ const StyledContainer = styled.div<StyledContainerProps>`
 
   gap: ${(props) => props.gap};
 
-  border: ${(props) => props.bordered && '1px solid black'};
+  border: ${(props) => props.bordered && '1px solid #dcdcdc'};
+  border-radius: ${(props) => props.rounded && '25px'};
 
   flex-direction: ${(props) => props.direction ?? 'column'};
   flex-wrap: ${(props) => props.wrap && 'wrap'};

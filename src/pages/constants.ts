@@ -1,14 +1,74 @@
 import ToyotaCamryImage from 'assets/toyota-camry.jpg';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 
+export const faqQuestions = [
+  {
+    id: 0,
+    question: 'Question?',
+    answer: 'Answer',
+  },
+  {
+    id: 1,
+    question: 'Question?',
+    answer: 'Answer',
+  },
+];
+
+export const reviews = [
+  {
+    id: 0,
+    username: 'userName 1',
+    creationDate: new Date(),
+    rating: 4.5,
+    comment: undefined,
+  },
+  {
+    id: 1,
+    username: 'userName 2',
+    creationDate: new Date(),
+    rating: 4,
+    comment: undefined,
+  },
+];
+
 export const blogPosts = [
   {
     id: 0,
-    title: 'Blog title',
+    title: 'Blog title 1',
+    creationDate: new Date(),
+    markdown: undefined,
+    summary:
+      // eslint-disable-next-line max-len
+      'Blog 1 Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog',
+    links: {
+      prev: '',
+      self: '',
+      next: '',
+    },
+  },
+  {
+    id: 1,
+    title: 'Blog title 2',
     creationDate: new Date(),
     summary:
       // eslint-disable-next-line max-len
-      'Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog',
+      'Blog 2 Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog',
+  },
+  {
+    id: 2,
+    title: 'Blog title 3',
+    creationDate: new Date(),
+    summary:
+      // eslint-disable-next-line max-len
+      'Blog 3 Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog',
+  },
+  {
+    id: 3,
+    title: 'Blog title 4',
+    creationDate: new Date(),
+    summary:
+      // eslint-disable-next-line max-len
+      'Blog 4 Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog Blog',
   },
 ];
 

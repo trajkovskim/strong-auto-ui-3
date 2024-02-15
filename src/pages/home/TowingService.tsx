@@ -1,37 +1,18 @@
 import TowTruckImage from 'assets/tow-truck.jpg';
 import Button from 'components/Button';
 import Container from 'components/Container';
+import Image from 'components/Image';
 import Title from 'components/typography/Title';
 import React from 'react';
-import styled from 'styled-components';
-
-const TowingServiceWrapper = styled.div`
-  background: url(${TowTruckImage});
-  background-size: cover;
-  background-position: center center;
-  color: white;
-
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.3;
-  }
-
-  * {
-    z-index: 1;
-  }
-`;
 
 const TowingService: React.FC = () => {
   return (
-    <TowingServiceWrapper>
-      <Container centered itemsCentered sm="1400px" gap="2rem" padding={{ top: 'xl', bottom: 'xl' }}>
+    <Container direction="row" gap="3rem" alignItems="center" justifyContent="space-between">
+      <Container sm={7.5}>
+        <Image rounded src={TowTruckImage} height="400px" objectFit="cover" />
+      </Container>
+      <Container sm={4.5} gap="1rem">
         <Title
-          centered
           title="Fast and Inexpensive Towing Services"
           gap="1rem"
           // eslint-disable-next-line max-len
@@ -42,7 +23,7 @@ const TowingService: React.FC = () => {
           Know more
         </Button>
       </Container>
-    </TowingServiceWrapper>
+    </Container>
   );
 };
 

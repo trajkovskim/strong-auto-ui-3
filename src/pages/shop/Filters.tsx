@@ -1,5 +1,5 @@
+import Button from 'components/Button';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
 import { Checkbox } from 'components/form';
 import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
@@ -12,6 +12,10 @@ const FiltersWrapper = styled(Container)`
   border-radius: 15px;
 `;
 
+const StyledButton = styled(Button)`
+  justify-content: space-between;
+`;
+
 const Filters: React.FC = () => {
   const yearNow = new Date().getFullYear();
   const years = new Array(yearNow - 30).fill(0).map((_, index) => yearNow - index);
@@ -21,8 +25,9 @@ const Filters: React.FC = () => {
   return (
     <Container gap="1rem">
       <FiltersWrapper justifyContent="space-between" direction="row" padding="md">
-        <Text>Filtering</Text>
-        <Icon icon={<MdRestore />} width="24px" onClick={resetFilters} />
+        <StyledButton size="lg" fullwidth themeType="link" maxContent iconRight={<MdRestore />} onClick={resetFilters}>
+          Filtering
+        </StyledButton>
       </FiltersWrapper>
       <FiltersWrapper padding="md" gap="1rem">
         <Autocomplete fullwidth placeholder="Makes" options={[{ value: 'audi' }, { value: 'bmw' }]} />
@@ -52,6 +57,7 @@ const Filters: React.FC = () => {
           <Autocomplete placeholder="Year" options={years.map((year) => ({ value: year.toString() }))} />
         </Container>
         <Container gap="0.5rem">
+          <Text fontSize="lg">Features</Text>
           <Checkbox label="Air conditioner" />
           <Checkbox label="Apple CarPlay" />
           <Checkbox label="Break Assist" />

@@ -6,35 +6,37 @@ import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
 import React, { useCallback, useEffect, useState } from 'react';
-import { MdArrowBackIosNew } from 'react-icons/md';
+import { MdArrowBackIosNew, MdEmail } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
-import { BiCalendar, BiCheckCircle, BiColorFill } from 'react-icons/bi';
+import Icon from 'components/Icon';
+import Line from 'components/Line';
+import List from 'components/List';
+import ProductCard from 'components/ProductCard';
+import HorizontalList from 'pages/home/HorizontalList';
+import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
 import { FaCar } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
 import { SlSpeedometer } from 'react-icons/sl';
 import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
-import { formatNumber } from 'utils';
-import List from 'components/List';
-import HorizontalList from 'pages/home/HorizontalList';
-import ProductCard from 'components/ProductCard';
-import Line from 'components/Line';
-import Icon from 'components/Icon';
 import { Routes } from 'routes';
+import { call, formatNumber, mailTo } from 'utils';
 
 const StyledContainer = styled(Container)`
-  border: 1px solid gainsboro;
   position: sticky;
   top: 0;
-  border-radius: 15px;
 `;
 
 const StyledButton = styled(Button)`
-  /* background-color: #e9f2ff; */
   border-radius: 15px;
+`;
+
+const CarouselWrapper = styled(Container)`
+  border-radius: 15px;
+  overflow: hidden;
 `;
 
 const ViewDetails: React.FC = () => {
@@ -114,10 +116,12 @@ const ViewDetails: React.FC = () => {
 
           <Container direction="row" wrap gap="3rem" alignItems="flex-start" justifyContent="space-between">
             <Container sm={8.5} gap="1rem">
-              <Carousel height="500px">
-                <Image src={product?.imageSrc} height={'500px'} objectFit="cover" />
-                <Image src={BMWDriftSoilImage} height={'500px'} objectFit="cover" />
-              </Carousel>
+              <CarouselWrapper>
+                <Carousel minHeight="500px" maxHeight="500px">
+                  <Image src={product?.imageSrc} height={'500px'} objectFit="cover" />
+                  <Image src={BMWDriftSoilImage} height={'500px'} objectFit="cover" />
+                </Carousel>
+              </CarouselWrapper>
               <Text fontSize="2xl">Description</Text>
               <Text fontSize="md">{product.description}</Text>
               <Text fontSize="2xl">Car overview</Text>
@@ -208,39 +212,60 @@ const ViewDetails: React.FC = () => {
                 </List>
               </Container>
             </Container>
-            <StyledContainer sm={3.5} padding="md" gap="1rem" bordered>
-              <Container gap="0.3rem">
-                <Text fontSize="lg">Our offer:</Text>
-                {product.price?.totalPromo && (
-                  <div>
-                    <Text fontSize="lg" textDecoration="line-through">
-                      {formatNumber(product.price.total)}
-                    </Text>{' '}
-                    <Text fontSize="3xl" bold>
-                      {formatNumber(product.price.totalPromo)}
-                    </Text>
-                  </div>
-                )}
-                {!product.price?.totalPromo && (
-                  <div>
-                    <Text fontSize="3xl" bold>
-                      {formatNumber(product.price.total)}
-                    </Text>
-                  </div>
-                )}
-                {product.price?.saving && (
-                  <div>
-                    <Text fontSize="lg">Saving: {formatNumber(product.price.saving)}</Text>
-                  </div>
-                )}
-              </Container>
-              <StyledButton fullwidth size="xl">
-                Offer A Price
-              </StyledButton>
-              <StyledButton fullwidth themeType={'ghost'} size="xl">
-                Schedule Test Drive
-              </StyledButton>
-            </StyledContainer>
+            <Container sm={3.5} gap="1rem">
+              <StyledContainer rounded padding="md" gap="1rem" bordered>
+                <Container gap="0.3rem">
+                  <Text fontSize="lg">Our offer:</Text>
+                  {product.price?.totalPromo && (
+                    <div>
+                      <Text fontSize="lg" textDecoration="line-through">
+                        {formatNumber(product.price.total)}
+                      </Text>{' '}
+                      <Text fontSize="3xl" bold>
+                        {formatNumber(product.price.totalPromo)}
+                      </Text>
+                    </div>
+                  )}
+                  {!product.price?.totalPromo && (
+                    <div>
+                      <Text fontSize="3xl" bold>
+                        {formatNumber(product.price.total)}
+                      </Text>
+                    </div>
+                  )}
+                  {product.price?.saving && (
+                    <div>
+                      <Text fontSize="lg">Saving: {formatNumber(product.price.saving)}</Text>
+                    </div>
+                  )}
+                </Container>
+                <StyledButton fullwidth themeType={'ghost'} size="xl">
+                  Send a message
+                </StyledButton>
+              </StyledContainer>
+              <StyledContainer rounded gap="1rem" padding="md">
+                <Button
+                  themeType="link"
+                  maxContent
+                  icon={<BiPhoneCall />}
+                  size="lg"
+                  iconSize="3xl"
+                  onClick={() => call('+38977648648')}
+                >
+                  +38977648648
+                </Button>
+                <Button
+                  themeType="link"
+                  maxContent
+                  icon={<MdEmail />}
+                  size="lg"
+                  iconSize="3xl"
+                  onClick={() => mailTo('vane.stamenov@gmail.com')}
+                >
+                  vane.stamenov@gmail.com
+                </Button>
+              </StyledContainer>
+            </Container>
           </Container>
         </Container>
         <Title fontSize="md" title="Featured products" />

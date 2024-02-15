@@ -1,4 +1,6 @@
-export type Size = 'small' | 'medium' | 'large';
+import { FontSize } from 'components/typography/types';
+
+export type Size = FontSize;
 
 export type DropdownOption = {
   value: string;

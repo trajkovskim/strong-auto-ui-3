@@ -108,7 +108,7 @@ const Navigation: React.FC = () => {
           <StyledButton onClick={() => navigate(Routes.BLOG)}>{t('blog')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
-          <StyledButton onClick={() => navigate(Routes.SHOP)}>{t('aboutUs')}</StyledButton>
+          <StyledButton onClick={() => navigate(Routes.ABOUT_US)}>{t('aboutUs')}</StyledButton>
         </Container>
         <Container sm={12} md="max-content">
           <StyledButton onClick={() => navigate(Routes.CONTACT)}>{t('contact')}</StyledButton>

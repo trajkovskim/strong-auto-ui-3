@@ -36,7 +36,13 @@ const StyledButton = styled(Button)`
 const CarLot: React.FC = () => {
   return (
     <CarLotWrapper>
-      <Container sm="1400px" centered itemsCentered gap="1rem" padding={{ top: 'xl', bottom: 'xl' }}>
+      <Container
+        sm="1400px"
+        centered
+        itemsCentered
+        gap="1rem"
+        padding={{ top: 'xl', bottom: 'xl', left: 'sm', right: 'sm' }}
+      >
         <Title
           centered
           textAlign="center"
@@ -45,9 +51,8 @@ const CarLot: React.FC = () => {
           bold={{ title: true }}
           description="See what you buy and before you buy it, come check us out!"
         />
-        <StyledButton bold size="lg" maxContent themeType="link">
+        <StyledButton bold size="lg" maxContent themeType="link" iconRight={<MdKeyboardDoubleArrowRight />}>
           More info
-          <Icon icon={<MdKeyboardDoubleArrowRight />} />
         </StyledButton>
       </Container>
     </CarLotWrapper>

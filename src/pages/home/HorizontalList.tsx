@@ -4,7 +4,21 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled from 'styled-components';
 
-const HorizontalListWrapper = styled(Container)``;
+type HorizontalListWrapperProps = {
+  centered?: boolean;
+  maxWidth?: string;
+};
+
+const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
+  margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2)`};
+
+  @media (max-width: ${(props) => props.maxWidth}) {
+    max-width: ${(props) => props.maxWidth};
+    margin-left: 0;
+  }
+  /* transform: translateX(-100%); */
+  /* margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2 + ${props.maxWidth})`}; */
+`;
 
 const StyledArrowButton = styled(Button)`
   padding-left: 20px;
@@ -22,7 +36,7 @@ const HorizontalListChildrenWrapper = styled(Container)`
   overflow-x: hidden;
 `;
 
-type Props = React.PropsWithChildren;
+type Props = React.PropsWithChildren & HorizontalListWrapperProps;
 
 const HorizontalList: React.FC<Props> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -139,7 +153,7 @@ const HorizontalList: React.FC<Props> = (props) => {
   };
 
   return (
-    <HorizontalListWrapper gap="2rem">
+    <HorizontalListWrapper gap="2rem" centered={props.centered} maxWidth={props.maxWidth}>
       <HorizontalListChildrenWrapper
         preserveWhenXs
         onMouseUp={handleMouseUp}

@@ -21,7 +21,6 @@ const StyledContainer = styled(Container)`
 
 const StyledText = styled(Text)`
   text-overflow: ellipsis;
-  max-height: 70px;
 `;
 
 const StyledButton = styled(Button)`
@@ -36,7 +35,7 @@ const BlogPostCard: React.FC<Props> = (props) => {
   return (
     <StyledContainer sm="300px" gap="1rem">
       <Image src={ToyotaCamryImage} alt={props.blogPost.title} objectFit="cover" height="200px" />
-      <Container>
+      <Container gap="0.5rem">
         <Text type="sub" fontSize="sm">
           {props.blogPost.creationDate.toUTCString()}
         </Text>

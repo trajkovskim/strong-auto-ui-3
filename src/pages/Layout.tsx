@@ -8,7 +8,7 @@ import { Routes } from 'routes';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
-  background-color: #1e2526;
+  background-color: #232323;
 `;
 
 const Layout: React.FC = () => {

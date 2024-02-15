@@ -73,10 +73,38 @@ const Footer: React.FC = () => {
               California 90017
             </Text>
             <SocialMedias gap="1.5rem" direction="row" preserveWhenXs>
-              <FaFacebook onClick={() => goto('https://www.facebook.com')} />
-              <FaInstagram />
-              <FaTelegram />
-              <FaLinkedin />
+              <Button
+                themeType="link"
+                maxContent
+                icon={<FaFacebook />}
+                size="lg"
+                iconSize="3xl"
+                onClick={() => goto('https://www.facebook.com')}
+              />
+              <Button
+                themeType="link"
+                maxContent
+                icon={<FaInstagram />}
+                size="lg"
+                iconSize="3xl"
+                onClick={() => goto('https://www.facebook.com')}
+              />
+              <Button
+                themeType="link"
+                maxContent
+                icon={<FaTelegram />}
+                size="lg"
+                iconSize="3xl"
+                onClick={() => goto('https://www.facebook.com')}
+              />
+              <Button
+                themeType="link"
+                maxContent
+                icon={<FaLinkedin />}
+                size="lg"
+                iconSize="3xl"
+                onClick={() => goto('https://www.facebook.com')}
+              />
             </SocialMedias>
           </Container>
           <Container sm={3} gap="2rem">
@@ -106,7 +134,7 @@ const Footer: React.FC = () => {
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.BLOG)}>
                 Blog
               </Button>
-              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.BLOG)}>
+              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.ABOUT_US)}>
                 About us
               </Button>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.CONTACT)}>

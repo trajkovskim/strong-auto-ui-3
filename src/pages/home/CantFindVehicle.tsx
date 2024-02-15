@@ -11,16 +11,15 @@ const StyledImage1 = styled(Image)`
   position: absolute;
   opacity: 0.8;
   left: -200px;
-  z-index: 0 !important;
+  z-index: 0;
 `;
 
 const CantFindVehicleContainer = styled(Container)`
   position: relative;
   overflow: hidden;
   height: 100%;
-  color: white;
 
-  &::before {
+  /* &::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -32,15 +31,15 @@ const CantFindVehicleContainer = styled(Container)`
 
   * {
     z-index: 2;
-  }
+  } */
 `;
 
 const CantFindVehicle: React.FC = () => {
   return (
-    <CantFindVehicleContainer direction="row" alignItems="center" justifyContent="flex-end" relative>
+    <CantFindVehicleContainer direction="row" alignItems="center" justifyContent="flex-end" relative padding="sm">
       <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="600px" />
       {/* <StyledImage2 src={CarSideViewToLeftImage} objectFit="cover" width="600px" /> */}
-      <Container padding={{ top: 'md', bottom: 'md', right: 'md' }} gap="2rem" itemsCentered sm="100%">
+      <Container padding={{ top: 'lg', bottom: 'lg', right: 'md' }} gap="2rem" sm="1400px" centered alignItems="center">
         <Title
           centered
           title="Can't find the car you are looking for?"

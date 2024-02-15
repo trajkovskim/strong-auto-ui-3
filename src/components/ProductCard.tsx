@@ -112,8 +112,8 @@ const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
         </div>
       )}
       <Container direction="row" alignItems="flex-end">
-        <Button themeType="link" size="lg" onClick={props.onView}>
-          <Text fontSize="md">View details</Text> <Icon icon={<BsArrowUpRight />} width="10px" />
+        <Button themeType="link" size="md" onClick={props.onView} iconRight={<BsArrowUpRight />}>
+          View details
         </Button>
       </Container>
     </Container>
