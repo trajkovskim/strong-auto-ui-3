@@ -7,7 +7,7 @@ import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { faqQuestions } from 'pages/constants';
 import React, { useRef, useState } from 'react';
-import { MdArrowDownward } from 'react-icons/md';
+import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
 
 const StyledButton = styled(Button)`
@@ -27,7 +27,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
       <StyledButton
         themeType="link"
         key={props.faq.id}
-        iconRight={<MdArrowDownward />}
+        iconRight={<BiPlus />}
         size="lg"
         fullwidth
         onClick={() => transitionRef.current?.toggle()}

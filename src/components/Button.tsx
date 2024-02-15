@@ -3,7 +3,7 @@ import { textFontSize } from 'components/typography/constants';
 import React from 'react';
 import { css, styled } from 'styled-components';
 
-type ThemeType = 'link' | 'default' | 'ghost';
+type ThemeType = 'link' | 'default' | 'ghost' | 'delete';
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 type StyledProps = {
@@ -38,6 +38,14 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'border-radius': '0px',
     paddin: '0px',
   },
+  delete: {
+    'background-color': 'transparent',
+    'color-hover': 'red',
+    'color-active': 'red',
+    border: '0px',
+    'border-radius': '0px',
+    paddin: '0px',
+  },
   ghost: {
     'background-color': 'transparent',
     'background-color-hover': '#050B20',
@@ -45,6 +53,8 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#fff',
     'color-active': '#fff',
     'border-radius': '25px',
+    'padding-right': '10px',
+    'padding-left': '10px',
   },
 };
 
@@ -108,7 +118,7 @@ const StyledButton = styled.button<StyledProps>`
     text-align: ${textAlign};
 
     transition: all 200ms ease-in-out;
-    cursor: pointer;
+    cursor: ${!!props.onClick && 'pointer'};
     position: relative;
     user-select: none;
 
@@ -168,10 +178,16 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     const iconWidth = textFontSize[iconSize] ? textFontSize[iconSize] : '15px';
 
     return (
-      <StyledButton ref={ref} textAlign={textAlign} {...defaultedProps} {...props}>
-        {icon && <Icon icon={icon} width={iconWidth} />}
+      <StyledButton
+        ref={ref}
+        textAlign={textAlign}
+        {...defaultedProps}
+        {...props}
+        onClick={props.disabled ? undefined : props.onClick}
+      >
+        {icon && <Icon disabled={props.disabled} icon={icon} width={iconWidth} />}
         {children && <span>{children}</span>}
-        {iconRight && <Icon icon={iconRight} width={iconWidth} />}
+        {iconRight && <Icon disabled={props.disabled} icon={iconRight} width={iconWidth} />}
       </StyledButton>
     );
   }

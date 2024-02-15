@@ -88,7 +88,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <StyledContainer gap="2rem" relative>
+      <StyledContainer relative>
         <Carousel minHeight="100vh" maxHeight="100vh" absolute noCommands>
           <Image src={BMWDriftSoilImage} objectFit="cover" verticalCentered height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" verticalCentered height="100%" />
@@ -104,35 +104,35 @@ const Home: React.FC = () => {
           />
           <Navigation />
         </Container>
-        <Container itemsCentered gap="0.5rem" alignSelf="center">
+        <Container gap="2rem" justifyContent="center">
           <Title textAlign="center" fontSize="3xl" bold title="Welcome to Strong AUTO" />
           {/* <Title textAlign="center" fontSize="3xl" bold title="Pick your car" /> */}
           <Text textAlign="center" fontSize="lg">
             Lookup cars for sale
           </Text>
+          <SearchBoxWrapper
+            preserveWhenXs
+            direction="row"
+            padding="sm"
+            gap="1rem"
+            centered
+            sm={12}
+            md={12}
+            lg={10}
+            xl="800px"
+          >
+            <Container preserveWhenXs direction="row" gap="1rem" alignItems="center" justifyContent="flex-start">
+              <Autocomplete noBorder placeholder="Any make" options={[{ value: 'audi' }]} />
+              <Line type="vertical" />
+              <Autocomplete noBorder placeholder="Any model" options={[{ value: 'audi' }]} />
+              <Line type="vertical" />
+              <Autocomplete noBorder placeholder="Any price" options={[{ value: 'audi' }]} />
+            </Container>
+            <StyledSearchButton maxContent size="md" icon={<BiSearch />}>
+              Search cars
+            </StyledSearchButton>
+          </SearchBoxWrapper>
         </Container>
-        <SearchBoxWrapper
-          preserveWhenXs
-          direction="row"
-          padding="sm"
-          gap={'1rem'}
-          centered
-          sm={12}
-          md={12}
-          lg={10}
-          xl="800px"
-        >
-          <Container preserveWhenXs direction="row" gap="1rem" alignItems="center" justifyContent="flex-start">
-            <Autocomplete noBorder placeholder="Any make" options={[{ value: 'audi' }]} />
-            <Line type="vertical" />
-            <Autocomplete noBorder placeholder="Any model" options={[{ value: 'audi' }]} />
-            <Line type="vertical" />
-            <Autocomplete noBorder placeholder="Any price" options={[{ value: 'audi' }]} />
-          </Container>
-          <StyledSearchButton maxContent size="md" icon={<BiSearch />}>
-            Search cars
-          </StyledSearchButton>
-        </SearchBoxWrapper>
       </StyledContainer>
 
       <BodyTypes />
@@ -176,8 +176,10 @@ const Home: React.FC = () => {
         bordered
         rounded
         margin={{ top: 'lg', bottom: 'lg' }}
+        gap="0.5rem"
       >
         <Title title="Services" fontSize="2xl" />
+        <Line />
         <Container padding={{ top: 'xl', bottom: 'xl' }}>
           <Carousel ref={carouselServicesRef} noCommands>
             <TowingService />

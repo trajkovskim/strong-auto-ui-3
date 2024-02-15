@@ -14,7 +14,8 @@ import { Routes } from 'routes';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
-  background-color: #fff;
+  background-color: #232323;
+  color: white;
 `;
 
 const mapToProductCart: Record<ListView, 'column' | 'row'> = {
@@ -35,53 +36,54 @@ const Shop: React.FC = () => {
   };
 
   return (
-    <Container padding={{ left: 'md', right: 'md', bottom: 'md' }} gap="1rem">
-      <StyledContainer padding="md">
-        <Text>Home / Shop</Text>
-        <Title title="Shop" fontSize="xl" bold />
-      </StyledContainer>
-      <Container direction="row" wrap gap="1rem">
-        <Container sm={2}>
-          <Filters />
-        </Container>
-        <Container sm={10} gap="1rem">
-          <Container direction="row" alignItems="center" justifyContent="space-between">
-            <Text type="sub">
-              Results shown {pageSize} of {totalContentNumber}
-            </Text>
-            <Container direction="row" alignItems="center" justifyContent="flex-end" gap="10px">
-              <Container direction="row" gap="0.5rem">
-                <Icon
-                  icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
-                  onClick={toggleListView}
-                  width="16px"
+    <Container padding={{ bottom: 'md' }} gap="1rem">
+      <StyledContainer padding="md">{/* <Title title="Shop" fontSize="xl" bold /> */}</StyledContainer>
+      <Container padding={{ left: 'md', right: 'md' }} gap="1rem">
+        <Text fontSize="sm">Home {'>'} Shop</Text>
+        <Container direction="row" wrap gap="1rem">
+          <Container sm={2}>
+            <Filters />
+          </Container>
+          <Container sm={10} gap="1rem">
+            <Container direction="row" alignItems="center" justifyContent="space-between">
+              <Text type="sub">
+                Results shown {pageSize} of {totalContentNumber}
+              </Text>
+              <Container direction="row" alignItems="center" justifyContent="flex-end" gap="10px">
+                <Container direction="row" gap="0.5rem">
+                  <Icon
+                    icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
+                    onClick={toggleListView}
+                    width="16px"
+                  />
+                </Container>
+                <Text>Sort</Text>
+                <Dropdown
+                  options={[
+                    { value: 'unsorted', label: 'Default' },
+                    { value: 'price_asc', label: 'Price (Ascending)' },
+                    { value: 'price_desc', label: 'Price (Descending)' },
+                    { value: 'popularity_asc', label: 'Newest' },
+                    { value: 'popularity_desc', label: 'Oldest' },
+                  ]}
                 />
               </Container>
-              <Text>Sort</Text>
-              <Dropdown
-                options={[
-                  { value: 'unsorted', label: 'Default' },
-                  { value: 'price_asc', label: 'Price (Ascending)' },
-                  { value: 'price_desc', label: 'Price (Descending)' },
-                  { value: 'popularity_asc', label: 'Newest' },
-                  { value: 'popularity_desc', label: 'Oldest' },
-                ]}
-              />
             </Container>
+            <List gap="1rem" view={listView}>
+              {mappedProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  price={product.price}
+                  title={product.title}
+                  imageSrc={product.imageSrc}
+                  description={product.description}
+                  type={mapToProductCart[listView]}
+                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                />
+              ))}
+            </List>
+            <Container centered>Pagination</Container>
           </Container>
-          <List gap="1rem" view={listView}>
-            {mappedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                price={product.price}
-                title={product.title}
-                imageSrc={product.imageSrc}
-                description={product.description}
-                type={mapToProductCart[listView]}
-                onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-              />
-            ))}
-          </List>
         </Container>
       </Container>
     </Container>

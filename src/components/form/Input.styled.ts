@@ -1,3 +1,4 @@
+import Container from 'components/Container';
 import Spinner from 'components/Spinner';
 import { Size } from 'components/form/types';
 import { textFontSize } from 'components/typography/constants';
@@ -12,7 +13,7 @@ export type StyledInputProps = {
 };
 
 export const size: Record<Size, string> = {
-  sm: '32px',
+  sm: '39px',
   md: '38px',
   lg: '45px',
   xl: '55px',
@@ -22,6 +23,39 @@ export const size: Record<Size, string> = {
 };
 
 export const fontSize: Record<FontSize, string> = textFontSize;
+
+export const labelSize: Record<FontSize, string> = {
+  sm: '39px',
+  md: '38px',
+  lg: '45px',
+  xl: '55px',
+  '2xl': '55px',
+  '3xl': '55px',
+  default: 'auto',
+};
+
+export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
+  height: 100%;
+  position: relative;
+
+  ${(props) =>
+    props.label &&
+    css`
+      > input {
+        padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
+        height: ${props.size && `calc(${size[props.size]} + ${fontSize[props.size]} / 2)`};
+        /* line-height: ${props.size && `calc(${size[props.size]} + ${fontSize[props.size]})`}; */
+      }
+    `}
+
+  &::before {
+    content: '${(props) => props.label}';
+    top: 5px;
+    left: 10px;
+    font-size: ${(props) => props.size && `calc(${textFontSize[props.size]} - ${textFontSize[props.size]} / 4)`};
+    position: absolute;
+  }
+`;
 
 export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth?: number }>`
   width: 100%;
@@ -41,8 +75,11 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
     font-size: ${(props) => props.size && fontSize[props.size]};
   }
 
+  transition: 100ms all;
+
   &:focus {
     border-color: #cdcdcd;
+    border: 1px solid black;
   }
 `;
 

@@ -91,7 +91,7 @@ const StyledContainer = styled.div<StyledContainerProps>`
 
   gap: ${(props) => props.gap};
 
-  border: ${(props) => props.bordered && '1px solid #dcdcdc'};
+  border: ${(props) => props.bordered && '1px solid #eee'};
   border-radius: ${(props) => props.rounded && '25px'};
 
   flex-direction: ${(props) => props.direction ?? 'column'};

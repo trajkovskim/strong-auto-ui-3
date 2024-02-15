@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
-import Container from 'components/Container';
-import Icon from 'components/Icon';
+import Button from 'components/Button';
 import Transition, { TransitionHandle } from 'components/Transition';
 import {
+  InputWrapper,
   StyledBiErrorCircle,
   StyledContainer,
   StyledContainerProps,
@@ -23,7 +23,7 @@ import { Validator } from 'validators';
 
 const StyledOptionsWrapper = styled.div`
   z-index: 999;
-  /* box-shadow: 0px 5px 6px 3px rgba(35, 35, 35, 0.03); */
+  box-shadow: 0px 5px 6px 3px rgba(35, 35, 35, 0.03);
   border: 0.5px solid #dcdcdc;
   border-top: none;
   position: absolute;
@@ -34,9 +34,9 @@ const StyledOptionsWrapper = styled.div`
   bottom: 0;
   transform: translateY(calc(100% + 2px));
 
-  > * + * {
+  /* > * + * {
     border-top: 1px solid #dcdcdc;
-  }
+  } */
 `;
 
 type StyledOptionProps = {
@@ -53,7 +53,8 @@ const StyledOption = styled.option<StyledOptionProps>`
 
   &:hover,
   &:active {
-    background-color: #dcdcdc7d;
+    /* background-color: #dcdcdc7d; */
+    color: #075ebb;
   }
 `;
 
@@ -71,10 +72,6 @@ type Props = Omit<React.ComponentProps<'input'>, keyof StyledInputProps> &
     options: AutocompleteOption[];
     clearButton?: boolean;
   };
-
-const InputWrapper = styled(Container)`
-  height: 100%;
-`;
 
 const Autocomplete: React.FC<Props> = ({
   label,
@@ -126,7 +123,7 @@ const Autocomplete: React.FC<Props> = ({
 
   return (
     <StyledContainer fullwidth={fullwidth}>
-      <InputWrapper gap="1rem">
+      <InputWrapper gap="1rem" label={label} size={props.size}>
         <StyledInput
           {...props}
           {...events}
@@ -176,7 +173,15 @@ const Autocomplete: React.FC<Props> = ({
               )}
             </span>
           )}
-          {clearButton && !!state.value && <Icon icon={<MdClear />} onClick={reset} />}
+          {clearButton && !!state.value && (
+            <Button
+              themeType="link"
+              size={props.size === 'default' ? undefined : props.size}
+              maxContent
+              icon={<MdClear />}
+              onClick={reset}
+            />
+          )}
           {rightContainer}
         </StyledRightContainer>
       </InputWrapper>

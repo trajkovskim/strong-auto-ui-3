@@ -5,6 +5,7 @@ type IconWrapperProps = {
   width?: string;
   height?: string;
   badge?: string;
+  disabled?: boolean;
 };
 
 const IconWrapper = styled.span<IconWrapperProps>`
@@ -19,6 +20,7 @@ const IconWrapper = styled.span<IconWrapperProps>`
   svg {
     display: inline-block;
     margin: auto;
+    color: ${(props) => props.disabled && '#dcdcdc'};
 
     width: ${(props) => props.width ?? '100%'};
     height: ${(props) => props.height ?? '100%'};
@@ -47,9 +49,15 @@ type Props = React.ComponentProps<'span'> &
     icon: React.ReactNode;
   };
 
-const Icon: React.FC<Props> = ({ height, width, badge, icon, ...props }) => {
+const Icon: React.FC<Props> = ({ height, width, badge, icon, disabled, ...props }) => {
   return (
-    <IconWrapper {...props} height={height} width={width}>
+    <IconWrapper
+      {...props}
+      height={height}
+      width={width}
+      disabled={disabled}
+      onClick={disabled ? undefined : props.onClick}
+    >
       {badge && <IconBadge>{badge}</IconBadge>}
       {icon}
     </IconWrapper>
