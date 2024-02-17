@@ -25,7 +25,7 @@ type StyledContainerProps = {
   userSelect?: React.CSSProperties['userSelect'];
   gap?: React.CSSProperties['gap'];
   wrap?: boolean;
-  centered?: boolean;
+  centered?: boolean | 'vertical' | 'horizontal';
   itemsCentered?: boolean;
   textCentered?: boolean;
   bordered?: boolean;
@@ -33,6 +33,7 @@ type StyledContainerProps = {
   parentGap?: React.CSSProperties['gap'];
   preserveWhenXs?: boolean;
   relative?: boolean;
+  zIndex?: number;
 };
 
 const MAX_COLUMNS = 12;
@@ -64,6 +65,8 @@ const StyledContainer = styled.div<StyledContainerProps>`
   display: flex;
   position: ${(props) => props.relative && 'relative'};
 
+  z-index: ${(props) => props.zIndex} !important;
+
   padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>
     typeof props.padding === 'object' &&
@@ -84,9 +87,10 @@ const StyledContainer = styled.div<StyledContainerProps>`
       margin-right: ${props.margin.right && theme.padding[props.margin.right]};
     `}
 
-  margin-left: ${(props) => props.centered && 'auto'};
-  margin-right: ${(props) => props.centered && 'auto'};
-
+  margin-top: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
+  margin-bottom: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
+  margin-left: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
+  margin-right: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
   user-select: ${(props) => props.userSelect};
 
   gap: ${(props) => props.gap};
@@ -130,7 +134,7 @@ const StyledContainer = styled.div<StyledContainerProps>`
 `;
 
 type Props = React.PropsWithRef<
-  React.PropsWithChildren<React.ComponentProps<'div'> & Omit<StyledContainerProps, 'breakpoints'>>
+  React.PropsWithChildren<React.ComponentProps<'div'> & Omit<StyledContainerProps, 'breakpoints' | 'childrenCount'>>
 >;
 
 const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props }, ref) => {

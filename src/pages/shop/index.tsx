@@ -1,33 +1,27 @@
+import Button from 'components/Button';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
 import List, { ListView } from 'components/List';
+import ListProductCard from 'components/ListProductCard';
 import ProductCard from 'components/ProductCard';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
 import Filters from 'pages/shop/Filters';
-import React, { useState } from 'react';
+import Sidebar, { SidebarHandle } from 'pages/shop/Sidebar';
+import React, { useRef, useState } from 'react';
+import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
 import { MdGridView, MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
-import styled from 'styled-components';
-
-const StyledContainer = styled(Container)`
-  background-color: #232323;
-  color: white;
-`;
-
-const mapToProductCart: Record<ListView, 'column' | 'row'> = {
-  grid: 'column',
-  list: 'row',
-};
 
 const Shop: React.FC = () => {
   const navigate = useNavigate();
   const [listView, setListView] = useState<ListView>(ListView.GRID);
   const pageSize = 10;
   const totalContentNumber = 34792;
+  const [page, setPage] = useState<number>(8);
+  const [totalPages, setTotalPages] = useState<number>(8);
+  const sidebarRef = useRef<SidebarHandle>(null);
 
   const mappedProducts = products.slice(0, pageSize);
 
@@ -36,53 +30,101 @@ const Shop: React.FC = () => {
   };
 
   return (
-    <Container padding={{ bottom: 'md' }} gap="1rem">
-      <StyledContainer padding="md">{/* <Title title="Shop" fontSize="xl" bold /> */}</StyledContainer>
-      <Container padding={{ left: 'md', right: 'md' }} gap="1rem">
+    <Container>
+      <Container padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} gap="1rem">
         <Text fontSize="sm">Home {'>'} Shop</Text>
+        <Sidebar ref={sidebarRef}>
+          <Filters />
+        </Sidebar>
         <Container direction="row" wrap gap="1rem">
-          <Container sm={2}>
+          <Container xs={0} lg={3.2} xl={2.5} {...{ '2xl': 2 }}>
             <Filters />
           </Container>
-          <Container sm={10} gap="1rem">
-            <Container direction="row" alignItems="center" justifyContent="space-between">
-              <Text type="sub">
-                Results shown {pageSize} of {totalContentNumber}
+          <Container sm={12} lg={8.8} xl={9.5} {...{ '2xl': 10 }} gap="1rem">
+            <Container direction="column" justifyContent="space-between">
+              <Text type="sub" fontSize="sm">
+                Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
               </Text>
-              <Container direction="row" alignItems="center" justifyContent="flex-end" gap="10px">
-                <Container direction="row" gap="0.5rem">
-                  <Icon
-                    icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
-                    onClick={toggleListView}
-                    width="16px"
+              <Container
+                sm={12}
+                preserveWhenXs
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                gap="10px"
+              >
+                <Container preserveWhenXs xs={12} md="max-content" alignItems="center" direction="row">
+                  <Text>Sort</Text>
+                  <Dropdown
+                    options={[
+                      { value: 'unsorted', label: 'Default' },
+                      { value: 'price_asc', label: 'Price (Ascending)' },
+                      { value: 'price_desc', label: 'Price (Descending)' },
+                      { value: 'popularity_asc', label: 'Newest' },
+                      { value: 'popularity_desc', label: 'Oldest' },
+                    ]}
                   />
                 </Container>
-                <Text>Sort</Text>
-                <Dropdown
-                  options={[
-                    { value: 'unsorted', label: 'Default' },
-                    { value: 'price_asc', label: 'Price (Ascending)' },
-                    { value: 'price_desc', label: 'Price (Descending)' },
-                    { value: 'popularity_asc', label: 'Newest' },
-                    { value: 'popularity_desc', label: 'Oldest' },
-                  ]}
-                />
+                <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
+                  <Container xs={'max-content'} gap="0.5rem">
+                    <Button
+                      maxContent
+                      icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
+                      size="lg"
+                      themeType="link"
+                      onClick={toggleListView}
+                    >
+                      View
+                    </Button>
+                  </Container>
+                  <Container xs={'max-content'} lg={0}>
+                    <Button
+                      maxContent
+                      onClick={() => sidebarRef.current?.open()}
+                      icon={sidebarRef.current?.isOpen ? <HiFilter /> : <HiOutlineFilter />}
+                      themeType="link"
+                      size="lg"
+                    >
+                      Filters
+                    </Button>
+                  </Container>
+                </Container>
               </Container>
             </Container>
             <List gap="1rem" view={listView}>
-              {mappedProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  price={product.price}
-                  title={product.title}
-                  imageSrc={product.imageSrc}
-                  description={product.description}
-                  type={mapToProductCart[listView]}
-                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                />
-              ))}
+              {mappedProducts.map((product) =>
+                listView === ListView.LIST ? (
+                  <ListProductCard
+                    key={product.id}
+                    price={product.price}
+                    title={product.title}
+                    imageSrc={product.imageSrc}
+                    description={product.description}
+                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                    ribbon={product.state as any}
+                    fullwidth
+                  />
+                ) : (
+                  <ProductCard
+                    key={product.id}
+                    price={product.price}
+                    title={product.title}
+                    imageSrc={product.imageSrc}
+                    description={product.description}
+                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                    ribbon={product.state as any}
+                    fullwidth
+                  />
+                )
+              )}
             </List>
-            <Container centered>Pagination</Container>
+            {page === totalPages && (
+              <Container itemsCentered>
+                <Text fontSize="sm" type="sub">
+                  All results displayed
+                </Text>
+              </Container>
+            )}
           </Container>
         </Container>
       </Container>

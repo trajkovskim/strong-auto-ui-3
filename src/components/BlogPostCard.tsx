@@ -40,7 +40,7 @@ const BlogPostCard: React.FC<Props> = (props) => {
           {props.blogPost.creationDate.toUTCString()}
         </Text>
         <Text fontSize="xl">{props.blogPost.title}</Text>
-        <StyledText>
+        <StyledText fontSize="lg">
           {props.blogPost.summary.slice(0, 90)}...{' '}
           <StyledButton themeType="link" onClick={handleReadMore}>
             Read mode

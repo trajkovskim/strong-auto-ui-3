@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
   background-color: #232323;
+  box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.5);
+  color: white;
 `;
 
 const Layout: React.FC = () => {
@@ -16,7 +18,15 @@ const Layout: React.FC = () => {
 
   return (
     <Container>
-      <StyledContainer direction="row" justifyContent="space-between" alignItems="center">
+      <StyledContainer
+        direction="row"
+        justifyContent="space-between"
+        padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
+        alignItems="center"
+        preserveWhenXs
+        relative
+        zIndex={999}
+      >
         <Image
           onClick={() => navigate(Routes.INDEX)}
           src={Logo}

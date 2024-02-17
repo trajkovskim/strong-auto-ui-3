@@ -49,9 +49,9 @@ const Contact: React.FC = () => {
               vane.stamenov@gmail.com
             </Button>
           </Container>
-          <Container gap="0.3rem">
+          <Container gap="0.5rem">
             <Text fontSize="lg">Social media</Text>
-            <Container direction="row" gap="1rem">
+            <Container preserveWhenXs direction="row" gap="1rem">
               <Button
                 themeType="link"
                 maxContent

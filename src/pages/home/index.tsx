@@ -1,41 +1,39 @@
+import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import Logo from 'assets/logo.png';
+import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 import Button from 'components/Button';
+import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import Line from 'components/Line';
+import ListProductCard from 'components/ListProductCard';
 import Navigation from 'components/Navigation';
 import ProductCard from 'components/ProductCard';
 import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
-import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import BodyTypes from 'pages/home/BodyTypes';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
+import CantFindVehicle from 'pages/home/CantFindVehicle';
 import CarLot from 'pages/home/CarLot';
+import FAQ from 'pages/home/Faq';
 import HorizontalList from 'pages/home/HorizontalList';
+import LatestBlogPosts from 'pages/home/LatestBlogPosts';
+import Reviews from 'pages/home/Reviews';
 import TowingService from 'pages/home/TowingService';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
-import React, { useRef } from 'react';
+import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import styled from 'styled-components';
 import theme from 'theme';
-import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
-import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
-import Carousel, { CarouselHandle } from 'components/Carousel';
-import Reviews from 'pages/home/Reviews';
-import FAQ from 'pages/home/Faq';
-import { MdArrowForwardIos } from 'react-icons/md';
 
 const StyledContainer = styled(Container)`
-  background: url(${BMWDriftSoilImage});
-  background-position: center center;
-  background-size: 100%;
-  height: 100vh;
   color: white;
+  min-height: 100vh;
 
   position: relative;
   &::before {
@@ -45,34 +43,26 @@ const StyledContainer = styled(Container)`
     height: 100%;
     background-color: #000;
     opacity: 0.3;
+    z-index: 2;
   }
 
   > * {
-    z-index: 1;
+    z-index: 3;
   }
 `;
 
 const SearchBoxWrapper = styled(Container)`
+  color: black;
   background-color: white;
   border-radius: 30px;
-  height: 60px;
 
   padding-left: ${theme.padding.md};
   padding-right: ${theme.padding.md};
-
-  > *:first-child {
-    width: 100%;
-
-    > * {
-      height: 100%;
-    }
-  }
 `;
 
 const StyledSearchButton = styled(Button)`
-  height: 100%;
-  flex-grow: 3;
   white-space: nowrap;
+  margin-left: auto;
 `;
 
 const PopularMakesWrapper = styled(Container)`
@@ -80,20 +70,34 @@ const PopularMakesWrapper = styled(Container)`
   color: #fff;
 `;
 
+const FinanceWrapper = styled(Container)`
+  /* color: #fff; */
+`;
+
+const SearchContainer = styled(Container)`
+  transform: translateY(-50%);
+`;
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const popularMakesProducts = products;
 
-  const carouselServicesRef = useRef<CarouselHandle>(null);
-
   return (
     <div>
-      <StyledContainer relative>
-        <Carousel minHeight="100vh" maxHeight="100vh" absolute noCommands>
+      <StyledContainer preserveWhenXs>
+        <Carousel minHeight="100%" maxHeight="100vh" absolute noCommands>
           <Image src={BMWDriftSoilImage} objectFit="cover" verticalCentered height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" verticalCentered height="100%" />
         </Carousel>
-        <Container direction="row" justifyContent="space-between" alignItems="center">
+        <Container
+          relative
+          zIndex={999}
+          direction="row"
+          preserveWhenXs
+          justifyContent="space-between"
+          padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
+          alignItems="center"
+        >
           <Image
             onClick={() => navigate(Routes.INDEX)}
             src={Logo}
@@ -104,35 +108,66 @@ const Home: React.FC = () => {
           />
           <Navigation />
         </Container>
-        <Container gap="2rem" justifyContent="center">
+        <SearchContainer
+          centered="vertical"
+          gap="2rem"
+          preserveWhenXs
+          justifyContent="center"
+          alignItems="center"
+          alignSelf="center"
+        >
           <Title textAlign="center" fontSize="3xl" bold title="Welcome to Strong AUTO" />
-          {/* <Title textAlign="center" fontSize="3xl" bold title="Pick your car" /> */}
           <Text textAlign="center" fontSize="lg">
             Lookup cars for sale
           </Text>
-          <SearchBoxWrapper
-            preserveWhenXs
-            direction="row"
-            padding="sm"
-            gap="1rem"
-            centered
-            sm={12}
-            md={12}
-            lg={10}
-            xl="800px"
-          >
-            <Container preserveWhenXs direction="row" gap="1rem" alignItems="center" justifyContent="flex-start">
-              <Autocomplete noBorder placeholder="Any make" options={[{ value: 'audi' }]} />
-              <Line type="vertical" />
-              <Autocomplete noBorder placeholder="Any model" options={[{ value: 'audi' }]} />
-              <Line type="vertical" />
-              <Autocomplete noBorder placeholder="Any price" options={[{ value: 'audi' }]} />
-            </Container>
-            <StyledSearchButton maxContent size="md" icon={<BiSearch />}>
-              Search cars
-            </StyledSearchButton>
-          </SearchBoxWrapper>
-        </Container>
+          <Container padding="sm">
+            <SearchBoxWrapper
+              sm={12}
+              md={11}
+              lg={10}
+              xl="700px"
+              centered
+              direction="row"
+              gap="1rem"
+              alignItems="center"
+              wrap
+              padding="sm"
+            >
+              <Container sm={12} md={4} lg={3}>
+                <Autocomplete
+                  noBorder
+                  label="Select make"
+                  placeholder="Any make"
+                  size="lg"
+                  options={[{ value: 'audi' }]}
+                />
+              </Container>
+              <Container sm={12} md={4} lg={3}>
+                <Autocomplete
+                  noBorder
+                  label="Select model"
+                  placeholder="Any model"
+                  size="lg"
+                  options={[{ value: 'audi' }]}
+                />
+              </Container>
+              <Container sm={12} md={4} lg={3}>
+                <Autocomplete
+                  noBorder
+                  label="Select price"
+                  placeholder="Any price"
+                  size="lg"
+                  options={[{ value: 'audi' }]}
+                />
+              </Container>
+              <Container sm={12} lg={3} justifySelf="flex-end">
+                <StyledSearchButton fullwidth maxContent size="lg" icon={<BiSearch />}>
+                  Search cars
+                </StyledSearchButton>
+              </Container>
+            </SearchBoxWrapper>
+          </Container>
+        </SearchContainer>
       </StyledContainer>
 
       <BodyTypes />
@@ -148,8 +183,8 @@ const Home: React.FC = () => {
           <TabButtonsGroup buttons={[{ label: 'Used', defaultActive: true }, { label: 'Featured' }]} />
         </Container>
         <HorizontalList maxWidth="1400px" centered>
-          {products.map((product, index) => (
-            <ProductCard {...product} key={index} />
+          {products.map((product) => (
+            <ProductCard {...product} ribbon={product.state as any} key={product.id} />
           ))}
         </HorizontalList>
       </Container>
@@ -164,38 +199,70 @@ const Home: React.FC = () => {
           <TabButtonsGroup buttons={[{ label: 'Audi', defaultActive: true }, { label: 'BMW' }, { label: 'Toyota' }]} />
         </Container>
         <HorizontalList maxWidth="1400px" centered>
-          {popularMakesProducts.map((product, index) => (
-            <ProductCard type="row" {...product} key={index} />
+          {popularMakesProducts.map((product) => (
+            <ListProductCard {...product} ribbon={product.state as any} key={product.id} />
           ))}
         </HorizontalList>
       </PopularMakesWrapper>
       <Container
         sm="1400px"
         centered
+        itemsCentered
         padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }}
-        bordered
-        rounded
-        margin={{ top: 'lg', bottom: 'lg' }}
-        gap="0.5rem"
+        gap="2rem"
       >
+        <Title title="What we have in store for you" fontSize="2xl" />
+        <Line />
+        <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }}>
+          <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
+            <FinanceWrapper xs="100px" sm="300px">
+              <Text>Promotions</Text>
+              <Text type="sub" fontSize="md">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industrys standard dummy text ever since the 1500s
+              </Text>
+            </FinanceWrapper>
+            <FinanceWrapper xs="100px" sm="300px">
+              <Text>Our services</Text>
+              <Text type="sub" fontSize="md">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industrys standard dummy text ever since the 1500s
+              </Text>
+            </FinanceWrapper>
+          </Container>
+          <Image
+            onClick={() => navigate(Routes.INDEX)}
+            src={Logo}
+            alt="Strong auto logo"
+            width="200px"
+            height="100%"
+            objectFit="contain"
+          />
+          <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
+            <FinanceWrapper xs="100px" sm="300px">
+              <Text>Parts center</Text>
+              <Text type="sub" fontSize="md">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industrys standard dummy text ever since the 1500s
+              </Text>
+            </FinanceWrapper>
+            <FinanceWrapper xs="100px" sm="300px">
+              <Text>Parts center</Text>
+              <Text type="sub" fontSize="md">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                industrys standard dummy text ever since the 1500s
+              </Text>
+            </FinanceWrapper>
+          </Container>
+        </Container>
+      </Container>
+      <Container sm="1400px" centered padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }} gap="2rem">
         <Title title="Services" fontSize="2xl" />
         <Line />
-        <Container padding={{ top: 'xl', bottom: 'xl' }}>
-          <Carousel ref={carouselServicesRef} noCommands>
-            <TowingService />
-          </Carousel>
-        </Container>
-        <Container alignSelf="flex-end" justifySelf="flex-end">
-          <Button maxContent themeType="link" iconRight={<MdArrowForwardIos />} size="lg">
-            Next
-          </Button>
-        </Container>
-        {/* <CantFindVehicle /> */}
-
-        {/* <Container sm={12} md={12} lg={6} xl={7}></Container>
-        <Container sm={12} md={12} lg={6} xl={5}></Container>
-        <Container sm={12} md={12} lg={12} xl={12}></Container> */}
+        <TowingService />
+        <Line />
       </Container>
+      <CantFindVehicle />
       <CarLot />
       <Container padding={{ top: 'lg', bottom: 'lg', left: 'md', right: 'md' }} gap="1rem" centered sm="1400px">
         <WhyChooseUs />

@@ -5,7 +5,6 @@ import Icon from 'components/Icon';
 import Image from 'components/Image';
 import Line from 'components/Line';
 import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
 import { reviews } from 'pages/constants';
 import React, { useMemo } from 'react';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
@@ -26,7 +25,7 @@ type ReviewProps = {
 const Review: React.FC<ReviewProps> = (props) => {
   const createdStars = useMemo(
     () => (
-      <Container direction="row" gap="0.5rem">
+      <Container preserveWhenXs direction="row" gap="0.5rem">
         {new Array(5).fill(0).map((_, index) => {
           if (props.review.rating - index) {
             return <Icon icon={<BsStarFill />} width="15px" key={index} />;
@@ -42,8 +41,8 @@ const Review: React.FC<ReviewProps> = (props) => {
   );
 
   return (
-    <Container key={props.review.id} gap="1rem" sm={6} centered alignSelf="center">
-      <Container direction="row" gap="1rem" alignItems="center">
+    <Container key={props.review.id} gap="1rem" xs={10} md={8} centered alignSelf="center">
+      <Container preserveWhenXs direction="row" gap="1rem" alignItems="center">
         <AvatarImage src={PoweredByGoogleImage} objectFit="contain" width="50px" height="50px" alt="avatar" />
         <Container gap="0.2rem">
           <Text fontSize="lg">{props.review.username}</Text>

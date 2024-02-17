@@ -156,7 +156,7 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
       transition-timing-function: ${timingFunction};
     `;
 
-    return React.Children.map(children, (child) => {
+    return React.Children.map(children, (child, index) => {
       if (React.isValidElement(child)) {
         const className = `
           ${(props as any)?.className}
@@ -170,6 +170,7 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
           ...props,
           ...child.props,
           className,
+          key: `transition-${index}`,
           onTransitionEnd: (event?: React.TransitionEvent<unknown>) => {
             dispatch(finishAction());
             onTransitionEnd && onTransitionEnd(event);

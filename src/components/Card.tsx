@@ -1,37 +1,43 @@
 import Container from 'components/Container';
 import Image from 'components/Image';
+import Line from 'components/Line';
+import Text from 'components/typography/Text';
 import React from 'react';
 import styled from 'styled-components';
 
 type StyledCardProps = {
   type: 'column' | 'row';
+  fullwidth?: boolean;
 };
 
 const StyledCard = styled(Container)<StyledCardProps>`
   background: white;
   color: black;
 
-  gap: 0.3rem;
-
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 
   width: 100%;
-  max-width: ${(props) => (props.type === 'column' ? '320px' : '660px')};
+
+  max-width: ${(props) => props.type === 'row' && '100%'} !important;
+  max-width: ${(props) => props.fullwidth && '100%'};
+
   border-radius: 15px;
 `;
 
 const StyledContentWrapper = styled(Container)<StyledCardProps>`
   border: 1px solid #eee;
   border-top: ${(props) => props.type === 'column' && 'none'};
+  width: ${(props) => props.type === 'row' && '100%'};
   border-left: ${(props) => props.type === 'row' && 'none'};
-  border-right: ${(props) => props.type === 'row' && 'none'};
   overflow: hidden;
 `;
 
-const StyledFooterWrapper = styled.div`
-  margin-top: auto;
+const StyledBodyWrapper = styled(Container)<StyledCardProps>`
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 `;
 
 const StyledImage = styled(Image)`
@@ -47,37 +53,96 @@ export type RibbonProps = {
   color?: React.CSSProperties['color'];
 };
 
+type StyledRibbonProps = Omit<RibbonProps, 'label'>;
+
+const Ribbon = styled(Container)<StyledRibbonProps>`
+  top: 10px;
+  left: 10px;
+  position: absolute;
+  background: ${(props) => props.background};
+  color: ${(props) => props.color};
+  user-select: none;
+`;
+
+const OnImageContainer = styled(Container)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
 type Props = StyledCardProps & {
   title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
   imageSrc?: React.ImgHTMLAttributes<HTMLImageElement>['src'];
+  onImageContainer?: React.ReactNode;
   body?: React.ReactNode;
+  ribbon?: RibbonProps;
   className?: string;
 };
 
 const Card: React.FC<Props> = (props) => {
+  const isColumn = props.type === 'column';
+  const isRow = props.type === 'row';
+
   return (
-    <StyledCard relative gap="0.3rem" direction={props.type} type={props.type}>
-      <StyledImage
-        shadow
-        objectFit="cover"
-        height={props.type === 'column' ? '200px' : '100%'}
-        width={props.type === 'row' ? '300px' : undefined}
-        src={props.imageSrc}
-      />
+    <StyledCard
+      xs={'calc(100% - 16px)'}
+      sm={'calc(100% - 16px)'}
+      md={'calc(50% - 16px)'}
+      lg={'calc(33.33% - 16px)'}
+      xl={isColumn ? 'calc(25% - 16px)' : 'calc(50% - 16px)'}
+      {...{ '2xl': 'calc(20% - 16px)' }}
+      direction={props.type}
+      preserveWhenXs
+      type={props.type}
+      fullwidth={props.fullwidth}
+      alignItems="stretch"
+    >
+      <Container relative>
+        <StyledImage
+          shadow
+          objectFit="cover"
+          height={isColumn ? '230px' : '100%'}
+          width={isRow ? '300px' : undefined}
+          src={props.imageSrc}
+        />
+        {props.ribbon && (
+          <Ribbon
+            preserveWhenXs
+            rounded
+            padding={{ left: 'md', right: 'md', top: 'xs', bottom: 'xs' }}
+            background={props.ribbon?.background}
+            color={props.ribbon?.color}
+          >
+            <Text bold fontSize="md">
+              {props.ribbon?.label}
+            </Text>
+          </Ribbon>
+        )}
+        <OnImageContainer>{props.onImageContainer}</OnImageContainer>
+      </Container>
       <StyledContentWrapper
         type={props.type}
-        padding={{ top: 'md', bottom: 'md', left: 'lg', right: 'lg' }}
-        margin={props.type === 'row' ? { right: 'lg' } : undefined}
-        gap="0.5rem"
+        direction={props.type}
+        padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }}
+        gap="1rem"
+        preserveWhenXs
+        wrap
       >
-        <div>
-          <div>{props.title}</div>
-          <div>{props.description}</div>
-        </div>
-        {props.body}
-        <StyledFooterWrapper>{props.footer}</StyledFooterWrapper>
+        <StyledBodyWrapper md="max-content" type={props.type}>
+          <div>
+            <div>{props.title}</div>
+            <div>{props.description}</div>
+          </div>
+          {props.body}
+        </StyledBodyWrapper>
+        {props.type === 'row' && (
+          <Container xs={0} sm={0} md={0} lg="max-content">
+            <Line type="vertical" height="100%" style={{ borderColor: '#eee' }} />
+          </Container>
+        )}
+        <Container sm={12}>{props.footer}</Container>
       </StyledContentWrapper>
     </StyledCard>
   );

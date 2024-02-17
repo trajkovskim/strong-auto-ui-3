@@ -75,6 +75,7 @@ export const blogPosts = [
 export const products = [
   {
     id: 0,
+    state: 'sold',
     imageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -120,6 +121,7 @@ export const products = [
   },
   {
     id: 1,
+    state: 'featured',
     imageSrc: ToyotaCamryImage,
     price: {
       total: 10000,
@@ -165,6 +167,7 @@ export const products = [
   },
   {
     id: 2,
+    state: 'sold',
     imageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -210,6 +213,7 @@ export const products = [
   },
   {
     id: 3,
+    state: 'featured',
     imageSrc: ToyotaCamryImage,
     price: {
       total: 10000,
@@ -255,6 +259,7 @@ export const products = [
   },
   {
     id: 4,
+    state: 'sold',
     mageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -300,6 +305,7 @@ export const products = [
   },
   {
     id: 5,
+    state: 'featured',
     imageSrc: ToyotaCamryImage,
     price: {
       total: 10000,
@@ -345,6 +351,7 @@ export const products = [
   },
   {
     id: 6,
+    state: 'sold',
     imageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -390,6 +397,7 @@ export const products = [
   },
   {
     id: 7,
+    state: 'featured',
     imageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -435,6 +443,7 @@ export const products = [
   },
   {
     id: 8,
+    state: 'sold',
     imageSrc: ToyotaCamryImage,
     price: {
       total: 10000,
@@ -480,6 +489,7 @@ export const products = [
   },
   {
     id: 9,
+    state: 'featured',
     imageSrc: BMWDriftSoilImage,
     price: {
       total: 10000,
@@ -525,6 +535,7 @@ export const products = [
   },
   {
     id: 10,
+    state: 'sold',
     imageSrc: ToyotaCamryImage,
     price: {
       total: 10000,

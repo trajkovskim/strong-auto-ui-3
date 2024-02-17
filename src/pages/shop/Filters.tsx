@@ -30,7 +30,15 @@ const Filters: React.FC = () => {
         Filtering
         <Container gap="0.5rem" direction="row">
           <Button size="lg" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
-          <Button size="lg" disabled fullwidth themeType="link" icon={<MdCheck />} maxContent onClick={resetFilters} />
+          <Button
+            size="lg"
+            disabled
+            fullwidth
+            themeType="success"
+            icon={<MdCheck />}
+            maxContent
+            onClick={resetFilters}
+          />
         </Container>
       </FiltersWrapper>
       <FiltersWrapper bordered rounded padding="md" gap="1rem">
@@ -55,6 +63,11 @@ const Filters: React.FC = () => {
           size="md"
           options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
         />
+        <Container gap="0.5rem" padding={{ left: 'sm' }}>
+          {[{ value: 'Sold' }, { value: 'Featured' }, { value: 'Bookmarked' }].map((checkbox) => (
+            <Checkbox key={checkbox.value} label={checkbox.value} value={checkbox.value} size="md" />
+          ))}
+        </Container>
       </FiltersWrapper>
       <FiltersWrapper bordered rounded padding="md" gap="1rem">
         <Autocomplete
@@ -86,7 +99,7 @@ const Filters: React.FC = () => {
           size="md"
           options={[{ value: 'awd_4wd' }, { value: '2wd_fwd' }, { value: '2wd_rwd' }]}
         />
-        <Container direction="row" alignItems="center" gap="3px">
+        <Container direction="row" preserveWhenXs alignItems="center" gap="3px">
           <Autocomplete
             placeholder="Year"
             size="md"
@@ -101,7 +114,7 @@ const Filters: React.FC = () => {
             options={years.map((year) => ({ value: year.toString() }))}
           />
         </Container>
-        <Container direction="row" alignItems="center" gap="3px">
+        <Container direction="row" preserveWhenXs alignItems="center" gap="3px">
           <Autocomplete
             placeholder="Mileage"
             size="md"

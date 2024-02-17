@@ -1,3 +1,6 @@
+import { css } from 'styled-components';
+import theme, { Breakpoints } from 'theme';
+
 export const goto = (url: string, blank = false) => {
   window.location.replace(url);
 };
@@ -30,7 +33,6 @@ export const formatNumber = (num: string | number, separator = ',') => {
   }
 
   for (let i = start; i < numAsString.length; i += 3) {
-    console.log(result);
     result += numAsString.substring(i, i + 3) + separator;
   }
 
@@ -57,4 +59,15 @@ export const getElementWidth = (el: HTMLElement) => {
 
   const style = window.getComputedStyle(el);
   return list.map((k) => parseInt(style.getPropertyValue(k), 10)).reduce((prev, cur) => prev + cur);
+};
+
+export const createMedia = (breakpoint: Breakpoints, csss?: ReturnType<typeof css>) => {
+  const minWidth = `(min-width: ${theme.breakpoints.minWidth[breakpoint]})`;
+  const maxWidth = breakpoint !== '2xl' ? `and (max-width: ${theme.breakpoints.maxWidth[breakpoint]})` : '';
+
+  return css`
+    @media ${minWidth}${maxWidth} {
+      ${csss};
+    }
+  `;
 };

@@ -11,6 +11,7 @@ type StyledCarouselProps = {
 };
 
 const StyledCarousel = styled.div<StyledCarouselProps>`
+  display: grid;
   width: 100%;
   overflow: hidden;
   min-height: ${(props) => props.minHeight};
@@ -56,7 +57,8 @@ const StyledMdArrowForwardIos = styled(MdArrowForwardIos)`
 const StyledCarouselItem = styled.div`
   width: 100%;
   height: 100%;
-  position: absolute;
+  grid-row-start: 1;
+  grid-column-start: 1;
 `;
 
 type Props = React.PropsWithChildren &
@@ -107,7 +109,6 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
       }
       ref?.gotoInitialState();
     });
-    setMinHeight(Math.max(...(childrenRefs.current?.map((child) => child?.scrollHeight ?? 0) ?? [])));
   }, [currentIndex, updateZIndex]);
 
   useEffect(() => {
@@ -124,42 +125,40 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
   }));
 
   return (
-    <div>
-      <StyledCarousel
-        minHeight={props.minHeight ?? `${minHeight}px`}
-        maxHeight={props.maxHeight}
-        absolute={props.absolute}
-      >
-        {children.map((child, index) => (
-          <Transition
-            key={index}
-            ref={(ref) => (transitionRefs.current[index] = ref)}
-            property="opacity"
-            transition={{
-              initial: emitionCss`
+    <StyledCarousel
+      minHeight={props.minHeight ?? `${minHeight}px`}
+      maxHeight={props.maxHeight}
+      absolute={props.absolute}
+    >
+      {children.map((child, index) => (
+        <Transition
+          key={index}
+          ref={(ref) => (transitionRefs.current[index] = ref)}
+          property="opacity"
+          transition={{
+            initial: emitionCss`
                 opacity: 0;
               `,
-              final: emitionCss`
+            final: emitionCss`
                 opacity: 1;
               `,
-            }}
-            onTransitionEnd={() => {
-              const ref = transitionRefs.current[index];
+          }}
+          onTransitionEnd={() => {
+            const ref = transitionRefs.current[index];
 
-              if (ref?.isInInitialState()) {
-                updateZIndex(index, -1);
-              }
-            }}
-          >
-            <StyledCarouselItem style={{ zIndex: '-1' }} ref={(ref) => (childrenRefs.current[index] = ref)}>
-              {child}
-            </StyledCarouselItem>
-          </Transition>
-        ))}
-        {!noCommands && <StyledMdArrowForwardIos onClick={handleOnForward} />}
-        {!noCommands && <StyledMdArrowBackIos onClick={handleOnBackward} />}
-      </StyledCarousel>
-    </div>
+            if (ref?.isInInitialState()) {
+              updateZIndex(index, -1);
+            }
+          }}
+        >
+          <StyledCarouselItem style={{ zIndex: '-1' }} ref={(ref) => (childrenRefs.current[index] = ref)}>
+            {child}
+          </StyledCarouselItem>
+        </Transition>
+      ))}
+      {!noCommands && <StyledMdArrowForwardIos onClick={handleOnForward} />}
+      {!noCommands && <StyledMdArrowBackIos onClick={handleOnBackward} />}
+    </StyledCarousel>
   );
 });
 

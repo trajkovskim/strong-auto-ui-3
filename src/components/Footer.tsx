@@ -39,15 +39,24 @@ const Footer: React.FC = () => {
 
   return (
     <StyledFooter>
-      <Container centered sm="1200px" gap="2rem">
-        <Container direction="column" alignItems="center" gap="1rem">
-          <Title
-            centered
-            title="Join our newletter"
-            fontSize="md"
-            description="Receive pricing updates, shopping tips & more!"
-          />
-          <StyledNewsLetterFormContainer padding="xs" direction="row" gap="1rem">
+      <Container centered sm="1200px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
+        <Container direction="row" wrap justifyContent="space-between" alignItems="center" gap="1rem">
+          <Container sm={12} md="max-content">
+            <Title
+              title="Join our newletter"
+              fontSize="md"
+              description="Receive pricing updates, shopping tips & more!"
+            />
+          </Container>
+          <StyledNewsLetterFormContainer
+            sm={12}
+            md="max-content"
+            preserveWhenXs
+            padding="xs"
+            direction="row"
+            alignItems="center"
+            gap="1rem"
+          >
             <Input fullwidth placeholder="Your email address" noBorder />
             <Button>Subscribe</Button>
           </StyledNewsLetterFormContainer>

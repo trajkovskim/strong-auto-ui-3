@@ -1,4 +1,4 @@
-export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
 export default {
   padding: {
@@ -24,7 +24,7 @@ export default {
       md: '481px',
       lg: '769px',
       xl: '1025px',
-      '2xl': '1021px',
+      '2xl': '1201px',
     },
   },
 };

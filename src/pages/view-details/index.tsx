@@ -98,18 +98,18 @@ const ViewDetails: React.FC = () => {
         </Container>
         <Container gap="2rem">
           <Container relative sm={8} gap="1rem">
-            <Container direction="row" gap="1rem">
+            <Container preserveWhenXs direction="row" gap="1rem">
               <Button maxContent size="md">
-                Year: {product.year}
+                {product.year}
               </Button>
               <Button maxContent size="md">
-                Transmission: {product.transmission}
+                {product.transmission}
               </Button>
               <Button maxContent size="md">
-                Fuel: {product.fuelType}
+                {product.fuelType}
               </Button>
               <Button maxContent size="md">
-                km: {formatNumber(product.km)}
+                {formatNumber(product.km)}
               </Button>
             </Container>
           </Container>
@@ -268,6 +268,7 @@ const ViewDetails: React.FC = () => {
             </Container>
           </Container>
         </Container>
+        <Line />
         <Title fontSize="md" title="Featured products" />
         <HorizontalList>
           {products.map((product) => (

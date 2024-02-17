@@ -11,6 +11,7 @@ type HorizontalListWrapperProps = {
 
 const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
   margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2)`};
+  max-width: ${(props) => props.maxWidth && `calc(${props.maxWidth} + (100% - ${props.maxWidth}) / 2)`};
 
   @media (max-width: ${(props) => props.maxWidth}) {
     max-width: ${(props) => props.maxWidth};
@@ -43,6 +44,7 @@ const HorizontalList: React.FC<Props> = (props) => {
   let { current: mouseDown } = useRef<boolean>(false);
   let { current: mouseOver } = useRef<boolean>(false);
   let { current: previousTouch } = useRef<number>();
+  let { current: interval } = useRef<number>();
 
   const scrollEventHandler = useCallback((listScrollLeft: number, scroll: boolean) => {
     const listRef = ref.current;
@@ -54,16 +56,32 @@ const HorizontalList: React.FC<Props> = (props) => {
     const lastChild = listRef.lastElementChild as HTMLElement;
     const maxScrollLeft = listRef.scrollWidth - listRef.offsetWidth;
 
-    if (listScrollLeft <= firstChild?.offsetWidth + 20) {
+    if (listScrollLeft <= firstChild?.offsetWidth + 16) {
+      console.log(ref.current?.offsetTop, ref.current?.getBoundingClientRect());
       listRef.removeChild(lastChild);
       listRef.prepend(lastChild);
-      scroll && listRef.scrollTo({ left: lastChild?.offsetWidth + listScrollLeft });
-    } else if (listScrollLeft >= maxScrollLeft - lastChild.offsetWidth) {
+      scroll && listRef.scrollTo({ left: lastChild?.offsetWidth + listScrollLeft + 8 });
+    } else if (listScrollLeft >= maxScrollLeft - (lastChild.offsetWidth + 16)) {
       listRef.removeChild(firstChild);
       listRef.append(firstChild);
-      scroll && listRef.scrollTo({ left: listScrollLeft - (firstChild?.offsetWidth + 16) });
+      scroll && listRef.scrollTo({ left: listScrollLeft - (firstChild?.offsetWidth + 8) });
     }
   }, []);
+
+  const handleIterval = () => {
+    const listRef = ref.current;
+    if (!listRef || !listRef.hasChildNodes) {
+      return;
+    }
+
+    if (mouseOver) {
+      return;
+    }
+
+    const deltaX = getButtonClickDeltaX() ?? 0;
+
+    listRef.scrollTo({ left: listRef.scrollLeft + deltaX, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const listRef = ref.current;
@@ -75,20 +93,12 @@ const HorizontalList: React.FC<Props> = (props) => {
     const lastChild = listRef.lastElementChild as HTMLElement | undefined;
     lastChild && listRef.removeChild(lastChild);
     lastChild && listRef.prepend(lastChild);
-    listRef.scrollTo({ left: lastChild?.offsetWidth });
-
-    const interval = setInterval(() => {
-      if (mouseOver) {
-        return;
-      }
-
-      const deltaX = getButtonClickDeltaX() ?? 0;
-
-      listRef.scrollTo({ left: listRef.scrollLeft + deltaX, behavior: 'smooth' });
-    }, 3000);
+    lastChild && listRef.scrollTo({ left: lastChild?.offsetWidth + 16 });
 
     const handleScroll = () => scrollEventHandler(listRef.scrollLeft, true);
     listRef?.addEventListener('scroll', handleScroll);
+
+    interval = setInterval(handleIterval, 3000);
 
     return () => {
       clearInterval(interval);
@@ -113,6 +123,8 @@ const HorizontalList: React.FC<Props> = (props) => {
 
     const deltaX = -(getButtonClickDeltaX() ?? 0);
 
+    clearInterval(interval);
+    interval = setInterval(handleIterval, 3000);
     listRef.scrollTo({
       left: listRef.scrollLeft + deltaX,
       behavior: 'smooth',
@@ -127,6 +139,8 @@ const HorizontalList: React.FC<Props> = (props) => {
 
     const deltaX = getButtonClickDeltaX() ?? 0;
 
+    clearInterval(interval);
+    interval = setInterval(handleIterval, 3000);
     listRef.scrollTo({
       left: listRef.scrollLeft + deltaX,
       behavior: 'smooth',

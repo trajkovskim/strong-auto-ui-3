@@ -5,7 +5,7 @@ import Icon from 'components/Icon';
 import Line from 'components/Line';
 import Text from 'components/typography/Text';
 import React from 'react';
-import { BsArrowUpRight, BsSpeedometer } from 'react-icons/bs';
+import { BsArrowUpRight, BsBookmark, BsFillBookmarkFill, BsSpeedometer } from 'react-icons/bs';
 import styled from 'styled-components';
 import { formatNumber } from 'utils';
 
@@ -15,12 +15,12 @@ const ribbons: Record<RibbonType, RibbonProps> = {
   sold: {
     background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
     color: '#fff',
-    label: 'SOLD',
+    label: 'Sold',
   },
   featured: {
-    background: 'linear-gradient(#f14f3f 0, #cb4335 100%)',
+    background: 'linear-gradient(#54f13f 0, #5fcb35 100%)',
     color: '#fff',
-    label: 'FEATURED',
+    label: 'Featured',
   },
 };
 
@@ -33,11 +33,12 @@ type Props = {
     totalPromo: number;
     saving: number;
   };
+  bookmarked?: boolean;
   imageSrc?: string;
   onView?: () => void;
   inCart?: boolean;
   ribbon?: RibbonType;
-  type?: 'column' | 'row';
+  fullwidth?: boolean;
 };
 
 const StyledLine = styled(Line)`
@@ -50,70 +51,68 @@ const StyledDescription = styled(Text)`
   text-overflow: ellipsis;
 `;
 
-const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
+const StyledIcon = styled(Icon)`
+  color: #a5a5a5;
+`;
+
+const StyledOnImageContainer = styled(Container)`
+  position: absolute;
+  width: 35px;
+  align-items: center;
+  height: 35px;
+  top: 10px;
+  right: 20px;
+`;
+
+const ProductCard: React.FC<Props> = (props) => {
   const body = (
     <div>
-      <StyledLine />
       <Container
+        preserveWhenXs
         padding={{ top: 'sm', bottom: 'sm' }}
-        direction={type === 'row' ? 'column' : 'row'}
+        direction="row"
         justifyContent="space-between"
         gap="10px"
       >
-        <Container
-          direction={type}
-          alignItems={type === 'column' ? 'center' : undefined}
-          justifyContent={type === 'column' ? 'center' : undefined}
-          gap="3px"
-        >
-          <Icon icon={<BsSpeedometer />} width="27px" />
+        <Container alignItems="center" justifyContent="center" gap="3px">
+          <StyledIcon icon={<BsSpeedometer />} width="27px" />
           <Text fontSize="md">{formatNumber(200000)}km</Text>
         </Container>
-        <Container
-          direction={type}
-          alignItems={type === 'column' ? 'center' : undefined}
-          justifyContent={type === 'column' ? 'center' : undefined}
-          gap="3px"
-        >
-          <Icon icon={<BsSpeedometer />} width="27px" />
+        <Container alignItems="center" justifyContent="center" gap="3px">
+          <StyledIcon icon={<BsSpeedometer />} width="27px" />
           <Text fontSize="md">Petrol</Text>
         </Container>
-        <Container
-          direction={type}
-          alignItems={type === 'column' ? 'center' : undefined}
-          justifyContent={type === 'column' ? 'center' : undefined}
-          gap="3px"
-        >
-          <Icon icon={<BsSpeedometer />} width="27px" />
+        <Container alignItems="center" justifyContent="center" gap="3px">
+          <StyledIcon icon={<BsSpeedometer />} width="27px" />
           <Text fontSize="md">Manual</Text>
         </Container>
       </Container>
-      {type === 'column' && <StyledLine />}
+      <StyledLine />
     </div>
   );
 
   const footer = (
-    <Container direction="row" justifyContent="space-between" alignItems="center">
+    <Container xs={12} preserveWhenXs direction="row" justifyContent="space-between">
       {props.price?.totalPromo && (
-        <div>
+        <Container>
           <Text fontSize="md" textDecoration="line-through">
-            {formatNumber(props.price.total)}
+            ${formatNumber(props.price.total)}
           </Text>{' '}
           <Text fontSize="lg" bold>
-            {formatNumber(props.price.totalPromo)}
+            ${formatNumber(props.price.totalPromo)}
           </Text>
-        </div>
+        </Container>
       )}
       {!props.price?.totalPromo && (
-        <div>
+        <Container>
           <Text fontSize="lg" bold>
             {formatNumber(props.price.total)}
           </Text>
-        </div>
+        </Container>
       )}
-      <Container direction="row" alignItems="flex-end">
-        <Button themeType="link" size="md" onClick={props.onView} iconRight={<BsArrowUpRight />}>
-          View details
+      <Container alignSelf="flex-end" xs="max-content">
+        <Button themeType="link-colored" size="md" onClick={props.onView} iconRight={<BsArrowUpRight />}>
+          View
         </Button>
       </Container>
     </Container>
@@ -125,14 +124,23 @@ const ProductCard: React.FC<Props> = ({ type = 'column', ...props }) => {
     </StyledDescription>
   );
 
+  const onImageContainer = (
+    <StyledOnImageContainer preserveWhenXs>
+      <Button themeType="default" icon={props.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />} size="sm" />
+    </StyledOnImageContainer>
+  );
+
   return (
     <Card
-      type={type}
+      fullwidth={props.fullwidth}
+      type="column"
       body={body}
       footer={footer}
       imageSrc={props.imageSrc}
+      onImageContainer={onImageContainer}
       title={<Text fontSize="lg">{props.title}</Text>}
       description={description}
+      ribbon={props.ribbon && ribbons[props.ribbon]}
     />
   );
 };

@@ -3,7 +3,7 @@ import { textFontSize } from 'components/typography/constants';
 import React from 'react';
 import { css, styled } from 'styled-components';
 
-type ThemeType = 'link' | 'default' | 'ghost' | 'delete';
+type ThemeType = 'link' | 'link-colored' | 'default' | 'ghost' | 'delete' | 'success';
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 type StyledProps = {
@@ -55,6 +55,24 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'border-radius': '25px',
     'padding-right': '10px',
     'padding-left': '10px',
+  },
+  'link-colored': {
+    'background-color': 'transparent',
+    color: '#046af2',
+    'color-hover': '#075ebb',
+    'color-active': '#255b9475',
+    border: '0px',
+    'border-radius': '0px',
+    paddin: '0px',
+  },
+  success: {
+    'background-color': 'transparent',
+    color: '#08bb08',
+    'color-hover': '#08ad08',
+    'color-active': '#08a108',
+    border: '0px',
+    'border-radius': '0px',
+    paddin: '0px',
   },
 };
 

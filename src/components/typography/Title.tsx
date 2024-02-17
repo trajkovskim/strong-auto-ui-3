@@ -1,9 +1,10 @@
 import Container from 'components/Container';
 import Text from 'components/typography/Text';
-import { titleFontSize } from 'components/typography/constants';
+import { titleFontSize, titleFontSizeMobile, titleFontSizeTablet } from 'components/typography/constants';
 import { FontSize, TitleAndDescription } from 'components/typography/types';
 import React from 'react';
 import { css, styled } from 'styled-components';
+import { createMedia } from 'utils';
 
 type StyledTitleProps = {
   centered?: boolean;
@@ -33,6 +34,28 @@ export const StyledTitle = styled.span<StyledTitleProps>`
         transform: translateX(${props.centered ? '-50%' : '0'});
       }
     `}
+
+  ${(props) =>
+    createMedia(
+      'xs',
+      css`
+        font-size: ${titleFontSizeMobile[props.fontSize ?? 'default']};
+      `
+    )};
+  ${(props) =>
+    createMedia(
+      'sm',
+      css`
+        font-size: ${titleFontSizeMobile[props.fontSize ?? 'default']};
+      `
+    )};
+  ${(props) =>
+    createMedia(
+      'md',
+      css`
+        font-size: ${titleFontSizeTablet[props.fontSize ?? 'default']};
+      `
+    )};
 `;
 
 type Props = Omit<StyledTitleProps, 'bold' | 'fontSize' | 'textAlign'> & {

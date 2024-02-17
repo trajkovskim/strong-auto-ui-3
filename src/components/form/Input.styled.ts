@@ -50,6 +50,7 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
 
   &::before {
     content: '${(props) => props.label}';
+    pointer-events: none;
     top: 5px;
     left: 10px;
     font-size: ${(props) => props.size && `calc(${textFontSize[props.size]} - ${textFontSize[props.size]} / 4)`};
@@ -79,7 +80,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
 
   &:focus {
     border-color: #cdcdcd;
-    border: 1px solid black;
+    /* border: 1px solid black; */
   }
 `;
 
