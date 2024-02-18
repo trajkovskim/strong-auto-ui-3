@@ -57,7 +57,6 @@ const HorizontalList: React.FC<Props> = (props) => {
     const maxScrollLeft = listRef.scrollWidth - listRef.offsetWidth;
 
     if (listScrollLeft <= firstChild?.offsetWidth + 16) {
-      console.log(ref.current?.offsetTop, ref.current?.getBoundingClientRect());
       listRef.removeChild(lastChild);
       listRef.prepend(lastChild);
       scroll && listRef.scrollTo({ left: lastChild?.offsetWidth + listScrollLeft + 8 });

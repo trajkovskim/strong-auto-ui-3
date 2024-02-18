@@ -1,3 +1,4 @@
+import { css } from '@emotion/css';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import Logo from 'assets/logo.png';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
@@ -7,9 +8,11 @@ import Container from 'components/Container';
 import Image from 'components/Image';
 import Line from 'components/Line';
 import ListProductCard from 'components/ListProductCard';
-import Navigation from 'components/Navigation';
 import ProductCard from 'components/ProductCard';
+import Transition, { TransitionHandle } from 'components/Transition';
 import Autocomplete from 'components/form/Autocomplete';
+import MobileNavigation from 'components/navigation/MobileNavigation';
+import Navigation from 'components/navigation/Navigation';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
@@ -23,7 +26,7 @@ import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import Reviews from 'pages/home/Reviews';
 import TowingService from 'pages/home/TowingService';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
-import React from 'react';
+import React, { useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -76,11 +79,17 @@ const FinanceWrapper = styled(Container)`
 
 const SearchContainer = styled(Container)`
   transform: translateY(-50%);
+  /* flex-grow: 1; */
+
+  @media (max-width: ${theme.breakpoints.maxWidth.sm}) {
+    transform: translateY(0);
+  }
 `;
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const popularMakesProducts = products;
+  const transitionRef = useRef<TransitionHandle>(null);
 
   return (
     <div>
@@ -89,25 +98,42 @@ const Home: React.FC = () => {
           <Image src={BMWDriftSoilImage} objectFit="cover" verticalCentered height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" verticalCentered height="100%" />
         </Carousel>
-        <Container
-          relative
-          zIndex={999}
-          direction="row"
-          preserveWhenXs
-          justifyContent="space-between"
-          padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
-          alignItems="center"
+        <Transition
+          style={{ position: 'sticky', top: '0' }}
+          ref={transitionRef}
+          duration="200ms"
+          transition={{
+            final: css`
+              background-color: white;
+              color: black;
+            `,
+          }}
         >
-          <Image
-            onClick={() => navigate(Routes.INDEX)}
-            src={Logo}
-            alt="Strong auto logo"
-            width="170px"
-            height="100%"
-            objectFit="contain"
-          />
-          <Navigation />
-        </Container>
+          <Container
+            relative
+            zIndex={999}
+            direction="row"
+            preserveWhenXs
+            justifyContent="space-between"
+            padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
+            alignItems="center"
+          >
+            <Image
+              onClick={() => navigate(Routes.INDEX)}
+              src={Logo}
+              alt="Strong auto logo"
+              width="170px"
+              height="100%"
+              objectFit="contain"
+            />
+            <Container xs={0} lg="max-content">
+              <Navigation />
+            </Container>
+            <Container xs="max-content" lg={0}>
+              <MobileNavigation onClick={() => transitionRef.current?.toggle()} />
+            </Container>
+          </Container>
+        </Transition>
         <SearchContainer
           centered="vertical"
           gap="2rem"
@@ -120,7 +146,8 @@ const Home: React.FC = () => {
           <Text textAlign="center" fontSize="lg">
             Lookup cars for sale
           </Text>
-          <Container padding="sm">
+          <Container padding="sm" itemsCentered gap="0.5rem">
+            <TabButtonsGroup buttons={[{ label: 'Simple', defaultActive: true }, { label: 'Advanced' }]} />
             <SearchBoxWrapper
               sm={12}
               md={11}

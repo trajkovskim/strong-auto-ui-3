@@ -20,7 +20,7 @@ const StyledCard = styled(Container)<StyledCardProps>`
 
   width: 100%;
 
-  max-width: ${(props) => props.type === 'row' && '100%'} !important;
+  /* max-width: ${(props) => props.type === 'row' && '100%'} !important; */
   max-width: ${(props) => props.fullwidth && '100%'};
 
   border-radius: 15px;
@@ -87,12 +87,12 @@ const Card: React.FC<Props> = (props) => {
 
   return (
     <StyledCard
-      xs={'calc(100% - 16px)'}
-      sm={'calc(100% - 16px)'}
-      md={'calc(50% - 16px)'}
-      lg={'calc(33.33% - 16px)'}
+      xs={isColumn ? 'calc(100% - 16px)' : 'calc(50% - 16px)'}
+      sm={isColumn ? 'calc(100% - 16px)' : 'calc(50% - 16px)'}
+      md={isColumn ? 'calc(50% - 16px)' : 'calc(50% - 16px)'}
+      lg={isColumn ? 'calc(33.33% - 16px)' : 'calc(50% - 16px)'}
       xl={isColumn ? 'calc(25% - 16px)' : 'calc(50% - 16px)'}
-      {...{ '2xl': 'calc(20% - 16px)' }}
+      {...{ '2xl': isColumn ? 'calc(20% - 16px)' : 'calc(50% - 16px)' }}
       direction={props.type}
       preserveWhenXs
       type={props.type}
