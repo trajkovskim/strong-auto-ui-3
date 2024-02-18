@@ -75,7 +75,6 @@ const PopularMakesWrapper = styled(Container)`
 
 const FinanceWrapper = styled(Container)`
   /* color: #fff; */
-  background-color: #eee;
 `;
 
 const SearchContainer = styled(Container)`
@@ -227,32 +226,32 @@ const Home: React.FC = () => {
       <BodyTypes />
 
       <Container padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
-        <Container sm="1400px" centered gap="1rem" padding={{ right: 'md' }}>
-          <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-            <Title title="Explore All Vehicles" fontSize="2xl" bold />
+        <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
+          <Container preserveWhenXs gap="1rem" alignItems="center">
+            <Title centered title="Explore All Vehicles" fontSize="2xl" bold />
             <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
               View all
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Used', defaultActive: true }, { label: 'Featured' }]} />
         </Container>
-        <HorizontalList maxWidth="1400px" centered>
+        <HorizontalList maxWidth="100%" centered>
           {products.map((product) => (
             <ProductCard {...product} ribbon={product.state as any} key={product.id} />
           ))}
         </HorizontalList>
       </Container>
       <PopularMakesWrapper padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
-        <Container sm="1400px" centered gap="1rem" padding={{ right: 'md' }}>
-          <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-            <Title title="Popular Makes" fontSize="2xl" bold />
+        <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
+          <Container preserveWhenXs gap="1rem" alignItems="center">
+            <Title centered title="Popular Makes" fontSize="2xl" bold />
             <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
               View all
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Audi', defaultActive: true }, { label: 'BMW' }, { label: 'Toyota' }]} />
         </Container>
-        <HorizontalList maxWidth="1400px" centered>
+        <HorizontalList maxWidth="100%" centered>
           {popularMakesProducts.map((product) => (
             <ListProductCard {...product} ribbon={product.state as any} key={product.id} />
           ))}
@@ -264,11 +263,11 @@ const Home: React.FC = () => {
         itemsCentered
         padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }}
         gap="2rem"
-        style={{ height: '100vh' }}
+        style={{ minHeight: '100vh' }}
       >
         <Title title="What we have in store for you" fontSize="2xl" />
         <Line />
-        <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }}>
+        <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }} gap="1rem">
           <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
             <FinanceWrapper xs="100px" sm="300px">
               <Text>Promotions</Text>
@@ -285,14 +284,14 @@ const Home: React.FC = () => {
               </Text>
             </FinanceWrapper>
           </Container>
-          <Image
+          {/* <Image
             onClick={() => navigate(Routes.INDEX)}
             src={Logo}
             alt="Strong auto logo"
             width="200px"
             height="100%"
             objectFit="contain"
-          />
+          /> */}
           <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
             <FinanceWrapper xs="100px" sm="300px">
               <Text>Parts center</Text>
@@ -311,17 +310,15 @@ const Home: React.FC = () => {
           </Container>
         </Container>
       </Container>
-      <Container sm="1400px" centered padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }} gap="2rem">
+      {/* <Container sm="1400px" centered padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }} gap="2rem">
         <Title title="Services" fontSize="2xl" />
         <Line />
         <TowingService />
         <Line />
-      </Container>
+      </Container> */}
       <CantFindVehicle />
       <CarLot />
-      <Container padding={{ top: 'lg', bottom: 'lg', left: 'md', right: 'md' }} gap="1rem" centered sm="1400px">
-        <WhyChooseUs />
-      </Container>
+      <WhyChooseUs />
       <LatestBlogPosts />
       <Reviews />
       <FAQ />

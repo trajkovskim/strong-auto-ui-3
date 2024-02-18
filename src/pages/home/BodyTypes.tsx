@@ -68,9 +68,9 @@ const BodyTypes: React.FC = () => {
   const bodyTypes = new Array(12).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
 
   return (
-    <Container sm="1400px" centered gap="1rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
-      <Container direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
-        <Title title="Browse by body type" fontSize="2xl" bold />
+    <Container alignItems="center" gap="1rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
+      <Container gap="1rem" alignItems="center">
+        <Title centered title="Browse by body type" fontSize="2xl" bold />
         <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
           View all
         </Button>
@@ -85,19 +85,7 @@ const BodyTypes: React.FC = () => {
         duration="700ms"
         timingFunction="ease-in-out"
       >
-        <List
-          padding={{ top: 'sm' }}
-          bordered
-          rounded
-          ref={setListRef}
-          xs={2}
-          sm={3}
-          md={4}
-          lg={5}
-          xl={6}
-          {...{ '2xl': 7 }}
-          gap="1rem"
-        >
+        <List padding={{ top: 'sm' }} ref={setListRef} xs={2} sm={3} md={4} lg={5} xl={6} {...{ '2xl': 7 }} gap="1rem">
           {bodyTypes.map((bodyType, index) => (
             <BodyTypeTile key={index} {...bodyType} />
           ))}

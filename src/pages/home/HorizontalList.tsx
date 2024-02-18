@@ -188,7 +188,7 @@ const HorizontalList: React.FC<Props> = (props) => {
       >
         {props.children}
       </HorizontalListChildrenWrapper>
-      <Container preserveWhenXs direction="row" gap="1rem">
+      <Container justifyContent="center" padding={{ right: 'md' }} preserveWhenXs direction="row" gap="1rem">
         <StyledArrowButton icon={<MdArrowBackIos />} themeType="ghost" onClick={onBackButtonClick} />
         <StyledArrowButton icon={<MdArrowForwardIos />} themeType="ghost" onClick={onForwardButtonClick} />
       </Container>

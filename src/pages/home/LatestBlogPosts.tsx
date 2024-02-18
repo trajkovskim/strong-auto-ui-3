@@ -14,19 +14,21 @@ const LatestBlogPosts: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Container padding={{ top: 'xl', bottom: 'lg', left: 'md', right: 'md' }} sm="1400px" gap="1rem" centered>
-      <Container preserveWhenXs direction="row" gap="1rem" alignItems="flex-end" justifyContent="space-between">
+    <Container padding={{ top: 'xl', bottom: 'lg', left: 'md', right: 'md' }} gap="1rem" centered alignItems="center">
+      <Container preserveWhenXs gap="1rem" alignItems="center">
         <Title fontSize="2xl" title="Latest Blog Posts" />
         <Button themeType="link" size="lg" onClick={() => navigate(Routes.BLOG)} iconRight={<BsArrowUpRight />}>
           Goto blog
         </Button>
       </Container>
       <Line />
-      <List justifyContent="space-between" md={2} lg={4} gap="2rem">
-        {blogPosts.map((blogPost) => (
-          <BlogPostCard key={blogPost.id} blogPost={blogPost} />
-        ))}
-      </List>
+      <Container sm="1400px">
+        <List justifyContent="space-between" md={2} lg={4} gap="2rem">
+          {blogPosts.map((blogPost) => (
+            <BlogPostCard key={blogPost.id} blogPost={blogPost} />
+          ))}
+        </List>
+      </Container>
     </Container>
   );
 };

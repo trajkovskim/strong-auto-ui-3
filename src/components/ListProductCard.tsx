@@ -128,7 +128,7 @@ const ListProductCard: React.FC<Props> = (props) => {
 
   const onImageContainer = (
     <StyledOnImageContainer preserveWhenXs>
-      <Button themeType="default" icon={props.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />} size="sm" />
+      <Button themeType="white" icon={props.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />} size="sm" />
     </StyledOnImageContainer>
   );
 
