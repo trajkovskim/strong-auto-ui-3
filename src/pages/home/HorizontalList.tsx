@@ -14,7 +14,7 @@ const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
   max-width: ${(props) => props.maxWidth && `calc(${props.maxWidth} + (100% - ${props.maxWidth}) / 2)`};
 
   @media (max-width: ${(props) => props.maxWidth}) {
-    max-width: ${(props) => props.maxWidth};
+    /* max-width: ${(props) => props.maxWidth}; */
     margin-left: 0;
   }
   /* transform: translateX(-100%); */

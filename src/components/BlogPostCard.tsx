@@ -33,7 +33,7 @@ const BlogPostCard: React.FC<Props> = (props) => {
   const handleReadMore = () => navigate(Routes.BLOG_VIEW_POST.replace(':id', props.blogPost.id.toString()));
 
   return (
-    <StyledContainer sm="300px" gap="1rem">
+    <StyledContainer sm={12} gap="1rem">
       <Image src={ToyotaCamryImage} alt={props.blogPost.title} objectFit="cover" height="200px" />
       <Container gap="0.5rem">
         <Text type="sub" fontSize="sm">

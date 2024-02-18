@@ -22,7 +22,7 @@ const LatestBlogPosts: React.FC = () => {
         </Button>
       </Container>
       <Line />
-      <List justifyContent="space-between" gap="2rem">
+      <List justifyContent="space-between" md={2} lg={4} gap="2rem">
         {blogPosts.map((blogPost) => (
           <BlogPostCard key={blogPost.id} blogPost={blogPost} />
         ))}

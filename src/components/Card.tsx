@@ -87,12 +87,12 @@ const Card: React.FC<Props> = (props) => {
 
   return (
     <StyledCard
-      xs={isColumn ? 'calc(100% - 16px)' : 'calc(50% - 16px)'}
-      sm={isColumn ? 'calc(100% - 16px)' : 'calc(50% - 16px)'}
+      xs={isColumn ? 'calc(100% - 16px)' : 'calc(100% - 16px)'}
+      sm={isColumn ? 'calc(100% - 16px)' : 'calc(100% - 16px)'}
       md={isColumn ? 'calc(50% - 16px)' : 'calc(50% - 16px)'}
       lg={isColumn ? 'calc(33.33% - 16px)' : 'calc(50% - 16px)'}
-      xl={isColumn ? 'calc(25% - 16px)' : 'calc(50% - 16px)'}
-      {...{ '2xl': isColumn ? 'calc(20% - 16px)' : 'calc(50% - 16px)' }}
+      xl={isColumn ? 'calc(25% - 16px)' : 'calc(40% - 16px)'}
+      {...{ '2xl': isColumn ? 'calc(20% - 16px)' : 'calc(40% - 16px)' }}
       direction={props.type}
       preserveWhenXs
       type={props.type}

@@ -1,9 +1,9 @@
 import Icon from 'components/Icon';
-import { textFontSize } from 'components/typography/constants';
+import Text from 'components/typography/Text';
 import React from 'react';
 import { css, styled } from 'styled-components';
 
-type ThemeType = 'link' | 'link-colored' | 'default' | 'ghost' | 'delete' | 'success';
+type ThemeType = 'link' | 'link-colored' | 'default' | 'ghost' | 'delete' | 'success' | 'white';
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
 
 type StyledProps = {
@@ -25,6 +25,19 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#fff',
+    paddin: '0px',
+    'border-radius': '25px',
+    'padding-right': '10px',
+    'padding-left': '10px',
+  },
+  white: {
+    'background-color': '#fff',
+    'background-color-hover': '#fff',
+    'background-color-active': '#fff',
+    'box-shadow-focus': '#046bf257 0 0 0 3px',
+    'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
+    border: '1px solid rgba(27, 31, 35, 0.15);',
+    color: '#000',
     paddin: '0px',
     'border-radius': '25px',
     'padding-right': '10px',
@@ -78,34 +91,28 @@ const themes: Record<ThemeType, Record<string, string>> = {
 
 const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | string>>> = {
   sm: {
-    'font-size': textFontSize.sm,
     'max-width': '80px',
-    height: { default: '38px', ghost: '30px' },
+    height: { default: '38px', white: '38px', ghost: '30px' },
   },
   md: {
-    'font-size': textFontSize.md,
     'max-width': '100px',
-    height: { default: '38px', ghost: '38px' },
+    height: { default: '38px', white: '38px', ghost: '38px' },
   },
   lg: {
-    'font-size': textFontSize.lg,
     'max-width': '120px',
-    height: { default: '45px', ghost: '45px' },
+    height: { default: '45px', white: '45px', ghost: '45px' },
   },
   xl: {
-    'font-size': textFontSize.xl,
     'max-width': '120px',
-    height: { default: '45px', ghost: '45px' },
+    height: { default: '45px', white: '45px', ghost: '45px' },
   },
   '2xl': {
-    'font-size': textFontSize['2xl'],
     'max-width': '120px',
-    height: { default: '50px', ghost: '50px' },
+    height: { default: '50px', white: '50px', ghost: '50px' },
   },
   '3xl': {
-    'font-size': textFontSize['3xl'],
     'max-width': '120px',
-    height: { default: '55px', ghost: '50px' },
+    height: { default: '55px', white: '55px', ghost: '50px' },
   },
 };
 
@@ -147,7 +154,6 @@ const StyledButton = styled.button<StyledProps>`
     max-width: ${(maxContent && !fullwidth) || !sizes[size] ? 'max-content' : sizes[size]['max-width']};
     max-width: ${fullwidth && '100%'};
     height: ${sizes[size] && sizes[size]['height'][themeType]};
-    font-size: ${sizes[size] && sizes[size]['font-size']};
     border: ${themes[themeType]['border']};
 
     &:focus {
@@ -193,8 +199,6 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
   ) => {
     const defaultedProps = { themeType, size, maxContent, centered, fullwidth };
 
-    const iconWidth = textFontSize[iconSize] ? textFontSize[iconSize] : '15px';
-
     return (
       <StyledButton
         ref={ref}
@@ -203,9 +207,9 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         {...props}
         onClick={props.disabled ? undefined : props.onClick}
       >
-        {icon && <Icon disabled={props.disabled} icon={icon} width={iconWidth} />}
-        {children && <span>{children}</span>}
-        {iconRight && <Icon disabled={props.disabled} icon={iconRight} width={iconWidth} />}
+        {icon && <Icon disabled={props.disabled} icon={icon} size={iconSize} />}
+        {children && <Text fontSize={size}>{children}</Text>}
+        {iconRight && <Icon disabled={props.disabled} icon={iconRight} size={iconSize} />}
       </StyledButton>
     );
   }

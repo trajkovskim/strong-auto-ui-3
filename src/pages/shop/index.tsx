@@ -13,6 +13,16 @@ import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
 import { MdGridView, MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
+import styled from 'styled-components';
+
+const ListActionsMobileWrapper = styled(Container)`
+  position: sticky;
+  top: 68px;
+  background-color: inherit;
+  z-index: 99;
+  background-color: white;
+  box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
+`;
 
 const Shop: React.FC = () => {
   const navigate = useNavigate();
@@ -29,10 +39,65 @@ const Shop: React.FC = () => {
     listView === ListView.GRID ? setListView(ListView.LIST) : setListView(ListView.GRID);
   };
 
+  const listActionsComponent = (
+    <Container preserveWhenXs direction="row" alignItems="center" justifyContent="space-between" gap="10px">
+      <Container preserveWhenXs xs={12} md="max-content" alignItems="center" direction="row" gap="0.5rem">
+        <Text>Sort</Text>
+        <Dropdown
+          options={[
+            { value: 'unsorted', label: 'Default' },
+            { value: 'price_asc', label: 'Price (Ascending)' },
+            { value: 'price_desc', label: 'Price (Descending)' },
+            { value: 'popularity_asc', label: 'Newest' },
+            { value: 'popularity_desc', label: 'Oldest' },
+          ]}
+        />
+      </Container>
+      <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
+        <Container xs={'max-content'} gap="0.5rem">
+          <Button
+            maxContent
+            icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
+            size="lg"
+            themeType="link"
+            onClick={toggleListView}
+          >
+            <Container xs={0} sm="max-content">
+              View
+            </Container>
+          </Button>
+        </Container>
+        <Container xs={'max-content'} lg={0}>
+          <Button
+            maxContent
+            onClick={() => sidebarRef.current?.open()}
+            icon={sidebarRef.current?.isOpen ? <HiFilter /> : <HiOutlineFilter />}
+            themeType="link"
+            size="lg"
+          >
+            <Container xs={0} sm="max-content">
+              Filters
+            </Container>
+          </Button>
+        </Container>
+      </Container>
+    </Container>
+  );
+
+  const breadCrumb = <Text fontSize="sm">Home {'>'} Shop</Text>;
+
   return (
     <Container>
+      <ListActionsMobileWrapper padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} xs={12} lg={0}>
+        {breadCrumb}
+        {listActionsComponent}
+      </ListActionsMobileWrapper>
+
+      <Container xs={0} lg={12} padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }}>
+        {breadCrumb}
+      </Container>
+
       <Container padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} gap="1rem">
-        <Text fontSize="sm">Home {'>'} Shop</Text>
         <Sidebar ref={sidebarRef}>
           <Filters />
         </Sidebar>
@@ -41,57 +106,22 @@ const Shop: React.FC = () => {
             <Filters />
           </Container>
           <Container sm={12} lg={8.8} xl={9.5} {...{ '2xl': 10 }} gap="1rem">
+            <Container xs={0} lg={12}>
+              {listActionsComponent}
+            </Container>
             <Container direction="column" justifyContent="space-between">
               <Text type="sub" fontSize="sm">
                 Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
               </Text>
-              <Container
-                sm={12}
-                preserveWhenXs
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-                gap="10px"
-              >
-                <Container preserveWhenXs xs={12} md="max-content" alignItems="center" direction="row">
-                  <Text>Sort</Text>
-                  <Dropdown
-                    options={[
-                      { value: 'unsorted', label: 'Default' },
-                      { value: 'price_asc', label: 'Price (Ascending)' },
-                      { value: 'price_desc', label: 'Price (Descending)' },
-                      { value: 'popularity_asc', label: 'Newest' },
-                      { value: 'popularity_desc', label: 'Oldest' },
-                    ]}
-                  />
-                </Container>
-                <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
-                  <Container xs={'max-content'} gap="0.5rem">
-                    <Button
-                      maxContent
-                      icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
-                      size="lg"
-                      themeType="link"
-                      onClick={toggleListView}
-                    >
-                      View
-                    </Button>
-                  </Container>
-                  <Container xs={'max-content'} lg={0}>
-                    <Button
-                      maxContent
-                      onClick={() => sidebarRef.current?.open()}
-                      icon={sidebarRef.current?.isOpen ? <HiFilter /> : <HiOutlineFilter />}
-                      themeType="link"
-                      size="lg"
-                    >
-                      Filters
-                    </Button>
-                  </Container>
-                </Container>
-              </Container>
             </Container>
-            <List gap="1rem" view={listView}>
+            <List
+              gap="1rem"
+              xs={1}
+              md={listView === ListView.GRID ? 2 : 1}
+              xl={listView === ListView.GRID ? 3 : 1}
+              {...{ '2xl': listView === ListView.GRID ? 4 : 1 }}
+              view={listView}
+            >
               {mappedProducts.map((product) =>
                 listView === ListView.LIST ? (
                   <ListProductCard

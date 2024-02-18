@@ -1,11 +1,17 @@
+import { textFontSize, textFontSizeMobile, textFontSizeTablet } from 'components/typography/constants';
+import { FontSize } from 'components/typography/types';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { createMedia } from 'utils';
+
+type Size = FontSize;
 
 type IconWrapperProps = {
   width?: string;
   height?: string;
   badge?: string;
   disabled?: boolean;
+  size?: Size;
 };
 
 const IconWrapper = styled.span<IconWrapperProps>`
@@ -22,8 +28,26 @@ const IconWrapper = styled.span<IconWrapperProps>`
     margin: auto;
     color: ${(props) => props.disabled && '#dcdcdc'};
 
-    width: ${(props) => props.width ?? '100%'};
     height: ${(props) => props.height ?? '100%'};
+
+    width: ${(props) => !props.size && (props.width ? props.width : '100%')};
+    width: ${(props) => props.size && textFontSize[props.size]};
+
+    ${(props) =>
+      createMedia(
+        'sm',
+        css`
+          width: ${props.size && textFontSizeMobile[props.size]};
+        `
+      )}
+
+    ${(props) =>
+      createMedia(
+        'md',
+        css`
+          width: ${props.size && textFontSizeTablet[props.size]};
+        `
+      )}
   }
 `;
 

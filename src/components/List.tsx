@@ -1,7 +1,8 @@
+import { Breakpoints, Sides } from 'components/Container';
 import React from 'react';
-import styled from 'styled-components';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from 'theme';
+import { createMedia } from 'utils';
 
 export enum ListView {
   GRID = 'grid',
@@ -13,6 +14,30 @@ type StyledListProps = {
   justifyContent?: React.CSSProperties['justifyContent'];
   view?: ListView;
   childrenCount: number;
+  xs?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  '2xl'?: number;
+  elementWidth?: string;
+  bordered?: boolean;
+  rounded?: boolean;
+  margin?: Breakpoints | Sides;
+  padding?: Breakpoints | Sides;
+};
+
+const createMediaQ = (props: StyledListProps, ...[breakpoint, csss]: Parameters<typeof createMedia>) => {
+  const rowSize = props[breakpoint] ?? 1;
+
+  return createMedia(
+    breakpoint,
+    css`
+      grid-template:
+        auto / repeat(${rowSize > props.childrenCount ? props.childrenCount : rowSize}, ${props.elementWidth})
+        ${csss};
+    `
+  );
 };
 
 const StyledList = styled.div<StyledListProps>`
@@ -23,34 +48,56 @@ const StyledList = styled.div<StyledListProps>`
   grid-template: auto / ${(props) =>
       props.view === ListView.LIST ? 'auto' : `repeat(${props.childrenCount > 5 ? 5 : props.childrenCount}, auto)`};
 
+  padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>
-    props.view === ListView.GRID &&
+    typeof props.padding === 'object' &&
     css`
-      @media (max-width: ${theme.breakpoints.maxWidth['2xl']}) {
-        grid-template: auto / repeat(${props.childrenCount > 3 ? 3 : props.childrenCount}, auto);
-      }
-
-      @media (max-width: ${theme.breakpoints.maxWidth.lg}) {
-        grid-template: auto / repeat(${props.childrenCount > 2 ? 2 : props.childrenCount}, auto);
-      }
-
-      @media (max-width: ${theme.breakpoints.maxWidth.sm}) {
-        grid-template: auto / repeat(1, auto);
-      }
+      padding-top: ${props.padding.top && theme.padding[props.padding.top]};
+      padding-bottom: ${props.padding.bottom && theme.padding[props.padding.bottom]};
+      padding-left: ${props.padding.left && theme.padding[props.padding.left]};
+      padding-right: ${props.padding.right && theme.padding[props.padding.right]};
     `}
+
+  margin: ${(props) => typeof props.margin === 'string' && theme.padding[props.margin]};
+  ${(props) =>
+    typeof props.margin == 'object' &&
+    css`
+      margin-top: ${props.margin.top && theme.padding[props.margin.top]};
+      margin-bottom: ${props.margin.bottom && theme.padding[props.margin.bottom]};
+      margin-left: ${props.margin.left && theme.padding[props.margin.left]};
+      margin-right: ${props.margin.right && theme.padding[props.margin.right]};
+    `}
+
+  border: ${(props) => props.bordered && '1px solid #eee'};
+  border-radius: ${(props) => props.rounded && '25px'};
+
+  ${(props) => createMediaQ(props, 'xs')}
+  ${(props) => createMediaQ(props, 'sm')}
+  ${(props) => createMediaQ(props, 'md')}
+  ${(props) => createMediaQ(props, 'lg')}
+  ${(props) => createMediaQ(props, 'xl')}
+  ${(props) => createMediaQ(props, '2xl')}
 `;
 
 type Props = React.PropsWithChildren & Omit<StyledListProps, 'childrenCount'> & React.ComponentProps<'div'>;
 
-const List = React.forwardRef<HTMLDivElement, Props>(({ gap, view = ListView.GRID, ...props }, ref) => {
-  const childrenCount = React.Children.count(props.children);
+const List = React.forwardRef<HTMLDivElement, Props>(
+  ({ gap, view = ListView.GRID, elementWidth = 'auto', ...props }, ref) => {
+    props.sm = props.sm ?? props.xs;
+    props.md = props.md ?? props.sm;
+    props.lg = props.lg ?? props.md;
+    props.xl = props.xl ?? props.lg;
+    props['2xl'] = props['2xl'] ?? props.xl;
 
-  return (
-    <StyledList view={view} childrenCount={childrenCount} gap={gap} ref={ref} {...props}>
-      {props.children}
-    </StyledList>
-  );
-});
+    const childrenCount = React.Children.count(props.children);
+
+    return (
+      <StyledList view={view} childrenCount={childrenCount} elementWidth={elementWidth} gap={gap} ref={ref} {...props}>
+        {props.children}
+      </StyledList>
+    );
+  }
+);
 
 List.displayName = 'List';
 

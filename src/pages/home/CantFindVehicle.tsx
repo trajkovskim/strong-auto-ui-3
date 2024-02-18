@@ -25,10 +25,17 @@ const Container2 = styled(Container)`
 
 const CantFindVehicle: React.FC = () => {
   return (
-    <CantFindVehicleContainer direction="row" alignItems="center" justifyContent="flex-end" relative>
+    <CantFindVehicleContainer preserveWhenXs direction="row" alignItems="center" justifyContent="flex-end" relative>
       {/* <StyledImage2 src={CarSideViewToLeftImage} objectFit="cover" width="600px" /> */}
-      <Container padding={{ top: 'lg', bottom: 'lg', right: 'md' }} gap="2rem" sm="1400px" centered alignItems="center">
-        <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="600px" />
+      <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="600px" />
+      <Container
+        preserveWhenXs
+        padding={{ top: 'lg', bottom: 'lg', right: 'md' }}
+        gap="2rem"
+        sm="1400px"
+        centered
+        alignItems="center"
+      >
         <Container2 itemsCentered gap="2rem">
           <Title
             centered

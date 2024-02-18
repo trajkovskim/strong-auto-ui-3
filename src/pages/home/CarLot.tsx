@@ -37,6 +37,7 @@ const CarLot: React.FC = () => {
   return (
     <CarLotWrapper>
       <Container
+        preserveWhenXs
         sm="1400px"
         centered
         itemsCentered

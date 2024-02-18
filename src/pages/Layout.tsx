@@ -54,7 +54,7 @@ const Layout: React.FC = () => {
           <Container xs={0} lg="max-content">
             <Navigation />
           </Container>
-          <Container xs="max-content" lg={0}>
+          <Container preserveWhenXs xs="max-content" lg={0}>
             <MobileNavigation onClick={() => transitionRef.current?.toggle()} />
           </Container>
         </StyledContainer>

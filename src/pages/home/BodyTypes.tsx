@@ -5,10 +5,10 @@ import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
-import Transition, { TransitionHandle } from 'components/Transition';
+import Transition, { TransitionHandle, ComponentState } from 'components/Transition';
 import Title from 'components/typography/Title';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
 
@@ -17,20 +17,21 @@ const BodyTypes: React.FC = () => {
   const [listRef, setListRef] = useState<HTMLDivElement | null>(null);
   const [finalMaxHeight, setFinalMaxHeight] = useState<number>(200);
   const [initialMaxHeight, setInitialMaxHeight] = useState<number>(200);
+  const [state, setState] = useState<ComponentState>();
 
   useEffect(() => {
     if (!listRef) {
       return;
     }
 
-    const resizeObserver = new ResizeObserver(() => {
+    const resizeObserver = new ResizeObserver(([listRefEntry]: ResizeObserverEntry[]) => {
       if (transitionRef.current?.isRunning()) {
         return;
       }
 
-      setFinalMaxHeight(listRef.scrollHeight);
+      setFinalMaxHeight((prev) => Math.max(listRefEntry.target.scrollHeight, prev));
 
-      const firstChild = listRef.firstElementChild as HTMLElement | undefined;
+      const firstChild = listRefEntry.target.firstElementChild as HTMLElement | undefined;
       if (firstChild) {
         const styles = window.getComputedStyle(listRef);
         const gap = parseInt(styles.gap);
@@ -45,16 +46,23 @@ const BodyTypes: React.FC = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, [listRef]);
+  }, [finalMaxHeight, initialMaxHeight, listRef]);
 
-  const transition = {
-    initial: css`
-      overflow-y: hidden;
-      max-height: ${initialMaxHeight}px;
-    `,
-    final: css`
-      max-height: ${finalMaxHeight}px;
-    `,
+  const transition = useMemo(() => {
+    return {
+      initial: css`
+        overflow-y: hidden;
+        max-height: ${initialMaxHeight}px;
+      `,
+      final: css`
+        max-height: ${finalMaxHeight}px !important;
+      `,
+    };
+  }, [finalMaxHeight, initialMaxHeight]);
+
+  const handleShowMore = () => {
+    setFinalMaxHeight((prev) => Math.max(listRef?.scrollHeight as number, prev));
+    transitionRef.current?.toggle();
   };
 
   const bodyTypes = new Array(12).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
@@ -68,16 +76,36 @@ const BodyTypes: React.FC = () => {
         </Button>
       </Container>
       <Line />
-      <Transition ref={transitionRef} transition={transition} duration="700ms" timingFunction="ease-in-out">
-        <List ref={setListRef} gap="1rem">
+      <Transition
+        ref={transitionRef}
+        onTransitionEnd={() => {
+          setState(transitionRef.current?.componentState);
+        }}
+        transition={transition}
+        duration="700ms"
+        timingFunction="ease-in-out"
+      >
+        <List
+          padding={{ top: 'sm' }}
+          bordered
+          rounded
+          ref={setListRef}
+          xs={2}
+          sm={3}
+          md={4}
+          lg={5}
+          xl={6}
+          {...{ '2xl': 7 }}
+          gap="1rem"
+        >
           {bodyTypes.map((bodyType, index) => (
             <BodyTypeTile key={index} {...bodyType} />
           ))}
         </List>
       </Transition>
-      <Container centered>
-        <Button textAlign="center" maxContent themeType="link" onClick={() => transitionRef.current?.toggle()}>
-          <div>Show more</div>
+      <Container centered alignItems="center">
+        <Button textAlign="center" maxContent themeType="link" onClick={handleShowMore}>
+          {state !== ComponentState.INITIAL ? <div>Hide</div> : <div>Show more</div>}
           <Icon icon={<MdKeyboardDoubleArrowDown />} width="25px" />
         </Button>
       </Container>

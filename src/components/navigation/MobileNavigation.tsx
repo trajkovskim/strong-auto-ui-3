@@ -2,22 +2,10 @@ import { css } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import { StyledButton, StyledNavigationWrapper } from 'components/navigation/Navigation.styled';
+import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'components/navigation/Navigation.styled';
 import useNavigationOptions from 'components/navigation/useNavigationOptions';
 import React, { useRef } from 'react';
 import { BsMenuButton } from 'react-icons/bs';
-import { styled } from 'styled-components';
-
-const MobileContainer = styled(Container)`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  transform: translateY(100%);
-  color: black;
-  background: white;
-  z-index: 999;
-`;
 
 type Props = {
   onClick?: () => void;

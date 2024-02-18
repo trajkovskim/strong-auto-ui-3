@@ -21,18 +21,19 @@ const SearchContainer = styled(Container)`
   border-radius: 35px;
 `;
 
-const BlogWrapper = styled(Container)`
-  background-color: #232323;
-`;
-
 const TitleWrapper = styled(Container)`
-  color: white;
+  /* color: white; */
 `;
 
 const ContentContainer = styled(Container)`
   background-color: #fff;
   border-top-left-radius: 35px;
   border-top-right-radius: 35px;
+`;
+
+const SidebarWrapper = styled(Container)`
+  position: sticky;
+  top: 100px;
 `;
 
 const Blog: React.FC = () => {
@@ -43,57 +44,60 @@ const Blog: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number>(8);
 
   return (
-    <BlogWrapper>
-      <SearchContainerWrapper padding={{ top: 'xl', bottom: 'xl' }}>
+    <Container>
+      <SearchContainerWrapper padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}>
         <SearchContainer sm="1500px" centered padding="sm" itemsCentered gap="1rem" direction="row">
-          <Autocomplete options={[]} fullwidth placeholder="Search" size="lg" noBorder />
-          <Button>Search</Button>
+          <Autocomplete options={[]} fullwidth placeholder="Search blog" size="lg" noBorder />
+          <Button size="lg">Search</Button>
         </SearchContainer>
+      </SearchContainerWrapper>
+      <ContentContainer
+        sm="1500px"
+        direction="row"
+        wrap
+        centered
+        padding={{ bottom: 'xl', left: 'md', right: 'md' }}
+        gap="1rem"
+      >
         <TitleWrapper sm="1500px" centered>
           <Container padding={{ top: 'lg' }}>
             <Text fontSize="sm">Home {'>'} Blog</Text>
             <Title title="Blog" fontSize="2xl" />
           </Container>
         </TitleWrapper>
-      </SearchContainerWrapper>
-      <ContentContainer>
-        <Container sm="1500px" centered padding={{ bottom: 'xl', top: 'xl' }} gap="0.3rem">
-          <Container direction="row" gap="2rem">
-            <Container sm={10.5} gap="1rem">
-              <List justifyContent="space-between" gap="2rem">
-                {blogPosts.map((blogPost) => (
-                  <BlogPostCard key={blogPost.id} blogPost={blogPost} />
-                ))}
-              </List>
-              {page === totalPages && (
-                <Container centered>
-                  <Text fontSize="sm" type="sub">
-                    All results displayed
-                  </Text>
-                </Container>
-              )}
+        <Container sm={12} lg={9} xl={9.8} gap="1rem">
+          <List sm={2} lg={3} xl={4} justifyContent="space-between" gap="1rem">
+            {blogPosts.map((blogPost) => (
+              <BlogPostCard key={blogPost.id} blogPost={blogPost} />
+            ))}
+          </List>
+          {page === totalPages && (
+            <Container centered>
+              <Text fontSize="sm" type="sub">
+                All results displayed
+              </Text>
             </Container>
-            <Container sm={2} gap="1rem">
-              <Text fontSize="xl">Previous posts</Text>
-              {blogPosts.map((blogPost) => (
-                <Container key={blogPost.id} gap="1rem">
-                  <Button
-                    themeType="link"
-                    onClick={() => navigate(Routes.BLOG_VIEW_POST.replace(':id', blogPost.id.toString()))}
-                    maxContent
-                    size="lg"
-                  >
-                    {blogPost.title}
-                    <Text fontSize="sm">{blogPost.summary.slice(0, 90)}... </Text>
-                  </Button>
-                  <Line />
-                </Container>
-              ))}
-            </Container>
-          </Container>
+          )}
         </Container>
+        <SidebarWrapper sm={12} lg={3} xl={2.2} gap="1rem">
+          <Text fontSize="xl">Previous posts</Text>
+          {blogPosts.map((blogPost) => (
+            <Container key={blogPost.id} gap="1rem">
+              <Button
+                themeType="link"
+                onClick={() => navigate(Routes.BLOG_VIEW_POST.replace(':id', blogPost.id.toString()))}
+                maxContent
+                size="lg"
+              >
+                {blogPost.title}
+                <Text fontSize="sm">{blogPost.summary.slice(0, 90)}... </Text>
+              </Button>
+              <Line />
+            </Container>
+          ))}
+        </SidebarWrapper>
       </ContentContainer>
-    </BlogWrapper>
+    </Container>
   );
 };
 

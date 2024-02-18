@@ -41,8 +41,9 @@ const Footer: React.FC = () => {
     <StyledFooter>
       <Container centered sm="1200px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
         <Container direction="row" wrap justifyContent="space-between" alignItems="center" gap="1rem">
-          <Container sm={12} md="max-content">
+          <Container sm={12} preserveWhenXs centered md="max-content">
             <Title
+              centered
               title="Join our newletter"
               fontSize="md"
               description="Receive pricing updates, shopping tips & more!"
@@ -50,6 +51,7 @@ const Footer: React.FC = () => {
           </Container>
           <StyledNewsLetterFormContainer
             sm={12}
+            centered
             md="max-content"
             preserveWhenXs
             padding="xs"
@@ -62,19 +64,19 @@ const Footer: React.FC = () => {
           </StyledNewsLetterFormContainer>
         </Container>
         <Line />
-        <Container gap="3rem" direction="row">
-          <Container sm={3.5} gap="2rem">
+        <Container gap="3rem" wrap direction="row">
+          <Container sm={12} lg={3.5} gap="2rem" itemsCentered>
             <Image alt="Logo" shadow objectFit="contain" width="200px" src={Logo} />
             <Text>
               Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto
               is a auto is a Strong auto is a
             </Text>
           </Container>
-          <Container sm={3} gap="2rem">
+          <Container sm={4} lg={3} gap="2rem">
             <Text type="sub" bold fontSize="sm">
               Find us
             </Text>
-            <Text>
+            <Text fontSize="md">
               27 Rainbow Rd
               <br />
               Los Angeles, CA
@@ -87,7 +89,7 @@ const Footer: React.FC = () => {
                 maxContent
                 icon={<FaFacebook />}
                 size="lg"
-                iconSize="3xl"
+                iconSize="xl"
                 onClick={() => goto('https://www.facebook.com')}
               />
               <Button
@@ -95,7 +97,7 @@ const Footer: React.FC = () => {
                 maxContent
                 icon={<FaInstagram />}
                 size="lg"
-                iconSize="3xl"
+                iconSize="xl"
                 onClick={() => goto('https://www.facebook.com')}
               />
               <Button
@@ -103,7 +105,7 @@ const Footer: React.FC = () => {
                 maxContent
                 icon={<FaTelegram />}
                 size="lg"
-                iconSize="3xl"
+                iconSize="xl"
                 onClick={() => goto('https://www.facebook.com')}
               />
               <Button
@@ -111,12 +113,12 @@ const Footer: React.FC = () => {
                 maxContent
                 icon={<FaLinkedin />}
                 size="lg"
-                iconSize="3xl"
+                iconSize="xl"
                 onClick={() => goto('https://www.facebook.com')}
               />
             </SocialMedias>
           </Container>
-          <Container sm={3} gap="2rem">
+          <Container sm={4} lg={3} gap="2rem">
             <Text type="sub" bold fontSize="sm">
               Contacts
             </Text>
@@ -131,7 +133,7 @@ const Footer: React.FC = () => {
               vane.stamenov@gmail.com
             </Button>
           </Container>
-          <Container sm={2.5} gap="2rem">
+          <Container sm={4} lg={2.5} gap="2rem">
             <Text>Useful links:</Text>
             <Container gap="0.5rem">
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.INDEX)}>

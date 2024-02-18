@@ -41,7 +41,7 @@ const Review: React.FC<ReviewProps> = (props) => {
   );
 
   return (
-    <Container key={props.review.id} gap="1rem" xs={10} md={8} centered alignSelf="center">
+    <Container key={props.review.id} gap="1rem" preserveWhenXs xs={9.8} md={8} centered alignSelf="center">
       <Container preserveWhenXs direction="row" gap="1rem" alignItems="center">
         <AvatarImage src={PoweredByGoogleImage} objectFit="contain" width="50px" height="50px" alt="avatar" />
         <Container gap="0.2rem">

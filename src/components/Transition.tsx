@@ -170,7 +170,6 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
           ...props,
           ...child.props,
           className,
-          key: `transition-${index}`,
           onTransitionEnd: (event?: React.TransitionEvent<unknown>) => {
             dispatch(finishAction());
             onTransitionEnd && onTransitionEnd(event);

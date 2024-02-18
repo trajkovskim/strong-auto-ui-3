@@ -74,7 +74,7 @@ const AboutUs: React.FC = () => {
         </Container>
       </Container>
       <Line />
-      <List justifyContent="center" gap="1rem">
+      <List xs={2} md={4} justifyContent="center" gap="1rem">
         <Container padding="md" rounded>
           <Text fontSize="2xl" bold>
             10+

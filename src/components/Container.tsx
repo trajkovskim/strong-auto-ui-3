@@ -4,7 +4,7 @@ import theme from 'theme';
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-type Sides = {
+export type Sides = {
   top?: Breakpoints;
   bottom?: Breakpoints;
   left?: Breakpoints;

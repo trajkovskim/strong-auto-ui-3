@@ -16,6 +16,7 @@ import Line from 'components/Line';
 import List from 'components/List';
 import ProductCard from 'components/ProductCard';
 import HorizontalList from 'pages/home/HorizontalList';
+import SimpleTable from 'pages/home/SimpleTable';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
 import { FaCar } from 'react-icons/fa';
@@ -25,10 +26,7 @@ import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
 import { Routes } from 'routes';
 import { call, formatNumber, mailTo } from 'utils';
 
-const StyledContainer = styled(Container)`
-  position: sticky;
-  top: 0;
-`;
+const StyledContainer = styled(Container)``;
 
 const StyledButton = styled(Button)`
   border-radius: 15px;
@@ -79,6 +77,14 @@ const ViewDetails: React.FC = () => {
       }
     });
 
+  const createTextIcon = (icon: React.ReactNode, text: string) => {
+    return (
+      <Text fontSize="lg">
+        {icon} {text}
+      </Text>
+    );
+  };
+
   return (
     <Container padding={{ left: 'md', right: 'md', bottom: 'md', top: 'md' }}>
       <Container>
@@ -114,8 +120,8 @@ const ViewDetails: React.FC = () => {
             </Container>
           </Container>
 
-          <Container direction="row" wrap gap="3rem" alignItems="flex-start" justifyContent="space-between">
-            <Container sm={8.5} gap="1rem">
+          <Container direction="row" wrap gap="1rem" alignItems="flex-start" justifyContent="space-between">
+            <Container sm={12} md={8} gap="1rem">
               <CarouselWrapper>
                 <Carousel minHeight="500px" maxHeight="500px">
                   <Image src={product?.imageSrc} height={'500px'} objectFit="cover" />
@@ -126,93 +132,56 @@ const ViewDetails: React.FC = () => {
               <Text fontSize="md">{product.description}</Text>
               <Text fontSize="2xl">Car overview</Text>
               <Container direction="row" gap="1rem" wrap>
-                <Container sm={6}>
-                  <table>
-                    <tr>
-                      <td>
-                        <FaCar /> Body
-                      </td>
-                      <td>{product.bodyType}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <SlSpeedometer /> Mileage
-                      </td>
-                      <td>{formatNumber(product.km)}km</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <BsFuelPump /> Fuel type
-                      </td>
-                      <td>{product.fuelType}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <BiCalendar /> Year
-                      </td>
-                      <td>{product.year}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <TbManualGearbox /> Transmission
-                      </td>
-                      <td>{product.year}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <GiSteeringWheel /> Drive type
-                      </td>
-                      <td>{product.driveType}</td>
-                    </tr>
-                  </table>
+                <Container sm={12} lg={6}>
+                  <SimpleTable
+                    rowGap="1rem"
+                    gap="0.5rem"
+                    cellWidth="50%"
+                    data={[
+                      [createTextIcon(<FaCar />, 'Body'), product.bodyType],
+                      [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
+                      [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
+                      [createTextIcon(<BiCalendar />, 'Year'), product.year],
+                      [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
+                      [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
+                    ]}
+                  />
                 </Container>
-                <Container sm={6}>
-                  <table>
-                    <tr>
-                      <td>
-                        <FaCar /> Condition
-                      </td>
-                      <td>{product.condition}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <TbEngine /> Engine size
-                      </td>
-                      <td>{formatNumber(product.km)}km</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <TbDoor /> Door
-                      </td>
-                      <td>{product.fuelType}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <BiColorFill /> Color
-                      </td>
-                      <td>{product.color}</td>
-                    </tr>
-                  </table>
+                <Container sm={12} lg={6}>
+                  <SimpleTable
+                    rowGap="1rem"
+                    gap="0.5rem"
+                    cellWidth="50%"
+                    data={[
+                      [createTextIcon(<FaCar />, 'Condition'), product.condition],
+                      [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
+                      [createTextIcon(<TbDoor />, 'Door'), product.doors],
+                      [createTextIcon(<BiColorFill />, 'Color'), product.color],
+                    ]}
+                  />
                 </Container>
               </Container>
               <Line />
               <Container gap="1rem">
                 <Text fontSize="2xl">Features</Text>
-                <List gap="1rem" justifyContent="space-between">
+                <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
                   {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
-                    <Container key={featureTitleKey} gap="0.5rem">
-                      <Text fontSize="xl">{featureTitleKey}</Text>
-                      {featureValueKeys.map((valueKey) => (
-                        <Text key={valueKey} fontSize="md">
-                          <Icon icon={<BiCheckCircle />} width="15px" /> {valueKey}
-                        </Text>
-                      ))}
+                    <Container sm={12} preserveWhenXs key={featureTitleKey} alignItems="flex-start" gap="0.5rem">
+                      <Container direction="column" gap="0.3rem">
+                        <Text fontSize="xl">{featureTitleKey}</Text>
+                        {featureValueKeys.map((valueKey) => (
+                          <div key={valueKey}>
+                            <Icon icon={<BiCheckCircle />} size="md" />
+                            <Text fontSize="md">{valueKey}</Text>
+                          </div>
+                        ))}
+                      </Container>
                     </Container>
                   ))}
                 </List>
               </Container>
             </Container>
-            <Container sm={3.5} gap="1rem">
+            <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="1rem">
               <StyledContainer rounded padding="md" gap="1rem" bordered>
                 <Container gap="0.3rem">
                   <Text fontSize="lg">Our offer:</Text>

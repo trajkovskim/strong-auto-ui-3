@@ -75,6 +75,7 @@ const PopularMakesWrapper = styled(Container)`
 
 const FinanceWrapper = styled(Container)`
   /* color: #fff; */
+  background-color: #eee;
 `;
 
 const SearchContainer = styled(Container)`
@@ -99,7 +100,6 @@ const Home: React.FC = () => {
           <Image src={MasserattiMountainsImage} objectFit="cover" verticalCentered height="100%" />
         </Carousel>
         <Transition
-          style={{ position: 'sticky', top: '0' }}
           ref={transitionRef}
           duration="200ms"
           transition={{
@@ -129,7 +129,7 @@ const Home: React.FC = () => {
             <Container xs={0} lg="max-content">
               <Navigation />
             </Container>
-            <Container xs="max-content" lg={0}>
+            <Container xs="max-content" lg={0} preserveWhenXs>
               <MobileNavigation onClick={() => transitionRef.current?.toggle()} />
             </Container>
           </Container>
@@ -148,6 +148,33 @@ const Home: React.FC = () => {
           </Text>
           <Container padding="sm" itemsCentered gap="0.5rem">
             <TabButtonsGroup buttons={[{ label: 'Simple', defaultActive: true }, { label: 'Advanced' }]} />
+            <SearchBoxWrapper
+              sm={12}
+              md={11}
+              lg={10}
+              direction="row"
+              xl="700px"
+              centered
+              gap="1rem"
+              alignItems="center"
+              padding="sm"
+            >
+              <Container sm={12} md={9}>
+                <Autocomplete
+                  noBorder
+                  placeholder="Search cars"
+                  fullwidth
+                  label="Search"
+                  size="md"
+                  options={[{ value: 'audi' }]}
+                />
+              </Container>
+              <Container sm={12} md={3} lg="max-content" justifySelf="flex-end">
+                <StyledSearchButton fullwidth maxContent size="lg" icon={<BiSearch />}>
+                  Search cars
+                </StyledSearchButton>
+              </Container>
+            </SearchBoxWrapper>
             <SearchBoxWrapper
               sm={12}
               md={11}
@@ -237,6 +264,7 @@ const Home: React.FC = () => {
         itemsCentered
         padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }}
         gap="2rem"
+        style={{ height: '100vh' }}
       >
         <Title title="What we have in store for you" fontSize="2xl" />
         <Line />

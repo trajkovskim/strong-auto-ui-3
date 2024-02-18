@@ -1,4 +1,6 @@
 import { css } from '@emotion/css';
+import Button from 'components/Button';
+import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
 import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -12,6 +14,10 @@ const StyledSidebar = styled.div`
   background-color: white;
   max-width: 270px;
   top: 0;
+  z-index: 9999;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 type Props = React.PropsWithChildren & {
@@ -79,9 +85,9 @@ const Sidebar = React.forwardRef<SidebarHandle, Props>((props, ref) => {
       }}
     >
       <StyledSidebar ref={setContainerRef}>
-        <div onClick={close}>
-          <MdClear />
-        </div>
+        <Container alignItems="flex-end">
+          <Button themeType="white" fullwidth size="md" icon={<MdClear />} onClick={close} />
+        </Container>
         <div>{props.children}</div>
       </StyledSidebar>
     </Transition>,

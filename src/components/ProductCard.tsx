@@ -5,7 +5,7 @@ import Icon from 'components/Icon';
 import Line from 'components/Line';
 import Text from 'components/typography/Text';
 import React from 'react';
-import { BsArrowUpRight, BsBookmark, BsFillBookmarkFill, BsSpeedometer } from 'react-icons/bs';
+import { BsArrowUpRight, BsBookmark, BsBookmarkCheckFill, BsFillBookmarkFill, BsSpeedometer } from 'react-icons/bs';
 import styled from 'styled-components';
 import { formatNumber } from 'utils';
 
@@ -126,7 +126,7 @@ const ProductCard: React.FC<Props> = (props) => {
 
   const onImageContainer = (
     <StyledOnImageContainer preserveWhenXs>
-      <Button themeType="default" icon={props.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />} size="sm" />
+      <Button themeType="white" icon={props.bookmarked ? <BsBookmarkCheckFill /> : <BsBookmark />} size="sm" />
     </StyledOnImageContainer>
   );
 

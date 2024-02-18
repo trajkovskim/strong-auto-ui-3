@@ -101,7 +101,7 @@ export const products = [
       'interior:digitalOdometer',
       'interior:heater',
       'interior:leatherSeats',
-      'interior:panoramicMoonroof',
+      'interior:panoramicMoonroof panoramicMoonroof panoramicMoonroof',
       'interior:tachometer',
       'safety:anti-lock Braking',
       'safety:brake Assist',

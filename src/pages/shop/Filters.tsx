@@ -26,9 +26,18 @@ const Filters: React.FC = () => {
 
   return (
     <Container gap="1rem">
-      <FiltersWrapper bordered rounded justifyContent="space-between" direction="row" padding="md">
+      <FiltersWrapper
+        style={{ position: 'sticky', top: '0' }}
+        bordered
+        rounded
+        justifyContent="space-between"
+        preserveWhenXs
+        direction="row"
+        padding="md"
+        zIndex={4}
+      >
         Filtering
-        <Container gap="0.5rem" direction="row">
+        <Container gap="0.5rem" direction="row" preserveWhenXs>
           <Button size="lg" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
             size="lg"
