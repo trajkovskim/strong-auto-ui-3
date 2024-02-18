@@ -10,7 +10,6 @@ const StyledLayout = styled.div`
   height: 100%;
   background-color: white;
   /* overflow-x: hidden; */
-  position: relative;
 `;
 
 const BackToTopButton = styled(Button)`

@@ -14,10 +14,6 @@ const AvatarImage = styled(Image)`
   border-radius: 50%;
 `;
 
-const CarouselWrapper = styled(Container)`
-  color: black !important;
-`;
-
 type ReviewProps = {
   review: (typeof reviews)[number];
 };
@@ -66,13 +62,13 @@ const Reviews: React.FC = () => {
     <Container sm="1400px" gap="2rem" centered padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
       <Line />
       <Image src={PoweredByGoogleImage} height="20px" objectFit="contain" />
-      <CarouselWrapper>
+      <Container>
         <Carousel minHeight="200px">
           {reviews.map((review) => {
             return <Review key={review.id} review={review} />;
           })}
         </Carousel>
-      </CarouselWrapper>
+      </Container>
       <Line />
     </Container>
   );

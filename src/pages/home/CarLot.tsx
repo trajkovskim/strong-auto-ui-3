@@ -42,7 +42,7 @@ const CarLot: React.FC = () => {
         centered
         itemsCentered
         gap="1rem"
-        padding={{ top: 'xl', bottom: 'xl', left: 'sm', right: 'sm' }}
+        padding={{ top: '2xl', bottom: '2xl', left: 'sm', right: 'sm' }}
       >
         <Title
           centered

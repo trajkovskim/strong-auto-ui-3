@@ -2,11 +2,13 @@ import { css } from '@emotion/css';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import Logo from 'assets/logo.png';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
+import RoadImage from 'assets/road.jpg';
 import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import Line from 'components/Line';
+import List from 'components/List';
 import ListProductCard from 'components/ListProductCard';
 import ProductCard from 'components/ProductCard';
 import Transition, { TransitionHandle } from 'components/Transition';
@@ -24,7 +26,6 @@ import FAQ from 'pages/home/Faq';
 import HorizontalList from 'pages/home/HorizontalList';
 import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import Reviews from 'pages/home/Reviews';
-import TowingService from 'pages/home/TowingService';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React, { useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
@@ -33,6 +34,28 @@ import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import styled from 'styled-components';
 import theme from 'theme';
+
+const HomeWrapper = styled(Container)`
+  background-image: url(${RoadImage});
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 2;
+  }
+
+  > * {
+    z-index: 3;
+  }
+`;
 
 const StyledContainer = styled(Container)`
   color: white;
@@ -86,13 +109,18 @@ const SearchContainer = styled(Container)`
   }
 `;
 
+const WhiteBackgroundContainer = styled(Container)`
+  background-color: white;
+  color: black;
+`;
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const popularMakesProducts = products;
   const transitionRef = useRef<TransitionHandle>(null);
 
   return (
-    <div>
+    <HomeWrapper>
       <StyledContainer preserveWhenXs>
         <Carousel minHeight="100%" maxHeight="100vh" absolute noCommands>
           <Image src={BMWDriftSoilImage} objectFit="cover" verticalCentered height="100%" />
@@ -223,9 +251,11 @@ const Home: React.FC = () => {
         </SearchContainer>
       </StyledContainer>
 
-      <BodyTypes />
+      <WhiteBackgroundContainer>
+        <BodyTypes />
+      </WhiteBackgroundContainer>
 
-      <Container padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
+      <WhiteBackgroundContainer padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
         <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
             <Title centered title="Explore All Vehicles" fontSize="2xl" bold />
@@ -240,7 +270,7 @@ const Home: React.FC = () => {
             <ProductCard {...product} ribbon={product.state as any} key={product.id} />
           ))}
         </HorizontalList>
-      </Container>
+      </WhiteBackgroundContainer>
       <PopularMakesWrapper padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
         <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
@@ -268,23 +298,28 @@ const Home: React.FC = () => {
         <Title title="What we have in store for you" fontSize="2xl" />
         <Line />
         <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }} gap="1rem">
-          <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
-            <FinanceWrapper xs="100px" sm="300px">
-              <Text>Promotions</Text>
-              <Text type="sub" fontSize="md">
+          <List xs={2} gap="3rem">
+            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
+              <Text fontSize="lg">Promotions</Text>
+              <Text bold fontSize="md">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industrys standard dummy text ever since the 1500s
               </Text>
+              <Button themeType="white" maxContent size="md">
+                Promotions
+              </Button>
             </FinanceWrapper>
-            <FinanceWrapper xs="100px" sm="300px">
-              <Text>Our services</Text>
-              <Text type="sub" fontSize="md">
+            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
+              <Text fontSize="lg">Our services</Text>
+              <Text bold fontSize="md">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industrys standard dummy text ever since the 1500s
               </Text>
+              <Button themeType="white" maxContent size="md">
+                Services
+              </Button>
             </FinanceWrapper>
-          </Container>
-          {/* <Image
+            {/* <Image
             onClick={() => navigate(Routes.INDEX)}
             src={Logo}
             alt="Strong auto logo"
@@ -292,22 +327,27 @@ const Home: React.FC = () => {
             height="100%"
             objectFit="contain"
           /> */}
-          <Container preserveWhenXs direction="row" justifyContent="space-between" gap="3rem">
-            <FinanceWrapper xs="100px" sm="300px">
-              <Text>Parts center</Text>
-              <Text type="sub" fontSize="md">
+            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
+              <Text fontSize="lg">Parts center</Text>
+              <Text bold fontSize="md">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industrys standard dummy text ever since the 1500s
               </Text>
+              <Button themeType="white" maxContent size="md">
+                Go to parts
+              </Button>
             </FinanceWrapper>
-            <FinanceWrapper xs="100px" sm="300px">
-              <Text>Parts center</Text>
-              <Text type="sub" fontSize="md">
+            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
+              <Text fontSize="lg">Parts center</Text>
+              <Text bold fontSize="md">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
                 industrys standard dummy text ever since the 1500s
               </Text>
+              <Button themeType="white" maxContent size="md">
+                Go to parts
+              </Button>
             </FinanceWrapper>
-          </Container>
+          </List>
         </Container>
       </Container>
       {/* <Container sm="1400px" centered padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }} gap="2rem">
@@ -318,11 +358,19 @@ const Home: React.FC = () => {
       </Container> */}
       <CantFindVehicle />
       <CarLot />
-      <WhyChooseUs />
-      <LatestBlogPosts />
-      <Reviews />
+      <WhiteBackgroundContainer>
+        <WhyChooseUs />
+      </WhiteBackgroundContainer>
+      <WhiteBackgroundContainer>
+        <LatestBlogPosts />
+      </WhiteBackgroundContainer>
+      <WhiteBackgroundContainer>
+        <Reviews />
+      </WhiteBackgroundContainer>
+      <WhiteBackgroundContainer>
       <FAQ />
-    </div>
+      </WhiteBackgroundContainer>
+    </HomeWrapper>
   );
 };
 
