@@ -208,7 +208,11 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         onClick={props.disabled ? undefined : props.onClick}
       >
         {icon && <Icon disabled={props.disabled} icon={icon} size={iconSize} />}
-        {children && <Text fontSize={size}>{children}</Text>}
+        {children && (
+          <Text nowrap fontSize={size}>
+            {children}
+          </Text>
+        )}
         {iconRight && <Icon disabled={props.disabled} icon={iconRight} size={iconSize} />}
       </StyledButton>
     );

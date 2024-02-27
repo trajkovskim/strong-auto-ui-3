@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 const StyledLayout = styled.div`
   height: 100%;
-  background-color: white;
+  background-color: #f6f6f6;
   /* overflow-x: hidden; */
 `;
 

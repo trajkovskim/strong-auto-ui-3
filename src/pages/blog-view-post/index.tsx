@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 import styled from 'styled-components';
 import { BiShare } from 'react-icons/bi';
-import Icon from 'components/Icon';
 import Button from 'components/Button';
 import Line from 'components/Line';
 import LatestBlogPosts from 'pages/home/LatestBlogPosts';

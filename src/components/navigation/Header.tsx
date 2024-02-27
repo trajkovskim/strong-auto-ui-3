@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 import Logo from 'assets/logo.png';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Image from 'components/Image';
-import { TransitionHandle } from 'components/Transition';
 import Dropdown from 'components/form/Dropdown';
 import type { DropdownOption } from 'components/form/types';
 import MobileNavigation from 'components/navigation/MobileNavigation';
@@ -48,7 +47,6 @@ const Header: React.FC<Props> = (props) => {
   const { language, changeLanguage } = useLanguage();
   const t = useTranslation('languages');
   const navigate = useNavigate();
-  const transitionRef = useRef<TransitionHandle>(null);
 
   const languageOptions: DropdownOption[] = Object.values(Language).map((value) => ({
     value,

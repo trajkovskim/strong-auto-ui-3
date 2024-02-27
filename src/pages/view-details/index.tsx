@@ -10,7 +10,6 @@ import { MdArrowBackIosNew, MdEmail } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
@@ -71,7 +70,7 @@ const ViewDetails: React.FC = () => {
           featuresMap.set(featureTitleKey, []);
         }
 
-        featuresMap.get(featureTitleKey)!.push(featureValueKey);
+        featuresMap.get(featureTitleKey)?.push(featureValueKey);
       } else {
         featuresWithoutClass.push(feature[0]);
       }
@@ -124,8 +123,9 @@ const ViewDetails: React.FC = () => {
             <Container sm={12} md={8} gap="1rem">
               <CarouselWrapper>
                 <Carousel minHeight="500px" maxHeight="500px">
-                  <Image src={product?.imageSrc} height={'500px'} objectFit="cover" />
-                  <Image src={BMWDriftSoilImage} height={'500px'} objectFit="cover" />
+                  {product?.images.map((image, index) => (
+                    <Image key={index} src={image} height={'500px'} objectFit="cover" />
+                  ))}
                 </Carousel>
               </CarouselWrapper>
               <Text fontSize="2xl">Description</Text>
@@ -245,7 +245,7 @@ const ViewDetails: React.FC = () => {
               key={product.id}
               price={product.price}
               title={product.title}
-              imageSrc={product.imageSrc}
+              images={product.images}
               description={product.sumarry}
               onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
             />

@@ -3,6 +3,7 @@ import Container from 'components/Container';
 import List, { ListView } from 'components/List';
 import ListProductCard from 'components/card/ListProductCard';
 import ProductCard from 'components/card/ProductCard';
+import { RibbonType } from 'components/card/types';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
 import { products } from 'pages/constants';
@@ -24,13 +25,17 @@ const ListActionsMobileWrapper = styled(Container)`
   box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
 
+const ListHeader = styled(Container)`
+  background-color: white;
+`;
+
 const Shop: React.FC = () => {
   const navigate = useNavigate();
   const [listView, setListView] = useState<ListView>(ListView.GRID);
   const pageSize = 10;
   const totalContentNumber = 34792;
-  const [page, setPage] = useState<number>(8);
-  const [totalPages, setTotalPages] = useState<number>(8);
+  const [page] = useState<number>(8);
+  const [totalPages] = useState<number>(8);
   const sidebarRef = useRef<SidebarHandle>(null);
 
   const mappedProducts = products.slice(0, pageSize);
@@ -44,63 +49,75 @@ const Shop: React.FC = () => {
     [ListView.LIST]: 'List',
   };
 
-  const listActionsComponent = (
-    <Container preserveWhenXs direction="row" alignItems="center" justifyContent="space-between" gap="10px">
-      <Container preserveWhenXs xs={12} md="max-content" alignItems="center" direction="row" gap="0.5rem">
-        <Text>Sort</Text>
-        <Dropdown
-          options={[
-            { value: 'unsorted', label: 'Default' },
-            { value: 'price_asc', label: 'Price (Ascending)' },
-            { value: 'price_desc', label: 'Price (Descending)' },
-            { value: 'popularity_asc', label: 'Newest' },
-            { value: 'popularity_desc', label: 'Oldest' },
-          ]}
-        />
+  const breadCrumb = <Text fontSize="sm">Home {'>'} Shop</Text>;
+
+  const listHeaderComponent = (
+    <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between" alignItems="flex-end">
+      <Container gap="1rem">
+        {breadCrumb}
+        <Container xs={0} md="max-content" preserveWhenXs direction="row" gap="1rem">
+          <Dropdown
+            fullwidth
+            size="md"
+            label="Sort:"
+            options={[
+              { value: 'unsorted', label: 'Default' },
+              { value: 'price_asc', label: 'Price (Ascending)' },
+              { value: 'price_desc', label: 'Price (Descending)' },
+              { value: 'popularity_asc', label: 'Newest' },
+              { value: 'popularity_desc', label: 'Oldest' },
+            ]}
+          />
+          <Dropdown
+            fullwidth
+            size="md"
+            label="Size:"
+            options={[
+              { value: '10', label: '10' },
+              { value: '20', label: '20' },
+              { value: '40', label: '40' },
+              { value: '60', label: '60' },
+              { value: '100', label: '100' },
+            ]}
+          />
+        </Container>
       </Container>
       <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
-        <Container xs={'max-content'} gap="0.5rem">
-          <Button
-            maxContent
-            icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
-            size="lg"
-            themeType="link"
-            onClick={toggleListView}
-          >
-            <Container xs={0} sm="max-content">
-              {tListView[listView]} View
-            </Container>
-          </Button>
-        </Container>
         <Container xs={'max-content'} lg={0}>
           <Button
             maxContent
             onClick={() => sidebarRef.current?.open()}
             icon={sidebarRef.current?.isOpen ? <HiFilter /> : <HiOutlineFilter />}
             themeType="link"
-            size="lg"
+            size="md"
           >
             <Container xs={0} sm="max-content">
               Filters
             </Container>
           </Button>
         </Container>
+        <Container xs={'max-content'} gap="0.5rem">
+          <Button
+            maxContent
+            icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
+            size="md"
+            themeType="link"
+            onClick={toggleListView}
+          >
+            <Container xs={0} sm="max-content">
+              {tListView[listView]} view
+            </Container>
+          </Button>
+        </Container>
       </Container>
-    </Container>
+    </ListHeader>
   );
-
-  const breadCrumb = <Text fontSize="sm">Home {'>'} Shop</Text>;
 
   return (
     <Container>
-      <ListActionsMobileWrapper padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} xs={12} lg={0}>
-        {breadCrumb}
-        {listActionsComponent}
+      <ListActionsMobileWrapper xs={12} lg={0}>
+        {listHeaderComponent}
       </ListActionsMobileWrapper>
-
-      <Container xs={0} lg={12} padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }}>
-        {breadCrumb}
-      </Container>
 
       <Container padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} gap="1rem">
         <Sidebar ref={sidebarRef}>
@@ -112,13 +129,11 @@ const Shop: React.FC = () => {
           </Container>
           <Container sm={12} lg={8.8} xl={9.5} {...{ '2xl': 10 }} gap="1rem">
             <Container xs={0} lg={12}>
-              {listActionsComponent}
+              {listHeaderComponent}
             </Container>
-            <Container direction="column" justifyContent="space-between">
-              <Text type="sub" fontSize="sm">
-                Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
-              </Text>
-            </Container>
+            <Text type="sub" fontSize="sm">
+              Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
+            </Text>
             <List
               gap="1rem"
               xs={1}
@@ -136,7 +151,7 @@ const Shop: React.FC = () => {
                     images={product.images}
                     description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={product.state as any}
+                    ribbon={product.state as RibbonType}
                     fullwidth
                   />
                 ) : (
@@ -147,7 +162,7 @@ const Shop: React.FC = () => {
                     images={product.images}
                     description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={product.state as any}
+                    ribbon={product.state as RibbonType}
                     fullwidth
                   />
                 )

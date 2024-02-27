@@ -1,3 +1,4 @@
+import { StyledOption, StyledSelect } from 'components/form/Dropdown.styled';
 import {
   StyledBiErrorCircle,
   StyledContainer,
@@ -5,43 +6,13 @@ import {
   StyledGiCheckMark,
   StyledRightContainer,
   StyledSpinner,
-  fontSize,
-  inputSize,
 } from 'components/form/Input.styled';
 import type { DropdownOption, Size } from 'components/form/types';
+import Text from 'components/typography/Text';
 import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Validator } from 'validators';
-
-type StyledInputProps = {
-  size?: Size;
-  rightContainerWidth?: number;
-};
-
-const StyledSelect = styled.select<StyledInputProps>`
-  ${({ size = 'sm', ...props }) => css`
-    box-sizing: border-box;
-    width: 100%;
-    height: ${inputSize[size]};
-    padding: 0 7px;
-    font-size: ${fontSize[size]};
-    line-height: 20px;
-    background-color: #fff;
-    border: none;
-    outline: none;
-
-    padding-right: ${props.rightContainerWidth}px;
-  `}
-`;
-
-const StyledOption = styled.option<{ size?: Size }>`
-  ${({ size = 'sm' }) => css`
-    font-size: ${fontSize[size]};
-    height: ${inputSize[size]};
-    background-color: #fff;
-  `};
-`;
 
 type Props = Omit<React.ComponentProps<'select'>, 'size'> &
   StyledContainerProps & {
@@ -49,11 +20,17 @@ type Props = Omit<React.ComponentProps<'select'>, 'size'> &
     validate?: Validator;
     size?: Size;
     options: DropdownOption[];
+    label?: string;
   };
+
+const DropdownWrapper = styled(StyledContainer)`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+`;
 
 const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, size, ...props }) => {
   const rightContainerRef = useRef<HTMLDivElement>(null);
-  const rightContainerWidth = rightContainerRef.current?.offsetWidth;
 
   const { state, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -66,11 +43,12 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, size, 
   const events = { onChange, onBlur, onFocus };
 
   return (
-    <StyledContainer fullwidth={fullwidth}>
-      <StyledSelect {...props} {...events} size={size} rightContainerWidth={rightContainerWidth}>
+    <DropdownWrapper fullwidth={fullwidth}>
+      <Text fontSize={size}>{props.label}</Text>
+      <StyledSelect {...props} {...events} size={size} rightContainerWidth={rightContainerRef.current?.offsetWidth}>
         {props.options.map((option) => (
-          <StyledOption size={size} key={option.value} value={option.value}>
-            {option.label ?? option.value}
+          <StyledOption key={option.value} value={option.value}>
+            <Text fontSize={size}>{option.label ?? option.value}</Text>
           </StyledOption>
         ))}
       </StyledSelect>
@@ -89,7 +67,7 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, size, 
         {rightContainer}
       </StyledRightContainer>
       {!state.valid && <div>{state.error}</div>}
-    </StyledContainer>
+    </DropdownWrapper>
   );
 };
 

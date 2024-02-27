@@ -9,7 +9,7 @@ import Line from 'components/Line';
 import List from 'components/List';
 import ListProductCard from 'components/card/ListProductCard';
 import ProductCard from 'components/card/ProductCard';
-import { TransitionHandle } from 'components/Transition';
+import { RibbonType } from 'components/card/types';
 import Header from 'components/navigation/Header';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
@@ -23,9 +23,8 @@ import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
-import React, { useRef } from 'react';
+import React from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HomeWrapper = styled(Container)`
@@ -129,7 +128,7 @@ const Home: React.FC = () => {
         </Container>
         <HorizontalList maxWidth="100%" centered>
           {products.map((product) => (
-            <ProductCard {...product} ribbon={product.state as any} key={product.id} />
+            <ProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
           ))}
         </HorizontalList>
       </WhiteBackgroundContainer>
@@ -146,7 +145,7 @@ const Home: React.FC = () => {
         </Container>
         <HorizontalList maxWidth="100%" centered>
           {popularMakesProducts.map((product) => (
-            <ListProductCard {...product} ribbon={product.state as any} key={product.id} />
+            <ListProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
           ))}
         </HorizontalList>
       </PopularMakesWrapper>

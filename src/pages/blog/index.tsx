@@ -38,10 +38,10 @@ const SidebarWrapper = styled(Container)`
 
 const Blog: React.FC = () => {
   const navigate = useNavigate();
-  const pageSize = 10;
-  const totalContentNumber = 34792;
-  const [page, setPage] = useState<number>(8);
-  const [totalPages, setTotalPages] = useState<number>(8);
+  // const pageSize = 10;
+  // const totalContentNumber = 34792;
+  const [page] = useState<number>(8);
+  const [totalPages] = useState<number>(8);
 
   return (
     <Container>
