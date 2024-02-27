@@ -1,13 +1,14 @@
+import { css as emitionCss } from '@emotion/css';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
-import { css as emitionCss } from '@emotion/css';
 
 type StyledCarouselProps = {
   minHeight?: string;
   maxHeight?: string;
   absolute?: boolean;
+  className?: React.ComponentProps<'div'>['className'];
 };
 
 const StyledCarousel = styled.div<StyledCarouselProps>`
@@ -126,6 +127,7 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
 
   return (
     <StyledCarousel
+      className={props.className}
       minHeight={props.minHeight ?? `${minHeight}px`}
       maxHeight={props.maxHeight}
       absolute={props.absolute}

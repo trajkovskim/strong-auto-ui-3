@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
@@ -25,28 +25,19 @@ const StyledButton = styled(Button)<StyledButtonProps>`
   }
 `;
 
-type ButtonProps = {
+export type ButtonProps = {
   onClick?: () => void;
   label: string;
-  defaultActive?: boolean;
 };
 
 type Props = {
+  onChange?: (button: ButtonProps, index: number) => void;
   buttons: ButtonProps[];
+  defaultActive?: number;
 };
 
 const TabButtonsGroup: React.FC<Props> = (props) => {
-  const defaultActiveIndex = props.buttons.findIndex((button) => button.defaultActive);
-  const [active, setActive] = useState<number | undefined>(defaultActiveIndex);
-
-  useEffect(() => {
-    if (defaultActiveIndex === -1) {
-      return;
-    }
-
-    const activeButton = props.buttons[defaultActiveIndex];
-    activeButton.onClick && activeButton.onClick();
-  }, [defaultActiveIndex, props.buttons]);
+  const [active, setActive] = useState(props.defaultActive ?? 0);
 
   return (
     <StyledContainer preserveWhenXs direction="row" alignItems="flex-start" gap="1rem">
@@ -59,6 +50,7 @@ const TabButtonsGroup: React.FC<Props> = (props) => {
           onClick={() => {
             setActive(index);
             button.onClick && button.onClick();
+            props.onChange && props.onChange(button, index);
           }}
         >
           {button.label}

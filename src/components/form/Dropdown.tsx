@@ -5,29 +5,14 @@ import {
   StyledGiCheckMark,
   StyledRightContainer,
   StyledSpinner,
+  fontSize,
+  inputSize,
 } from 'components/form/Input.styled';
 import type { DropdownOption, Size } from 'components/form/types';
 import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Validator } from 'validators';
-import { SlArrowDown } from 'react-icons/sl';
-import Icon from 'components/Icon';
-
-const sizes: Record<Size, Record<string, string>> = {
-  small: {
-    'font-size': '12px',
-    height: '30px',
-  },
-  medium: {
-    'font-size': '14px',
-    height: '39.5px',
-  },
-  large: {
-    'font-size': '16px',
-    height: '49px',
-  },
-};
 
 type StyledInputProps = {
   size?: Size;
@@ -35,14 +20,13 @@ type StyledInputProps = {
 };
 
 const StyledSelect = styled.select<StyledInputProps>`
-  ${({ size = 'small', ...props }) => css`
+  ${({ size = 'sm', ...props }) => css`
     box-sizing: border-box;
     width: 100%;
-    height: ${sizes[size]['height']};
+    height: ${inputSize[size]};
     padding: 0 7px;
-    font-size: ${sizes[size]['font-size']};
+    font-size: ${fontSize[size]};
     line-height: 20px;
-    border-radius: 0;
     background-color: #fff;
     border: none;
     outline: none;
@@ -52,9 +36,9 @@ const StyledSelect = styled.select<StyledInputProps>`
 `;
 
 const StyledOption = styled.option<{ size?: Size }>`
-  ${({ size = 'small' }) => css`
-    font-size: ${sizes[size]['font-size']};
-    height: ${sizes[size]['height']};
+  ${({ size = 'sm' }) => css`
+    font-size: ${fontSize[size]};
+    height: ${inputSize[size]};
     background-color: #fff;
   `};
 `;

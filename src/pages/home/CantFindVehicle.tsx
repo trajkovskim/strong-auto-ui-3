@@ -3,6 +3,7 @@ import CarSideViewToRightImage from 'assets/car-side-view-to-right.png';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Image from 'components/Image';
+import Line from 'components/Line';
 import Title from 'components/typography/Title';
 import React from 'react';
 import styled from 'styled-components';
@@ -27,7 +28,7 @@ const CantFindVehicle: React.FC = () => {
   return (
     <CantFindVehicleContainer preserveWhenXs direction="row" alignItems="center" justifyContent="flex-end" relative>
       {/* <StyledImage2 src={CarSideViewToLeftImage} objectFit="cover" width="600px" /> */}
-      <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="600px" />
+      {/* <StyledImage1 src={CarSideViewToRightImage} objectFit="cover" width="600px" /> */}
       <Container
         preserveWhenXs
         padding={{ top: 'lg', bottom: 'lg', right: 'md' }}
@@ -44,7 +45,7 @@ const CantFindVehicle: React.FC = () => {
             gap="1rem"
             fontSize="xl"
           />
-          <Button size="lg" maxContent>
+          <Button size="lg" maxContent themeType="white">
             Know more
           </Button>
         </Container2>

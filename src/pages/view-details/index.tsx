@@ -14,7 +14,7 @@ import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
-import ProductCard from 'components/ProductCard';
+import ProductCard from 'components/card/ProductCard';
 import HorizontalList from 'pages/home/HorizontalList';
 import SimpleTable from 'pages/home/SimpleTable';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';

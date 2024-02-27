@@ -13,6 +13,7 @@ const Line = styled.div<{
     (props.type === 'horizontal' || !props.type) &&
     css`
       border-bottom: 1px solid var(--border-color);
+      border-image: linear-gradient(to right, transparent 0%, #ccc 25%, #232323 50%, #ccc 75%, transparent 100%) 1;
       width: 100%;
       max-width: ${props.width ?? '100%'};
     `}

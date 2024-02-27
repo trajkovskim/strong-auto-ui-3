@@ -1,23 +1,24 @@
 import Container from 'components/Container';
+import Text from 'components/typography/Text';
 import styled from 'styled-components';
 
 export const StyledNavigationWrapper = styled.nav`
   position: relative;
-  z-index: 999;
 `;
 
 export const MobileContainer = styled(Container)`
-  position: absolute;
+  position: fixed;
   left: 0;
-  bottom: 0;
+  top: 0;
   width: 100%;
-  transform: translateY(100%);
   color: black;
-  background: white;
-  z-index: 999;
+  height: 100vh;
+  z-index: 100;
+  background-color: rgba(35, 35, 35, 0.95);
+  color: #fff;
 `;
 
-export const StyledButton = styled.div<{ active?: boolean }>`
+export const StyledButton = styled(Text)<{ active?: boolean }>`
   display: flex;
   justify-content: center;
 

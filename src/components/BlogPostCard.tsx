@@ -36,10 +36,12 @@ const BlogPostCard: React.FC<Props> = (props) => {
     <StyledContainer sm={12} gap="1rem">
       <Image src={ToyotaCamryImage} alt={props.blogPost.title} objectFit="cover" height="200px" />
       <Container gap="0.5rem">
-        <Text type="sub" fontSize="sm">
-          {props.blogPost.creationDate.toUTCString()}
-        </Text>
-        <Text fontSize="xl">{props.blogPost.title}</Text>
+        <Container>
+          <Text fontSize="xl">{props.blogPost.title}</Text>
+          <Text type="sub" fontSize="sm">
+            {props.blogPost.creationDate.toUTCString()}
+          </Text>
+        </Container>
         <StyledText fontSize="lg">
           {props.blogPost.summary.slice(0, 90)}...{' '}
           <StyledButton themeType="link" onClick={handleReadMore}>

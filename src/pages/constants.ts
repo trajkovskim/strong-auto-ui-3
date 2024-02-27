@@ -76,7 +76,7 @@ export const products = [
   {
     id: 0,
     state: 'sold',
-    imageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -122,7 +122,7 @@ export const products = [
   {
     id: 1,
     state: 'featured',
-    imageSrc: ToyotaCamryImage,
+    images: [ToyotaCamryImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -168,7 +168,7 @@ export const products = [
   {
     id: 2,
     state: 'sold',
-    imageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -214,7 +214,7 @@ export const products = [
   {
     id: 3,
     state: 'featured',
-    imageSrc: ToyotaCamryImage,
+    images: [ToyotaCamryImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -260,7 +260,7 @@ export const products = [
   {
     id: 4,
     state: 'sold',
-    mageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -306,7 +306,7 @@ export const products = [
   {
     id: 5,
     state: 'featured',
-    imageSrc: ToyotaCamryImage,
+    images: [ToyotaCamryImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -352,7 +352,7 @@ export const products = [
   {
     id: 6,
     state: 'sold',
-    imageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -398,7 +398,7 @@ export const products = [
   {
     id: 7,
     state: 'featured',
-    imageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -444,7 +444,7 @@ export const products = [
   {
     id: 8,
     state: 'sold',
-    imageSrc: ToyotaCamryImage,
+    images: [ToyotaCamryImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -490,7 +490,7 @@ export const products = [
   {
     id: 9,
     state: 'featured',
-    imageSrc: BMWDriftSoilImage,
+    images: [BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
@@ -536,7 +536,7 @@ export const products = [
   {
     id: 10,
     state: 'sold',
-    imageSrc: ToyotaCamryImage,
+    images: [ToyotaCamryImage],
     price: {
       total: 10000,
       totalPromo: 165000,

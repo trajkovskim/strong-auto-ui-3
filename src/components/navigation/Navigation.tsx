@@ -11,7 +11,7 @@ const Navigation: React.FC = () => {
       <Container direction="row" wrap padding="md" justifyContent="flex-end">
         {Object.values(navOptions).map((option) => (
           <Container key={option.label} sm={12} lg="max-content">
-            <StyledButton active={option.active} onClick={option.navigate}>
+            <StyledButton fontSize="md" active={option.active} onClick={option.navigate}>
               {option.label}
             </StyledButton>
           </Container>

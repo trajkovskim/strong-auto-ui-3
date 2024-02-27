@@ -12,7 +12,7 @@ import {
   StyledRightContainer,
   StyledSpinner,
   fontSize,
-  size,
+  inputSize,
 } from 'components/form/Input.styled';
 import { Size } from 'components/form/types';
 import useInput from 'hooks/useInput';
@@ -28,7 +28,7 @@ const StyledOptionsWrapper = styled.div`
   border-top: none;
   position: absolute;
   width: 100%;
-  border-radius: 0.625rem;
+  /* border-radius: 0.625rem; */
   background-color: #fff;
   user-select: none;
   bottom: 0;
@@ -44,7 +44,7 @@ type StyledOptionProps = {
 };
 
 const StyledOption = styled.option<StyledOptionProps>`
-  min-height: ${(props) => props.size && size[props.size]};
+  min-height: ${(props) => props.size && inputSize[props.size]};
   font-size: ${(props) => props.size && fontSize[props.size]};
   padding: 7px;
   color: black;

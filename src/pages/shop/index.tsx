@@ -1,8 +1,8 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
 import List, { ListView } from 'components/List';
-import ListProductCard from 'components/ListProductCard';
-import ProductCard from 'components/ProductCard';
+import ListProductCard from 'components/card/ListProductCard';
+import ProductCard from 'components/card/ProductCard';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
 import { products } from 'pages/constants';
@@ -17,9 +17,9 @@ import styled from 'styled-components';
 
 const ListActionsMobileWrapper = styled(Container)`
   position: sticky;
-  top: 68px;
+  top: 0;
   background-color: inherit;
-  z-index: 99;
+  z-index: 10;
   background-color: white;
   box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
 `;
@@ -37,6 +37,11 @@ const Shop: React.FC = () => {
 
   const toggleListView = () => {
     listView === ListView.GRID ? setListView(ListView.LIST) : setListView(ListView.GRID);
+  };
+
+  const tListView = {
+    [ListView.GRID]: 'Grid',
+    [ListView.LIST]: 'List',
   };
 
   const listActionsComponent = (
@@ -63,7 +68,7 @@ const Shop: React.FC = () => {
             onClick={toggleListView}
           >
             <Container xs={0} sm="max-content">
-              View
+              {tListView[listView]} View
             </Container>
           </Button>
         </Container>
@@ -128,7 +133,7 @@ const Shop: React.FC = () => {
                     key={product.id}
                     price={product.price}
                     title={product.title}
-                    imageSrc={product.imageSrc}
+                    images={product.images}
                     description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                     ribbon={product.state as any}
@@ -139,7 +144,7 @@ const Shop: React.FC = () => {
                     key={product.id}
                     price={product.price}
                     title={product.title}
-                    imageSrc={product.imageSrc}
+                    images={product.images}
                     description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                     ribbon={product.state as any}

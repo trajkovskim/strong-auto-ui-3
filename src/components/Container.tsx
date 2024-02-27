@@ -4,18 +4,25 @@ import theme from 'theme';
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
-export type Sides = {
-  top?: Breakpoints;
-  bottom?: Breakpoints;
-  left?: Breakpoints;
-  right?: Breakpoints;
+export type Sides<T> = {
+  top?: T;
+  bottom?: T;
+  left?: T;
+  right?: T;
+};
+
+export type Edges<T> = {
+  topLeft?: T;
+  topRight?: T;
+  bottomLeft?: T;
+  bottomRight?: T;
 };
 
 type StyledContainerProps = {
   [key in Breakpoints]?: string | number;
 } & {
-  margin?: Breakpoints | Sides;
-  padding?: Breakpoints | Sides;
+  margin?: Breakpoints | Sides<Breakpoints>;
+  padding?: Breakpoints | Sides<Breakpoints>;
   direction?: React.CSSProperties['flexDirection'];
   alignItems?: React.CSSProperties['alignItems'];
   alignSelf?: React.CSSProperties['alignSelf'];
@@ -28,8 +35,8 @@ type StyledContainerProps = {
   centered?: boolean | 'vertical' | 'horizontal';
   itemsCentered?: boolean;
   textCentered?: boolean;
-  bordered?: boolean;
-  rounded?: boolean;
+  bordered?: boolean | Sides<boolean>;
+  rounded?: boolean | Edges<boolean>;
   parentGap?: React.CSSProperties['gap'];
   preserveWhenXs?: boolean;
   relative?: boolean;
@@ -65,7 +72,7 @@ const StyledContainer = styled.div<StyledContainerProps>`
   display: flex;
   position: ${(props) => props.relative && 'relative'};
 
-  z-index: ${(props) => props.zIndex} !important;
+  z-index: ${(props) => props.zIndex && `${props.zIndex} !important`};
 
   padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>
@@ -87,6 +94,28 @@ const StyledContainer = styled.div<StyledContainerProps>`
       margin-right: ${props.margin.right && theme.padding[props.margin.right]};
     `}
 
+  --border-radius: 15px;
+  border-radius: ${(props) => typeof props.rounded === 'boolean' && props.rounded && 'var(--border-radius)'};
+  ${(props) =>
+    typeof props.rounded == 'object' &&
+    css`
+      border-top-left-radius: ${props.rounded.topLeft && 'var(--border-radius)'};
+      border-top-right-radius: ${props.rounded.topRight && 'var(--border-radius)'};
+      border-bottom-left-radius: ${props.rounded.bottomLeft && 'var(--border-radius)'};
+      border-bottom-right-radius: ${props.rounded.bottomRight && 'var(--border-radius)'};
+    `}
+
+  --border: 1px solid #eee;
+  border: ${(props) => typeof props.bordered === 'boolean' && props.bordered && 'var(--border)'};
+  ${(props) =>
+    typeof props.bordered == 'object' &&
+    css`
+      border-top: ${props.bordered.top && 'var(--border)'};
+      border-left: ${props.bordered.left && 'var(--border)'};
+      border-bottom: ${props.bordered.bottom && 'var(--border)'};
+      border-right: ${props.bordered.right && 'var(--border)'};
+    `}
+
   margin-top: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
   margin-bottom: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
   margin-left: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
@@ -94,9 +123,6 @@ const StyledContainer = styled.div<StyledContainerProps>`
   user-select: ${(props) => props.userSelect};
 
   gap: ${(props) => props.gap};
-
-  border: ${(props) => props.bordered && '1px solid #eee'};
-  border-radius: ${(props) => props.rounded && '25px'};
 
   flex-direction: ${(props) => props.direction ?? 'column'};
   flex-wrap: ${(props) => props.wrap && 'wrap'};

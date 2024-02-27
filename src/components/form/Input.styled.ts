@@ -12,7 +12,7 @@ export type StyledInputProps = {
   noBorder?: boolean;
 };
 
-export const size: Record<Size, string> = {
+export const inputSize: Record<Size, string> = {
   sm: '39px',
   md: '38px',
   lg: '45px',
@@ -43,8 +43,8 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
     css`
       > input {
         padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
-        height: ${props.size && `calc(${size[props.size]} + ${fontSize[props.size]} / 2)`};
-        /* line-height: ${props.size && `calc(${size[props.size]} + ${fontSize[props.size]})`}; */
+        height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]} / 2)`};
+        /* line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`}; */
       }
     `}
 
@@ -61,7 +61,7 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
 export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth?: number }>`
   width: 100%;
   height: 100%;
-  height: ${(props) => props.size && size[props.size]};
+  height: ${(props) => props.size && inputSize[props.size]};
   padding: 7px;
   padding-left: 12px;
   font-size: ${(props) => props.size && fontSize[props.size]};

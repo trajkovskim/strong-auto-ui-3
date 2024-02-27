@@ -5,3 +5,4 @@ export { default as BlogViewPost } from 'pages/blog-view-post';
 export { default as Blog } from 'pages/blog';
 export { default as ViewDetails } from 'pages/view-details';
 export { default as AboutUs } from 'pages/about-us';
+export { default as Parts } from 'pages/parts';

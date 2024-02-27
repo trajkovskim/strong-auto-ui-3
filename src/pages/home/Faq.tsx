@@ -28,7 +28,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
         themeType="link"
         key={props.faq.id}
         iconRight={<BiPlus />}
-        size="lg"
+        size="xl"
         fullwidth
         onClick={() => transitionRef.current?.toggle()}
       >
@@ -48,7 +48,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
           `,
         }}
       >
-        <Text ref={setContainerRef} fontSize="md">
+        <Text ref={setContainerRef} fontSize="lg">
           {props.faq.answer}
         </Text>
       </Transition>
@@ -59,7 +59,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
 const FAQ: React.FC = () => {
   return (
     <Container sm="800px" centered gap="1rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
-      <Title title="Frequently asked questions" centered fontSize="xl" />
+      <Title title="Frequently asked questions" centered fontSize="2xl" />
       {faqQuestions.map((faq) => (
         <Container key={faq.id}>
           <FAQAccordion faq={faq} />
