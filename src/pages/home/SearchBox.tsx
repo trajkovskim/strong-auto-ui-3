@@ -1,16 +1,10 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Autocomplete from 'components/form/Autocomplete';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import React, { useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import styled from 'styled-components';
-
-const SearchContainer = styled(Container)`
-  flex: 1 1 0;
-`;
 
 const SearchBoxWrapper = styled(Container)`
   color: black;

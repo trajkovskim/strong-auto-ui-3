@@ -96,7 +96,7 @@ const ViewDetails: React.FC = () => {
           <Text fontSize="md">Home / Shop / {product.title}</Text>
           <Title
             title={product.title}
-            description={product.sumarry}
+            description={product.summary}
             fontSize={{ title: 'xl', description: 'md' }}
             bold={{ title: true }}
           />
@@ -246,7 +246,7 @@ const ViewDetails: React.FC = () => {
               price={product.price}
               title={product.title}
               images={product.images}
-              description={product.sumarry}
+              summary={product.summary}
               onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
             />
           ))}

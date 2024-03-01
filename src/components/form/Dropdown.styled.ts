@@ -18,7 +18,7 @@ export const StyledSelect = styled.select<StyledInputProps>`
     display: inline-block;
     font-size: ${fontSize[size]};
     line-height: 20px;
-    background-color: #fff;
+    background-color: #f6f6f6;
     border: none;
     outline: none;
 

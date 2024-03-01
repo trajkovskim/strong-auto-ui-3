@@ -153,7 +153,9 @@ const StyledButton = styled.button<StyledProps>`
     width: 100%;
     max-width: ${(maxContent && !fullwidth) || !sizes[size] ? 'max-content' : sizes[size]['max-width']};
     max-width: ${fullwidth && '100%'};
-    height: ${sizes[size] && sizes[size]['height'][themeType]};
+    height: ${sizes[size] && typeof sizes[size]['height'] === 'object'
+      ? (sizes[size]['height'] as Record<ThemeType, string>)[themeType]
+      : sizes[size]['height']};
     border: ${themes[themeType]['border']};
 
     &:focus {
@@ -178,6 +180,7 @@ type Props = StyledProps &
     icon?: React.ReactNode;
     iconRight?: React.ReactNode;
     iconSize?: Size;
+    nowrap?: boolean;
   };
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(
@@ -190,6 +193,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       centered = false,
       fullwidth = false,
       textAlign = 'left',
+      nowrap = false,
       children,
       icon,
       iconRight,
@@ -209,7 +213,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       >
         {icon && <Icon disabled={props.disabled} icon={icon} size={iconSize} />}
         {children && (
-          <Text nowrap fontSize={size}>
+          <Text nowrap={nowrap} fontSize={size}>
             {children}
           </Text>
         )}

@@ -49,6 +49,34 @@ const IconWrapper = styled.span<IconWrapperProps>`
         `
       )}
   }
+
+  img {
+    display: inline-block;
+    margin: auto;
+    color: ${(props) => props.disabled && '#dcdcdc'};
+
+    height: ${(props) => props.height ?? '100%'};
+
+    width: ${(props) => !props.size && (props.width ? props.width : '100%')};
+
+    width: ${(props) => props.size && textFontSize[props.size]};
+
+    ${(props) =>
+      createMedia(
+        'sm',
+        css`
+          width: ${props.size && textFontSizeMobile[props.size]};
+        `
+      )}
+
+    ${(props) =>
+      createMedia(
+        'md',
+        css`
+          width: ${props.size && textFontSizeTablet[props.size]};
+        `
+      )}
+  }
 `;
 
 const IconBadge = styled.span`

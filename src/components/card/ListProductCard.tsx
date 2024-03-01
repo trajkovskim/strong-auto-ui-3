@@ -1,116 +1,166 @@
 import Button from 'components/Button';
-import Card from 'components/card/Card';
-import { Attribute, StyledImage, Wrapper } from 'components/card/Card.styled';
-import { ribbons } from 'components/card/constants';
-import { RibbonType } from 'components/card/types';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
+import List from 'components/List';
+import Card from 'components/card/Card';
+import { PriceWrapper, StyledIcon, StyledImage } from 'components/card/Card.styled';
+import Ribbon from 'components/card/Ribbon';
+import { ribbons } from 'components/card/constants';
+import { Props as ProductCardProps } from 'components/card/types';
 import Text from 'components/typography/Text';
+import { products } from 'pages/constants';
 import React from 'react';
-import { BsBookmark, BsFillBookmarkFill, BsFuelPumpFill, BsSpeedometer } from 'react-icons/bs';
+import { BiCalendar, BiShare } from 'react-icons/bi';
+import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
+import { FaRoad } from 'react-icons/fa';
+import { FaGear } from 'react-icons/fa6';
 import { TbManualGearbox } from 'react-icons/tb';
-import styled from 'styled-components';
 import { formatNumber } from 'utils';
 
-type Props = {
-  rating?: number;
-  title: string;
-  description?: string;
-  price: {
-    total: number;
-    totalPromo: number;
-    saving: number;
-  };
-  bookmarked?: boolean;
-  images?: string[];
-  onView?: () => void;
-  inCart?: boolean;
-  ribbon?: RibbonType;
-  fullwidth?: boolean;
+type Props = ProductCardProps & {
+  driveType: (typeof products)[number]['driveType'];
+  year: (typeof products)[number]['year'];
 };
-
-const StyledDescription = styled(Text)`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const StyledIcon = styled(Icon)`
-  color: #a5a5a5;
-`;
-
-const StyledOnImageContainer = styled(Container)`
-  position: absolute;
-  width: 35px;
-  align-items: center;
-  height: 35px;
-  top: 10px;
-  right: 20px;
-`;
 
 const ListProductCard: React.FC<Props> = (props) => {
   const price = (
-    <Container direction="row" justifyContent="space-between" gap="0.5rem">
+    <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }}>
       {props.price?.totalPromo && (
-        <Container direction="row" gap="0.5rem" alignItems="flex-end">
+        <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
-          </Text>
+          </Text>{' '}
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.totalPromo)}
           </Text>
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <div>
+        <Container alignItems="flex-end" preserveWhenXs>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
-        </div>
+        </Container>
       )}
-    </Container>
+    </PriceWrapper>
   );
 
   const productAttributes = (
-    <Wrapper gap="2px" xs={3}>
-      <Attribute padding="sm" sm={12} direction="row" gap="0.3rem">
-        <StyledIcon size="lg" icon={<BsSpeedometer />} />
-        <Text fontSize="md">{formatNumber(200000)}km</Text>
-      </Attribute>
-      <Attribute padding="sm" sm={12} direction="row" gap="0.3rem">
-        <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
-        <Text fontSize="md">Petrol</Text>
-      </Attribute>
-      <Attribute padding="sm" sm={12} direction="row" gap="0.3rem">
-        <StyledIcon size="lg" icon={<TbManualGearbox />} />
-        <Text fontSize="md">Manual</Text>
-      </Attribute>
-    </Wrapper>
+    <List gap="1rem" sm={2} md={2} lg={2} xl={3} {...{ '2xl': 5 }} justifyContent="flex-start">
+      {props.km && (
+        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+          <StyledIcon size="lg" icon={<FaRoad />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Mileage
+            </Text>
+            <Text fontSize="md">{formatNumber(props.km)}km</Text>
+          </Container>
+        </Container>
+      )}
+      {props.fuelType && (
+        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+          <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Fuel type
+            </Text>
+            <Text fontSize="md">{props.fuelType}</Text>
+          </Container>
+        </Container>
+      )}
+      {props.transmission && (
+        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+          <StyledIcon size="lg" icon={<TbManualGearbox />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Transmission
+            </Text>
+            <Text fontSize="md">{props.transmission}</Text>
+          </Container>
+        </Container>
+      )}
+
+      {props.year && (
+        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+          <StyledIcon size="lg" icon={<BiCalendar />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Year
+            </Text>
+            <Text fontSize="md">{props.year}</Text>
+          </Container>
+        </Container>
+      )}
+
+      {props.driveType && (
+        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+          <StyledIcon size="lg" icon={<FaGear />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Year
+            </Text>
+            <Text fontSize="md">{props.driveType}</Text>
+          </Container>
+        </Container>
+      )}
+    </List>
   );
 
   const body = (
-    <Container sm={12} padding={{ top: 'sm', bottom: 'sm', left: 'sm', right: 'sm' }}>
-      <Button maxContent themeType="link" onClick={props.onView} size="lg">
-        <div>{props.title}</div>
-        <StyledDescription fontSize="md" title={props.description}>
-          {props.description}
-        </StyledDescription>
-      </Button>
-      {price}
+    <Container preserveWhenXs gap="0.5rem" style={{ flex: '1 0 100%' }} justifyContent="space-between">
+      <Container>
+        <Container direction="row" padding={{ left: 'md' }} justifyContent="space-between">
+          <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
+            <Button maxContent themeType="link" onClick={props.onView} size="lg">
+              <div>{props.title}</div>
+              {props.summary && (
+                <Text fontSize="md" title={props.summary}>
+                  {props.summary}
+                </Text>
+              )}
+            </Button>
+          </Container>
+          <Container preserveWhenXs direction="row">
+            {price}
+          </Container>
+        </Container>
+        <Container padding={{ left: 'md' }} xs="max-content" preserveWhenXs>
+          {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
+        </Container>
+      </Container>
+      <Container direction="row" gap="1rem" justifyContent="space-between">
+        <Container padding={{ left: 'md' }}>{productAttributes}</Container>
+        <Container
+          padding={{ left: 'md', right: 'md', top: 'sm', bottom: 'sm' }}
+          justifyContent="flex-end"
+          alignItems="flex-end"
+          gap="1rem"
+          direction="row"
+        >
+          <Button
+            themeType="white"
+            maxContent
+            icon={props.bookmarked ? <BsBookmarkCheckFill /> : <BsBookmark />}
+            size="sm"
+            onClick={(event) => {
+              event.stopPropagation();
+            }}
+          >
+            Add to favorites
+          </Button>
+          <Button maxContent icon={<BiShare />} size="md" themeType="white">
+            Share this
+          </Button>
+        </Container>
+      </Container>
     </Container>
   );
 
-  const onImageContainer = (
-    <StyledOnImageContainer preserveWhenXs>
-      <Button themeType="white" icon={props.bookmarked ? <BsFillBookmarkFill /> : <BsBookmark />} size="sm" />
-    </StyledOnImageContainer>
-  );
-
   const image = (
-    <Carousel noCommands minHeight="230px">
+    <Carousel noCommands minHeight="170px">
       {props.images?.map((image, index) => (
-        <StyledImage key={index} shadow objectFit="cover" width="400px" height="230px" src={image} />
+        <StyledImage key={index} shadow objectFit="cover" width="320px" height="100%" src={image} />
       ))}
     </Carousel>
   );
@@ -127,9 +177,7 @@ const ListProductCard: React.FC<Props> = (props) => {
       fullwidth={props.fullwidth}
       body={body}
       image={image}
-      onImageContainer={onImageContainer}
-      ribbon={props.ribbon && ribbons[props.ribbon]}
-      footer={productAttributes}
+      bordered
     />
   );
 };

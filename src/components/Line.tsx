@@ -20,7 +20,7 @@ const Line = styled.div<{
   ${(props) =>
     props.type === 'vertical' &&
     css`
-      border-right: 1px solid #ffffff1c;
+      border-right: 1px solid var(--border-color);
       min-height: ${props.height ?? '100%'};
     `};
 `;

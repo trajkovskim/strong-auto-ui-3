@@ -41,6 +41,7 @@ type StyledContainerProps = {
   preserveWhenXs?: boolean;
   relative?: boolean;
   zIndex?: number;
+  overflow?: React.CSSProperties['overflow'];
 };
 
 const MAX_COLUMNS = 12;
@@ -73,6 +74,8 @@ const StyledContainer = styled.div<StyledContainerProps>`
   position: ${(props) => props.relative && 'relative'};
 
   z-index: ${(props) => props.zIndex && `${props.zIndex} !important`};
+
+  overflow: ${(props) => props.overflow};
 
   padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>

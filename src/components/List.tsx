@@ -23,8 +23,8 @@ type StyledListProps = {
   elementWidth?: string;
   bordered?: boolean;
   rounded?: boolean;
-  margin?: Breakpoints | Sides;
-  padding?: Breakpoints | Sides;
+  margin?: Breakpoints | Sides<Breakpoints>;
+  padding?: Breakpoints | Sides<Breakpoints>;
 };
 
 const createMediaQ = (props: StyledListProps, ...[breakpoint, csss]: Parameters<typeof createMedia>) => {
@@ -46,7 +46,9 @@ const StyledList = styled.div<StyledListProps>`
   justify-content: ${(props) => (props.view === ListView.GRID && props.justifyContent) ?? 'space-evenly'};
 
   grid-template: auto / ${(props) =>
-      props.view === ListView.LIST ? 'auto' : `repeat(${props.childrenCount > 5 ? 5 : props.childrenCount}, auto)`};
+      props.view === ListView.LIST
+        ? 'auto'
+        : `repeat(${props.childrenCount > 5 ? 5 : props.childrenCount}, ${props.elementWidth})`};
 
   padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
   ${(props) =>

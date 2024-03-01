@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { css } from '@emotion/css';
 import React, { useCallback, useImperativeHandle, useReducer } from 'react';
 
@@ -33,7 +34,7 @@ export type TransitionHandle = {
   isFinished: () => boolean;
 };
 
-type Props = React.PropsWithRef<React.PropsWithChildren<StyledAnimatedProps>>;
+type Props = React.PropsWithChildren<StyledAnimatedProps>;
 
 type TransitionStateReducer = {
   componentState: ComponentState;
@@ -156,29 +157,33 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
       transition-timing-function: ${timingFunction};
     `;
 
-    return React.Children.map(children, (child, index) => {
-      if (React.isValidElement(child)) {
-        const className = `
-          ${(props as any)?.className}
+    return (
+      <>
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            const className = `
+          ${(props as any)?.className ?? ''}
           ${child.props.className ? child.props.className : ''} 
           ${transitionCss}
           ${transition?.initial ? transition?.initial : ''}
           ${isInFinalState() ? transition.final : ''}`;
-        // passing all other props to be able to pass parentGap property
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return React.cloneElement<any>(child, {
-          ...props,
-          ...child.props,
-          className,
-          onTransitionEnd: (event?: React.TransitionEvent<unknown>) => {
-            dispatch(finishAction());
-            onTransitionEnd && onTransitionEnd(event);
-            child.props.onTransitionEnd && child.props.onTransitionEnd(event);
-          },
-        });
-      }
-      return child;
-    });
+            // passing all other props to be able to pass parentGap property
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return React.cloneElement<any>(child, {
+              ...props,
+              ...child.props,
+              className,
+              onTransitionEnd: (event?: React.TransitionEvent<unknown>) => {
+                dispatch(finishAction());
+                onTransitionEnd && onTransitionEnd(event);
+                child.props.onTransitionEnd && child.props.onTransitionEnd(event);
+              },
+            });
+          }
+          return child;
+        })}
+      </>
+    );
   }
 );
 

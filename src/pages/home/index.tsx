@@ -1,13 +1,15 @@
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
+import VehicleRentIcon from 'assets/icons/vehicle-rent-icon.svg';
+import VehicleSearchIcon from 'assets/icons/vehicle-search-icon.svg';
+import VehiclePartsIcon from 'assets/icons/vehicle-parts-icon.svg';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 import RoadImage from 'assets/road.jpg';
 import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
-import Line from 'components/Line';
 import List from 'components/List';
-import ListProductCard from 'components/card/ListProductCard';
+import MiniProductCard from 'components/card/MiniProductCard';
 import ProductCard from 'components/card/ProductCard';
 import { RibbonType } from 'components/card/types';
 import Header from 'components/navigation/Header';
@@ -16,16 +18,18 @@ import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
 import BodyTypes from 'pages/home/BodyTypes';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
-import CantFindVehicle from 'pages/home/CantFindVehicle';
 import FAQ from 'pages/home/Faq';
 import HorizontalList from 'pages/home/HorizontalList';
 import LatestBlogPosts from 'pages/home/LatestBlogPosts';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
+import ServiceTile from 'pages/home/ServiceTile';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import styled from 'styled-components';
+import TowTruckImage from 'assets/tow-truck.jpg';
+import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
 
 const HomeWrapper = styled(Container)`
   background-image: url(${RoadImage});
@@ -74,10 +78,6 @@ const PopularMakesWrapper = styled(Container)`
   color: #fff;
 `;
 
-const FinanceWrapper = styled(Container)`
-  /* color: #fff; */
-`;
-
 const WhiteBackgroundContainer = styled(Container)`
   background-color: white;
   color: black;
@@ -89,6 +89,60 @@ const SearchContainer = styled(Container)`
 
 const CarouselWrapper = styled(Carousel)`
   z-index: 1;
+`;
+
+const BuyNewCarServiceTile = styled(ServiceTile)`
+  background-color: #ffc400;
+`;
+
+const RentACarServiceTile = styled(ServiceTile)`
+  background: linear-gradient(#f14f3f 0, #cb4335 100%);
+`;
+
+const CarPartsServiceTile = styled(ServiceTile)`
+  background-color: #055285;
+`;
+
+const TowingServiceServiceTile = styled(ServiceTile)`
+  background-image: url(${TowTruckImage});
+  background-size: cover;
+  background-position: center center;
+
+  &::before {
+    content: '';
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+  }
+
+  & > * {
+    z-index: 1;
+  }
+`;
+
+const CarServiceServiceTile = styled(ServiceTile)`
+  background-image: url(${CarServiceMechanicImage});
+  background-size: cover;
+  background-position: center center;
+
+  &::before {
+    content: '';
+    background-color: #000;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+  }
+
+  & > * {
+    z-index: 1;
+  }
 `;
 
 const Home: React.FC = () => {
@@ -111,11 +165,9 @@ const Home: React.FC = () => {
           <SearchBox />
         </SearchContainer>
       </StyledContainer>
-
       <WhiteBackgroundContainer>
         <BodyTypes />
       </WhiteBackgroundContainer>
-
       <WhiteBackgroundContainer padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
         <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
@@ -132,7 +184,39 @@ const Home: React.FC = () => {
           ))}
         </HorizontalList>
       </WhiteBackgroundContainer>
-
+      <Container
+        sm="1400px"
+        centered
+        padding={{ top: '2xl', bottom: '2xl', left: 'sm', right: 'sm' }}
+        direction="row"
+        wrap
+        preserveWhenXs
+      >
+        <BuyNewCarServiceTile
+          iconSrc={VehicleSearchIcon}
+          title="Buy new car?"
+          description={'Our cars are with all requirements completed and all fees paid until registration'}
+          preserveWhenXs
+          sm={12}
+          md={4}
+        />
+        <RentACarServiceTile
+          iconSrc={VehicleRentIcon}
+          title="Rent a car?"
+          description={'Our cars are with all requirements completed and all fees paid until registration'}
+          preserveWhenXs
+          sm={12}
+          md={4}
+        />
+        <CarPartsServiceTile
+          iconSrc={VehiclePartsIcon}
+          title="Looking for parts for your car?"
+          description={'Our cars are with all requirements completed and all fees paid until registration'}
+          preserveWhenXs
+          sm={12}
+          md={4}
+        />
+      </Container>
       <PopularMakesWrapper padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
         <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
@@ -145,82 +229,61 @@ const Home: React.FC = () => {
         </Container>
         <HorizontalList maxWidth="100%" centered>
           {popularMakesProducts.map((product) => (
-            <ListProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+            <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
           ))}
         </HorizontalList>
       </PopularMakesWrapper>
-
       <Container
         sm="1400px"
         centered
         itemsCentered
-        padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }}
+        padding={{ top: 'xl', bottom: 'xl', right: 'lg', left: 'lg' }}
         gap="2rem"
-        style={{ minHeight: '100vh' }}
       >
-        <Title title="What we have in store for you" fontSize="2xl" />
-        <Line />
+        {/* <Container preserveWhenXs gap="1rem" alignItems="center">
+          <Title title="Our services" fontSize="2xl" />
+          <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
+            View all
+          </Button>
+        </Container> */}
         <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }} gap="1rem">
-          <List xs={2} gap="3rem">
-            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
-              <Text fontSize="lg">Promotions</Text>
-              <Text bold fontSize="md">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industrys standard dummy text ever since the 1500s
-              </Text>
-              <Button themeType="white" maxContent size="md">
-                Promotions
-              </Button>
-            </FinanceWrapper>
-            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
-              <Text fontSize="lg">Our services</Text>
-              <Text bold fontSize="md">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industrys standard dummy text ever since the 1500s
-              </Text>
-              <Button themeType="white" maxContent size="md">
-                Services
-              </Button>
-            </FinanceWrapper>
-            {/* <Image
-            onClick={() => navigate(Routes.INDEX)}
-            src={Logo}
-            alt="Strong auto logo"
-            width="200px"
-            height="100%"
-            objectFit="contain"
-          /> */}
-            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
-              <Text fontSize="lg">Parts center</Text>
-              <Text bold fontSize="md">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industrys standard dummy text ever since the 1500s
-              </Text>
-              <Button themeType="white" maxContent size="md">
-                Go to parts
-              </Button>
-            </FinanceWrapper>
-            <FinanceWrapper xs="100px" sm="300px" gap="1rem">
-              <Text fontSize="lg">Parts center</Text>
-              <Text bold fontSize="md">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industrys standard dummy text ever since the 1500s
-              </Text>
-              <Button themeType="white" maxContent size="md">
-                Go to parts
-              </Button>
-            </FinanceWrapper>
+          <List xs={1} md={2} gap="3rem">
+            <CarServiceServiceTile
+              titleDescriptionContainer={{ gap: '1rem' }}
+              title="CAR SERVICE"
+              description={`mply dummy text of the printing 
+              and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
+              It has survived not only five centuries, but`}
+              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+            />
+            <TowingServiceServiceTile
+              titleDescriptionContainer={{ gap: '1rem' }}
+              title="FAST AND INEXPENSIVE TOWING SERVICES"
+              description={`
+            When it is not possible to fix a vehicle on-site, we utilise our extensive
+            network of local providers across Europe to deliver a professional and reliable towing service.`}
+              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+            />
+            <CarServiceServiceTile
+              titleDescriptionContainer={{ gap: '1rem' }}
+              title="CAR SERVICE"
+              description={`mply dummy text of the printing 
+              and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
+              It has survived not only five centuries, but`}
+              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+            />
+            <TowingServiceServiceTile
+              titleDescriptionContainer={{ gap: '1rem' }}
+              title="FAST AND INEXPENSIVE TOWING SERVICES"
+              description={`
+            When it is not possible to fix a vehicle on-site, we utilise our extensive
+            network of local providers across Europe to deliver a professional and reliable towing service.`}
+              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+            />
           </List>
         </Container>
       </Container>
-      {/* <Container sm="1400px" centered padding={{ top: 'lg', bottom: 'lg', right: 'lg', left: 'lg' }} gap="2rem">
-        <Title title="Services" fontSize="2xl" />
-        <Line />
-        <TowingService />
-        <Line />
-      </Container> */}
-      <Line />
-      <CantFindVehicle />
+      {/* <CantFindVehicle /> */}
       {/* <CarLot /> */}
       <WhiteBackgroundContainer>
         <WhyChooseUs />

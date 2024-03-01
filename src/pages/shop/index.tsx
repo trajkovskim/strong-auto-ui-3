@@ -99,6 +99,7 @@ const Shop: React.FC = () => {
         <Container xs={'max-content'} gap="0.5rem">
           <Button
             maxContent
+            nowrap
             icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
             size="md"
             themeType="link"
@@ -146,24 +147,18 @@ const Shop: React.FC = () => {
                 listView === ListView.LIST ? (
                   <ListProductCard
                     key={product.id}
-                    price={product.price}
-                    title={product.title}
-                    images={product.images}
-                    description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                     ribbon={product.state as RibbonType}
                     fullwidth
+                    {...product}
                   />
                 ) : (
                   <ProductCard
                     key={product.id}
-                    price={product.price}
-                    title={product.title}
-                    images={product.images}
-                    description={product.description}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                     ribbon={product.state as RibbonType}
                     fullwidth
+                    {...product}
                   />
                 )
               )}

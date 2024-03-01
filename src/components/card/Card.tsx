@@ -1,7 +1,6 @@
 import Container from 'components/Container';
-import { Ribbon } from 'components/card/Card.styled';
+import { StyledRibbon } from 'components/card/Card.styled';
 import { RibbonProps } from 'components/card/types';
-import Text from 'components/typography/Text';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -13,15 +12,12 @@ const StyledCard = styled(Container)<StyledCardProps>`
   background: white;
   color: black;
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
   width: 100%;
 
   max-width: ${(props) => props.fullwidth && '100%'};
 
   cursor: ${(props) => !!props.onClick && 'pointer'};
+  overflow: hidden;
 `;
 
 const StyledBodyWrapper = styled(Container)`
@@ -46,30 +42,11 @@ type Props = StyledCardProps & {
 
 const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, ...props }) => {
   return (
-    <StyledCard
-      preserveWhenXs
-      fullwidth={props.fullwidth}
-      alignItems="stretch"
-      rounded={{ topLeft: true, topRight: true }}
-      {...props}
-      direction="column"
-    >
+    <StyledCard preserveWhenXs fullwidth={props.fullwidth} alignItems="stretch" {...props} direction="column">
       <Container preserveWhenXs direction={props.direction}>
         <Container relative>
           {image}
-          {ribbon && (
-            <Ribbon
-              preserveWhenXs
-              rounded
-              padding={{ left: 'md', right: 'md', top: 'xs', bottom: 'xs' }}
-              background={ribbon?.background}
-              color={ribbon?.color}
-            >
-              <Text bold fontSize="md">
-                {ribbon?.label}
-              </Text>
-            </Ribbon>
-          )}
+          {ribbon && <StyledRibbon {...ribbon} />}
           <OnImageContainer>{onImageContainer}</OnImageContainer>
         </Container>
         <StyledBodyWrapper>{body}</StyledBodyWrapper>

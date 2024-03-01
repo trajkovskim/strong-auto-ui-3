@@ -75,7 +75,6 @@ export type CarouselHandle = {
 
 const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noCommands = false, ...props }, ref) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [minHeight, setMinHeight] = useState(0);
 
   const children = React.Children.toArray(props.children);
 
@@ -128,7 +127,7 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
   return (
     <StyledCarousel
       className={props.className}
-      minHeight={props.minHeight ?? `${minHeight}px`}
+      minHeight={props.minHeight}
       maxHeight={props.maxHeight}
       absolute={props.absolute}
     >
