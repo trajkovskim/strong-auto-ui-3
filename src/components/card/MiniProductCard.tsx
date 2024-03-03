@@ -64,7 +64,7 @@ const MiniProductCard: React.FC<Props> = (props) => {
       justifyContent="space-between"
       alignItems="flex-end"
     >
-      <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
+      <Container overflow="hidden" padding={{ top: 'sm' }}>
         <Button maxContent themeType="link" onClick={props.onView} size="lg">
           <div>{props.title}</div>
         </Button>
@@ -96,12 +96,6 @@ const MiniProductCard: React.FC<Props> = (props) => {
 
   return (
     <Card
-      xs={'calc(100% - 16px)'}
-      sm={'calc(100% - 16px)'}
-      md={'calc(50% - 16px)'}
-      lg={'calc(33.33% - 16px)'}
-      xl={'calc(25% - 16px)'}
-      {...{ '2xl': 'calc(20% - 16px)' }}
       fullwidth={props.fullwidth}
       image={image}
       onImageContainer={onImageContainer}

@@ -32,8 +32,6 @@ type HeaderWrapperProps = {
 const HeaderWrapper = styled.header<HeaderWrapperProps>`
   background-color: ${(props) => !props.transparent && '#232323'};
   color: white;
-  position: sticky;
-  top: 0;
   z-index: 10;
 `;
 

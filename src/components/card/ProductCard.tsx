@@ -16,7 +16,7 @@ import { formatNumber } from 'utils';
 
 const ProductCard: React.FC<Props> = (props) => {
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }}>
+    <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }} preserveWhenXs>
       {props.price?.totalPromo && (
         <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
@@ -44,22 +44,23 @@ const ProductCard: React.FC<Props> = (props) => {
         gap="1rem"
         padding={{ top: 'sm', left: 'md', bottom: 'sm' }}
         justifyContent="space-between"
+        alignItems="center"
+        preserveWhenXs
       >
         <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
-          <Button maxContent themeType="link" onClick={props.onView} size="lg">
+          <Button fullwidth textAlign="left" themeType="link" onClick={props.onView} size="lg">
             <div>{props.title}</div>
-            {props.summary && (
+            {/* {props.summary && (
               <Text fontSize="md" title={props.summary}>
                 {props.summary}
               </Text>
-            )}
+            )} */}
           </Button>
         </Container>
         <Container preserveWhenXs direction="row">
           {price}
         </Container>
       </Container>
-      <Line />
     </Container>
   );
 
@@ -76,27 +77,30 @@ const ProductCard: React.FC<Props> = (props) => {
     </>
   );
 
-  const productAttributes = (
-    <List gap="2px" xs={4}>
-      {props.km && (
-        <Container padding="sm" sm={12} direction="row" gap="0.3rem">
-          <Text fontSize="md">{formatNumber(props.km)}km</Text>
-          <StyledIcon size="lg" icon={<FaRoad />} />
-        </Container>
-      )}
-      {props.fuelType && (
-        <Container padding="sm" sm={12} direction="row" gap="0.3rem">
-          <Text fontSize="md">{props.fuelType}</Text>
-          <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
-        </Container>
-      )}
-      {props.transmission && (
-        <Container padding="sm" sm={12} direction="row" gap="0.3rem">
-          <Text fontSize="md">{props.transmission}</Text>
-          <StyledIcon size="lg" icon={<TbManualGearbox />} />
-        </Container>
-      )}
-    </List>
+  const footer = (
+    <>
+      <Line />
+      <List gap="2px" xs={4}>
+        {props.km && (
+          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+            <Text fontSize="md">{formatNumber(props.km)}km</Text>
+            <StyledIcon size="lg" icon={<FaRoad />} />
+          </Container>
+        )}
+        {props.fuelType && (
+          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+            <Text fontSize="md">{props.fuelType}</Text>
+            <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
+          </Container>
+        )}
+        {props.transmission && (
+          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+            <Text fontSize="md">{props.transmission}</Text>
+            <StyledIcon size="lg" icon={<TbManualGearbox />} />
+          </Container>
+        )}
+      </List>
+    </>
   );
 
   const image = (
@@ -109,19 +113,13 @@ const ProductCard: React.FC<Props> = (props) => {
 
   return (
     <Card
-      xs={'calc(100% - 16px)'}
-      sm={'calc(100% - 16px)'}
-      md={'calc(50% - 16px)'}
-      lg={'calc(33.33% - 16px)'}
-      xl={'calc(25% - 16px)'}
-      {...{ '2xl': 'calc(20% - 16px)' }}
       fullwidth={props.fullwidth}
       body={body}
       image={image}
       onImageContainer={onImageContainer}
       ribbon={props.ribbon && ribbons[props.ribbon]}
       onClick={props.onView}
-      footer={productAttributes}
+      footer={footer}
       bordered
     />
   );

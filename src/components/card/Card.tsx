@@ -9,11 +9,12 @@ type StyledCardProps = {
 };
 
 const StyledCard = styled(Container)<StyledCardProps>`
+  box-sizing: border-box;
   background: white;
   color: black;
 
   width: 100%;
-
+  height: 100%;
   max-width: ${(props) => props.fullwidth && '100%'};
 
   cursor: ${(props) => !!props.onClick && 'pointer'};
@@ -42,7 +43,14 @@ type Props = StyledCardProps & {
 
 const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, ...props }) => {
   return (
-    <StyledCard preserveWhenXs fullwidth={props.fullwidth} alignItems="stretch" {...props} direction="column">
+    <StyledCard
+      preserveWhenXs
+      fullwidth={props.fullwidth}
+      alignItems="stretch"
+      justifyContent="space-between"
+      {...props}
+      direction="column"
+    >
       <Container preserveWhenXs direction={props.direction}>
         <Container relative>
           {image}

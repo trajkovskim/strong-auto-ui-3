@@ -54,8 +54,14 @@ export const getElementHeight = (el: HTMLElement) => {
   return list.map((k) => parseInt(style.getPropertyValue(k), 10)).reduce((prev, cur) => prev + cur);
 };
 
-export const getElementWidth = (el: HTMLElement) => {
-  const list = ['margin-left', 'margin-right', 'border-left', 'border-right', 'padding-left', 'padding-right', 'width'];
+export const getElementWidth = (el: HTMLElement, boxSizing: React.CSSProperties['boxSizing'] = 'border-box') => {
+  let list: string[] = [];
+
+  if (boxSizing === 'border-box') {
+    list = ['margin-left', 'margin-right', 'width'];
+  } else if (boxSizing === 'content-box') {
+    list = ['margin-left', 'margin-right', 'padding-left', 'padding-right', 'border-right', 'border-left', 'width'];
+  }
 
   const style = window.getComputedStyle(el);
   return list.map((k) => parseInt(style.getPropertyValue(k), 10)).reduce((prev, cur) => prev + cur);

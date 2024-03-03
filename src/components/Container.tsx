@@ -4,6 +4,10 @@ import theme from 'theme';
 
 export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 
+export type BreakpointsProps = {
+  [key in Breakpoints]?: string | number;
+};
+
 export type Sides<T> = {
   top?: T;
   bottom?: T;
@@ -18,9 +22,7 @@ export type Edges<T> = {
   bottomRight?: T;
 };
 
-type StyledContainerProps = {
-  [key in Breakpoints]?: string | number;
-} & {
+type StyledContainerProps = BreakpointsProps & {
   margin?: Breakpoints | Sides<Breakpoints>;
   padding?: Breakpoints | Sides<Breakpoints>;
   direction?: React.CSSProperties['flexDirection'];
@@ -59,8 +61,10 @@ const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?
   return css`
     @media ${minWidth}${maxWidth} {
       display: ${typeof props[breakpoint] === 'number' && props[breakpoint] === 0 && 'none'};
+
       width: ${typeof props[breakpoint] === 'string' && `calc(100% - ${gap})`};
       max-width: ${typeof props[breakpoint] === 'string' && props[breakpoint]};
+
       width: ${typeof props[breakpoint] === 'number' &&
       `calc(${calculateColumnPercentage(props[breakpoint] as number)} - ${gap})`};
       ${csss};

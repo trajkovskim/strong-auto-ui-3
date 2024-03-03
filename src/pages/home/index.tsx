@@ -152,9 +152,9 @@ const Home: React.FC = () => {
     <HomeWrapper>
       <StyledContainer preserveWhenXs>
         <Header transparent />
-        <CarouselWrapper minHeight="100%" maxHeight="100vh" absolute noCommands>
-          <Image src={BMWDriftSoilImage} objectFit="cover" verticalCentered height="100%" />
-          <Image src={MasserattiMountainsImage} objectFit="cover" verticalCentered height="100%" />
+        <CarouselWrapper minHeight="100vh" absolute noCommands>
+          <Image src={BMWDriftSoilImage} objectFit="cover" height="100%" />
+          <Image src={MasserattiMountainsImage} objectFit="cover" height="100%" />
         </CarouselWrapper>
 
         <SearchContainer gap="2rem" preserveWhenXs justifyContent="center" alignItems="center" alignSelf="center">
@@ -165,9 +165,13 @@ const Home: React.FC = () => {
           <SearchBox />
         </SearchContainer>
       </StyledContainer>
+
       <WhiteBackgroundContainer>
-        <BodyTypes />
+        <Container centered sm="1400px">
+          <BodyTypes />
+        </Container>
       </WhiteBackgroundContainer>
+
       <WhiteBackgroundContainer padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
         <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
@@ -177,13 +181,14 @@ const Home: React.FC = () => {
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Used' }, { label: 'Featured' }]} />
+          <List gap="1rem" xs={1} md={2} lg={3} {...{ '2xl': 4 }}>
+            {products.slice(0, 8).map((product) => (
+              <ProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+            ))}
+          </List>
         </Container>
-        <HorizontalList maxWidth="100%" centered>
-          {products.map((product) => (
-            <ProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
-          ))}
-        </HorizontalList>
       </WhiteBackgroundContainer>
+
       <Container
         sm="1400px"
         centered
@@ -226,12 +231,17 @@ const Home: React.FC = () => {
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Audi' }, { label: 'BMW' }, { label: 'Toyota' }]} />
+          <HorizontalList
+            gap="2rem"
+            chunkGap="1rem"
+            chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }}
+            centered
+          >
+            {popularMakesProducts.map((product) => (
+              <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+            ))}
+          </HorizontalList>
         </Container>
-        <HorizontalList maxWidth="100%" centered>
-          {popularMakesProducts.map((product) => (
-            <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
-          ))}
-        </HorizontalList>
       </PopularMakesWrapper>
       <Container
         sm="1400px"

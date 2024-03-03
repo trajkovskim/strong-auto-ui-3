@@ -55,9 +55,9 @@ const MobileNavigation: React.FC = () => {
             `,
           }}
         >
-          <MobileContainer>
-            <Container alignSelf="flex-end" padding={{ top: 'lg', right: 'md' }}>
-              <Button icon={<MdClear />} themeType="link" onClick={close} size="2xl" />
+          <MobileContainer preserveWhenXs>
+            <Container preserveWhenXs alignSelf="flex-end" padding={{ top: 'lg', right: 'md' }}>
+              <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="2xl" />
             </Container>
             <div>{navigation}</div>
           </MobileContainer>

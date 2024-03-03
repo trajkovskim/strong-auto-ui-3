@@ -165,21 +165,7 @@ const ListProductCard: React.FC<Props> = (props) => {
     </Carousel>
   );
 
-  return (
-    <Card
-      xs={'calc(100% - 16px)'}
-      sm={'calc(100% - 16px)'}
-      md={'calc(50% - 16px)'}
-      lg={'calc(50% - 16px)'}
-      xl={'calc(40% - 16px)'}
-      {...{ '2xl': 'calc(40% - 16px)' }}
-      direction="row"
-      fullwidth={props.fullwidth}
-      body={body}
-      image={image}
-      bordered
-    />
-  );
+  return <Card direction="row" fullwidth={props.fullwidth} body={body} image={image} bordered />;
 };
 
 export default ListProductCard;

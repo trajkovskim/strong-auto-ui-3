@@ -39,7 +39,6 @@ export const PriceWrapper = styled(Container)`
   color: white;
   transform: skew(10px);
   clip-path: polygon(10% 0, 0 100%, 100% 100%, 100% 0);
-  height: 100%;
   align-items: flex-end;
   justify-content: flex-end;
 `;
