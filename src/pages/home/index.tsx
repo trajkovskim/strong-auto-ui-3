@@ -183,7 +183,7 @@ const Home: React.FC = () => {
           <TabButtonsGroup buttons={[{ label: 'Used' }, { label: 'Featured' }]} />
           <List gap="1rem" xs={1} md={2} lg={3} {...{ '2xl': 4 }}>
             {products.slice(0, 8).map((product) => (
-              <ProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+              <ProductCard fullwidth {...product} ribbon={product.state as RibbonType} key={product.id} />
             ))}
           </List>
         </Container>
@@ -192,8 +192,10 @@ const Home: React.FC = () => {
       <Container
         sm="1400px"
         centered
-        padding={{ top: '2xl', bottom: '2xl', left: 'sm', right: 'sm' }}
+        padding={{ top: 'xl', bottom: 'xl', left: 'sm', right: 'sm' }}
         direction="row"
+        justifyContent="center"
+        gap="1rem"
         wrap
         preserveWhenXs
       >
@@ -256,15 +258,23 @@ const Home: React.FC = () => {
             View all
           </Button>
         </Container> */}
-        <Container itemsCentered padding={{ top: 'lg', bottom: 'lg', right: 'md', left: 'md' }} gap="1rem">
-          <List xs={1} md={2} gap="3rem">
+        <Container
+          itemsCentered
+          padding={{ top: 'xl', bottom: 'xl', right: 'md', left: 'md' }}
+          gap="1rem"
+          justifyContent="center"
+          preserveWhenXs
+        >
+          <List xs={1} md={2} gap="3rem" elementWidth="1fr">
             <CarServiceServiceTile
               titleDescriptionContainer={{ gap: '1rem' }}
               title="CAR SERVICE"
               description={`mply dummy text of the printing 
               and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
               It has survived not only five centuries, but`}
-              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+              padding="lg"
+              preserveWhenXs
+              xs={'100%'}
             />
             <TowingServiceServiceTile
               titleDescriptionContainer={{ gap: '1rem' }}
@@ -272,7 +282,9 @@ const Home: React.FC = () => {
               description={`
             When it is not possible to fix a vehicle on-site, we utilise our extensive
             network of local providers across Europe to deliver a professional and reliable towing service.`}
-              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+              padding="lg"
+              preserveWhenXs
+              xs={'100%'}
             />
             <CarServiceServiceTile
               titleDescriptionContainer={{ gap: '1rem' }}
@@ -280,7 +292,9 @@ const Home: React.FC = () => {
               description={`mply dummy text of the printing 
               and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
               It has survived not only five centuries, but`}
-              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+              padding="lg"
+              preserveWhenXs
+              xs={'100%'}
             />
             <TowingServiceServiceTile
               titleDescriptionContainer={{ gap: '1rem' }}
@@ -288,7 +302,9 @@ const Home: React.FC = () => {
               description={`
             When it is not possible to fix a vehicle on-site, we utilise our extensive
             network of local providers across Europe to deliver a professional and reliable towing service.`}
-              padding={{ top: 'xl', bottom: 'xl', left: '2xl', right: 'xl' }}
+              padding="lg"
+              preserveWhenXs
+              xs={'100%'}
             />
           </List>
         </Container>

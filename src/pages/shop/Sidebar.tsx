@@ -8,16 +8,25 @@ import { MdClear } from 'react-icons/md';
 import styled from 'styled-components';
 
 const StyledSidebar = styled.div`
-  position: fixed;
+  max-width: 270px;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: white;
   max-width: 270px;
-  top: 0;
-  z-index: 9999;
+  overflow: auto;
   gap: 1rem;
   display: flex;
   flex-direction: column;
+`;
+
+const GrayedContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background-color: #faf8f886;
+  top: 0;
+  left: 0;
+  z-index: -1;
 `;
 
 type Props = React.PropsWithChildren & {
@@ -37,15 +46,22 @@ const Sidebar = React.forwardRef<SidebarHandle, Props>((props, ref) => {
   const [shown, setShown] = useState<boolean>(false);
 
   const open: SidebarHandle['open'] = useCallback(() => {
+    if (containerRef?.parentElement) {
+      containerRef.parentElement.style.setProperty('z-index', '9998');
+    }
     transitionRef.current?.gotoFinalState();
     setShown(true);
-  }, []);
+  }, [containerRef?.parentElement]);
 
   const close: SidebarHandle['close'] = useCallback(() => {
+    if (containerRef?.parentElement) {
+      containerRef.parentElement.style.setProperty('z-index', '-5');
+    }
+
     transitionRef.current?.gotoInitialState();
     props.onClose && props.onClose();
     setShown(false);
-  }, [props]);
+  }, [containerRef?.parentElement, props]);
 
   const isOpen: SidebarHandle['isOpen'] = useCallback(() => shown, [shown]);
 
@@ -62,35 +78,37 @@ const Sidebar = React.forwardRef<SidebarHandle, Props>((props, ref) => {
   );
 
   return createPortal(
-    <Transition
-      ref={transitionRef}
-      duration="300ms"
-      timingFunction="ease-in-out"
-      transition={{
-        initial: css`
-          max-width: 0;
-          overflow: hidden;
-        `,
-        final: css`
-          max-width: 270px;
-          overflow-y: auto;
-        `,
-      }}
-      onTransitionEnd={() => {
-        if (transitionRef.current?.isInFinalState()) {
-          document.addEventListener('click', handleClickOutsideEvent);
-        } else {
-          document.removeEventListener('click', handleClickOutsideEvent);
-        }
-      }}
-    >
-      <StyledSidebar ref={setContainerRef}>
-        <Container alignItems="flex-end">
-          <Button themeType="white" fullwidth size="md" icon={<MdClear />} onClick={close} />
-        </Container>
-        <div>{props.children}</div>
-      </StyledSidebar>
-    </Transition>,
+    <>
+      <Transition
+        ref={transitionRef}
+        duration="300ms"
+        timingFunction="ease-in-out"
+        transition={{
+          initial: css`
+            opacity: 0;
+          `,
+          final: css`
+            opacity: 1;
+          `,
+        }}
+        onTransitionEnd={() => {
+          if (transitionRef.current?.isInFinalState()) {
+            document.addEventListener('click', handleClickOutsideEvent);
+          } else {
+            document.removeEventListener('click', handleClickOutsideEvent);
+          }
+        }}
+      >
+        <GrayedContainer>
+          <StyledSidebar ref={setContainerRef}>
+            <Container alignItems="flex-end">
+              <Button themeType="white" fullwidth size="md" icon={<MdClear />} onClick={close} />
+            </Container>
+            <div>{props.children}</div>
+          </StyledSidebar>
+        </GrayedContainer>
+      </Transition>
+    </>,
     portalsElement
   );
 });

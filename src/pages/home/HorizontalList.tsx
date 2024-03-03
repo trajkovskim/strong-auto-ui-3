@@ -33,6 +33,8 @@ const StyledArrowButton = styled(Button)`
 const HorizontalListChildrenWrapper = styled(Container)`
   & > * {
     flex: 1 0 100%;
+    height: 100%;
+
     user-select: none;
 
     border-left: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
@@ -54,31 +56,32 @@ const HorizontalListChildrenWrapper = styled(Container)`
 
 type Props = React.PropsWithChildren &
   HorizontalListWrapperProps & {
+    intervalMs?: number;
     chunkSize?: BreakpointsProps;
     chunkGap?: React.CSSProperties['gap'];
   };
 
-const HorizontalList: React.FC<Props> = (props) => {
+const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
   const ref = useRef<HTMLDivElement>(null);
   let { current: mouseDown } = useRef<boolean>(false);
   let { current: mouseOver } = useRef<boolean>(false);
   let { current: previousTouch } = useRef<number>();
-  // let { current: interval } = useRef<number>();
+  let { current: interval } = useRef<number>();
 
-  // const handleIterval = () => {
-  //   const listRef = ref.current;
-  //   if (!listRef || !listRef.hasChildNodes) {
-  //     return;
-  //   }
+  const handleIterval = () => {
+    const listRef = ref.current;
+    if (!listRef || !listRef.hasChildNodes) {
+      return;
+    }
 
-  //   if (mouseOver) {
-  //     return;
-  //   }
+    if (mouseOver) {
+      return;
+    }
 
-  //   const deltaX = getButtonClickDeltaX() ?? 0;
+    const deltaX = getButtonClickDeltaX() ?? 0;
 
-  //   listRef.scrollTo({ left: listRef.scrollLeft + deltaX, behavior: 'smooth' });
-  // };
+    listRef.scrollTo({ left: listRef.scrollLeft + deltaX, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const listRef = ref.current;
@@ -86,10 +89,11 @@ const HorizontalList: React.FC<Props> = (props) => {
       return;
     }
 
-    // interval = setInterval(handleIterval, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    interval = setInterval(handleIterval, intervalMs);
 
     return () => {
-      // clearInterval(interval);
+      clearInterval(interval);
     };
   }, []);
 
@@ -110,8 +114,8 @@ const HorizontalList: React.FC<Props> = (props) => {
 
     const deltaX = -(getButtonClickDeltaX() ?? 0);
 
-    // clearInterval(interval);
-    // interval = setInterval(handleIterval, 3000);
+    clearInterval(interval);
+    interval = setInterval(handleIterval, intervalMs);
     listRef.scrollTo({
       left: listRef.scrollLeft + deltaX,
       behavior: 'smooth',
@@ -126,8 +130,8 @@ const HorizontalList: React.FC<Props> = (props) => {
 
     const deltaX = getButtonClickDeltaX() ?? 0;
 
-    // clearInterval(interval);
-    // interval = setInterval(handleIterval, 3000);
+    clearInterval(interval);
+    interval = setInterval(handleIterval, intervalMs);
     listRef.scrollTo({
       left: listRef.scrollLeft + deltaX,
       behavior: 'smooth',

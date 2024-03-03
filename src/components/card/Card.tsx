@@ -14,7 +14,6 @@ const StyledCard = styled(Container)<StyledCardProps>`
   color: black;
 
   width: 100%;
-  height: 100%;
   max-width: ${(props) => props.fullwidth && '100%'};
 
   cursor: ${(props) => !!props.onClick && 'pointer'};
