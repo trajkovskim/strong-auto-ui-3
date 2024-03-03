@@ -8,8 +8,9 @@ import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
 import { products } from 'pages/constants';
 import Filters from 'pages/shop/Filters';
-import Sidebar, { SidebarHandle } from 'pages/shop/Sidebar';
-import React, { useRef, useState } from 'react';
+import Sidebar from 'pages/shop/Sidebar';
+import React, { useState } from 'react';
+import { BiMenu } from 'react-icons/bi';
 import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
 import { MdGridView, MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +37,7 @@ const Shop: React.FC = () => {
   const totalContentNumber = 34792;
   const [page] = useState<number>(8);
   const [totalPages] = useState<number>(8);
-  const sidebarRef = useRef<SidebarHandle>(null);
+  const [sidebarShow, setSidebarShow] = useState<boolean>(false);
 
   const mappedProducts = products.slice(0, pageSize);
 
@@ -52,7 +53,7 @@ const Shop: React.FC = () => {
   const breadCrumb = <Text fontSize="sm">Home {'>'} Shop</Text>;
 
   const listHeaderComponent = (
-    <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between" alignItems="flex-end">
+    <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between">
       <Container gap="1rem">
         {breadCrumb}
         <Container xs={0} md="max-content" preserveWhenXs direction="row" gap="1rem">
@@ -82,49 +83,58 @@ const Shop: React.FC = () => {
           />
         </Container>
       </Container>
-      <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
-        <Container xs={'max-content'} lg={0}>
-          <Button
-            maxContent
-            onClick={() => sidebarRef.current?.open()}
-            icon={sidebarRef.current?.isOpen ? <HiFilter /> : <HiOutlineFilter />}
-            themeType="link"
-            size="md"
-          >
-            <Container xs={0} sm="max-content">
-              Filters
-            </Container>
-          </Button>
+      <Container direction="row" preserveWhenXs justifyContent="space-between" alignItems="flex-end">
+        <Container xs="max-content" md={0} preserveWhenXs direction="row" gap="1rem">
+          <Button maxContent icon={<BiMenu />} themeType="link" size="lg" />
         </Container>
-        <Container xs={'max-content'} gap="0.5rem">
-          <Button
-            maxContent
-            nowrap
-            icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
-            size="md"
-            themeType="link"
-            onClick={toggleListView}
-          >
-            <Container xs={0} sm="max-content">
-              {tListView[listView]} view
-            </Container>
-          </Button>
+        <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
+          <Container xs={'max-content'} lg={0}>
+            <Button
+              maxContent
+              onClick={() => setSidebarShow(true)}
+              icon={sidebarShow ? <HiFilter /> : <HiOutlineFilter />}
+              themeType="link"
+              size="lg"
+            >
+              <Container xs={0} md="max-content">
+                Filters
+              </Container>
+            </Button>
+          </Container>
+          <Container xs={'max-content'} gap="0.5rem">
+            <Button
+              maxContent
+              nowrap
+              icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
+              size="lg"
+              themeType="link"
+              onClick={toggleListView}
+            >
+              <Container xs={0} md="max-content">
+                {tListView[listView]} view
+              </Container>
+            </Button>
+          </Container>
         </Container>
       </Container>
     </ListHeader>
   );
 
-  return (
-    <Container>
-      <ListActionsMobileWrapper xs={12} lg={0}>
-        {listHeaderComponent}
-      </ListActionsMobileWrapper>
+  const sidebarMobile = (
+    <Sidebar preserveWhenXs sm={12} md={'300px'} open={sidebarShow} onClose={() => setSidebarShow(false)}>
+      <Filters />
+    </Sidebar>
+  );
 
-      <Container padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }} gap="1rem">
-        <Sidebar ref={sidebarRef}>
-          <Filters />
-        </Sidebar>
-        <Container direction="row" wrap gap="1rem">
+  return (
+    <>
+      {sidebarMobile}
+      <Container>
+        <ListActionsMobileWrapper xs={12} lg={0}>
+          {listHeaderComponent}
+        </ListActionsMobileWrapper>
+
+        <Container direction="row" wrap gap="1rem" padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }}>
           <Container xs={0} lg={3.2} xl={2.5} {...{ '2xl': 2 }}>
             <Filters />
           </Container>
@@ -173,7 +183,7 @@ const Shop: React.FC = () => {
           </Container>
         </Container>
       </Container>
-    </Container>
+    </>
   );
 };
 

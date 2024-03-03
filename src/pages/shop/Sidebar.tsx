@@ -1,22 +1,15 @@
 import { css } from '@emotion/css';
-import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { MdClear } from 'react-icons/md';
 import styled from 'styled-components';
 
-const StyledSidebar = styled.div`
-  max-width: 270px;
+const StyledSidebar = styled(Container)`
   width: 100%;
   height: 100%;
   background-color: white;
-  max-width: 270px;
   overflow: auto;
-  gap: 1rem;
-  display: flex;
-  flex-direction: column;
 `;
 
 const GrayedContainer = styled.div`
@@ -26,56 +19,45 @@ const GrayedContainer = styled.div`
   background-color: #faf8f886;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 9998;
 `;
 
-type Props = React.PropsWithChildren & {
-  onClose?: () => void;
-};
+type Props = React.PropsWithChildren &
+  React.ComponentProps<typeof Container> & {
+    onClose?: () => void;
+    open: boolean;
+  };
 
-export type SidebarHandle = {
-  open: () => void;
-  close: () => void;
-  isOpen: () => boolean;
-};
-
-const Sidebar = React.forwardRef<SidebarHandle, Props>((props, ref) => {
+const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   const portalsElement = document.getElementById('portals') as Element;
   const transitionRef = useRef<TransitionHandle>(null);
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
-  const [shown, setShown] = useState<boolean>(false);
 
-  const open: SidebarHandle['open'] = useCallback(() => {
-    if (containerRef?.parentElement) {
-      containerRef.parentElement.style.setProperty('z-index', '9998');
-    }
-    transitionRef.current?.gotoFinalState();
-    setShown(true);
-  }, [containerRef?.parentElement]);
-
-  const close: SidebarHandle['close'] = useCallback(() => {
-    if (containerRef?.parentElement) {
-      containerRef.parentElement.style.setProperty('z-index', '-5');
-    }
-
+  const close = useCallback(() => {
     transitionRef.current?.gotoInitialState();
-    props.onClose && props.onClose();
-    setShown(false);
-  }, [containerRef?.parentElement, props]);
-
-  const isOpen: SidebarHandle['isOpen'] = useCallback(() => shown, [shown]);
-
-  useImperativeHandle(ref, () => ({ open, close, isOpen }));
+  }, []);
 
   const handleClickOutsideEvent = useCallback(
     (event: MouseEvent) => {
-      const isClickInside = containerRef?.contains(event.target as HTMLElement);
+      const isClickInside = containerRef?.contains(event.target as Node);
+
+      console.log(containerRef, event.target, isClickInside);
       if (!isClickInside) {
         close();
       }
     },
     [close, containerRef]
   );
+
+  useEffect(() => {
+    if (open) {
+      transitionRef.current?.gotoFinalState();
+    }
+  }, [open]);
+
+  if (!open) {
+    return null;
+  }
 
   return createPortal(
     <>
@@ -93,25 +75,23 @@ const Sidebar = React.forwardRef<SidebarHandle, Props>((props, ref) => {
         }}
         onTransitionEnd={() => {
           if (transitionRef.current?.isInFinalState()) {
-            document.addEventListener('click', handleClickOutsideEvent);
+            document.addEventListener('click', handleClickOutsideEvent, { capture: true });
           } else {
-            document.removeEventListener('click', handleClickOutsideEvent);
+            document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
+            onClose && onClose();
           }
         }}
       >
         <GrayedContainer>
-          <StyledSidebar ref={setContainerRef}>
-            <Container alignItems="flex-end">
-              <Button themeType="white" fullwidth size="md" icon={<MdClear />} onClick={close} />
-            </Container>
-            <div>{props.children}</div>
+          <StyledSidebar {...props} ref={setContainerRef}>
+            <div>{children}</div>
           </StyledSidebar>
         </GrayedContainer>
       </Transition>
     </>,
     portalsElement
   );
-});
+};
 
 Sidebar.displayName = 'Sidebar';
 

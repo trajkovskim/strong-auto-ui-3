@@ -6,7 +6,7 @@ import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'componen
 import useNavigationOptions from 'components/navigation/useNavigationOptions';
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { BsMenuButton } from 'react-icons/bs';
+import { BiMenu } from 'react-icons/bi';
 import { MdClear } from 'react-icons/md';
 
 const MobileNavigation: React.FC = () => {
@@ -68,7 +68,7 @@ const MobileNavigation: React.FC = () => {
         <Button
           maxContent
           themeType="link"
-          icon={<BsMenuButton />}
+          icon={<BiMenu />}
           size="lg"
           onClick={() => {
             transitionRef.current?.toggle();

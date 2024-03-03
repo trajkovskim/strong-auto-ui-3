@@ -180,8 +180,8 @@ const Filters: React.FC = () => {
               { value: 'Bluetooth' },
               { value: 'Bluetooth' },
               { value: 'Bluetooth' },
-            ].map((feature) => (
-              <Checkbox key="feature.value" label={feature.value} size="md" />
+            ].map((feature, index) => (
+              <Checkbox key={`${feature.value}-${index}`} label={feature.value} size="md" />
             ))}
           </CheckboxWrapper>
         </Container>
