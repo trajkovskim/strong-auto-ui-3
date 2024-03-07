@@ -24,6 +24,7 @@ import { SlSpeedometer } from 'react-icons/sl';
 import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
 import { Routes } from 'routes';
 import { call, formatNumber, mailTo } from 'utils';
+import MiniProductCard from 'components/card/MiniProductCard';
 
 const StyledContainer = styled(Container)``;
 
@@ -237,20 +238,27 @@ const ViewDetails: React.FC = () => {
             </Container>
           </Container>
         </Container>
-        <Line />
-        <Title fontSize="md" title="Featured products" />
-        <HorizontalList>
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              price={product.price}
-              title={product.title}
-              images={product.images}
-              summary={product.summary}
-              onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-            />
-          ))}
-        </HorizontalList>
+        <Container sm="1400px" centered gap="1rem">
+          <Line />
+          <Title fontSize="md" title="Featured products" />
+          <HorizontalList
+            gap="2rem"
+            chunkGap="1rem"
+            chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }}
+            centered
+          >
+            {products.map((product) => (
+              <MiniProductCard
+                key={product.id}
+                price={product.price}
+                title={product.title}
+                images={product.images}
+                summary={product.summary}
+                onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+              />
+            ))}
+          </HorizontalList>
+        </Container>
       </Container>
     </Container>
   );
