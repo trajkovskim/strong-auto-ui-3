@@ -76,7 +76,7 @@ export const products = [
   {
     id: 0,
     state: 'sold',
-    images: [BMWDriftSoilImage],
+    images: [BMWDriftSoilImage, ToyotaCamryImage, ToyotaCamryImage, BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,

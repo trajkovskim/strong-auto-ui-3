@@ -134,11 +134,11 @@ const Shop: React.FC = () => {
           {listHeaderComponent}
         </ListActionsMobileWrapper>
 
-        <Container direction="row" wrap gap="1rem" padding={{ top: 'md', bottom: 'md', left: 'md', right: 'md' }}>
-          <Container xs={0} lg={3.2} xl={2.5} {...{ '2xl': 2 }}>
+        <Container direction="row" wrap gap="1rem" padding={{ bottom: 'md', right: 'md' }}>
+          <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
             <Filters />
           </Container>
-          <Container sm={12} lg={8.8} xl={9.5} {...{ '2xl': 10 }} gap="1rem">
+          <Container sm={12} lg={7} xl={7.5} {...{ '2xl': 8.5 }} gap="1rem">
             <Container xs={0} lg={12}>
               {listHeaderComponent}
             </Container>
@@ -148,9 +148,10 @@ const Shop: React.FC = () => {
             <List
               gap="1rem"
               xs={1}
-              md={listView === ListView.GRID ? 2 : 1}
+              md={listView === ListView.GRID ? 1 : 1}
+              lg={listView === ListView.GRID ? 2 : 1}
               xl={listView === ListView.GRID ? 3 : 1}
-              {...{ '2xl': listView === ListView.GRID ? 4 : 1 }}
+              // {...{ '2xl': listView === ListView.GRID ? 4 : 1 }}
               view={listView}
             >
               {mappedProducts.map((product) =>
@@ -180,6 +181,11 @@ const Shop: React.FC = () => {
                 </Text>
               </Container>
             )}
+          </Container>
+          <Container lg={2} xl={2} {...{ '2xl': 1.5 }}>
+            <Button maxContent size="lg">
+              Parts
+            </Button>
           </Container>
         </Container>
       </Container>

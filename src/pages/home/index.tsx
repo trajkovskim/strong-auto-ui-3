@@ -181,7 +181,7 @@ const Home: React.FC = () => {
             </Button>
           </Container>
           <TabButtonsGroup buttons={[{ label: 'Used' }, { label: 'Featured' }]} />
-          <List gap="1rem" xs={1} md={2} lg={3} {...{ '2xl': 4 }}>
+          <List gap="1rem" xs={1} md={2} lg={3}>
             {products.slice(0, 8).map((product) => (
               <ProductCard fullwidth {...product} ribbon={product.state as RibbonType} key={product.id} />
             ))}

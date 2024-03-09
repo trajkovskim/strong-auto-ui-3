@@ -20,12 +20,6 @@ const StyledCard = styled(Container)<StyledCardProps>`
   overflow: hidden;
 `;
 
-const StyledBodyWrapper = styled(Container)`
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-`;
-
 const OnImageContainer = styled(Container)`
   position: absolute;
   width: 100%;
@@ -48,17 +42,15 @@ const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, 
       alignItems="stretch"
       justifyContent="space-between"
       {...props}
-      direction="column"
+      direction={props.direction}
     >
-      <Container preserveWhenXs direction={props.direction}>
-        <Container relative>
-          {image}
-          {ribbon && <StyledRibbon {...ribbon} />}
-          <OnImageContainer>{onImageContainer}</OnImageContainer>
-        </Container>
-        <StyledBodyWrapper>{body}</StyledBodyWrapper>
+      <Container relative>
+        {image}
+        {ribbon && <StyledRibbon {...ribbon} />}
+        <OnImageContainer>{onImageContainer}</OnImageContainer>
       </Container>
-      <Container sm={12}>{footer}</Container>
+      {body && <Container overflow="hidden">{body}</Container>}
+      {footer && <Container sm={12}>{footer}</Container>}
     </StyledCard>
   );
 };

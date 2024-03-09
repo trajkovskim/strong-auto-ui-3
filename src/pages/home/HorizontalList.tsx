@@ -90,24 +90,27 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     }
   }, []);
 
-  const move = useCallback((deltaX: number, behavior: ScrollBehavior = 'smooth', force = false) => {
-    if (moving.current && !force) {
-      return false;
-    }
+  const move = useCallback(
+    (deltaX: number, behavior: ScrollBehavior = 'smooth', force = false) => {
+      if (moving.current && !force) {
+        return false;
+      }
 
-    if (!force) {
-      scrollEventHandler(ref.current?.scrollLeft ?? 0, true);
+      if (!force) {
+        scrollEventHandler(ref.current?.scrollLeft ?? 0, true);
 
-      moving.current = true;
-    }
+        moving.current = true;
+      }
 
-    ref.current?.scrollTo({
-      left: ref.current.scrollLeft + deltaX,
-      behavior,
-    });
+      ref.current?.scrollTo({
+        left: ref.current.scrollLeft + deltaX,
+        behavior,
+      });
 
-    return moving.current || force;
-  }, []);
+      return moving.current || force;
+    },
+    [scrollEventHandler]
+  );
 
   const handleIterval = useCallback(() => {
     if (mouseOver.current || !ref.current?.hasChildNodes) {
@@ -139,17 +142,16 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     resetInterval();
 
     const scrollLeft = ref.current.scrollLeft;
-    let sum = 0;
+    let sum1 = 0;
     for (const child of ref.current.children) {
       const childWidth = getElementWidth(child);
 
-      if (sum + childWidth / 2 > scrollLeft) {
-        move(sum - scrollLeft);
-        return;
+      if (sum1 + childWidth * 0.25 <= scrollLeft) {
+        sum1 += childWidth;
       }
-
-      sum += childWidth;
     }
+
+    move(Math.min(sum1 - scrollLeft));
   }, [move, resetInterval]);
 
   useEffect(() => {

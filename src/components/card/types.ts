@@ -23,5 +23,6 @@ export type Props = {
   fullwidth?: boolean;
   km?: (typeof products)[number]['km'];
   fuelType?: (typeof products)[number]['fuelType'];
+  year?: (typeof products)[number]['year'];
   transmission?: (typeof products)[number]['transmission'];
 };

@@ -1,4 +1,5 @@
 import { css as emitionCss } from '@emotion/css';
+import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
 import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
@@ -55,6 +56,23 @@ const StyledMdArrowForwardIos = styled(MdArrowForwardIos)`
   }
 `;
 
+const SmallCircle = styled.div<{ fill?: boolean }>`
+  width: 9px;
+  height: 9px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  border: 1px solid #eee;
+
+  transition: all 200ms;
+
+  background-color: ${(props) => props.fill && '#eee'};
+`;
+
+const ChangerWrapper = styled(Container)`
+  position: absolute;
+  bottom: 10px;
+`;
+
 const StyledCarouselItem = styled.div`
   width: 100%;
   height: 100%;
@@ -69,13 +87,12 @@ type Props = React.PropsWithChildren &
   };
 
 export type CarouselHandle = {
-  next: () => void;
+  next: (index?: number) => void;
   prev: () => void;
 };
 
 const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noCommands = false, ...props }, ref) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const children = React.Children.toArray(props.children);
 
   const childrenRefs = useRef<(HTMLDivElement | null)[]>(new Array(children.length).fill(null));
@@ -92,24 +109,39 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
     childrenRefs.current[index]?.style?.setProperty('z-index', value.toString());
   }, []);
 
+  const handleChange = useCallback(
+    (prevIndex: number, nextIndex: number) => {
+      updateZIndex(prevIndex, -1);
+      transitionRefs.current[prevIndex]?.gotoInitialState();
+      updateZIndex(nextIndex, 0);
+      transitionRefs.current[nextIndex]?.gotoFinalState();
+    },
+    [updateZIndex]
+  );
+
   const handleOnBackward = useCallback(() => {
-    setCurrentIndex(getPrevIndex);
-  }, [getPrevIndex]);
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = getPrevIndex(prevIndex);
+
+      handleChange(prevIndex, nextIndex);
+
+      return nextIndex;
+    });
+  }, [getPrevIndex, handleChange]);
 
   const handleOnForward = useCallback(() => {
-    setCurrentIndex(getAfterIndex);
-  }, [getAfterIndex]);
+    setCurrentIndex((prevIndex) => {
+      const nextIndex = getAfterIndex(prevIndex);
+
+      handleChange(prevIndex, nextIndex);
+
+      return nextIndex;
+    });
+  }, [getAfterIndex, handleChange]);
 
   useEffect(() => {
-    transitionRefs.current.forEach((ref, index) => {
-      if (index === currentIndex) {
-        updateZIndex(index, 0);
-        ref?.gotoFinalState();
-        return;
-      }
-      ref?.gotoInitialState();
-    });
-  }, [currentIndex, updateZIndex]);
+    transitionRefs.current[0]?.gotoFinalState();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(handleOnBackward, ms);
@@ -120,7 +152,16 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
   }, [handleOnBackward, currentIndex, ms]);
 
   useImperativeHandle(ref, () => ({
-    next: handleOnForward,
+    next: (nextIndex?: number) => {
+      if (nextIndex === undefined || nextIndex === null) {
+        handleOnForward();
+      } else {
+        setCurrentIndex((prevIndex) => {
+          handleChange(prevIndex, nextIndex);
+          return nextIndex;
+        });
+      }
+    },
     prev: handleOnBackward,
   }));
 
@@ -144,19 +185,15 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(({ ms = 10000, noComman
                 opacity: 1;
               `,
           }}
-          onTransitionEnd={() => {
-            const ref = transitionRefs.current[index];
-
-            if (ref?.isInInitialState()) {
-              updateZIndex(index, -1);
-            }
-          }}
         >
-          <StyledCarouselItem style={{ zIndex: '-1' }} ref={(ref) => (childrenRefs.current[index] = ref)}>
-            {child}
-          </StyledCarouselItem>
+          <StyledCarouselItem>{child}</StyledCarouselItem>
         </Transition>
       ))}
+      <ChangerWrapper direction="row" gap="0.5rem" preserveWhenXs sm={12} justifyContent="center">
+        {children.map((_, index) => (
+          <SmallCircle fill={currentIndex === index} key={index} />
+        ))}
+      </ChangerWrapper>
       {!noCommands && <StyledMdArrowForwardIos onClick={handleOnForward} />}
       {!noCommands && <StyledMdArrowBackIos onClick={handleOnBackward} />}
     </StyledCarousel>

@@ -1,3 +1,4 @@
+import Accordion from 'components/Accordion';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import { Checkbox } from 'components/form';
@@ -22,6 +23,16 @@ const StyledTitleFilterSection = styled(Container)`
   color: white;
 `;
 
+const FiltersHeader = styled(Container)`
+  background-color: #075ebb;
+  color: white;
+`;
+
+const StyledFilterAccordion = styled(Accordion)`
+  background-color: #075ebb;
+  color: white;
+`;
+
 const Filters: React.FC = () => {
   const yearNow = new Date().getFullYear();
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
@@ -29,9 +40,10 @@ const Filters: React.FC = () => {
   const resetFilters = () => undefined;
 
   return (
-    <Container gap="1rem">
-      <StyledTitleFilterSection bordered justifyContent="space-between" preserveWhenXs direction="row" padding="md">
+    <Container bordered={{ right: true }}>
+      <FiltersHeader justifyContent="space-between" preserveWhenXs direction="row" padding="md">
         <Text>Filtering</Text>
+        <Text>/</Text>
         <Container gap="0.5rem" direction="row" preserveWhenXs>
           <Button size="lg" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
@@ -44,11 +56,38 @@ const Filters: React.FC = () => {
             onClick={resetFilters}
           />
         </Container>
-      </StyledTitleFilterSection>
-      <FiltersWrapper bordered gap="1rem">
-        <StyledTitleFilterSection padding="md">
-          <Text>Basic</Text>
-        </StyledTitleFilterSection>
+      </FiltersHeader>
+      <StyledFilterAccordion title={<Text>Basic</Text>}>
+        <Container padding="sm" gap="1rem">
+          <Autocomplete
+            fullwidth
+            placeholder="Any Make"
+            label="Make"
+            size="md"
+            options={[{ value: 'audi' }, { value: 'bmw' }]}
+          />
+          <Autocomplete
+            fullwidth
+            placeholder="Any Model"
+            label="Model"
+            size="md"
+            options={[{ value: 'b8' }, { value: 'b9' }]}
+          />
+          <Autocomplete
+            fullwidth
+            placeholder="Any Price"
+            label="Price"
+            size="md"
+            options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
+          />
+          <Container gap="0.5rem" padding={{ left: 'sm' }}>
+            {[{ value: 'Sold' }, { value: 'Featured' }].map((checkbox) => (
+              <Checkbox key={checkbox.value} label={checkbox.value} value={checkbox.value} size="md" />
+            ))}
+          </Container>
+        </Container>
+      </StyledFilterAccordion>
+      <FiltersWrapper>
         <Container padding="sm" gap="1rem">
           <Autocomplete
             fullwidth
@@ -78,8 +117,8 @@ const Filters: React.FC = () => {
           </Container>
         </Container>
       </FiltersWrapper>
-      <FiltersWrapper bordered gap="1rem">
-        <StyledTitleFilterSection padding="md">
+      <FiltersWrapper>
+        <StyledTitleFilterSection padding="sm">
           <Text>Technical</Text>
         </StyledTitleFilterSection>
         <Container padding="sm" gap="1rem">
@@ -158,8 +197,8 @@ const Filters: React.FC = () => {
           />
         </Container>
       </FiltersWrapper>
-      <FiltersWrapper bordered gap="1rem">
-        <StyledTitleFilterSection padding="md">
+      <FiltersWrapper>
+        <StyledTitleFilterSection padding="sm">
           <Text>Features</Text>
         </StyledTitleFilterSection>
         <Container gap="0.5rem" padding={{ left: 'md' }}>

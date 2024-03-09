@@ -25,6 +25,7 @@ type StyledListProps = {
   rounded?: boolean;
   margin?: Breakpoints | Sides<Breakpoints>;
   padding?: Breakpoints | Sides<Breakpoints>;
+  overflow?: React.CSSProperties['overflow'];
 };
 
 const createMediaQ = (props: StyledListProps, ...[breakpoint, csss]: Parameters<typeof createMedia>) => {
@@ -44,6 +45,8 @@ const StyledList = styled.div<StyledListProps>`
   display: grid;
   gap: ${(props) => props.gap};
   justify-content: ${(props) => (props.view === ListView.GRID && props.justifyContent) ?? 'space-evenly'};
+
+  overflow: ${(props) => props.overflow};
 
   grid-template: auto / ${(props) =>
       props.view === ListView.LIST

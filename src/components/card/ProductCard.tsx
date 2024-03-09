@@ -12,7 +12,30 @@ import React from 'react';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
 import { FaRoad } from 'react-icons/fa';
 import { TbManualGearbox } from 'react-icons/tb';
+import styled from 'styled-components';
 import { formatNumber } from 'utils';
+
+const ImageWrapper = styled(Container)`
+  &::after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    bottom: -1px;
+    width: 100%;
+    height: 2.25rem;
+    background: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 100%, 0)), to(#fff));
+    background: linear-gradient(hsla(0, 0%, 100%, 0), #fff);
+  }
+`;
+
+const StyledCard = styled(Card)`
+  transition: all 200ms;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+`;
 
 const ProductCard: React.FC<Props> = (props) => {
   const price = (
@@ -38,28 +61,26 @@ const ProductCard: React.FC<Props> = (props) => {
   );
 
   const body = (
-    <Container preserveWhenXs>
-      <Container
-        direction="row"
-        gap="1rem"
-        padding={{ top: 'sm', left: 'md', bottom: 'sm' }}
-        justifyContent="space-between"
-        alignItems="center"
-        preserveWhenXs
-      >
-        <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
-          <Button fullwidth textAlign="left" themeType="link" onClick={props.onView} size="lg">
-            <div>{props.title}</div>
-            {/* {props.summary && (
-              <Text fontSize="md" title={props.summary}>
-                {props.summary}
-              </Text>
-            )} */}
-          </Button>
-        </Container>
-        <Container preserveWhenXs direction="row">
-          {price}
-        </Container>
+    <Container
+      direction="row"
+      gap="1rem"
+      padding={{ top: 'sm', left: 'md', bottom: 'sm' }}
+      justifyContent="space-between"
+      alignItems="center"
+      preserveWhenXs
+    >
+      <Container overflow="hidden" alignItems="center">
+        <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
+          <div>{props.title}</div>
+          {props.summary && (
+            <Text fontSize="md" title={props.summary}>
+              {props.summary}
+            </Text>
+          )}
+        </Button>
+      </Container>
+      <Container preserveWhenXs direction="row">
+        {price}
       </Container>
     </Container>
   );
@@ -80,21 +101,27 @@ const ProductCard: React.FC<Props> = (props) => {
   const footer = (
     <>
       <Line />
-      <List gap="2px" xs={4}>
+      <List
+        gap="2px"
+        xs={4}
+        overflow="auto"
+        justifyContent="space-between"
+        padding={{ bottom: 'xs', top: 'xs', left: 'md', right: 'md' }}
+      >
         {props.km && (
-          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+          <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
             <Text fontSize="md">{formatNumber(props.km)}km</Text>
             <StyledIcon size="lg" icon={<FaRoad />} />
           </Container>
         )}
         {props.fuelType && (
-          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+          <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
             <Text fontSize="md">{props.fuelType}</Text>
             <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
           </Container>
         )}
         {props.transmission && (
-          <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+          <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
             <Text fontSize="md">{props.transmission}</Text>
             <StyledIcon size="lg" icon={<TbManualGearbox />} />
           </Container>
@@ -104,15 +131,17 @@ const ProductCard: React.FC<Props> = (props) => {
   );
 
   const image = (
-    <Carousel noCommands minHeight="230px">
-      {props.images?.map((image, index) => (
-        <StyledImage key={index} shadow objectFit="cover" height="230px" src={image} />
-      ))}
-    </Carousel>
+    <ImageWrapper>
+      <Carousel noCommands minHeight="230px">
+        {props.images?.map((image, index) => (
+          <StyledImage key={index} shadow objectFit="cover" height="230px" src={image} />
+        ))}
+      </Carousel>
+    </ImageWrapper>
   );
 
   return (
-    <Card
+    <StyledCard
       fullwidth={props.fullwidth}
       body={body}
       image={image}
