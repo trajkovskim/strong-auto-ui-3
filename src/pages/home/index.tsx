@@ -30,6 +30,7 @@ import { BsArrowUpRight } from 'react-icons/bs';
 import styled from 'styled-components';
 import TowTruckImage from 'assets/tow-truck.jpg';
 import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
+import Line from 'components/Line';
 
 const HomeWrapper = styled(Container)`
   background-image: url(${RoadImage});
@@ -107,6 +108,11 @@ const TowingServiceServiceTile = styled(ServiceTile)`
   background-image: url(${TowTruckImage});
   background-size: cover;
   background-position: center center;
+  transition: 0.5s;
+
+  &:hover {
+    scale: 1.1;
+  }
 
   &::before {
     content: '';
@@ -128,6 +134,7 @@ const CarServiceServiceTile = styled(ServiceTile)`
   background-image: url(${CarServiceMechanicImage});
   background-size: cover;
   background-position: center center;
+  transition: 0.5s;
 
   &::before {
     content: '';
@@ -138,6 +145,10 @@ const CarServiceServiceTile = styled(ServiceTile)`
     opacity: 0.4;
     top: 0;
     left: 0;
+  }
+
+  &:hover {
+    scale: 1.1;
   }
 
   & > * {
@@ -173,13 +184,15 @@ const Home: React.FC = () => {
       </WhiteBackgroundContainer>
 
       <WhiteBackgroundContainer padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
-        <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
+        <Container sm="1400px" centered alignItems="center" gap="2rem" padding={{ right: 'md' }}>
           <Container preserveWhenXs gap="1rem" alignItems="center">
             <Title centered title="Explore All Vehicles" fontSize="2xl" bold />
             <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
               View all
             </Button>
           </Container>
+          <Line />
+
           <TabButtonsGroup buttons={[{ label: 'Used' }, { label: 'Featured' }]} />
           <List gap="1rem" xs={1} md={2} lg={3}>
             {products.slice(0, 8).map((product) => (

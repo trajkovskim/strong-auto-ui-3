@@ -10,7 +10,7 @@ import Title from 'components/typography/Title';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
-import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
+import { MdKeyboardDoubleArrowDown, MdKeyboardDoubleArrowUp } from 'react-icons/md';
 
 const BodyTypes: React.FC = () => {
   const transitionRef = useRef<TransitionHandle>(null);
@@ -68,7 +68,7 @@ const BodyTypes: React.FC = () => {
   const bodyTypes = new Array(12).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
 
   return (
-    <Container alignItems="center" gap="1rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
+    <Container alignItems="center" gap="2rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
       <Container gap="1rem" alignItems="center">
         <Title centered title="Browse by body type" fontSize="2xl" bold />
         <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
@@ -85,7 +85,17 @@ const BodyTypes: React.FC = () => {
         duration="700ms"
         timingFunction="ease-in-out"
       >
-        <List padding={{ top: 'sm' }} ref={setListRef} xs={2} sm={3} md={4} lg={5} xl={6} {...{ '2xl': 7 }} gap="1rem">
+        <List
+          padding={{ top: 'sm', left: 'md', right: 'md' }}
+          ref={setListRef}
+          xs={2}
+          sm={3}
+          md={4}
+          lg={5}
+          xl={6}
+          {...{ '2xl': 7 }}
+          gap="1rem"
+        >
           {bodyTypes.map((bodyType, index) => (
             <BodyTypeTile key={index} {...bodyType} />
           ))}
@@ -93,8 +103,17 @@ const BodyTypes: React.FC = () => {
       </Transition>
       <Container centered alignItems="center">
         <Button textAlign="center" maxContent themeType="link" onClick={handleShowMore}>
-          {state !== ComponentState.INITIAL ? <div>Hide</div> : <div>Show more</div>}
-          <Icon icon={<MdKeyboardDoubleArrowDown />} width="25px" />
+          {state !== ComponentState.INITIAL ? (
+            <>
+              <Icon icon={<MdKeyboardDoubleArrowUp />} width="30px" />
+              <div style={{ fontSize: '17px' }}>Hide</div>
+            </>
+          ) : (
+            <>
+              <div style={{ fontSize: '18px' }}>Show more</div>
+              <Icon icon={<MdKeyboardDoubleArrowDown />} width="30px" />
+            </>
+          )}
         </Button>
       </Container>
     </Container>

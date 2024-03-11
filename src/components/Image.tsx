@@ -30,6 +30,12 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   margin-left: ${(props) => props.centered && 'auto'};
   margin-right: ${(props) => props.centered && 'auto'};
   cursor: ${(props) => props.pointer && 'pointer'};
+
+  transition: 0.25s;
+
+  &:hover {
+    scale: 1.1;
+  }
 `;
 
 export type Props = React.ComponentProps<'img'> & StyledImageProps;

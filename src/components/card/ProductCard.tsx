@@ -8,11 +8,11 @@ import Container from 'components/Container';
 import Line from 'components/Line';
 import List from 'components/List';
 import Text from 'components/typography/Text';
-import React from 'react';
+import React, { useState } from 'react';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
 import { FaRoad } from 'react-icons/fa';
 import { TbManualGearbox } from 'react-icons/tb';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { formatNumber } from 'utils';
 
 const ImageWrapper = styled(Container)`
@@ -31,6 +31,7 @@ const ImageWrapper = styled(Container)`
 const StyledCard = styled(Card)`
   transition: all 200ms;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 
   &:hover {
     transform: translateY(-2px);
@@ -38,6 +39,16 @@ const StyledCard = styled(Card)`
 `;
 
 const ProductCard: React.FC<Props> = (props) => {
+  const [visibleFooter, setVisibleFooter] = useState(false);
+
+  const handleVisibleFooter = () => {
+    setVisibleFooter(true);
+  };
+
+  const handleVisibleFooterHide = () => {
+    setVisibleFooter(false);
+  };
+
   const price = (
     <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }} preserveWhenXs>
       {props.price?.totalPromo && (
@@ -98,8 +109,18 @@ const ProductCard: React.FC<Props> = (props) => {
     </>
   );
 
+  const StyledFooter: any = styled.div`
+    height: 0;
+
+    ${(props: any) =>
+      props.visibleFooter &&
+      css`
+        height: 100%;
+      `};
+  `;
+
   const footer = (
-    <>
+    <StyledFooter visibleFooter={visibleFooter}>
       <Line />
       <List
         gap="2px"
@@ -127,7 +148,7 @@ const ProductCard: React.FC<Props> = (props) => {
           </Container>
         )}
       </List>
-    </>
+    </StyledFooter>
   );
 
   const image = (
@@ -142,6 +163,8 @@ const ProductCard: React.FC<Props> = (props) => {
 
   return (
     <StyledCard
+      onMouseEnter={handleVisibleFooter}
+      onMouseLeave={handleVisibleFooterHide}
       fullwidth={props.fullwidth}
       body={body}
       image={image}

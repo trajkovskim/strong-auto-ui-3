@@ -10,6 +10,7 @@ const Tile = styled(Container)`
   width: 100%;
   max-width: 250px;
   border: 1px solid transparent;
+  cursor: pointer;
 
   transition: all 200ms;
 
