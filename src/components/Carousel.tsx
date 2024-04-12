@@ -2,7 +2,7 @@ import { css as emitionCss } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, { TouchEventHandler, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
@@ -106,8 +106,18 @@ export type CarouselHandle = {
   prev: () => void;
 };
 
+enum SwipeDirection {
+  LEFT = 'left',
+  RIGHT = 'right',
+}
+
 const Carousel = React.forwardRef<CarouselHandle, Props>(
   ({ ms = 10000, noArrows: noArrows = false, noChangeOptions = false, ...props }, ref) => {
+    const touchStart = useRef<number>();
+    const touchEnd = useRef<number>();
+
+    const minSwipeDistance = 50;
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const children = React.Children.toArray(props.children);
 
@@ -170,16 +180,58 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(
       };
     }, [handleOnBackward, currentIndex, ms]);
 
-    const handleChange = (nextIndex?: number) => {
-      if (nextIndex === undefined || nextIndex === null) {
-        handleOnForward();
-      } else {
-        setCurrentIndex((prevIndex) => {
-          change(prevIndex, nextIndex);
-          return nextIndex;
-        });
+    const handleChange = useCallback(
+      (nextIndex?: number) => {
+        if (nextIndex === undefined || nextIndex === null) {
+          handleOnForward();
+        } else {
+          setCurrentIndex((prevIndex) => {
+            change(prevIndex, nextIndex);
+            return nextIndex;
+          });
+        }
+      },
+      [change, handleOnForward]
+    );
+
+    const handleTouchStart: TouchEventHandler<HTMLDivElement> = useCallback((event) => {
+      touchStart.current = event.targetTouches[0].clientX;
+      touchEnd.current = undefined;
+    }, []);
+
+    const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback(
+      (event) => (touchEnd.current = event.targetTouches[0].clientX),
+      []
+    );
+
+    const getSwipeDirection = useCallback(() => {
+      if (!touchStart.current || !touchEnd.current) return;
+
+      const distance = touchStart.current - touchEnd.current;
+
+      const isLeftSwipe = distance > minSwipeDistance;
+      const isRightSwipe = distance < -minSwipeDistance;
+
+      if (isLeftSwipe) {
+        return SwipeDirection.LEFT;
       }
-    };
+
+      if (isRightSwipe) {
+        return SwipeDirection.RIGHT;
+      }
+
+      return undefined;
+    }, []);
+
+    const handleTouchEnd: TouchEventHandler<HTMLDivElement> = useCallback(() => {
+      const swipeDirection = getSwipeDirection();
+
+      if (swipeDirection === SwipeDirection.LEFT) {
+        handleChange();
+      } else if (swipeDirection === SwipeDirection.RIGHT) {
+        handleOnBackward();
+      }
+    }, [getSwipeDirection, handleChange, handleOnBackward]);
 
     useImperativeHandle(ref, () => ({
       next: handleChange,
@@ -188,6 +240,9 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(
 
     return (
       <StyledCarousel
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
         className={props.className}
         minHeight={props.minHeight}
         maxHeight={props.maxHeight}

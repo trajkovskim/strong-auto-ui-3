@@ -20,6 +20,7 @@ type StyledListProps = {
   lg?: number;
   xl?: number;
   '2xl'?: number;
+  elementHeight?: string;
   elementWidth?: string;
   bordered?: boolean;
   rounded?: boolean;
@@ -31,12 +32,16 @@ type StyledListProps = {
 const createMediaQ = (props: StyledListProps, ...[breakpoint, csss]: Parameters<typeof createMedia>) => {
   const rowSize = props[breakpoint] ?? 1;
 
+  const gridTemplate = `${props.elementHeight} / repeat(
+          ${rowSize > props.childrenCount ? props.childrenCount : rowSize},
+          ${props.elementWidth}
+        )`;
+
   return createMedia(
     breakpoint,
     css`
-      grid-template:
-        auto / repeat(${rowSize > props.childrenCount ? props.childrenCount : rowSize}, ${props.elementWidth})
-        ${csss};
+      grid-template: ${gridTemplate};
+      ${csss};
     `
   );
 };
@@ -50,7 +55,7 @@ const StyledList = styled.div<StyledListProps>`
 
   overflow: ${(props) => props.overflow};
 
-  grid-template: auto / ${(props) =>
+  grid-template: ${(props) => props.elementHeight} / ${(props) =>
       props.view === ListView.LIST
         ? 'auto'
         : `repeat(${props.childrenCount > 5 ? 5 : props.childrenCount}, ${props.elementWidth})`};
@@ -89,7 +94,7 @@ const StyledList = styled.div<StyledListProps>`
 type Props = React.PropsWithChildren & Omit<StyledListProps, 'childrenCount'> & React.ComponentProps<'div'>;
 
 const List = React.forwardRef<HTMLDivElement, Props>(
-  ({ gap, view = ListView.GRID, elementWidth = '1fr', ...props }, ref) => {
+  ({ gap, view = ListView.GRID, elementHeight = '1fr', elementWidth = '1fr', ...props }, ref) => {
     props.sm = props.sm ?? props.xs;
     props.md = props.md ?? props.sm;
     props.lg = props.lg ?? props.md;
@@ -99,7 +104,15 @@ const List = React.forwardRef<HTMLDivElement, Props>(
     const childrenCount = React.Children.count(props.children);
 
     return (
-      <StyledList view={view} childrenCount={childrenCount} elementWidth={elementWidth} gap={gap} ref={ref} {...props}>
+      <StyledList
+        view={view}
+        childrenCount={childrenCount}
+        elementHeight={elementHeight}
+        elementWidth={elementWidth}
+        gap={gap}
+        ref={ref}
+        {...props}
+      >
         {props.children}
       </StyledList>
     );

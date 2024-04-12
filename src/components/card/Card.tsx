@@ -24,12 +24,6 @@ const StyledCard = styled(Container)<StyledCardProps>`
   }
 `;
 
-const OnImageContainer = styled(Container)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-
 type Props = StyledCardProps & {
   footer?: React.ReactNode;
   image?: React.ReactNode;
@@ -51,7 +45,7 @@ const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, 
       <Container relative>
         {image}
         {ribbon && <StyledRibbon {...ribbon} />}
-        <OnImageContainer>{onImageContainer}</OnImageContainer>
+        {onImageContainer}
       </Container>
       {body && <Container overflow="hidden">{body}</Container>}
       {footer && <Container sm={12}>{footer}</Container>}
