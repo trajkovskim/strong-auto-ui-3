@@ -1,9 +1,14 @@
 import Button from 'components/Button';
 import Card from 'components/card/Card';
-import { PriceWrapper, StyledBookmarkButton, StyledIcon, StyledImage } from 'components/card/Card.styled';
+import {
+  PriceWrapper,
+  StyledBookmarkButton,
+  StyledCarousel,
+  StyledIcon,
+  StyledImage,
+} from 'components/card/Card.styled';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
-import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Line from 'components/Line';
 import List from 'components/List';
@@ -16,6 +21,7 @@ import styled, { css } from 'styled-components';
 import { formatNumber } from 'utils';
 
 const ImageWrapper = styled(Container)`
+  height: 100%;
   &::after {
     content: '';
     position: absolute;
@@ -33,8 +39,34 @@ const StyledCard = styled(Card)`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 
+  .carousel_change-options {
+    z-index: 3;
+  }
+
   &:hover {
     transform: translateY(-2px);
+  }
+`;
+
+const StyledFooter = styled.div<{ visibleFooter: boolean }>`
+  height: 0;
+
+  ${(props) =>
+    props.visibleFooter &&
+    css`
+      height: 100%;
+    `};
+`;
+
+const BodyTitleWrapper = styled(Container)`
+  button {
+    display: block;
+  }
+
+  span {
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -50,7 +82,7 @@ const ProductCard: React.FC<Props> = (props) => {
   };
 
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }} preserveWhenXs>
+    <>
       {props.price?.totalPromo && (
         <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
@@ -68,11 +100,13 @@ const ProductCard: React.FC<Props> = (props) => {
           </Text>
         </Container>
       )}
-    </PriceWrapper>
+    </>
   );
 
   const body = (
     <Container
+      minHeight="80px"
+      maxHeight="80px"
       direction="row"
       gap="1rem"
       padding={{ top: 'sm', left: 'md', bottom: 'sm' }}
@@ -80,19 +114,19 @@ const ProductCard: React.FC<Props> = (props) => {
       alignItems="center"
       preserveWhenXs
     >
-      <Container overflow="hidden" alignItems="center">
+      <BodyTitleWrapper overflow="hidden">
         <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
-          <div>{props.title}</div>
+          <Text>{props.title}</Text>
           {props.summary && (
             <Text fontSize="md" title={props.summary}>
               {props.summary}
             </Text>
           )}
         </Button>
-      </Container>
-      <Container preserveWhenXs direction="row">
+      </BodyTitleWrapper>
+      <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }} preserveWhenXs>
         {price}
-      </Container>
+      </PriceWrapper>
     </Container>
   );
 
@@ -108,16 +142,6 @@ const ProductCard: React.FC<Props> = (props) => {
       />
     </>
   );
-
-  const StyledFooter: any = styled.div`
-    height: 0;
-
-    ${(props: any) =>
-      props.visibleFooter &&
-      css`
-        height: 100%;
-      `};
-  `;
 
   const footer = (
     <StyledFooter visibleFooter={visibleFooter}>
@@ -153,11 +177,11 @@ const ProductCard: React.FC<Props> = (props) => {
 
   const image = (
     <ImageWrapper>
-      <Carousel noCommands minHeight="230px">
+      <StyledCarousel noArrows>
         {props.images?.map((image, index) => (
-          <StyledImage key={index} shadow objectFit="cover" height="230px" src={image} />
+          <StyledImage key={index} shadow objectFit="cover" height="100%" src={image} />
         ))}
-      </Carousel>
+      </StyledCarousel>
     </ImageWrapper>
   );
 

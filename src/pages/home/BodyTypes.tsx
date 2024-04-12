@@ -1,122 +1,122 @@
-import { css } from '@emotion/css';
 import SUVBodyTypeImage from 'assets/SUV.png';
-import Button from 'components/Button';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
-import Line from 'components/Line';
-import List from 'components/List';
-import Transition, { TransitionHandle, ComponentState } from 'components/Transition';
-import Title from 'components/typography/Title';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { BsArrowUpRight } from 'react-icons/bs';
-import { MdKeyboardDoubleArrowDown, MdKeyboardDoubleArrowUp } from 'react-icons/md';
+import React, { TouchEventHandler, useCallback, useRef } from 'react';
+import styled from 'styled-components';
+
+const Wrapper = styled(Container)`
+  overflow: auto;
+`;
+
+const HorizontalList = styled(Container)`
+  > * {
+    flex: 1 0 100%;
+  }
+`;
 
 const BodyTypes: React.FC = () => {
-  const transitionRef = useRef<TransitionHandle>(null);
-  const [listRef, setListRef] = useState<HTMLDivElement | null>(null);
-  const [finalMaxHeight, setFinalMaxHeight] = useState<number>(200);
-  const [initialMaxHeight, setInitialMaxHeight] = useState<number>(200);
-  const [state, setState] = useState<ComponentState>();
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseDown = useRef<boolean>(false);
+  const mouseOver = useRef<boolean>(false);
+  const previousTouch = useRef<number>();
+  const moving = useRef<boolean>(false);
 
-  useEffect(() => {
-    if (!listRef) {
-      return;
+  const bodyTypes = new Array(11).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
+
+  const bodyTypesRow1 = bodyTypes.slice(0, Math.ceil(bodyTypes.length / 2));
+  const bodyTypesRow2 = bodyTypes.slice(Math.ceil(bodyTypes.length / 2));
+
+  const move = useCallback((deltaX: number, behavior: ScrollBehavior = 'smooth', force = false) => {
+    if (moving.current && !force) {
+      return false;
     }
 
-    const resizeObserver = new ResizeObserver(([listRefEntry]: ResizeObserverEntry[]) => {
-      if (transitionRef.current?.isRunning()) {
-        return;
-      }
+    if (!force) {
+      moving.current = true;
+    }
 
-      setFinalMaxHeight((prev) => Math.max(listRefEntry.target.scrollHeight, prev));
-
-      const firstChild = listRefEntry.target.firstElementChild as HTMLElement | undefined;
-      if (firstChild) {
-        const styles = window.getComputedStyle(listRef);
-        const gap = parseInt(styles.gap);
-        const paddingTop = parseInt(styles.paddingTop);
-
-        setInitialMaxHeight(firstChild.offsetHeight + gap / 2 + paddingTop);
-      }
+    ref.current?.scrollTo({
+      left: ref.current.scrollLeft + deltaX,
+      behavior,
     });
 
-    resizeObserver.observe(listRef);
+    return moving.current || force;
+  }, []);
 
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, [finalMaxHeight, initialMaxHeight, listRef]);
+  const handleMove = useCallback(
+    (movementX: number) => {
+      if (mouseDown.current) {
+        move(-movementX, 'auto', true);
+      }
+    },
+    [move]
+  );
 
-  const transition = useMemo(() => {
-    return {
-      initial: css`
-        overflow-y: hidden;
-        max-height: ${initialMaxHeight}px;
-      `,
-      final: css`
-        max-height: ${finalMaxHeight}px !important;
-      `,
-    };
-  }, [finalMaxHeight, initialMaxHeight]);
+  // Mouse event handlers
+  const handleMouseUp = useCallback(() => {
+    mouseDown.current = false;
+    moving.current = false;
+  }, []);
 
-  const handleShowMore = () => {
-    setFinalMaxHeight((prev) => Math.max(listRef?.scrollHeight as number, prev));
-    transitionRef.current?.toggle();
-  };
+  const handleMouseDown = useCallback(() => {
+    mouseDown.current = true;
+    moving.current = true;
+  }, []);
 
-  const bodyTypes = new Array(12).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
+  // Touch event handlers
+  const handleTouchStart = useCallback(
+    (touchStartPosition: number) => {
+      ref.current?.style.setProperty('touch-action', 'pan-x');
+      previousTouch.current = touchStartPosition;
+      handleMouseDown();
+    },
+    [handleMouseDown]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    handleMouseUp();
+    previousTouch.current = undefined;
+    ref.current?.style.setProperty('touch-action', 'pan-x');
+  }, [handleMouseUp]);
+
+  const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (previousTouch.current) {
+        handleMove(event.touches[0].pageX - previousTouch.current);
+      }
+      previousTouch.current = event.touches[0].pageX;
+    },
+    [handleMove]
+  );
 
   return (
-    <Container alignItems="center" gap="2rem" padding={{ top: 'lg', left: 'md', right: 'md' }}>
-      <Container gap="1rem" alignItems="center">
-        <Title centered title="Browse by body type" fontSize="2xl" bold />
-        <Button themeType="link" size="lg" iconRight={<BsArrowUpRight />}>
-          View all
-        </Button>
-      </Container>
-      <Line />
-      <Transition
-        ref={transitionRef}
-        onTransitionEnd={() => {
-          setState(transitionRef.current?.componentState);
-        }}
-        transition={transition}
-        duration="700ms"
-        timingFunction="ease-in-out"
-      >
-        <List
-          padding={{ top: 'sm', left: 'md', right: 'md' }}
-          ref={setListRef}
-          xs={2}
-          sm={3}
-          md={4}
-          lg={5}
-          xl={6}
-          {...{ '2xl': 7 }}
-          gap="1rem"
-        >
-          {bodyTypes.map((bodyType, index) => (
-            <BodyTypeTile key={index} {...bodyType} />
-          ))}
-        </List>
-      </Transition>
-      <Container centered alignItems="center">
-        <Button textAlign="center" maxContent themeType="link" onClick={handleShowMore}>
-          {state !== ComponentState.INITIAL ? (
-            <>
-              <Icon icon={<MdKeyboardDoubleArrowUp />} width="30px" />
-              <div style={{ fontSize: '17px' }}>Hide</div>
-            </>
-          ) : (
-            <>
-              <div style={{ fontSize: '18px' }}>Show more</div>
-              <Icon icon={<MdKeyboardDoubleArrowDown />} width="30px" />
-            </>
-          )}
-        </Button>
-      </Container>
-    </Container>
+    <Wrapper
+      xs={12}
+      ref={ref}
+      preserveWhenXs
+      onMouseUp={handleMouseUp}
+      onMouseDown={handleMouseDown}
+      onTouchStart={(event) => handleTouchStart(event.touches[0].pageX)}
+      onTouchEnd={handleTouchEnd}
+      onMouseMove={(event) => handleMove(event.movementX)}
+      onTouchMove={handleTouchMove}
+      onMouseEnter={() => (mouseOver.current = true)}
+      onMouseLeave={() => (mouseOver.current = false)}
+      padding={{ top: 'md', bottom: 'md' }}
+      gap="1rem"
+    >
+      <HorizontalList preserveWhenXs sm={12} gap="1rem" direction="row">
+        {bodyTypesRow1.map((bodyType, index) => (
+          <BodyTypeTile key={index} {...bodyType} />
+        ))}
+      </HorizontalList>
+      <HorizontalList preserveWhenXs sm={12} gap="1rem" direction="row">
+        {bodyTypesRow2.map((bodyType, index) => (
+          <BodyTypeTile key={index} {...bodyType} />
+        ))}
+      </HorizontalList>
+    </Wrapper>
   );
 };
 

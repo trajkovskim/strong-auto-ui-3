@@ -158,7 +158,7 @@ const ListProductCard: React.FC<Props> = (props) => {
   );
 
   const image = (
-    <Carousel noCommands minHeight="170px">
+    <Carousel noArrows minHeight="170px">
       {props.images?.map((image, index) => (
         <StyledImage key={index} shadow objectFit="cover" width="320px" height="100%" src={image} />
       ))}

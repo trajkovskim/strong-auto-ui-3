@@ -44,6 +44,8 @@ type StyledContainerProps = BreakpointsProps & {
   relative?: boolean;
   zIndex?: number;
   overflow?: React.CSSProperties['overflow'];
+  minHeight?: React.CSSProperties['minHeight'];
+  maxHeight?: React.CSSProperties['maxHeight'];
 };
 
 const MAX_COLUMNS = 12;
@@ -73,6 +75,8 @@ const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?
 };
 
 const StyledContainer = styled.div<StyledContainerProps>`
+  min-height: ${(props) => props.minHeight};
+  max-height: ${(props) => props.maxHeight};
   box-sizing: border-box;
   display: flex;
   position: ${(props) => props.relative && 'relative'};

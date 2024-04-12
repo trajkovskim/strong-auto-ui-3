@@ -129,64 +129,62 @@ const Shop: React.FC = () => {
   return (
     <>
       {sidebarMobile}
-      <Container>
-        <ListActionsMobileWrapper xs={12} lg={0}>
-          {listHeaderComponent}
-        </ListActionsMobileWrapper>
+      {/* <ListActionsMobileWrapper xs={12} lg={0}>
+        {listHeaderComponent}
+      </ListActionsMobileWrapper> */}
 
-        <Container direction="row" wrap gap="1rem" padding={{ bottom: 'md', right: 'md' }}>
-          <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
-            <Filters />
+      <Container direction="row" wrap gap="1rem" alignItems="flex-start" padding={{ bottom: 'md', right: 'md' }}>
+        <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
+          <Filters />
+        </Container>
+        <Container sm={12} lg={7} xl={7.5} {...{ '2xl': 8.5 }} gap="1rem">
+          <Container xs={0} lg={12}>
+            {listHeaderComponent}
           </Container>
-          <Container sm={12} lg={7} xl={7.5} {...{ '2xl': 8.5 }} gap="1rem">
-            <Container xs={0} lg={12}>
-              {listHeaderComponent}
-            </Container>
-            <Text type="sub" fontSize="sm">
-              Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
-            </Text>
-            <List
-              gap="1rem"
-              xs={1}
-              md={listView === ListView.GRID ? 1 : 1}
-              lg={listView === ListView.GRID ? 2 : 1}
-              xl={listView === ListView.GRID ? 3 : 1}
-              // {...{ '2xl': listView === ListView.GRID ? 4 : 1 }}
-              view={listView}
-            >
-              {mappedProducts.map((product) =>
-                listView === ListView.LIST ? (
-                  <ListProductCard
-                    key={product.id}
-                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={product.state as RibbonType}
-                    fullwidth
-                    {...product}
-                  />
-                ) : (
-                  <ProductCard
-                    key={product.id}
-                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={product.state as RibbonType}
-                    fullwidth
-                    {...product}
-                  />
-                )
-              )}
-            </List>
-            {page === totalPages && (
-              <Container itemsCentered>
-                <Text fontSize="sm" type="sub">
-                  All results displayed
-                </Text>
-              </Container>
+          <Text type="sub" fontSize="sm">
+            Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
+          </Text>
+          <List
+            gap="1rem"
+            xs={1}
+            md={listView === ListView.GRID ? 1 : 1}
+            lg={listView === ListView.GRID ? 2 : 1}
+            xl={listView === ListView.GRID ? 3 : 1}
+            // {...{ '2xl': listView === ListView.GRID ? 4 : 1 }}
+            view={listView}
+          >
+            {mappedProducts.map((product) =>
+              listView === ListView.LIST ? (
+                <ListProductCard
+                  key={product.id}
+                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                  ribbon={product.state as RibbonType}
+                  fullwidth
+                  {...product}
+                />
+              ) : (
+                <ProductCard
+                  key={product.id}
+                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                  ribbon={product.state as RibbonType}
+                  fullwidth
+                  {...product}
+                />
+              )
             )}
-          </Container>
-          <Container lg={2} xl={2} {...{ '2xl': 1.5 }}>
-            <Button maxContent size="lg">
-              Parts
-            </Button>
-          </Container>
+          </List>
+          {page === totalPages && (
+            <Container itemsCentered>
+              <Text fontSize="sm" type="sub">
+                All results displayed
+              </Text>
+            </Container>
+          )}
+        </Container>
+        <Container lg={2} xl={2} {...{ '2xl': 1.5 }}>
+          <Button maxContent size="lg">
+            Parts
+          </Button>
         </Container>
       </Container>
     </>

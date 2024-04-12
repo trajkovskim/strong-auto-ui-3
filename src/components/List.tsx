@@ -46,6 +46,8 @@ const StyledList = styled.div<StyledListProps>`
   gap: ${(props) => props.gap};
   justify-content: ${(props) => (props.view === ListView.GRID && props.justifyContent) ?? 'space-evenly'};
 
+  width: 100%;
+
   overflow: ${(props) => props.overflow};
 
   grid-template: auto / ${(props) =>
@@ -87,7 +89,7 @@ const StyledList = styled.div<StyledListProps>`
 type Props = React.PropsWithChildren & Omit<StyledListProps, 'childrenCount'> & React.ComponentProps<'div'>;
 
 const List = React.forwardRef<HTMLDivElement, Props>(
-  ({ gap, view = ListView.GRID, elementWidth = 'auto', ...props }, ref) => {
+  ({ gap, view = ListView.GRID, elementWidth = '1fr', ...props }, ref) => {
     props.sm = props.sm ?? props.xs;
     props.md = props.md ?? props.sm;
     props.lg = props.lg ?? props.md;

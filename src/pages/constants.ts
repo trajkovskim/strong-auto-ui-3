@@ -21,6 +21,7 @@ export const reviews = [
     creationDate: new Date(),
     rating: 4.5,
     comment: undefined,
+    platform: 'Google',
   },
   {
     id: 1,
@@ -28,6 +29,7 @@ export const reviews = [
     creationDate: new Date(),
     rating: 4,
     comment: undefined,
+    platform: 'Google',
   },
 ];
 

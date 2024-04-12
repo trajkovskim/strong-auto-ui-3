@@ -18,11 +18,6 @@ const CheckboxWrapper = styled(Container)`
   overflow-y: auto;
 `;
 
-const StyledTitleFilterSection = styled(Container)`
-  background-color: #075ebb;
-  color: white;
-`;
-
 const FiltersHeader = styled(Container)`
   background-color: #075ebb;
   color: white;
@@ -40,10 +35,9 @@ const Filters: React.FC = () => {
   const resetFilters = () => undefined;
 
   return (
-    <Container bordered={{ right: true }}>
+    <Container bordered={{ right: true, bottom: true }}>
       <FiltersHeader justifyContent="space-between" preserveWhenXs direction="row" padding="md">
         <Text>Filtering</Text>
-        <Text>/</Text>
         <Container gap="0.5rem" direction="row" preserveWhenXs>
           <Button size="lg" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
@@ -57,8 +51,8 @@ const Filters: React.FC = () => {
           />
         </Container>
       </FiltersHeader>
-      <StyledFilterAccordion title={<Text>Basic</Text>}>
-        <Container padding="sm" gap="1rem">
+      <StyledFilterAccordion defaultState="open" header={<Text>Basic</Text>}>
+        <Container gap="1rem">
           <Autocomplete
             fullwidth
             placeholder="Any Make"
@@ -87,41 +81,8 @@ const Filters: React.FC = () => {
           </Container>
         </Container>
       </StyledFilterAccordion>
-      <FiltersWrapper>
-        <Container padding="sm" gap="1rem">
-          <Autocomplete
-            fullwidth
-            placeholder="Any Make"
-            label="Make"
-            size="md"
-            options={[{ value: 'audi' }, { value: 'bmw' }]}
-          />
-          <Autocomplete
-            fullwidth
-            placeholder="Any Model"
-            label="Model"
-            size="md"
-            options={[{ value: 'b8' }, { value: 'b9' }]}
-          />
-          <Autocomplete
-            fullwidth
-            placeholder="Any Price"
-            label="Price"
-            size="md"
-            options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
-          />
-          <Container gap="0.5rem" padding={{ left: 'sm' }}>
-            {[{ value: 'Sold' }, { value: 'Featured' }].map((checkbox) => (
-              <Checkbox key={checkbox.value} label={checkbox.value} value={checkbox.value} size="md" />
-            ))}
-          </Container>
-        </Container>
-      </FiltersWrapper>
-      <FiltersWrapper>
-        <StyledTitleFilterSection padding="sm">
-          <Text>Technical</Text>
-        </StyledTitleFilterSection>
-        <Container padding="sm" gap="1rem">
+      <StyledFilterAccordion header={<Text>Technical</Text>}>
+        <Container gap="1rem">
           <Autocomplete
             fullwidth
             placeholder="Condition"
@@ -129,7 +90,7 @@ const Filters: React.FC = () => {
             size="md"
             options={[{ value: 'new' }, { value: 'used' }]}
           />
-          <Container gap="0.5rem" padding={{ left: 'sm' }}>
+          <Container gap="0.5rem">
             <Text fontSize="lg">Body Type</Text>
             <CheckboxWrapper gap="0.5rem">
               {[{ value: 'sedan' }, { value: 'coupe' }, { value: 'suv' }].map((bodyType) => (
@@ -196,12 +157,9 @@ const Filters: React.FC = () => {
             options={[{ value: 'black' }, { value: 'white' }, { value: 'red' }]}
           />
         </Container>
-      </FiltersWrapper>
-      <FiltersWrapper>
-        <StyledTitleFilterSection padding="sm">
-          <Text>Features</Text>
-        </StyledTitleFilterSection>
-        <Container gap="0.5rem" padding={{ left: 'md' }}>
+      </StyledFilterAccordion>
+      <StyledFilterAccordion header={<Text>Features</Text>}>
+        <Container gap="0.5rem" padding={{ left: 'xs' }}>
           <CheckboxWrapper gap="0.5rem">
             {[
               { value: 'Air conditioner' },
@@ -224,8 +182,8 @@ const Filters: React.FC = () => {
             ))}
           </CheckboxWrapper>
         </Container>
-      </FiltersWrapper>
-      <FiltersWrapper gap="0.5rem" bordered padding="md" itemsCentered>
+      </StyledFilterAccordion>
+      <FiltersWrapper gap="0.5rem" padding="md" itemsCentered>
         <Button themeType="ghost" fullwidth iconRight={<BiSearch />} iconSize="lg" size="md">
           Search cars
         </Button>

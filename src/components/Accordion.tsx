@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
 
@@ -11,12 +11,19 @@ const StyledButton = styled(Button)`
 `;
 
 type Props = React.PropsWithChildren & {
-  title: React.ReactNode;
+  header: React.ReactNode;
+  defaultState?: 'open' | 'closed';
 };
 
-const Accordion: React.FC<Props> = ({ children, ...props }) => {
+const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...props }) => {
   const transitionRef = useRef<TransitionHandle>(null);
   const [containerRef, setContainerRef] = useState<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    if (defaultState === 'open') {
+      transitionRef.current?.gotoFinalState();
+    }
+  }, [defaultState]);
 
   return (
     <Container gap="0.3rem" padding={{ left: 'md', right: 'md', bottom: 'sm', top: 'sm' }}>
@@ -27,7 +34,7 @@ const Accordion: React.FC<Props> = ({ children, ...props }) => {
         fullwidth
         onClick={() => transitionRef.current?.toggle()}
       >
-        {props.title}
+        {props.header}
       </StyledButton>
       <Transition
         ref={transitionRef}

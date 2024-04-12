@@ -11,14 +11,15 @@ const SearchBoxWrapper = styled(Container)`
   background-color: white;
 `;
 
-const StyledSearchButton: any = styled(Button)`
+const StyledSearchButton = styled(Button)<{ buttonAnimate: boolean }>`
   white-space: nowrap;
   margin-left: auto;
   cursor: pointer;
-  width: 0%;
+  width: 0;
+  overflow: hidden;
   visibility: hidden;
 
-  ${(props: any) =>
+  ${(props) =>
     props.buttonAnimate &&
     css`
       width: 100%;

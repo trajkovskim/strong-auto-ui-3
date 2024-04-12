@@ -7,7 +7,12 @@ import React from 'react';
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <Container padding={{ top: 'lg', bottom: 'lg' }} gap="1rem">
+    <Container
+      minHeight="430px"
+      preserveWhenXs
+      padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}
+      gap="1rem"
+    >
       <Title centered title="Why choose us" fontSize="2xl" />
       <Line />
       <Container sm="1400px" centered>

@@ -30,13 +30,16 @@ type HeaderWrapperProps = {
 };
 
 const HeaderWrapper = styled.header<HeaderWrapperProps>`
-  background-color: ${(props) => !props.transparent && '#232323'};
+  background-color: ${(props) => !props.transparent && '#232628'};
   color: white;
-  z-index: 10;
+  z-index: 10 !important;
+  position: sticky;
+  top: 0;
 `;
 
 const StyledContainer = styled(Container)`
   z-index: 2;
+  height: 56px;
 `;
 
 type Props = HeaderWrapperProps;
@@ -54,17 +57,22 @@ const Header: React.FC<Props> = (props) => {
   return (
     <>
       <HeaderWrapper transparent={props.transparent}>
-        <StyledContainer relative direction="row" preserveWhenXs justifyContent="space-between" alignItems="center">
-          <Container padding={{ left: 'md', bottom: 'md', top: 'md' }} preserveWhenXs>
-            <Image
-              onClick={() => navigate(Routes.INDEX)}
-              src={Logo}
-              alt="Strong auto logo"
-              width="170px"
-              height="100%"
-              objectFit="contain"
-            />
-          </Container>
+        <StyledContainer
+          padding={{ left: 'xs', right: 'xs' }}
+          relative
+          direction="row"
+          preserveWhenXs
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Image
+            onClick={() => navigate(Routes.INDEX)}
+            src={Logo}
+            alt="Strong auto logo"
+            width="170px"
+            height="100%"
+            objectFit="contain"
+          />
           <Container xs={0} lg="max-content" preserveWhenXs alignItems="center">
             <Navigation />
           </Container>

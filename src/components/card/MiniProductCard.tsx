@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Card from 'components/card/Card';
-import { StyledBookmarkButton, StyledImage } from 'components/card/Card.styled';
+import { StyledBookmarkButton, StyledCarousel, StyledImage } from 'components/card/Card.styled';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Carousel from 'components/Carousel';
@@ -26,6 +26,20 @@ const BodyWrapper = styled(Container)`
   bottom: 0;
   right: 0;
   box-shadow: inset 0px -31px 50px -6px black;
+`;
+
+const StyledCard = styled(Card)`
+  transition: all 200ms;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+
+  .carousel_change-options {
+    z-index: 3;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
 `;
 
 const MiniProductCard: React.FC<Props> = (props) => {
@@ -87,15 +101,15 @@ const MiniProductCard: React.FC<Props> = (props) => {
   );
 
   const image = (
-    <Carousel noCommands minHeight="230px">
+    <StyledCarousel>
       {props.images?.map((image, index) => (
-        <StyledImage key={index} shadow objectFit="cover" height="230px" src={image} />
+        <StyledImage key={index} shadow objectFit="cover" src={image} />
       ))}
-    </Carousel>
+    </StyledCarousel>
   );
 
   return (
-    <Card
+    <StyledCard
       fullwidth={props.fullwidth}
       image={image}
       onImageContainer={onImageContainer}

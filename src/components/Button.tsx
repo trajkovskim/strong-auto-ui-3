@@ -26,7 +26,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#fff',
     paddin: '0px',
-    'border-radius': '25px',
     'padding-right': '10px',
     'padding-left': '10px',
   },
@@ -39,7 +38,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#000',
     paddin: '0px',
-    'border-radius': '25px',
     'padding-right': '10px',
     'padding-left': '10px',
   },
@@ -48,7 +46,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#075ebb',
     'color-active': '#255b9475',
     border: '0px',
-    'border-radius': '0px',
     paddin: '0px',
   },
   delete: {
@@ -56,7 +53,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': 'red',
     'color-active': 'red',
     border: '0px',
-    'border-radius': '0px',
     paddin: '0px',
   },
   ghost: {
@@ -65,7 +61,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     border: '1px solid rgba(58, 62, 66, 0.527);',
     'color-hover': '#fff',
     'color-active': '#fff',
-    'border-radius': '25px',
     'padding-right': '10px',
     'padding-left': '10px',
   },
@@ -75,7 +70,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#075ebb',
     'color-active': '#255b9475',
     border: '0px',
-    'border-radius': '0px',
     paddin: '0px',
   },
   success: {
@@ -84,7 +78,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#08ad08',
     'color-active': '#08a108',
     border: '0px',
-    'border-radius': '0px',
     paddin: '0px',
   },
 };

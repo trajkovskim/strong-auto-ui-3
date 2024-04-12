@@ -1,8 +1,8 @@
 import Button from 'components/Button';
 import Container, { BreakpointsProps } from 'components/Container';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { TouchEventHandler, useCallback, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { getElementWidth } from 'utils';
 
 type HorizontalListWrapperProps = {
@@ -11,9 +11,40 @@ type HorizontalListWrapperProps = {
   gap?: React.CSSProperties['gap'];
 };
 
+const arrowCss = css`
+  height: 5.25rem;
+  width: 2.125rem;
+  justify-content: center;
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: rgba(57, 65, 68, 0.5);
+  &:hover {
+    background-color: #394144;
+  }
+`;
+
+const StyledLeftArrowButton = styled(Button)`
+  ${arrowCss};
+  left: 0;
+
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+`;
+
+const StyledRightArrowButton = styled(Button)`
+  ${arrowCss};
+  right: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+`;
+
 const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
   margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2)`};
   max-width: ${(props) => props.maxWidth && `calc(${props.maxWidth} + (100% - ${props.maxWidth}) / 2)`};
+  width: 100%;
 
   @media (max-width: ${(props) => props.maxWidth}) {
     /* max-width: ${(props) => props.maxWidth}; */
@@ -21,19 +52,23 @@ const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
   }
   /* transform: translateX(-100%); */
   /* margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2 + ${props.maxWidth})`}; */
-`;
 
-const StyledArrowButton = styled(Button)`
-  padding-left: 20px;
-  padding-right: 20px;
+  position: relative;
 
-  justify-content: center;
+  & > ${StyledLeftArrowButton}, & > ${StyledRightArrowButton} {
+    opacity: 0;
+  }
+
+  &:hover > ${StyledLeftArrowButton}, &:hover > ${StyledRightArrowButton} {
+    opacity: 1;
+  }
 `;
 
 const HorizontalListChildrenWrapper = styled(Container)`
   & > * {
     flex: 1 0 100%;
-    height: 100%;
+    min-height: 100%;
+    width: 100%;
 
     user-select: none;
 
@@ -61,6 +96,16 @@ type Props = React.PropsWithChildren &
     chunkGap?: React.CSSProperties['gap'];
   };
 
+enum DragDirection {
+  LEFT = 'left',
+  RIGHT = 'right',
+}
+
+const percentByDirection = {
+  [DragDirection.LEFT]: 0.25,
+  [DragDirection.RIGHT]: 0.75,
+};
+
 const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseDown = useRef<boolean>(false);
@@ -68,6 +113,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
   const previousTouch = useRef<number>();
   const interval = useRef<number>();
   const moving = useRef<boolean>(false);
+  const dragDirection = useRef<DragDirection>(DragDirection.LEFT);
 
   const scrollEventHandler = useCallback((listScrollLeft: number, scroll: boolean) => {
     const listRef = ref.current;
@@ -112,27 +158,27 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     [scrollEventHandler]
   );
 
-  const handleIterval = useCallback(() => {
-    if (mouseOver.current || !ref.current?.hasChildNodes) {
-      return;
-    }
-
-    move(getButtonClickDeltaX());
-  }, [move]);
-
-  const resetInterval = useCallback(() => {
-    clearInterval(interval.current);
-    interval.current = setInterval(handleIterval, intervalMs);
-  }, [handleIterval, intervalMs]);
-
-  const getButtonClickDeltaX = () => {
+  const getButtonClickDeltaX = useCallback(() => {
     const firstChild = ref.current?.firstElementChild as HTMLElement;
     if (!firstChild) {
       return 0;
     }
 
     return getElementWidth(firstChild);
-  };
+  }, []);
+
+  const handleIterval = useCallback(() => {
+    if (mouseOver.current || !ref.current?.hasChildNodes) {
+      return;
+    }
+
+    move(getButtonClickDeltaX());
+  }, [getButtonClickDeltaX, move]);
+
+  const resetInterval = useCallback(() => {
+    clearInterval(interval.current);
+    interval.current = setInterval(handleIterval, intervalMs);
+  }, [handleIterval, intervalMs]);
 
   const fixScrollPosition = useCallback(() => {
     if (!ref.current) {
@@ -142,30 +188,35 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     resetInterval();
 
     const scrollLeft = ref.current.scrollLeft;
-    let sum1 = 0;
+
+    let sum = 0;
     for (const child of ref.current.children) {
       const childWidth = getElementWidth(child);
 
-      if (sum1 + childWidth * 0.25 <= scrollLeft) {
-        sum1 += childWidth;
+      if (sum + childWidth * percentByDirection[dragDirection.current] > scrollLeft) {
+        move(sum - scrollLeft);
+        break;
       }
-    }
 
-    move(Math.min(sum1 - scrollLeft));
+      sum += childWidth;
+    }
   }, [move, resetInterval]);
 
   useEffect(() => {
-    if (!ref.current?.hasChildNodes) {
+    const listRef = ref.current;
+    if (!listRef?.hasChildNodes) {
       return;
     }
 
     interval.current = setInterval(handleIterval, intervalMs);
 
     const handleScroll = () => scrollEventHandler(ref.current?.scrollLeft ?? 0, true);
-    ref.current.addEventListener('scroll', handleScroll);
+    listRef.addEventListener('scroll', handleScroll);
 
-    const handleScrollEnd = () => (moving.current = false);
-    ref.current?.addEventListener('scrollend', handleScrollEnd);
+    const handleScrollEnd = () => {
+      moving.current = false;
+    };
+    listRef?.addEventListener('scrollend', handleScrollEnd);
 
     let timeout = setTimeout(fixScrollPosition, 1000);
     window.addEventListener('resize', () => {
@@ -175,57 +226,74 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
 
     return () => {
       clearInterval(interval.current);
-      ref.current?.removeEventListener('scroll', handleScroll);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      ref.current?.removeEventListener('scrollend', handleScrollEnd);
+      listRef?.removeEventListener('scroll', handleScroll);
+      listRef?.removeEventListener('scrollend', handleScrollEnd);
       clearTimeout(timeout);
     };
   }, [fixScrollPosition, handleIterval, intervalMs, scrollEventHandler]);
 
-  const onBackButtonClick = () => {
+  // Arrow controlls handlers
+  const onBackButtonClick = useCallback(() => {
     if (move(-getButtonClickDeltaX())) {
       resetInterval();
     }
-  };
+  }, [getButtonClickDeltaX, move, resetInterval]);
 
-  const onForwardButtonClick = () => {
+  const onForwardButtonClick = useCallback(() => {
     if (move(getButtonClickDeltaX())) {
       resetInterval();
     }
-  };
+  }, [getButtonClickDeltaX, move, resetInterval]);
 
-  const handleMouseUp = () => {
+  // Mouse event handlers
+  const handleMouseUp = useCallback(() => {
     mouseDown.current = false;
     moving.current = false;
 
     fixScrollPosition();
-  };
+  }, [fixScrollPosition]);
 
-  const handleMouseDown = () => {
+  const handleMouseDown = useCallback(() => {
     mouseDown.current = true;
     moving.current = true;
-  };
-  const handleMouseMove = (movementX: number) => {
-    if (mouseDown.current) {
-      move(-movementX, 'auto', true);
-    }
-  };
+  }, []);
 
-  const disableTouchMove = (event: TouchEvent) => {
-    event.preventDefault();
-  };
+  const handleMouseMove = useCallback(
+    (movementX: number) => {
+      if (mouseDown.current) {
+        dragDirection.current = movementX < 0 ? DragDirection.LEFT : DragDirection.RIGHT;
+        move(-movementX, 'auto', true);
+      }
+    },
+    [move]
+  );
 
-  const handleTouchStart = (touchStartPosition: number) => {
-    window.addEventListener('touchmove', disableTouchMove, { passive: false });
-    previousTouch.current = touchStartPosition;
-    handleMouseDown();
-  };
+  // Touch event handlers
+  const handleTouchStart = useCallback(
+    (touchStartPosition: number) => {
+      ref.current?.style.setProperty('touch-action', 'pan-x');
+      previousTouch.current = touchStartPosition;
+      handleMouseDown();
+    },
+    [handleMouseDown]
+  );
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = useCallback(() => {
     handleMouseUp();
     previousTouch.current = undefined;
-    window.removeEventListener('touchmove', disableTouchMove);
-  };
+    ref.current?.style.setProperty('touch-action', 'pan-x');
+  }, [handleMouseUp]);
+
+  const handleTouchMove: TouchEventHandler<HTMLDivElement> = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (previousTouch.current) {
+        handleMouseMove(event.touches[0].pageX - previousTouch.current);
+      }
+      previousTouch.current = event.touches[0].pageX;
+    },
+    [handleMouseMove]
+  );
 
   return (
     <HorizontalListWrapper gap={props.gap} centered={props.centered} maxWidth={props.maxWidth}>
@@ -238,13 +306,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
         }}
         onTouchEnd={handleTouchEnd}
         onMouseMove={(event) => handleMouseMove(event.movementX)}
-        onTouchMove={(event) => {
-          event.preventDefault();
-          if (previousTouch.current) {
-            handleMouseMove(event.touches[0].pageX - previousTouch.current);
-          }
-          previousTouch.current = event.touches[0].pageX;
-        }}
+        onTouchMove={handleTouchMove}
         onMouseEnter={() => (mouseOver.current = true)}
         onMouseLeave={() => (mouseOver.current = false)}
         ref={ref}
@@ -259,12 +321,24 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
           );
         })}
       </HorizontalListChildrenWrapper>
-      <Container justifyContent="center" padding={{ right: 'md' }} preserveWhenXs direction="row" gap="1rem">
-        <StyledArrowButton icon={<MdArrowBackIos />} themeType="ghost" onClick={onBackButtonClick} />
-        <StyledArrowButton icon={<MdArrowForwardIos />} themeType="ghost" onClick={onForwardButtonClick} />
-      </Container>
+      <StyledLeftArrowButton
+        icon={<MdArrowBackIos />}
+        maxContent
+        iconSize="lg"
+        themeType="ghost"
+        onClick={onBackButtonClick}
+      />
+      <StyledRightArrowButton
+        icon={<MdArrowForwardIos />}
+        maxContent
+        iconSize="lg"
+        themeType="ghost"
+        onClick={onForwardButtonClick}
+      />
     </HorizontalListWrapper>
   );
 };
 
-export default HorizontalList;
+const memoHorizontalList = React.memo(HorizontalList);
+
+export default memoHorizontalList;

@@ -8,7 +8,8 @@ import Image from 'components/Image';
 const Tile = styled(Container)`
   border-radius: 10px;
   width: 100%;
-  max-width: 250px;
+  max-width: 350px;
+  min-width: 250px;
   border: 1px solid transparent;
   cursor: pointer;
 
@@ -18,6 +19,8 @@ const Tile = styled(Container)`
     border-color: #eee;
     /* transform: scale(1.05); */
   }
+
+  user-select: none;
 `;
 
 type Props = {
@@ -28,7 +31,7 @@ type Props = {
 
 const BodyTypeTile: React.FC<Props> = (props) => {
   return (
-    <Tile textCentered padding="md" gap="1rem" onClick={props.onClick}>
+    <Tile direction="row" textCentered padding="md" gap="1rem" onClick={props.onClick} alignItems="center">
       <Image src={props.imageSrc} alt={props.label} objectFit="contain" width="200px" centered />
       <Text>{props.label}</Text>
     </Tile>

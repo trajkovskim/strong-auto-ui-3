@@ -1,4 +1,5 @@
 import Button from 'components/Button';
+import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Image from 'components/Image';
@@ -12,6 +13,7 @@ export const StyledImage = styled(Image)`
   }
 
   width: ${(props) => props.width};
+  height: 100%;
 `;
 
 export const StyledRibbon = styled(Ribbon)`
@@ -41,4 +43,8 @@ export const PriceWrapper = styled(Container)`
   clip-path: polygon(10% 0, 0 100%, 100% 100%, 100% 0);
   align-items: flex-end;
   justify-content: flex-end;
+`;
+
+export const StyledCarousel = styled(Carousel)`
+  height: 100%;
 `;
