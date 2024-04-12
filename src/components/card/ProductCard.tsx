@@ -46,6 +46,8 @@ const StyledCard = styled(Card)`
   &:hover {
     transform: translateY(-2px);
   }
+
+  min-height: 230px;
 `;
 
 const StyledFooter = styled.div<{ visibleFooter: boolean }>`
