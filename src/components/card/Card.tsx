@@ -20,6 +20,7 @@ const StyledCard = styled(Container)<StyledCardProps>`
   overflow: hidden;
 
   & > *:first-child {
+    max-height: 600px;
     flex: 1 0 0;
   }
 `;

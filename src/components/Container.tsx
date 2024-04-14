@@ -1,10 +1,9 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import theme from 'theme';
+import theme, { Breakpoints } from 'theme';
+import { createMedia } from 'utils';
 
-export type Breakpoints = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-
-export type BreakpointsProps = {
+export type ContainerBreakpointsProps = {
   [key in Breakpoints]?: string | number;
 };
 
@@ -22,7 +21,7 @@ export type Edges<T> = {
   bottomRight?: T;
 };
 
-type StyledContainerProps = BreakpointsProps & {
+type StyledContainerProps = ContainerBreakpointsProps & {
   margin?: Breakpoints | Sides<Breakpoints>;
   padding?: Breakpoints | Sides<Breakpoints>;
   direction?: React.CSSProperties['flexDirection'];
@@ -54,14 +53,12 @@ const calculateColumnPercentage = (breakpoint: number) => {
   return (breakpoint * 100) / MAX_COLUMNS + '%';
 };
 
-const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?: string) => {
-  const minWidth = `(min-width: ${theme.breakpoints.minWidth[breakpoint]})`;
-  const maxWidth = breakpoint !== '2xl' ? `and (max-width: ${theme.breakpoints.maxWidth[breakpoint]})` : '';
-
+const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss?: string) => {
   const gap = props.parentGap ?? '0rem';
 
-  return css`
-    @media ${minWidth}${maxWidth} {
+  return createMedia(
+    breakpoint,
+    css`
       display: ${typeof props[breakpoint] === 'number' && props[breakpoint] === 0 && 'none'};
 
       width: ${typeof props[breakpoint] === 'string' && `calc(100% - ${gap})`};
@@ -70,8 +67,8 @@ const createMedia = (props: StyledContainerProps, breakpoint: Breakpoints, csss?
       width: ${typeof props[breakpoint] === 'number' &&
       `calc(${calculateColumnPercentage(props[breakpoint] as number)} - ${gap})`};
       ${csss};
-    }
-  `;
+    `
+  );
 };
 
 const StyledContainer = styled.div<StyledContainerProps>`
@@ -162,12 +159,13 @@ const StyledContainer = styled.div<StyledContainerProps>`
       }
     `}
 
-  ${(props) => createMedia(props, 'xs')};
-  ${(props) => createMedia(props, 'sm')};
-  ${(props) => createMedia(props, 'md')};
-  ${(props) => createMedia(props, 'lg')};
-  ${(props) => createMedia(props, 'xl')};
-  ${(props) => createMedia(props, '2xl')};
+  ${(props) => createMediaQ(props, 'xs')};
+  ${(props) => createMediaQ(props, 'sm')};
+  ${(props) => createMediaQ(props, 'md')};
+  ${(props) => createMediaQ(props, 'lg')};
+  ${(props) => createMediaQ(props, 'xl')};
+  ${(props) => createMediaQ(props, '2xl')};
+  ${(props) => createMediaQ(props, '3xl')};
 `;
 
 type Props = React.PropsWithRef<
@@ -180,6 +178,7 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props.lg = props.lg ?? props.md;
   props.xl = props.xl ?? props.lg;
   props['2xl'] = props['2xl'] ?? props.xl;
+  props['3xl'] = props['3xl'] ?? props['2xl'];
 
   return (
     <StyledContainer ref={ref} {...props}>

@@ -17,11 +17,12 @@ import React, { useState } from 'react';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
 import { FaRoad } from 'react-icons/fa';
 import { TbManualGearbox } from 'react-icons/tb';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { formatNumber } from 'utils';
 
 const ImageWrapper = styled(Container)`
   height: 100%;
+  max-height: 600px;
   &::after {
     content: '';
     position: absolute;
@@ -48,15 +49,7 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const StyledFooter = styled.div<{ visibleFooter: boolean }>`
-  height: 0;
-
-  ${(props) =>
-    props.visibleFooter &&
-    css`
-      height: 100%;
-    `};
-`;
+const StyledFooter = styled.div<{ visibleFooter: boolean }>``;
 
 const BodyTitleWrapper = styled(Container)`
   button {

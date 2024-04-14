@@ -181,7 +181,7 @@ const Home: React.FC = () => {
       </WhiteBackgroundContainer> */}
 
       <WhiteBackgroundContainer padding={{ top: 'lg', bottom: 'lg', left: 'md' }} gap="1rem">
-        <Container sm="1400px" centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
+        <Container centered alignItems="center" gap="1rem" padding={{ right: 'md' }}>
           <Container
             sm={12}
             preserveWhenXs
@@ -208,7 +208,7 @@ const Home: React.FC = () => {
             defaultActive={exploreVehiclesActiveTab}
           />
           {exploreVehiclesActiveTab === 0 && (
-            <List gap="1rem" xs={1} md={2} lg={3} justifyContent="space-between">
+            <List gap="1rem" xs={1} md={2} lg={3} {...{ '3xl': 6 }} justifyContent="space-between">
               {products.slice(0, 6).map((product) => (
                 <ProductCard fullwidth {...product} ribbon={product.state as RibbonType} key={product.id} />
               ))}

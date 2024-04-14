@@ -1,7 +1,7 @@
-import { Breakpoints, Sides } from 'components/Container';
+import { Sides } from 'components/Container';
 import React from 'react';
 import styled, { css } from 'styled-components';
-import theme from 'theme';
+import theme, { Breakpoints, BreakpointsProps } from 'theme';
 import { createMedia } from 'utils';
 
 export enum ListView {
@@ -9,7 +9,7 @@ export enum ListView {
   LIST = 'list',
 }
 
-type StyledListProps = {
+type StyledListProps = BreakpointsProps & {
   gap?: React.CSSProperties['gap'];
   justifyContent?: React.CSSProperties['justifyContent'];
   view?: ListView;
@@ -89,6 +89,7 @@ const StyledList = styled.div<StyledListProps>`
   ${(props) => createMediaQ(props, 'lg')}
   ${(props) => createMediaQ(props, 'xl')}
   ${(props) => createMediaQ(props, '2xl')}
+  ${(props) => createMediaQ(props, '3xl')}
 `;
 
 type Props = React.PropsWithChildren & Omit<StyledListProps, 'childrenCount'> & React.ComponentProps<'div'>;
@@ -100,6 +101,7 @@ const List = React.forwardRef<HTMLDivElement, Props>(
     props.lg = props.lg ?? props.md;
     props.xl = props.xl ?? props.lg;
     props['2xl'] = props['2xl'] ?? props.xl;
+    props['3xl'] = props['3xl'] ?? props['2xl'];
 
     const childrenCount = React.Children.count(props.children);
 

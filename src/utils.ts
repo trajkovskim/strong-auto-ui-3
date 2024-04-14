@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import theme, { Breakpoints } from 'theme';
+import theme, { Breakpoints, LARGEST_BREAKPOINT } from 'theme';
 
 export const goto = (url: string, blank = false) => {
   window.location.replace(url);
@@ -69,7 +69,8 @@ export const getElementWidth = (el: Element, boxSizing: React.CSSProperties['box
 
 export const createMedia = (breakpoint: Breakpoints, csss?: ReturnType<typeof css>) => {
   const minWidth = `(min-width: ${theme.breakpoints.minWidth[breakpoint]})`;
-  const maxWidth = breakpoint !== '2xl' ? `and (max-width: ${theme.breakpoints.maxWidth[breakpoint]})` : '';
+  const maxWidth =
+    breakpoint !== LARGEST_BREAKPOINT ? `and (max-width: ${theme.breakpoints.maxWidth[breakpoint]})` : '';
 
   return css`
     @media ${minWidth}${maxWidth} {
