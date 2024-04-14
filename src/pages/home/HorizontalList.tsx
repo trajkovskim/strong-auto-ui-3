@@ -252,7 +252,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
 
     const deltaX = -getButtonClickDeltaX();
     if (scrollEventHandler(ref.current?.scrollLeft + deltaX, false)) {
-      move(-deltaX, 'instant', true);
+      move(-deltaX, 'auto', true);
     }
 
     if (move(deltaX, 'smooth')) {
@@ -267,7 +267,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
 
     const deltaX = getButtonClickDeltaX();
     if (scrollEventHandler(ref.current?.scrollLeft + deltaX, false)) {
-      move(-deltaX, 'instant', true);
+      move(-deltaX, 'auto', true);
     }
 
     if (move(deltaX, 'smooth')) {
