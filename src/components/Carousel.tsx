@@ -2,7 +2,15 @@ import { css as emitionCss } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { TouchEventHandler, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import React, {
+  TouchEventHandler,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+  CSSProperties,
+} from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
 
@@ -11,6 +19,7 @@ type StyledCarouselProps = {
   maxHeight?: string;
   absolute?: boolean;
   className?: React.ComponentProps<'div'>['className'];
+  style?: CSSProperties;
 };
 
 const arrowCss = css`
@@ -46,6 +55,7 @@ const StyledRightArrowButton = styled(Button)`
 `;
 
 const StyledCarousel = styled.div<StyledCarouselProps>`
+  ${(props) => props.style?.toString().replace(',', ';')};
   display: grid;
   width: 100%;
   overflow: hidden;
@@ -69,9 +79,7 @@ const SmallCircle = styled.div<{ fill?: boolean }>`
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   border: 1px solid #000;
-
   transition: all 200ms;
-
   background-color: ${(props) => props.fill && '#000'};
 `;
 
@@ -99,6 +107,7 @@ type Props = React.PropsWithChildren &
     ms?: number;
     noArrows?: boolean;
     noChangeOptions?: boolean;
+    justifyContent?: string;
   };
 
 export type CarouselHandle = {
@@ -247,6 +256,7 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(
         minHeight={props.minHeight}
         maxHeight={props.maxHeight}
         absolute={props.absolute}
+        style={props.style}
       >
         {children.map((child, index) => (
           <Transition

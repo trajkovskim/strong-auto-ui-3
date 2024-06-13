@@ -18,6 +18,7 @@ const StyledSearchButton = styled(Button)<{ buttonAnimate: boolean }>`
   width: 0;
   overflow: hidden;
   visibility: hidden;
+  border-radius: 10px;
 
   ${(props) =>
     props.buttonAnimate &&
