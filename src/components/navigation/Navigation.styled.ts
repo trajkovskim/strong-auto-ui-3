@@ -1,5 +1,5 @@
+import Button from 'components/Button';
 import Container from 'components/Container';
-import Text from 'components/typography/Text';
 import styled from 'styled-components';
 
 export const StyledNavigationWrapper = styled.nav`
@@ -18,12 +18,8 @@ export const MobileContainer = styled(Container)`
   color: #fff;
 `;
 
-export const StyledButton = styled(Text)<{ active?: boolean }>`
-  display: flex;
-  justify-content: center;
-
+export const StyledButton = styled(Button)<{ active?: boolean }>`
   padding: 10px 20px;
-  cursor: pointer;
 
   transition: all 200ms;
   user-select: none;
@@ -33,6 +29,6 @@ export const StyledButton = styled(Text)<{ active?: boolean }>`
   border-bottom-color: ${(props) => (props.active ? 'white' : 'transparent')};
 
   &:hover {
-    border-bottom-color: white;
+    border-bottom-color: #075ebb;
   }
 `;

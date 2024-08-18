@@ -6,6 +6,7 @@ import Transition, { TransitionHandle } from 'components/Transition';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { faqQuestions } from 'pages/constants';
+import BoxAnimation from 'components/BoxAnimation';
 import React, { useRef, useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
@@ -58,12 +59,20 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
 
 const FAQ: React.FC = () => {
   return (
-    <Container sm="800px" centered gap="3rem" padding={{ left: 'md', right: 'md', top: '2xl', bottom: '2xl' }}>
+    <Container
+      sm="1400px"
+      centered
+      gap="3rem"
+      preserveWhenXs
+      padding={{ left: 'md', right: 'md', top: '2xl', bottom: '2xl' }}
+    >
       <Title title="Frequently asked questions" centered fontSize="2xl" />
-      <Container gap="1rem">
+      <Container gap="2rem">
         {faqQuestions.map((faq) => (
           <Container key={faq.id}>
-            <FAQAccordion faq={faq} />
+            <BoxAnimation>
+              <FAQAccordion faq={faq} />
+            </BoxAnimation>
             <Line />
           </Container>
         ))}

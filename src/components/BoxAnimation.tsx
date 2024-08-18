@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 type StyledContainerProps = {
   fullwidth?: boolean;
+  fullheight?: boolean;
 };
 
 type Props = React.PropsWithChildren &
@@ -15,6 +16,7 @@ type Props = React.PropsWithChildren &
 
 const StyledContainer = styled.div<StyledContainerProps>`
   width: ${(props) => props.fullwidth && '100%'};
+  height: ${(props) => props.fullheight && '100%'};
 `;
 
 const BoxAnimation: React.FC<Props> = ({ threshold: threshold = 0.2, duration = '400ms', ...props }) => {
@@ -60,7 +62,7 @@ const BoxAnimation: React.FC<Props> = ({ threshold: threshold = 0.2, duration = 
         `,
       }}
     >
-      <StyledContainer fullwidth={props.fullwidth} ref={elementRef}>
+      <StyledContainer fullheight={props.fullheight} fullwidth={props.fullwidth} ref={elementRef}>
         {props.children}
       </StyledContainer>
     </Transition>

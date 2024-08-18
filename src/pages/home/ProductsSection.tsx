@@ -7,7 +7,7 @@ import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import Container from 'components/Container';
 import BodyTypes from 'pages/home/BodyTypes';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
-import BoxAnimation from 'pages/home/BoxAnimation';
+import BoxAnimation from 'components/BoxAnimation';
 
 const ProductsSection: React.FC = () => {
   const [exploreVehiclesActiveTab, setExploreVehiclesActiveTab] = useState<number>(0);

@@ -25,6 +25,11 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
     }
   }, [defaultState]);
 
+  const transitionFinalCss = css`
+    overflow: visible;
+    max-height: ${containerRef?.scrollHeight}px;
+  `;
+
   return (
     <Container gap="0.3rem" padding={{ left: 'md', right: 'md', bottom: 'sm', top: 'sm' }}>
       <StyledButton
@@ -45,10 +50,7 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
             overflow: hidden;
             max-height: 0;
           `,
-          final: css`
-            overflow: visible;
-            max-height: ${containerRef?.scrollHeight}px;
-          `,
+          final: transitionFinalCss,
         }}
       >
         <Container ref={setContainerRef}>{children}</Container>

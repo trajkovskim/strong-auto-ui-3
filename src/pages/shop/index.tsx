@@ -19,10 +19,9 @@ import { Routes } from 'routes';
 import styled from 'styled-components';
 
 const ListActionsMobileWrapper = styled(Container)`
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   background-color: inherit;
-  z-index: 10;
   background-color: white;
   box-shadow: 0px -5px 10px 0px rgba(0, 0, 0, 0.2);
 `;

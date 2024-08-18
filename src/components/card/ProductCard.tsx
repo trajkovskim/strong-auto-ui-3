@@ -7,7 +7,7 @@ import { PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Text from 'components/typography/Text';
-import BoxAnimation from 'pages/home/BoxAnimation';
+import BoxAnimation from 'components/BoxAnimation';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';

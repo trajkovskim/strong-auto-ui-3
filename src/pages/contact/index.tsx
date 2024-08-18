@@ -9,7 +9,7 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md';
 import { call, goto, mailTo } from 'utils';
 import MapLocationImage from 'assets/map-location.jpg';
-import BoxAnimation from 'pages/home/BoxAnimation';
+import BoxAnimation from 'components/BoxAnimation';
 
 const Contact: React.FC = () => {
   return (

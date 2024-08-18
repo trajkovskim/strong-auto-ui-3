@@ -9,7 +9,7 @@ import List from 'components/List';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import Contact from 'pages/contact';
-import BoxAnimation from 'pages/home/BoxAnimation';
+import BoxAnimation from 'components/BoxAnimation';
 import FAQ from 'pages/home/Faq';
 import Reviews from 'pages/home/Reviews';
 import WhyChooseUs from 'pages/home/WhyChooseUs';

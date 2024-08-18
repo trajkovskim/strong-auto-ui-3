@@ -35,7 +35,7 @@ const Filters: React.FC = () => {
   const resetFilters = () => undefined;
 
   return (
-    <Container bordered={{ right: true, bottom: true }}>
+    <Container bordered={{ right: true, bottom: true }} gap="1rem">
       <FiltersHeader justifyContent="space-between" preserveWhenXs direction="row" padding="md">
         <Text>Filtering</Text>
         <Container gap="0.5rem" direction="row" preserveWhenXs>

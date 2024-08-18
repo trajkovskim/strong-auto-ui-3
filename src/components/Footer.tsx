@@ -4,14 +4,14 @@ import Container from 'components/Container';
 import Image from 'components/Image';
 import Line from 'components/Line';
 import { Input } from 'components/form';
+import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import React from 'react';
-import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 import { styled } from 'styled-components';
 import { call, goto, mailTo } from 'utils';
-import { Routes } from 'routes';
 
 const StyledFooter = styled.footer`
   background-color: #232323;
@@ -36,6 +36,7 @@ const StyledNewsLetterFormContainer = styled(Container)`
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
+  const socialMedias = useSocialMedias();
 
   return (
     <StyledFooter>
@@ -82,38 +83,17 @@ const Footer: React.FC = () => {
               California 90017
             </Text>
             <SocialMedias gap="1.5rem" direction="row" preserveWhenXs>
-              <Button
-                themeType="link"
-                maxContent
-                icon={<FaFacebook />}
-                size="lg"
-                iconSize="xl"
-                onClick={() => goto('https://www.facebook.com')}
-              />
-              <Button
-                themeType="link"
-                maxContent
-                icon={<FaInstagram />}
-                size="lg"
-                iconSize="xl"
-                onClick={() => goto('https://www.facebook.com')}
-              />
-              <Button
-                themeType="link"
-                maxContent
-                icon={<FaTelegram />}
-                size="lg"
-                iconSize="xl"
-                onClick={() => goto('https://www.facebook.com')}
-              />
-              <Button
-                themeType="link"
-                maxContent
-                icon={<FaLinkedin />}
-                size="lg"
-                iconSize="xl"
-                onClick={() => goto('https://www.facebook.com')}
-              />
+              {socialMedias.map((socialMedia, index) => (
+                <Button
+                  key={index}
+                  themeType="link"
+                  maxContent
+                  icon={socialMedia.icon}
+                  size="lg"
+                  iconSize="xl"
+                  onClick={() => goto(socialMedia.href)}
+                />
+              ))}
             </SocialMedias>
           </Container>
           <Container sm={4} lg={3} gap="2rem">

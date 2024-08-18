@@ -12,7 +12,7 @@ import { RibbonType } from 'components/card/types';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
-import BoxAnimation from 'pages/home/BoxAnimation';
+import BoxAnimation from 'components/BoxAnimation';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import FAQ from 'pages/home/Faq';
 import HorizontalList from 'pages/home/HorizontalList';
@@ -40,10 +40,34 @@ const Home: React.FC = () => {
   return (
     <HomeWrapper>
       <CarouselWrapper minHeight="800px" maxHeight="100vh" preserveWhenXs>
-        <Carousel minHeight="800px" maxHeight="100vh" noChangeOptions noArrows>
+        <Carousel absolute minHeight="800px" maxHeight="100vh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" objectPosition="center" height="100%" />
         </Carousel>
+        <Container preserveWhenXs gap="3rem" padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}>
+          <BoxAnimation>
+            <Container xs="600px" preserveWhenXs centered itemsCentered>
+              <Title
+                fontSize={{ title: '3xl', description: 'xl' }}
+                bold
+                title="Welcome to Strong AUTO"
+                centered
+                gap="2rem"
+                description="Checkout the cars that we have in our inventory"
+              />
+            </Container>
+          </BoxAnimation>
+          <BoxAnimation>
+            <Container xs="600px" preserveWhenXs direction="row" gap="1rem" centered itemsCentered>
+              <Button maxContent size="lg" padding="md">
+                Get to the Inventory
+              </Button>
+              <Button maxContent size="lg" themeType="ghost" padding="md">
+                Scroll down
+              </Button>
+            </Container>
+          </BoxAnimation>
+        </Container>
       </CarouselWrapper>
 
       <WhiteBackgroundContainer sm={12} preserveWhenXs>
@@ -56,13 +80,12 @@ const Home: React.FC = () => {
             preserveWhenXs
             centered
             itemsCentered
-            padding={{ top: 'xl', bottom: 'xl' }}
+            padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}
           >
             <Container sm={12} md={5} itemsCentered>
               <SearchBox />
             </Container>
             <Container sm={12} md={7} gap="1rem" preserveWhenXs>
-              <Title fontSize="3xl" bold title="Welcome to Strong AUTO" />
               <Text fontSize="xl">Lookup cars for sale</Text>
               <Text fontSize="lg">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -127,43 +150,51 @@ const Home: React.FC = () => {
           </Container>
         </BoxAnimation>
       </WhiteBackgroundContainer>
-      <BoxAnimation threshold={0.2}>
-        <PopularMakesWrapper sm={12} padding={{ top: 'xl', bottom: '2xl' }} gap="4rem">
-          <Container sm={12} centered alignItems="center" gap="3rem" padding={{ right: 'md' }}>
-            <Container
-              xs={12}
-              preserveWhenXs
-              gap="1rem"
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Container preserveWhenXs xs={0} md={2} />
-              <Container xs={12} preserveWhenXs alignItems="center">
-                <Title title="Popular Makes" fontSize="2xl" bold />
+      <PopularMakesWrapper sm={12}>
+        <BoxAnimation threshold={0.2}>
+          <Container preserveWhenXs padding={{ top: 'xl', bottom: '2xl' }} gap="4rem">
+            <Container sm={12} centered alignItems="center" gap="3rem" padding={{ right: 'md' }}>
+              <Container
+                xs={12}
+                preserveWhenXs
+                gap="1rem"
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <Container preserveWhenXs xs={0} md={2} />
+                <Container xs={12} preserveWhenXs alignItems="center">
+                  <Title title="Popular Makes" fontSize="2xl" bold />
+                </Container>
+                <Container xs="max-content" md={2}>
+                  <Button themeType="link" maxContent size="lg" iconRight={<BsArrowUpRight />}>
+                    View all
+                  </Button>
+                </Container>
               </Container>
-              <Container xs="max-content" md={2}>
-                <Button themeType="link" maxContent size="lg" iconRight={<BsArrowUpRight />}>
-                  View all
-                </Button>
-              </Container>
+              <TabButtonsGroup buttons={[{ label: 'Audi' }, { label: 'BMW' }, { label: 'Toyota' }]} />
             </Container>
-            <TabButtonsGroup buttons={[{ label: 'Audi' }, { label: 'BMW' }, { label: 'Toyota' }]} />
+            <HorizontalList
+              gap="2rem"
+              chunkGap="1rem"
+              chunkSize={{ xs: '100%', md: '50%', lg: '40%', xl: '30%' }}
+              centered
+            >
+              {popularMakesProducts.map((product) => (
+                <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+              ))}
+            </HorizontalList>
           </Container>
-          <HorizontalList
-            gap="2rem"
-            chunkGap="1rem"
-            chunkSize={{ xs: '100%', md: '50%', lg: '40%', xl: '30%' }}
-            centered
-          >
-            {popularMakesProducts.map((product) => (
-              <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
-            ))}
-          </HorizontalList>
-        </PopularMakesWrapper>
-      </BoxAnimation>
+        </BoxAnimation>
+      </PopularMakesWrapper>
       <WhiteBackgroundContainer preserveWhenXs>
-        <Container sm="1400px" centered itemsCentered padding={{ top: '2xl', bottom: 'xl', left: 'md', right: 'md' }}>
+        <Container
+          sm="1400px"
+          preserveWhenXs
+          centered
+          itemsCentered
+          padding={{ top: '2xl', bottom: 'xl', left: 'md', right: 'md' }}
+        >
           <List xs={1} sm={2} lg={4} gap="2rem" justifyContent="center" elementWidth="1fr">
             <BoxAnimation duration="250ms">
               <CarServiceServiceTile

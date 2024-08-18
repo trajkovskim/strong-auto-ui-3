@@ -6,6 +6,7 @@ import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Container from 'components/Container';
 import Text from 'components/typography/Text';
+import BoxAnimation from 'components/BoxAnimation';
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
@@ -23,6 +24,9 @@ const BodyWrapper = styled(Container)`
 const StyledCard = styled(Card)`
   transition: all 200ms;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+
+  position: relative;
+
   cursor: pointer;
 
   .carousel_change-options {
@@ -118,13 +122,15 @@ const MiniProductCard: React.FC<Props> = (props) => {
   );
 
   return (
-    <StyledCard
-      fullwidth={props.fullwidth}
-      image={image}
-      onImageContainer={onImageContainer}
-      ribbon={props.ribbon && ribbons[props.ribbon]}
-      onClick={props.onView}
-    />
+    <BoxAnimation fullheight>
+      <StyledCard
+        fullwidth={props.fullwidth}
+        image={image}
+        onImageContainer={onImageContainer}
+        ribbon={props.ribbon && ribbons[props.ribbon]}
+        onClick={props.onView}
+      />
+    </BoxAnimation>
   );
 };
 
