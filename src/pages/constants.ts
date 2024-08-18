@@ -1,5 +1,23 @@
 import ToyotaCamryImage from 'assets/toyota-camry.jpg';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
+import Car1Image from 'assets/Car1.jpg';
+import Car2Image from 'assets/Car2.jpg';
+import SUVBodyTypeImage from 'assets/SUV.png';
+
+export const bodyTypes = [
+  { id: 0, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
+  { id: 1, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
+  { id: 2, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
+  { id: 3, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
+  { id: 4, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
+  { id: 5, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
+  { id: 6, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
+  { id: 7, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
+  { id: 8, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
+  { id: 9, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
+  { id: 10, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
+  { id: 11, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
+];
 
 export const faqQuestions = [
   {
@@ -78,14 +96,14 @@ export const products = [
   {
     id: 0,
     state: 'sold',
-    images: [BMWDriftSoilImage, ToyotaCamryImage, ToyotaCamryImage, BMWDriftSoilImage],
+    images: [Car1Image, Car2Image, ToyotaCamryImage, BMWDriftSoilImage],
     price: {
       total: 10000,
       totalPromo: 165000,
       saving: 1000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 0',
+    title: 'Toyota Camry New',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -124,14 +142,14 @@ export const products = [
   {
     id: 1,
     state: 'featured',
-    images: [ToyotaCamryImage],
+    images: [ToyotaCamryImage, Car2Image],
     price: {
       total: 10000,
       totalPromo: 165000,
       saving: 1000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 1',
+    title: 'Alfa Romeo',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -170,12 +188,12 @@ export const products = [
   {
     id: 2,
     state: 'sold',
-    images: [BMWDriftSoilImage],
+    images: [Car1Image],
     price: {
       total: 10000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 2',
+    title: 'Alfa Romeo',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -219,7 +237,7 @@ export const products = [
       total: 10000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 3',
+    title: 'Toyota Camry',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -265,7 +283,7 @@ export const products = [
       saving: 1000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 4',
+    title: 'BMW',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -309,7 +327,7 @@ export const products = [
       total: 10000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 5',
+    title: 'Toyota Camry',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -348,14 +366,14 @@ export const products = [
   {
     id: 6,
     state: 'sold',
-    images: [BMWDriftSoilImage],
+    images: [Car2Image],
     price: {
       total: 10000,
       totalPromo: 165000,
       saving: 1000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 6',
+    title: 'BMW New',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -399,7 +417,7 @@ export const products = [
       total: 10000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 7',
+    title: 'BMW X',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -438,12 +456,12 @@ export const products = [
   {
     id: 8,
     state: 'sold',
-    images: [ToyotaCamryImage],
+    images: [Car1Image],
     price: {
       total: 10000,
       currency: 'MKD',
     },
-    title: 'Toyota Camry New 8',
+    title: 'Alfa Romeo',
     description: '3.5D Power pulse Momentum 5dr RWD',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
@@ -482,7 +500,7 @@ export const products = [
   {
     id: 9,
     state: 'featured',
-    images: [BMWDriftSoilImage],
+    images: [Car2Image],
     price: {
       total: 10000,
       currency: 'MKD',
@@ -526,7 +544,7 @@ export const products = [
   {
     id: 10,
     state: 'sold',
-    images: [ToyotaCamryImage],
+    images: [Car1Image],
     price: {
       total: 10000,
       currency: 'MKD',

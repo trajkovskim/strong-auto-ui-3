@@ -13,8 +13,8 @@ const StyledLayout = styled.div`
 
 const BackToTopButton = styled(Button)`
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 55px;
+  height: 55px;
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -38,7 +38,7 @@ const StrongAutoApp: React.FC = () => {
           </main>
           <Footer />
         </StyledLayout>
-        <BackToTopButton icon={<BsArrowUp />} onClick={scrollToTop} />
+        <BackToTopButton iconSize="lg" icon={<BsArrowUp />} onClick={scrollToTop} />
       </div>
     </ApplicationContextProvider>
   );

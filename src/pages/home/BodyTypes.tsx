@@ -1,17 +1,12 @@
-import SUVBodyTypeImage from 'assets/SUV.png';
-import Container from 'components/Container';
+import List from 'components/List';
+import { bodyTypes } from 'pages/constants';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
 import React, { TouchEventHandler, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled(Container)`
-  overflow: auto;
-`;
-
-const HorizontalList = styled(Container)`
-  > * {
-    flex: 1 0 100%;
-  }
+const Wrapper = styled(List)`
+  overflow-x: scroll;
+  position: relative;
 `;
 
 const BodyTypes: React.FC = () => {
@@ -20,11 +15,6 @@ const BodyTypes: React.FC = () => {
   const mouseOver = useRef<boolean>(false);
   const previousTouch = useRef<number>();
   const moving = useRef<boolean>(false);
-
-  const bodyTypes = new Array(11).fill({ label: 'SUV', imageSrc: SUVBodyTypeImage }).map((x) => x);
-
-  const bodyTypesRow1 = bodyTypes.slice(0, Math.ceil(bodyTypes.length / 2));
-  const bodyTypesRow2 = bodyTypes.slice(Math.ceil(bodyTypes.length / 2));
 
   const move = useCallback((deltaX: number, behavior: ScrollBehavior = 'smooth', force = false) => {
     if (moving.current && !force) {
@@ -92,9 +82,9 @@ const BodyTypes: React.FC = () => {
 
   return (
     <Wrapper
-      xs={12}
+      xs={7}
+      elementWidth="300px"
       ref={ref}
-      preserveWhenXs
       onMouseUp={handleMouseUp}
       onMouseDown={handleMouseDown}
       onTouchStart={(event) => handleTouchStart(event.touches[0].pageX)}
@@ -106,16 +96,9 @@ const BodyTypes: React.FC = () => {
       padding={{ top: 'md', bottom: 'md' }}
       gap="1rem"
     >
-      <HorizontalList preserveWhenXs sm={12} gap="1rem" direction="row">
-        {bodyTypesRow1.map((bodyType, index) => (
-          <BodyTypeTile key={index} {...bodyType} />
-        ))}
-      </HorizontalList>
-      <HorizontalList preserveWhenXs sm={12} gap="1rem" direction="row">
-        {bodyTypesRow2.map((bodyType, index) => (
-          <BodyTypeTile key={index} {...bodyType} />
-        ))}
-      </HorizontalList>
+      {bodyTypes.map((bodyType) => (
+        <BodyTypeTile key={bodyType.id} {...bodyType} />
+      ))}
     </Wrapper>
   );
 };

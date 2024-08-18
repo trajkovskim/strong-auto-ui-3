@@ -24,7 +24,7 @@ const Ribbon: React.FC<Props> = ({ className, ...props }) => {
       background={props.background}
       color={props.color}
     >
-      <Text bold fontSize="md">
+      <Text bold fontSize="sm">
         {props.label}
       </Text>
     </StyledRibbon>

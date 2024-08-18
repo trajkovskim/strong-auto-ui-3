@@ -1,28 +1,20 @@
 import Button from 'components/Button';
+import BookmarkedButton from 'components/card/BookmarkedButton';
 import Card from 'components/card/Card';
-import { StyledBookmarkButton, StyledCarousel, StyledImage } from 'components/card/Card.styled';
+import { PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
-import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Text from 'components/typography/Text';
 import React from 'react';
-import { BsBookmark, BsBookmarkCheckFill } from 'react-icons/bs';
 import styled from 'styled-components';
+import theme from 'theme';
 import { formatNumber } from 'utils';
-
-const PriceWrapper = styled(Container)`
-  background-color: #055285;
-  color: white;
-  transform: skew(10px);
-  clip-path: polygon(10% 0, 0 100%, 100% 100%, 100% 0);
-`;
 
 const BodyWrapper = styled(Container)`
   position: absolute;
   width: 100%;
   height: 100%;
-  color: white;
   bottom: 0;
   right: 0;
   box-shadow: inset 0px -31px 50px -6px black;
@@ -37,18 +29,34 @@ const StyledCard = styled(Card)`
     z-index: 3;
   }
 
+  color: white;
+
+  .carousel_change-options > *::before {
+    border-color: ${theme.productCard.carouselChangeOptionsBorder} !important;
+  }
+
+  .carousel_change-option_active::before {
+    background-color: ${theme.productCard.carouselChangeOptionsFillColor} !important;
+    border-color: ${theme.productCard.carouselChangeOptionsFillBorder} !important;
+  }
+
   &:hover {
-    transform: translateY(-2px);
+    color: #075ebb;
+
+    .carousel_change-options > *::before {
+      border-color: ${theme.productCard.carouselChangeOptionsBorderHover} !important;
+    }
+
+    .carousel_change-option_active::before {
+      background-color: ${theme.productCard.carouselChangeOptionsFillColorHover} !important;
+      border-color: ${theme.productCard.carouselChangeOptionsFillBorderHover} !important;
+    }
   }
 `;
 
 const MiniProductCard: React.FC<Props> = (props) => {
   const price = (
-    <PriceWrapper
-      padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }}
-      alignItems="flex-end"
-      justifyContent="flex-end"
-    >
+    <PriceWrapper padding={{ left: 'lg', right: 'sm' }} preserveWhenXs>
       {props.price?.totalPromo && (
         <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
@@ -74,7 +82,7 @@ const MiniProductCard: React.FC<Props> = (props) => {
       preserveWhenXs
       direction="row"
       gap="1rem"
-      padding={{ top: 'sm', left: 'sm' }}
+      padding="md"
       justifyContent="space-between"
       alignItems="flex-end"
     >
@@ -91,17 +99,18 @@ const MiniProductCard: React.FC<Props> = (props) => {
 
   const onImageContainer = (
     <>
-      <StyledBookmarkButton
-        themeType="white"
-        icon={props.bookmarked ? <BsBookmarkCheckFill /> : <BsBookmark />}
-        size="sm"
+      <BookmarkedButton
+        bookmarked={props.bookmarked}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
       />
       {body}
     </>
   );
 
   const image = (
-    <StyledCarousel>
+    <StyledCarousel noChangeOptions>
       {props.images?.map((image, index) => (
         <StyledImage key={index} shadow objectFit="cover" src={image} />
       ))}

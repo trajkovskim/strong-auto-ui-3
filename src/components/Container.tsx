@@ -41,6 +41,7 @@ type StyledContainerProps = ContainerBreakpointsProps & {
   parentGap?: React.CSSProperties['gap'];
   preserveWhenXs?: boolean;
   relative?: boolean;
+  absolute?: boolean;
   zIndex?: number;
   overflow?: React.CSSProperties['overflow'];
   minHeight?: React.CSSProperties['minHeight'];
@@ -71,63 +72,76 @@ const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss
   );
 };
 
+export const createPaddingProperty = (padding?: Sides<Breakpoints> | Breakpoints) => css`
+  padding: ${typeof padding === 'string' && theme.padding[padding]};
+
+  ${typeof padding === 'object' &&
+  css`
+    padding-top: ${padding.top && theme.padding[padding.top]};
+    padding-bottom: ${padding.bottom && theme.padding[padding.bottom]};
+    padding-left: ${padding.left && theme.padding[padding.left]};
+    padding-right: ${padding.right && theme.padding[padding.right]};
+  `}
+`;
+
+export const createMarginProperty = (margin?: Sides<Breakpoints> | Breakpoints) => css`
+  margin: ${typeof margin === 'string' && theme.padding[margin]};
+
+  ${typeof margin === 'object' &&
+  css`
+    margin-top: ${margin.top && theme.padding[margin.top]};
+    margin-bottom: ${margin.bottom && theme.padding[margin.bottom]};
+    margin-left: ${margin.left && theme.padding[margin.left]};
+    margin-right: ${margin.right && theme.padding[margin.right]};
+  `}
+`;
+
+export const createBorderProperty = (bordered?: Sides<boolean> | boolean) => css`
+  --border: 1px solid #eee;
+  border: ${typeof bordered === 'boolean' && bordered && 'var(--border)'};
+  ${typeof bordered == 'object' &&
+  css`
+    border-top: ${bordered.top && 'var(--border)'};
+    border-left: ${bordered.left && 'var(--border)'};
+    border-bottom: ${bordered.bottom && 'var(--border)'};
+    border-right: ${bordered.right && 'var(--border)'};
+  `}
+`;
+
+export const createBorderRadiusProperty = (rounded?: Edges<boolean> | boolean) => css`
+  --border-radius: 15px;
+  border-radius: ${typeof rounded === 'boolean' && rounded && 'var(--border-radius)'};
+  ${typeof rounded == 'object' &&
+  css`
+    border-top-left-radius: ${rounded.topLeft && 'var(--border-radius)'};
+    border-top-right-radius: ${rounded.topRight && 'var(--border-radius)'};
+    border-bottom-left-radius: ${rounded.bottomLeft && 'var(--border-radius)'};
+    border-bottom-right-radius: ${rounded.bottomRight && 'var(--border-radius)'};
+  `}
+`;
+
 const StyledContainer = styled.div<StyledContainerProps>`
   min-height: ${(props) => props.minHeight};
   max-height: ${(props) => props.maxHeight};
   box-sizing: border-box;
   display: flex;
   position: ${(props) => props.relative && 'relative'};
+  position: ${(props) => props.absolute && 'absolute'};
 
   z-index: ${(props) => props.zIndex && `${props.zIndex} !important`};
 
   overflow: ${(props) => props.overflow};
 
-  padding: ${(props) => typeof props.padding === 'string' && theme.padding[props.padding]};
-  ${(props) =>
-    typeof props.padding === 'object' &&
-    css`
-      padding-top: ${props.padding.top && theme.padding[props.padding.top]};
-      padding-bottom: ${props.padding.bottom && theme.padding[props.padding.bottom]};
-      padding-left: ${props.padding.left && theme.padding[props.padding.left]};
-      padding-right: ${props.padding.right && theme.padding[props.padding.right]};
-    `}
-
-  margin: ${(props) => typeof props.margin === 'string' && theme.padding[props.margin]};
-  ${(props) =>
-    typeof props.margin == 'object' &&
-    css`
-      margin-top: ${props.margin.top && theme.padding[props.margin.top]};
-      margin-bottom: ${props.margin.bottom && theme.padding[props.margin.bottom]};
-      margin-left: ${props.margin.left && theme.padding[props.margin.left]};
-      margin-right: ${props.margin.right && theme.padding[props.margin.right]};
-    `}
-
-  --border-radius: 15px;
-  border-radius: ${(props) => typeof props.rounded === 'boolean' && props.rounded && 'var(--border-radius)'};
-  ${(props) =>
-    typeof props.rounded == 'object' &&
-    css`
-      border-top-left-radius: ${props.rounded.topLeft && 'var(--border-radius)'};
-      border-top-right-radius: ${props.rounded.topRight && 'var(--border-radius)'};
-      border-bottom-left-radius: ${props.rounded.bottomLeft && 'var(--border-radius)'};
-      border-bottom-right-radius: ${props.rounded.bottomRight && 'var(--border-radius)'};
-    `}
-
-  --border: 1px solid #eee;
-  border: ${(props) => typeof props.bordered === 'boolean' && props.bordered && 'var(--border)'};
-  ${(props) =>
-    typeof props.bordered == 'object' &&
-    css`
-      border-top: ${props.bordered.top && 'var(--border)'};
-      border-left: ${props.bordered.left && 'var(--border)'};
-      border-bottom: ${props.bordered.bottom && 'var(--border)'};
-      border-right: ${props.bordered.right && 'var(--border)'};
-    `}
+  ${(props) => createPaddingProperty(props.padding)}
+  ${(props) => createMarginProperty(props.margin)}
+  ${(props) => createBorderRadiusProperty(props.rounded)}
+  ${(props) => createBorderProperty(props.bordered)};
 
   margin-top: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
   margin-bottom: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
   margin-left: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
   margin-right: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
+
   user-select: ${(props) => props.userSelect};
 
   gap: ${(props) => props.gap};
@@ -180,12 +194,14 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props['2xl'] = props['2xl'] ?? props.xl;
   props['3xl'] = props['3xl'] ?? props['2xl'];
 
+  const childProps = props.direction?.startsWith('row') && props.wrap ? { parentGap: props.gap } : undefined;
+
   return (
     <StyledContainer ref={ref} {...props}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return React.cloneElement<any>(child, { parentGap: props.gap });
+          return React.cloneElement<any>(child, childProps);
         }
 
         return child;

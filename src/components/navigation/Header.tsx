@@ -39,7 +39,7 @@ const HeaderWrapper = styled.header<HeaderWrapperProps>`
 
 const StyledContainer = styled(Container)`
   z-index: 2;
-  height: 56px;
+  height: 80px;
 `;
 
 type Props = HeaderWrapperProps;

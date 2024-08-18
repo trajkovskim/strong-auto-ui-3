@@ -58,14 +58,16 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
 
 const FAQ: React.FC = () => {
   return (
-    <Container sm="800px" centered gap="1rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
+    <Container sm="800px" centered gap="3rem" padding={{ left: 'md', right: 'md', top: '2xl', bottom: '2xl' }}>
       <Title title="Frequently asked questions" centered fontSize="2xl" />
-      {faqQuestions.map((faq) => (
-        <Container key={faq.id}>
-          <FAQAccordion faq={faq} />
-          <Line />
-        </Container>
-      ))}
+      <Container gap="1rem">
+        {faqQuestions.map((faq) => (
+          <Container key={faq.id}>
+            <FAQAccordion faq={faq} />
+            <Line />
+          </Container>
+        ))}
+      </Container>
     </Container>
   );
 };

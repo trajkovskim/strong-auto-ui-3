@@ -54,13 +54,15 @@ export const getElementHeight = (el: HTMLElement) => {
   return list.map((k) => parseInt(style.getPropertyValue(k), 10)).reduce((prev, cur) => prev + cur);
 };
 
-export const getElementWidth = (el: Element, boxSizing: React.CSSProperties['boxSizing'] = 'border-box') => {
-  let list: string[] = [];
+export const getElementWidth = (el: Element, include: 'right' | 'left' | 'both' = 'both') => {
+  let list: string[] = ['width'];
 
-  if (boxSizing === 'border-box') {
-    list = ['margin-left', 'margin-right', 'width'];
-  } else if (boxSizing === 'content-box') {
-    list = ['margin-left', 'margin-right', 'padding-left', 'padding-right', 'border-right', 'border-left', 'width'];
+  if (include === 'left' || include === 'both') {
+    list = [...list, 'margin-left', 'padding-left', 'border-left'];
+  }
+
+  if (include === 'right' || include === 'both') {
+    list = [...list, 'margin-right', 'padding-right', 'border-right'];
   }
 
   const style = window.getComputedStyle(el);
@@ -81,8 +83,12 @@ export const createMedia = (breakpoint: Breakpoints, csss?: ReturnType<typeof cs
 
 export const getCssProperty = (el: HTMLElement | null, property: string) => {
   if (!el) {
-    return '0px';
+    return '0';
   }
 
   return window.getComputedStyle(el, null).getPropertyValue(property);
+};
+
+export const getCssPropertyAsNumber = (el: HTMLElement | null, property: string) => {
+  return parseInt(getCssProperty(el, property), 10);
 };

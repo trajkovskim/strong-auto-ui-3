@@ -34,6 +34,8 @@ export const labelSize: Record<FontSize, string> = {
   default: 'auto',
 };
 
+export const getCalcInputHeightCss = (size: FontSize) => `calc(${inputSize[size]} + ${fontSize[size]} / 2)`;
+
 export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
   height: 100%;
   position: relative;
@@ -43,8 +45,8 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
     css`
       > input {
         padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
-        height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]} / 2)`};
-        /* line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`}; */
+        height: ${props.size && getCalcInputHeightCss(props.size)};
+        line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`};
       }
     `}
 
@@ -53,7 +55,7 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
     pointer-events: none;
     top: 5px;
     left: 10px;
-    font-size: ${(props) => props.size && `calc(${textFontSize[props.size]} - ${textFontSize[props.size]} / 4)`};
+    font-size: ${(props) => props.size && `calc(${textFontSize[props.size]} - ${textFontSize[props.size]} / 3.5)`};
     position: absolute;
   }
 `;
@@ -62,13 +64,13 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   width: 100%;
   height: 100%;
   height: ${(props) => props.size && inputSize[props.size]};
-  padding: 7px;
-  padding-left: 12px;
+  padding: 10px;
+  padding-left: 10px;
   font-size: ${(props) => props.size && fontSize[props.size]};
   line-height: 20px;
   outline: none;
-  border: ${(props) => (props.noBorder ? 'none' : '1px solid #dcdcdc')};
-  border-radius: 10px;
+  border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
+  border-radius: 4px;
 
   padding-right: ${(props) => `${props.rightContainerWidth}px`};
 
@@ -79,7 +81,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   transition: 100ms all;
 
   &:focus {
-    border-color: #cdcdcd;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     /* border: 1px solid black; */
   }
 `;
@@ -90,6 +92,7 @@ export const StyledRightContainer = styled.span`
   top: 0;
   height: 100%;
   display: flex;
+  padding-right: 5px;
   align-items: center;
 `;
 
@@ -119,7 +122,7 @@ export type StyledContainerProps = {
 };
 
 export const StyledContainer = styled.div<StyledContainerProps>`
-  position: relative;
+  /* position: relative; */
   width: 100%;
   max-width: ${(props) => (props.fullwidth ? '100%' : 'max-content')};
 `;

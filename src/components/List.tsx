@@ -49,7 +49,7 @@ const createMediaQ = (props: StyledListProps, ...[breakpoint, csss]: Parameters<
 const StyledList = styled.div<StyledListProps>`
   display: grid;
   gap: ${(props) => props.gap};
-  justify-content: ${(props) => (props.view === ListView.GRID && props.justifyContent) ?? 'space-evenly'};
+  justify-content: ${(props) => props.view === ListView.GRID && props.justifyContent};
 
   width: 100%;
 

@@ -39,11 +39,10 @@ const Footer: React.FC = () => {
 
   return (
     <StyledFooter>
-      <Container centered sm="1200px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
-        <Container direction="row" wrap justifyContent="space-between" alignItems="center" gap="1rem">
-          <Container sm={12} preserveWhenXs centered md="max-content">
+      <Container centered sm="1400px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
+        <Container xs={12} direction="row" wrap justifyContent="space-between" gap="1rem">
+          <Container sm={12} preserveWhenXs md="max-content">
             <Title
-              centered
               title="Join our newletter"
               fontSize="md"
               description="Receive pricing updates, shopping tips & more!"
@@ -51,7 +50,6 @@ const Footer: React.FC = () => {
           </Container>
           <StyledNewsLetterFormContainer
             sm={12}
-            centered
             md="max-content"
             preserveWhenXs
             padding="xs"

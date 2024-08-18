@@ -10,7 +10,7 @@ const WhyChooseUs: React.FC = () => {
     <Container
       minHeight="430px"
       preserveWhenXs
-      padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}
+      padding={{ top: 'xl', bottom: '2xl', left: 'md', right: 'md' }}
       gap="1rem"
     >
       <Title centered title="Why choose us" fontSize="2xl" />

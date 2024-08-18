@@ -1,16 +1,14 @@
 import StrongAutoApp from 'StrongAutoApp';
-import { AboutUs, Blog, BlogViewPost, Contact, Home, Parts, Shop, ViewDetails } from 'pages';
+import { AboutUs, Contact, Home, Parts, Shop, ViewDetails } from 'pages';
 import Layout from 'pages/Layout';
 import React from 'react';
 import { Route } from 'react-router-dom';
 
 export enum Routes {
-  INDEX = '',
+  INDEX = '/',
   ANY_WITH_LAYOUT = '/',
   SHOP = '/shop',
   SHOP_VIEW_DETAILS = '/shop/:id',
-  BLOG = '/blog',
-  BLOG_VIEW_POST = '/blog/:id',
   CONTACT = '/contact',
   ABOUT_US = '/about-us',
   PARTS = '/parts',
@@ -26,12 +24,12 @@ const routes: RouteOptions = {
   [Routes.INDEX]: {
     element: <StrongAutoApp />,
     children: {
-      [Routes.INDEX]: {
-        element: <Home />,
-      },
       [Routes.ANY_WITH_LAYOUT]: {
         element: <Layout />,
         children: {
+          [Routes.INDEX]: {
+            element: <Home />,
+          },
           [Routes.SHOP]: {
             element: <Shop />,
           },
@@ -43,12 +41,6 @@ const routes: RouteOptions = {
           },
           [Routes.ABOUT_US]: {
             element: <AboutUs />,
-          },
-          [Routes.BLOG]: {
-            element: <Blog />,
-          },
-          [Routes.BLOG_VIEW_POST]: {
-            element: <BlogViewPost />,
           },
           [Routes.PARTS]: {
             element: <Parts />,

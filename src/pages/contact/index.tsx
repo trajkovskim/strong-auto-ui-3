@@ -9,13 +9,16 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa'
 import { MdEmail } from 'react-icons/md';
 import { call, goto, mailTo } from 'utils';
 import MapLocationImage from 'assets/map-location.jpg';
+import BoxAnimation from 'pages/home/BoxAnimation';
 
 const Contact: React.FC = () => {
   return (
     <Container sm={'1400px'} centered padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}>
       <Container direction="row" justifyContent="space-between" gap="1rem">
         <Container sm={6.0}>
-          <Image height={'450px'} src={MapLocationImage} objectFit="cover" objectPosition="center center" alt="Map" />
+          <BoxAnimation>
+            <Image height={'450px'} src={MapLocationImage} objectFit="cover" objectPosition="center center" alt="Map" />
+          </BoxAnimation>
         </Container>
         <Container sm={5.5} gap="1rem" justifyContent="center">
           <Title title="Give us a contact" fontSize="2xl" />

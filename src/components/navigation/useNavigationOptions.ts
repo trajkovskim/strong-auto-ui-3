@@ -24,16 +24,6 @@ const useNavigationOptions = () => {
       navigate: () => navigate(Routes.SHOP),
       active: location.pathname === Routes.SHOP,
     },
-    [Routes.PARTS]: {
-      label: t('parts'),
-      navigate: () => navigate(Routes.PARTS),
-      active: location.pathname === Routes.PARTS,
-    },
-    [Routes.BLOG]: {
-      label: t('blog'),
-      navigate: () => navigate(Routes.BLOG),
-      active: location.pathname === Routes.BLOG,
-    },
     [Routes.ABOUT_US]: {
       label: t('aboutUs'),
       navigate: () => navigate(Routes.ABOUT_US),

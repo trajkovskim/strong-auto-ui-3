@@ -3,7 +3,7 @@ import Container, { ContainerBreakpointsProps } from 'components/Container';
 import React, { TouchEventHandler, useCallback, useEffect, useRef } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
-import { getElementWidth } from 'utils';
+import { getCssPropertyAsNumber, getElementWidth } from 'utils';
 
 type HorizontalListWrapperProps = {
   centered?: boolean;
@@ -74,6 +74,12 @@ const HorizontalListChildrenWrapper = styled(Container)`
 
     border-left: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
     border-right: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
+
+    transition: 200ms all;
+
+    &:hover {
+      transform: translateY(-10px);
+    }
   }
 
   & > *:last-child {
@@ -117,6 +123,20 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
   const moving = useRef<boolean>(false);
   const dragDirection = useRef<DragDirection>(DragDirection.LEFT);
 
+  const getWidth = (element: HTMLElement | null) => {
+    if (!element) {
+      return 0;
+    }
+
+    return getElementWidth(element, 'right') - getCssPropertyAsNumber(element, 'border-right');
+  };
+
+  const getButtonClickDeltaX = useCallback(() => {
+    const firstChild = ref.current?.firstElementChild as HTMLElement;
+
+    return getWidth(firstChild);
+  }, []);
+
   const scrollEventHandler = useCallback((listScrollLeft: number, scroll: boolean): boolean => {
     const listRef = ref.current;
     if (!listRef || !listRef.firstElementChild || !listRef.lastElementChild) {
@@ -127,13 +147,13 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     const lastChild = listRef.lastElementChild as HTMLElement;
     const maxScrollLeft = listRef.scrollWidth - listRef.offsetWidth;
 
-    if (listScrollLeft <= getElementWidth(firstChild)) {
+    if (listScrollLeft <= getWidth(firstChild)) {
       listRef.removeChild(lastChild);
       listRef.prepend(lastChild);
       scroll && listRef.scrollTo({ left: listScrollLeft + lastChild.offsetWidth });
 
       return true;
-    } else if (listScrollLeft >= maxScrollLeft - getElementWidth(lastChild)) {
+    } else if (listScrollLeft >= maxScrollLeft - getWidth(lastChild)) {
       listRef.removeChild(firstChild);
       listRef.append(firstChild);
       scroll && listRef.scrollTo({ left: listScrollLeft - firstChild.offsetWidth });
@@ -142,10 +162,6 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
     }
 
     return false;
-  }, []);
-
-  const handleScrollEnd = useCallback(() => {
-    moving.current = false;
   }, []);
 
   const move = useCallback(
@@ -157,7 +173,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
       if (!force) {
         scrollEventHandler(ref.current?.scrollLeft ?? 0, true);
 
-        moving.current = true;
+        // moving.current = true;
       }
 
       ref.current?.scrollTo({
@@ -170,24 +186,16 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
       }
 
       if (behavior === 'smooth') {
-        ref.current?.addEventListener('scrollend', handleScrollEnd, { once: true });
+        // moving.current = false;
+        ref.current?.addEventListener('scrollend', () => (moving.current = false), { once: true });
       } else {
         moving.current = false;
       }
 
       return moving.current;
     },
-    [handleScrollEnd, scrollEventHandler]
+    [scrollEventHandler]
   );
-
-  const getButtonClickDeltaX = useCallback(() => {
-    const firstChild = ref.current?.firstElementChild as HTMLElement;
-    if (!firstChild) {
-      return 0;
-    }
-
-    return getElementWidth(firstChild);
-  }, []);
 
   const handleInterval = useCallback(() => {
     if (mouseOver.current || !ref.current?.hasChildNodes) {
@@ -213,7 +221,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
 
     let sum = 0;
     for (const child of ref.current.children) {
-      const childWidth = getElementWidth(child);
+      const childWidth = getWidth(child as HTMLElement);
 
       if (sum + childWidth * percentByDirection[dragDirection.current] > scrollLeft) {
         move(sum - scrollLeft);
@@ -223,6 +231,12 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
       sum += childWidth;
     }
   }, [move, resetInterval]);
+
+  const handleScrollEnd = useCallback(() => {
+    moving.current = false;
+    console.log('scroll end', moving.current);
+    fixScrollPosition();
+  }, [fixScrollPosition]);
 
   useEffect(() => {
     const listRef = ref.current;
@@ -238,14 +252,21 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, ...props }) => {
       timeout = setTimeout(fixScrollPosition, 300);
     });
 
+    let scrollTimeout: number;
+    listRef.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(handleScrollEnd, 20);
+    });
+
     return () => {
       clearInterval(interval.current);
       clearTimeout(timeout);
     };
-  }, [fixScrollPosition, handleInterval, intervalMs, scrollEventHandler]);
+  }, [fixScrollPosition, handleInterval, handleScrollEnd, intervalMs, scrollEventHandler]);
 
   // Arrow controlls handlers
   const onBackButtonClick = useCallback(() => {
+    console.log('back button', moving.current);
     if (!ref.current?.scrollLeft || moving.current) {
       return;
     }

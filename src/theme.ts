@@ -36,4 +36,20 @@ export default {
       '3xl': 'calc(120em + 1px)',
     },
   },
+  carousel: {
+    arrowBackgroundColor: 'rgba(57, 65, 68, 0.5)',
+    arrowBackgroundColorHover: '#394144',
+    rectangleChangerBorder: '#fff',
+    rectangleChangerFillBorder: '#075ebb',
+    rectangleChangerFillColor: '#075ebb',
+    rectangleChangerBoxShadowColor: 'rgba(0, 0, 0, 0.2)',
+  },
+  productCard: {
+    carouselChangeOptionsBorder: '#fff',
+    carouselChangeOptionsFillBorder: '#075ebb',
+    carouselChangeOptionsFillColor: '#075ebb',
+    carouselChangeOptionsBorderHover: '#075ebb',
+    carouselChangeOptionsFillBorderHover: '#075ebb',
+    carouselChangeOptionsFillColorHover: '#075ebb',
+  },
 };

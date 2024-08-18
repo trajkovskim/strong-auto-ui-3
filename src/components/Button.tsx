@@ -1,7 +1,9 @@
+import { Sides, createPaddingProperty } from 'components/Container';
 import Icon from 'components/Icon';
 import Text from 'components/typography/Text';
 import React from 'react';
 import { css, styled } from 'styled-components';
+import { Breakpoints } from 'theme';
 
 type ThemeType = 'link' | 'link-colored' | 'default' | 'ghost' | 'delete' | 'success' | 'white';
 type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
@@ -14,6 +16,7 @@ type StyledProps = {
   centered?: boolean;
   fullwidth?: boolean;
   textAlign?: React.CSSProperties['textAlign'];
+  padding?: Breakpoints | Sides<Breakpoints>;
 };
 
 const themes: Record<ThemeType, Record<string, string>> = {
@@ -24,6 +27,7 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'box-shadow-focus': '#046bf257 0 0 0 3px',
     'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
     border: '1px solid rgba(27, 31, 35, 0.15);',
+    'border-radius': '4px',
     color: '#fff',
     paddin: '0px',
     'padding-right': '10px',
@@ -59,6 +63,7 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'background-color': 'transparent',
     'background-color-hover': '#050B20',
     border: '1px solid rgba(58, 62, 66, 0.527);',
+    'border-radius': '4px',
     'color-hover': '#fff',
     'color-active': '#fff',
     'padding-right': '10px',
@@ -111,6 +116,7 @@ const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | str
 
 const StyledButton = styled.button<StyledProps>`
   ${({
+    padding,
     themeType = 'default',
     size = 'sm',
     maxContent = false,
@@ -129,13 +135,15 @@ const StyledButton = styled.button<StyledProps>`
     padding-bottom: ${themes[themeType]['padding-bottom']};
     padding-left: ${themes[themeType]['padding-left']};
 
+    ${createPaddingProperty(padding)};
+
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
     color: ${themes[themeType]['color'] ?? 'inherit'};
     font-weight: ${props.bold && 'bold'};
     text-align: ${textAlign};
 
-    transition: all 200ms ease-in-out;
+    transition: all 200ms;
     cursor: ${!!props.onClick && 'pointer'};
     position: relative;
     user-select: none;

@@ -51,25 +51,22 @@ const StyledTitle = styled(Text)`
   color: white;
 `;
 
-const StyledDescription = styled(Text)``;
-
 const ServiceTile: React.FC<Props> = (props) => {
   return (
     <Wrapper
       relative
       className={props.className}
       direction="row"
-      gap="1rem"
       padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}
       alignItems="flex-start"
       {...props}
     >
       {props.iconSrc && <Icon icon={<Image src={props.iconSrc} />} width="60px" />}
-      <Container gap="0.5rem" {...props.titleDescriptionContainer}>
-        <StyledTitle fontSize="xl" bold>
+      <Container xs={12} gap="0.5rem" {...props.titleDescriptionContainer}>
+        <StyledTitle textAlign="center" fontSize="2xl" bold>
           {props.title}
         </StyledTitle>
-        <StyledDescription fontSize="md">{props.description}</StyledDescription>
+        {/* <StyledDescription fontSize="md">{props.description}</StyledDescription> */}
       </Container>
     </Wrapper>
   );

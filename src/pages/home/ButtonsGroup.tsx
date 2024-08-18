@@ -44,7 +44,7 @@ const TabButtonsGroup: React.FC<Props> = (props) => {
       {props.buttons.map((button, index) => (
         <StyledButton
           key={index}
-          size="md"
+          size="lg"
           themeType="link"
           active={active === index}
           onClick={() => {

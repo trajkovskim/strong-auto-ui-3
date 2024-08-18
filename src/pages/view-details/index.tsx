@@ -1,19 +1,20 @@
 import Button from 'components/Button';
-import Carousel from 'components/Carousel';
+import Carousel, { CarouselHandle } from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
-import React, { useCallback, useEffect, useState } from 'react';
-import { MdArrowBackIosNew, MdEmail } from 'react-icons/md';
+import React, { useEffect, useRef, useState } from 'react';
+import { MdEmail } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
+import Breadcrumb from 'components/Breadcrumb';
 import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
-import ProductCard from 'components/card/ProductCard';
+import MiniProductCard from 'components/card/MiniProductCard';
 import HorizontalList from 'pages/home/HorizontalList';
 import SimpleTable from 'pages/home/SimpleTable';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
@@ -24,7 +25,6 @@ import { SlSpeedometer } from 'react-icons/sl';
 import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
 import { Routes } from 'routes';
 import { call, formatNumber, mailTo } from 'utils';
-import MiniProductCard from 'components/card/MiniProductCard';
 
 const StyledContainer = styled(Container)``;
 
@@ -41,13 +41,12 @@ const ViewDetails: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState<(typeof products)[number]>();
+  const carouselRef = useRef<CarouselHandle>(null);
 
   useEffect(() => {
     const foundProduct = products.find((product) => product?.id.toString() === id);
     setProduct(foundProduct);
   }, [id]);
-
-  const goBack = useCallback(() => navigate(-1), [navigate]);
 
   if (!product) {
     return <div />;
@@ -85,16 +84,13 @@ const ViewDetails: React.FC = () => {
     );
   };
 
+  const handleImageClick = (imageIndex: number) => carouselRef.current?.next(imageIndex);
+
   return (
-    <Container padding={{ left: 'md', right: 'md', bottom: 'md', top: 'md' }}>
-      <Container>
-        <Button maxContent themeType="link" size="lg" icon={<MdArrowBackIosNew />} onClick={goBack}>
-          Back
-        </Button>
-      </Container>
-      <Container sm="1400px" centered gap="1rem" relative>
-        <Container>
-          <Text fontSize="md">Home / Shop / {product.title}</Text>
+    <Container padding={{ left: 'md', right: 'md', bottom: 'xl', top: 'xl' }}>
+      <Container sm="1400px" centered gap="2rem" relative>
+        <Container sm={12} gap="1rem">
+          <Breadcrumb />
           <Title
             title={product.title}
             description={product.summary}
@@ -105,16 +101,16 @@ const ViewDetails: React.FC = () => {
         <Container gap="2rem">
           <Container relative sm={8} gap="1rem">
             <Container preserveWhenXs direction="row" gap="1rem">
-              <Button maxContent size="md">
+              <Button padding="md" maxContent size="md" themeType="ghost" icon={<BiCalendar />} iconSize="lg">
                 {product.year}
               </Button>
-              <Button maxContent size="md">
+              <Button padding="md" maxContent size="md" themeType="ghost" icon={<TbManualGearbox />} iconSize="lg">
                 {product.transmission}
               </Button>
-              <Button maxContent size="md">
+              <Button padding="md" maxContent size="md" themeType="ghost" icon={<BsFuelPump />} iconSize="lg">
                 {product.fuelType}
               </Button>
-              <Button maxContent size="md">
+              <Button padding="md" maxContent size="md" themeType="ghost" icon={<SlSpeedometer />} iconSize="lg">
                 {formatNumber(product.km)}
               </Button>
             </Container>
@@ -123,7 +119,7 @@ const ViewDetails: React.FC = () => {
           <Container direction="row" wrap gap="1rem" alignItems="flex-start" justifyContent="space-between">
             <Container sm={12} md={8} gap="1rem">
               <CarouselWrapper>
-                <Carousel minHeight="500px" maxHeight="500px">
+                <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
                   {product?.images.map((image, index) => (
                     <Image key={index} src={image} height={'500px'} objectFit="cover" />
                   ))}
@@ -183,6 +179,19 @@ const ViewDetails: React.FC = () => {
               </Container>
             </Container>
             <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="1rem">
+              <HorizontalList chunkGap="10px" chunkSize={{ xs: '50%' }}>
+                {product?.images.map((image, index) => (
+                  <Image
+                    onClick={() => handleImageClick(index)}
+                    rounded
+                    key={index}
+                    src={image}
+                    height="150px"
+                    objectFit="cover"
+                  />
+                ))}
+              </HorizontalList>
+
               <StyledContainer rounded padding="md" gap="1rem" bordered>
                 <Container gap="0.3rem">
                   <Text fontSize="lg">Our offer:</Text>

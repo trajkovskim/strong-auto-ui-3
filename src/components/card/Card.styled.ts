@@ -1,4 +1,3 @@
-import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
@@ -13,7 +12,7 @@ export const StyledImage = styled(Image)`
   }
 
   width: ${(props) => props.width};
-  height: 100%;
+  height: ${(props) => props.height ?? '100%'};
 `;
 
 export const StyledRibbon = styled(Ribbon)`
@@ -22,27 +21,17 @@ export const StyledRibbon = styled(Ribbon)`
   position: absolute;
 `;
 
-export const StyledBookmarkButton = styled(Button)`
-  position: absolute;
-  width: 35px;
-  align-items: center;
-  height: 35px;
-  top: 10px;
-  right: 20px;
-  z-index: 2;
-`;
-
 export const StyledIcon = styled(Icon)`
   color: #a5a5a5;
 `;
 
 export const PriceWrapper = styled(Container)`
-  background-color: #055285;
+  /* background-color: #055285;
   color: white;
   transform: skew(10px);
   clip-path: polygon(10% 0, 0 100%, 100% 100%, 100% 0);
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: flex-end; */
 `;
 
 export const StyledCarousel = styled(Carousel)`

@@ -46,6 +46,7 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
             max-height: 0;
           `,
           final: css`
+            overflow: visible;
             max-height: ${containerRef?.scrollHeight}px;
           `,
         }}

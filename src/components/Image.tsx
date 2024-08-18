@@ -14,7 +14,7 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   display: block;
   object-fit: ${(props) => props.objectFit};
   object-position: ${(props) => props.objectPosition};
-  border-radius: ${(props) => props.rounded && '25px'};
+  border-radius: ${(props) => props.rounded && '5px'};
 
   filter: ${(props) => props.shadow && 'drop-shadow(0 0 0.05rem #aaa5a5)'};
 

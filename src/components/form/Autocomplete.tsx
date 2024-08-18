@@ -12,7 +12,7 @@ import {
   StyledRightContainer,
   StyledSpinner,
   fontSize,
-  inputSize,
+  getCalcInputHeightCss,
 } from 'components/form/Input.styled';
 import { Size } from 'components/form/types';
 import useInput from 'hooks/useInput';
@@ -22,17 +22,18 @@ import { styled } from 'styled-components';
 import { Validator } from 'validators';
 
 const StyledOptionsWrapper = styled.div`
-  z-index: 999;
-  box-shadow: 0px 5px 6px 3px rgba(35, 35, 35, 0.03);
-  border: 0.5px solid #dcdcdc;
+  z-index: 9999;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-top: none;
   position: absolute;
   width: 100%;
-  /* border-radius: 0.625rem; */
+  border-bottom-left-radius: 4x;
+  border-bottom-right-radius: 4px;
+  border: 1px solid rgb(238, 238, 238);
   background-color: #fff;
   user-select: none;
   bottom: 0;
-  transform: translateY(calc(100% + 2px));
+  transform: translateY(calc(100% + 1px));
 
   /* > * + * {
     border-top: 1px solid #dcdcdc;
@@ -44,12 +45,14 @@ type StyledOptionProps = {
 };
 
 const StyledOption = styled.option<StyledOptionProps>`
-  min-height: ${(props) => props.size && inputSize[props.size]};
+  min-height: ${(props) => props.size && getCalcInputHeightCss(props.size)};
   font-size: ${(props) => props.size && fontSize[props.size]};
   padding: 7px;
+  padding-left: 12px;
   color: black;
   display: flex;
   align-items: center;
+  width: 100%;
 
   &:hover,
   &:active {

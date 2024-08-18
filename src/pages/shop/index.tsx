@@ -1,3 +1,4 @@
+import Breadcrumb from 'components/Breadcrumb';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import List, { ListView } from 'components/List';
@@ -50,12 +51,10 @@ const Shop: React.FC = () => {
     [ListView.LIST]: 'List',
   };
 
-  const breadCrumb = <Text fontSize="sm">Home {'>'} Shop</Text>;
-
   const listHeaderComponent = (
     <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between">
       <Container gap="1rem">
-        {breadCrumb}
+        <Breadcrumb />
         <Container xs={0} md="max-content" preserveWhenXs direction="row" gap="1rem">
           <Dropdown
             fullwidth
@@ -129,15 +128,22 @@ const Shop: React.FC = () => {
   return (
     <>
       {sidebarMobile}
-      {/* <ListActionsMobileWrapper xs={12} lg={0}>
+      <ListActionsMobileWrapper xs={12} lg={0}>
         {listHeaderComponent}
-      </ListActionsMobileWrapper> */}
+      </ListActionsMobileWrapper>
 
-      <Container direction="row" wrap gap="1rem" alignItems="flex-start" padding={{ bottom: 'md', right: 'md' }}>
+      <Container direction="row" alignItems="flex-start" padding={{ bottom: 'md' }}>
         <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
           <Filters />
         </Container>
-        <Container sm={12} lg={7} xl={7.5} {...{ '2xl': 8.5 }} gap="1rem">
+        <Container
+          sm={12}
+          lg={9}
+          xl={9.5}
+          {...{ '2xl': 10 }}
+          padding={{ left: 'md', right: 'md', top: 'md' }}
+          gap="2rem"
+        >
           <Container xs={0} lg={12}>
             {listHeaderComponent}
           </Container>
@@ -180,11 +186,6 @@ const Shop: React.FC = () => {
               </Text>
             </Container>
           )}
-        </Container>
-        <Container lg={2} xl={2} {...{ '2xl': 1.5 }}>
-          <Button maxContent size="lg">
-            Parts
-          </Button>
         </Container>
       </Container>
     </>
