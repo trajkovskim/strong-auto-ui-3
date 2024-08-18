@@ -20,6 +20,7 @@ type StyledCarouselProps = {
   maxHeight?: string;
   absolute?: boolean;
   className?: React.ComponentProps<'div'>['className'];
+  style?: CSSProperties;
 };
 
 const arrowCss = css`
@@ -55,6 +56,7 @@ const StyledRightArrowButton = styled(Button)`
 `;
 
 const StyledCarousel = styled.div<StyledCarouselProps>`
+  ${(props) => props.style?.toString().replace(',', ';')};
   display: grid;
   width: 100%;
   /* overflow: hidden; */
@@ -118,6 +120,7 @@ type Props = React.PropsWithChildren &
     ms?: number;
     noArrows?: boolean;
     noChangeOptions?: boolean;
+    justifyContent?: string;
   };
 
 export type CarouselHandle = {
