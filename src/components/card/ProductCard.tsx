@@ -122,7 +122,7 @@ const ProductCard: React.FC<Props> = (props) => {
       justifyContent="space-between"
       alignItems="flex-end"
     >
-      <Container xs={12} preserveWhenXs direction="row" alignItems="end">
+      <Container xs={12} preserveWhenXs direction="row" alignItems="end" justifyContent="space-between">
         <BodyTitleWrapper overflow="hidden">
           <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
             <Text>{props.title}</Text>
