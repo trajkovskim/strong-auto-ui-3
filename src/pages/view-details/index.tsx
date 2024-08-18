@@ -127,7 +127,7 @@ const ViewDetails: React.FC = () => {
                 <CarouselWrapper>
                   <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
                     {product?.images.map((image, index) => (
-                      <BoxAnimation key={index}>
+                      <BoxAnimation fullheight key={index}>
                         <Image key={index} src={image} height={'500px'} objectFit="cover" />
                       </BoxAnimation>
                     ))}
@@ -145,8 +145,8 @@ const ViewDetails: React.FC = () => {
                 <Text fontSize="2xl">Car overview</Text>
               </BoxAnimation>
               <Container direction="row" gap="1rem" wrap>
-                <BoxAnimation>
-                  <Container sm={12} lg={6}>
+                <Container sm={12} lg={6}>
+                  <BoxAnimation>
                     <SimpleTable
                       rowGap="1rem"
                       gap="0.5rem"
@@ -160,10 +160,10 @@ const ViewDetails: React.FC = () => {
                         [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
                       ]}
                     />
-                  </Container>
-                </BoxAnimation>
-                <BoxAnimation>
-                  <Container sm={12} lg={6}>
+                  </BoxAnimation>
+                </Container>
+                <Container sm={12} lg={6}>
+                  <BoxAnimation>
                     <SimpleTable
                       rowGap="1rem"
                       gap="0.5rem"
@@ -175,8 +175,8 @@ const ViewDetails: React.FC = () => {
                         [createTextIcon(<BiColorFill />, 'Color'), product.color],
                       ]}
                     />
-                  </Container>
-                </BoxAnimation>
+                  </BoxAnimation>
+                </Container>
               </Container>
               <Line />
               <BoxAnimation>
