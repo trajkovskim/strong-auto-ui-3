@@ -6,7 +6,7 @@ import Autocomplete from 'components/form/Autocomplete';
 import Text from 'components/typography/Text';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { MdCheck, MdRestore } from 'react-icons/md';
+import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
 import styled from 'styled-components';
 
 const FiltersWrapper = styled(Container)`
@@ -28,7 +28,12 @@ const StyledFilterAccordion = styled(Accordion)`
   color: white;
 `;
 
-const Filters: React.FC = () => {
+type Props = {
+  onClose?: () => void;
+  noCloseButton?: boolean;
+};
+
+const Filters: React.FC<Props> = (props) => {
   const yearNow = new Date().getFullYear();
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
 
@@ -38,10 +43,10 @@ const Filters: React.FC = () => {
     <Container bordered={{ right: true, bottom: true }} gap="1rem">
       <FiltersHeader justifyContent="space-between" preserveWhenXs direction="row" padding="md">
         <Text>Filtering</Text>
-        <Container gap="0.5rem" direction="row" preserveWhenXs>
-          <Button size="lg" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
+        <Container gap="1rem" direction="row" preserveWhenXs>
+          <Button size="xl" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
-            size="lg"
+            size="xl"
             disabled
             fullwidth
             themeType="success"
@@ -49,6 +54,9 @@ const Filters: React.FC = () => {
             maxContent
             onClick={resetFilters}
           />
+          {!props.noCloseButton && (
+            <Button size="xl" fullwidth themeType="link" icon={<MdClose />} maxContent onClick={props.onClose} />
+          )}
         </Container>
       </FiltersHeader>
       <StyledFilterAccordion defaultState="open" header={<Text>Basic</Text>}>
@@ -184,7 +192,7 @@ const Filters: React.FC = () => {
         </Container>
       </StyledFilterAccordion>
       <FiltersWrapper gap="0.5rem" padding="md" itemsCentered>
-        <Button themeType="ghost" fullwidth iconRight={<BiSearch />} iconSize="lg" size="md">
+        <Button themeType="ghost" fullwidth iconRight={<BiSearch />} onClick={props.onClose} iconSize="lg" size="md">
           Search cars
         </Button>
         <Button maxContent themeType="delete" iconRight={<MdRestore />} iconSize="lg" size="md">

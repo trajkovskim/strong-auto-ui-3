@@ -41,7 +41,6 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
     (event: MouseEvent) => {
       const isClickInside = containerRef?.contains(event.target as Node);
 
-      console.log(containerRef, event.target, isClickInside);
       if (!isClickInside) {
         close();
       }
@@ -53,7 +52,11 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
     if (open) {
       transitionRef.current?.gotoFinalState();
     }
-  }, [open]);
+
+    if (!open) {
+      document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
+    }
+  }, [handleClickOutsideEvent, open]);
 
   if (!open) {
     return null;

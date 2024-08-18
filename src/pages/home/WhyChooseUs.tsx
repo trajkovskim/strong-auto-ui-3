@@ -1,3 +1,4 @@
+import BoxAnimation from 'components/BoxAnimation';
 import Container from 'components/Container';
 import Line from 'components/Line';
 import List from 'components/List';
@@ -17,42 +18,50 @@ const WhyChooseUs: React.FC = () => {
       <Line />
       <Container sm="1400px" centered>
         <List sm={1} md={2} lg={4} gap="1rem">
-          <Container gap="0.5rem" preserveWhenXs>
-            <Text bold fontSize="lg">
-              Trusted Car Dealership
-            </Text>
-            <Text>
-              It is a long established fact that a reader will be distracted by the readable content of a page when
-              looking at its layout.
-            </Text>
-          </Container>
-          <Container gap="0.5rem" preserveWhenXs>
-            <Text bold fontSize="lg">
-              Trusted Car Dealership
-            </Text>
-            <Text>
-              It is a long established fact that a reader will be distracted by the readable content of a page when
-              looking at its layout.
-            </Text>
-          </Container>
-          <Container gap="0.5rem" preserveWhenXs>
-            <Text bold fontSize="lg">
-              Trusted Car Dealership
-            </Text>
-            <Text>
-              It is a long established fact that a reader will be distracted by the readable content of a page when
-              looking at its layout.
-            </Text>
-          </Container>
-          <Container gap="0.5rem" preserveWhenXs>
-            <Text bold fontSize="lg">
-              Trusted Car Dealership
-            </Text>
-            <Text>
-              It is a long established fact that a reader will be distracted by the readable content of a page when
-              looking at its layout.
-            </Text>
-          </Container>
+          <BoxAnimation>
+            <Container gap="0.5rem" preserveWhenXs>
+              <Text bold fontSize="lg">
+                Trusted Car Dealership
+              </Text>
+              <Text>
+                It is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout.
+              </Text>
+            </Container>
+          </BoxAnimation>
+          <BoxAnimation>
+            <Container gap="0.5rem" preserveWhenXs>
+              <Text bold fontSize="lg">
+                Trusted Car Dealership
+              </Text>
+              <Text>
+                It is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout.
+              </Text>
+            </Container>
+          </BoxAnimation>
+          <BoxAnimation>
+            <Container gap="0.5rem" preserveWhenXs>
+              <Text bold fontSize="lg">
+                Trusted Car Dealership
+              </Text>
+              <Text>
+                It is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout.
+              </Text>
+            </Container>
+          </BoxAnimation>
+          <BoxAnimation>
+            <Container gap="0.5rem" preserveWhenXs>
+              <Text bold fontSize="lg">
+                Trusted Car Dealership
+              </Text>
+              <Text>
+                It is a long established fact that a reader will be distracted by the readable content of a page when
+                looking at its layout.
+              </Text>
+            </Container>
+          </BoxAnimation>
         </List>
       </Container>
     </Container>

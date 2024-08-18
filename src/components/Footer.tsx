@@ -31,7 +31,7 @@ const SocialMedias = styled(Container)`
 
 const StyledNewsLetterFormContainer = styled(Container)`
   background-color: #fff;
-  border-radius: 25px;
+  border-radius: 5px;
 `;
 
 const Footer: React.FC = () => {
@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
             gap="1rem"
           >
             <Input fullwidth placeholder="Your email address" noBorder />
-            <Button>Subscribe</Button>
+            <Button size="md">Subscribe</Button>
           </StyledNewsLetterFormContainer>
         </Container>
         <Line />

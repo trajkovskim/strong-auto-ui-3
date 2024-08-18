@@ -100,7 +100,7 @@ const Shop: React.FC = () => {
             </Button>
           </Container>
           <Container xs={'max-content'} gap="0.5rem">
-            <Button
+            {/* <Button
               maxContent
               nowrap
               icon={listView === ListView.GRID ? <MdGridView /> : <MdMenu />}
@@ -111,16 +111,18 @@ const Shop: React.FC = () => {
               <Container xs={0} md="max-content">
                 {tListView[listView]} view
               </Container>
-            </Button>
+            </Button> */}
           </Container>
         </Container>
       </Container>
     </ListHeader>
   );
 
+  const handleCloseSidebar = () => setSidebarShow(false);
+
   const sidebarMobile = (
-    <Sidebar preserveWhenXs sm={12} md={'300px'} open={sidebarShow} onClose={() => setSidebarShow(false)}>
-      <Filters />
+    <Sidebar preserveWhenXs sm={12} md="300px" open={sidebarShow} onClose={handleCloseSidebar}>
+      <Filters onClose={handleCloseSidebar} />
     </Sidebar>
   );
 
@@ -133,7 +135,7 @@ const Shop: React.FC = () => {
 
       <Container direction="row" alignItems="flex-start" padding={{ bottom: 'md' }}>
         <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
-          <Filters />
+          <Filters noCloseButton />
         </Container>
         <Container
           sm={12}
