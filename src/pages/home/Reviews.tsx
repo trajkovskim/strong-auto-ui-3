@@ -79,7 +79,7 @@ const Reviews: React.FC = () => {
   return (
     <Wrapper minHeight="430px" sm={12} gap="4rem" centered padding={{ top: 'xl', bottom: 'xl' }} preserveWhenXs>
       <Container sm="1400px" padding={{ left: 'md', right: 'md' }} centered>
-        <Carousel noArrows noChangeOptions style={{ justifyContent: 'center' }}>
+        <Carousel noArrows noChangeOptions>
           {reviews.map((review) => {
             return <Review key={review.id} review={review} />;
           })}

@@ -21,8 +21,6 @@ import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import {
-  BuyingACarImageContainer,
-  BuyingACarTextContainer,
   CarServiceServiceTile,
   CarouselWrapper,
   HomeWrapper,

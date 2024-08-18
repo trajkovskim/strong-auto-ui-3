@@ -1,5 +1,5 @@
 import Button from 'components/Button';
-import { CarouselChangeOptions, CarouselHandle } from 'components/Carousel';
+import { CarouselHandle } from 'components/Carousel';
 import Container from 'components/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
 import Card from 'components/card/Card';
@@ -160,11 +160,11 @@ const ProductCard: React.FC<Props> = (props) => {
     </ImageWrapper>
   );
 
-  const footer = (
-    <Container alignItems="center">
-      <CarouselChangeOptions carousel={imageCarouselRef} />
-    </Container>
-  );
+  // const footer = (
+  //   <Container alignItems="center">
+  //     <CarouselChangeOptions carousel={imageCarouselRef} />
+  //   </Container>
+  // );
   // const footer = (
   //   <StyledFooter>
   //     <Line />

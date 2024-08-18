@@ -11,7 +11,6 @@ import BoxAnimation from 'pages/home/BoxAnimation';
 
 const ProductsSection: React.FC = () => {
   const [exploreVehiclesActiveTab, setExploreVehiclesActiveTab] = useState<number>(0);
-  const [selectedProduct, setSelectedProduct] = useState<(typeof products)[number]>(products[0]);
 
   return (
     <WhiteBackgroundContainer
@@ -39,7 +38,7 @@ const ProductsSection: React.FC = () => {
                   {...product}
                   ribbon={product.state as RibbonType}
                   key={product.id}
-                  onView={() => setSelectedProduct(product)}
+                  onView={() => undefined}
                 />
               ))}
             </HorizontalList>

@@ -140,9 +140,6 @@ const Footer: React.FC = () => {
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.SHOP)}>
                 Shop
               </Button>
-              <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.BLOG)}>
-                Blog
-              </Button>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.ABOUT_US)}>
                 About us
               </Button>

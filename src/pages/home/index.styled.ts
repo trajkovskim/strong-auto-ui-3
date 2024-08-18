@@ -1,11 +1,10 @@
-import ServiceTile from 'pages/home/ServiceTile';
-import styled, { css } from 'styled-components';
 import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
-import Container from 'components/Container';
 import RoadImage from 'assets/road.jpg';
 import TowTruckImage from 'assets/tow-truck.jpg';
+import Container from 'components/Container';
 import Image from 'components/Image';
-import { createMedia } from 'utils';
+import ServiceTile from 'pages/home/ServiceTile';
+import styled from 'styled-components';
 import theme from 'theme';
 
 export const HomeWrapper = styled(Container)`
