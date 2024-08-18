@@ -92,3 +92,7 @@ export const getCssProperty = (el: HTMLElement | null, property: string) => {
 export const getCssPropertyAsNumber = (el: HTMLElement | null, property: string) => {
   return parseInt(getCssProperty(el, property), 10);
 };
+
+export const scrollToTop = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+};

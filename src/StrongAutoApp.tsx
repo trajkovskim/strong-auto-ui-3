@@ -1,10 +1,11 @@
 import Button from 'components/Button';
 import Footer from 'components/Footer';
 import ApplicationContextProvider from 'context';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { scrollToTop } from 'utils';
 
 const StyledLayout = styled.div`
   height: 100%;
@@ -25,9 +26,11 @@ const BackToTopButton = styled(Button)`
 `;
 
 const StrongAutoApp: React.FC = () => {
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  };
+  const location = useLocation();
+
+  useEffect(() => {
+    setTimeout(scrollToTop, 0);
+  }, [location]);
 
   return (
     <ApplicationContextProvider>
