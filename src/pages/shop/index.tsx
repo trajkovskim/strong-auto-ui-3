@@ -13,7 +13,6 @@ import Sidebar from 'pages/shop/Sidebar';
 import React, { useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
-import { MdGridView, MdMenu } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import styled from 'styled-components';
@@ -28,6 +27,11 @@ const ListActionsMobileWrapper = styled(Container)`
 
 const ListHeader = styled(Container)`
   background-color: white;
+`;
+
+const FiltersContainer = styled(Container)`
+  position: sticky;
+  top: 80px;
 `;
 
 const Shop: React.FC = () => {
@@ -134,9 +138,9 @@ const Shop: React.FC = () => {
       </ListActionsMobileWrapper>
 
       <Container direction="row" alignItems="flex-start" padding={{ bottom: 'md' }}>
-        <Container xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
+        <FiltersContainer xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
           <Filters noCloseButton />
-        </Container>
+        </FiltersContainer>
         <Container
           sm={12}
           lg={9}
