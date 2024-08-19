@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import HorizontalList from 'pages/home/HorizontalList';
+import HorizontalList from 'components/horizontalList/HorizontalList';
 import { products } from 'pages/constants';
 import ProductCard from 'components/card/ProductCard';
 import { RibbonType } from 'components/card/types';

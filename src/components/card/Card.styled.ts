@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 export const StyledImage = styled(Image)`
   transition: all 200ms;
+
   &:hover {
     transform: scale(1.02);
   }

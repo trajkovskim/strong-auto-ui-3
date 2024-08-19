@@ -1,0 +1,273 @@
+import Button from 'components/Button';
+import Container, { ContainerBreakpointsProps } from 'components/Container';
+import {
+  HorizontalListHandlers,
+  HorizontalListModel,
+  HorizontalListService,
+} from 'components/horizontalList/horizontalListUtils';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import styled, { css } from 'styled-components';
+
+type HorizontalListWrapperProps = {
+  centered?: boolean;
+  maxWidth?: string;
+  gap?: React.CSSProperties['gap'];
+};
+
+const arrowCss = css`
+  height: 5.25rem;
+  width: 2.125rem;
+  justify-content: center;
+  position: absolute;
+
+  top: 50%;
+  transform: translateY(-50%);
+
+  background-color: rgba(57, 65, 68, 0.5);
+  &:hover {
+    background-color: #394144;
+  }
+`;
+
+const StyledLeftArrowButton = styled(Button)`
+  ${arrowCss};
+  left: 0;
+
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+`;
+
+const StyledRightArrowButton = styled(Button)`
+  ${arrowCss};
+  right: 0;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+`;
+
+const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
+  margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2)`};
+  max-width: ${(props) => props.maxWidth && `calc(${props.maxWidth} + (100% - ${props.maxWidth}) / 2)`};
+  width: 100%;
+
+  @media (max-width: ${(props) => props.maxWidth}) {
+    /* max-width: ${(props) => props.maxWidth}; */
+    margin-left: 0;
+  }
+  /* transform: translateX(-100%); */
+  /* margin-left: ${(props) => props.maxWidth && `calc((100% - ${props.maxWidth}) / 2 + ${props.maxWidth})`}; */
+
+  position: relative;
+
+  & > ${StyledLeftArrowButton}, & > ${StyledRightArrowButton} {
+    opacity: 0;
+  }
+
+  &:hover > ${StyledLeftArrowButton}, &:hover > ${StyledRightArrowButton} {
+    opacity: 1;
+  }
+`;
+
+const HorizontalListChildrenWrapper = styled(Container)`
+  & > * {
+    flex: 1 0 100%;
+    min-height: 100%;
+    width: 100%;
+
+    user-select: none;
+
+    border-left: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
+    border-right: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
+
+    transition: 200ms all;
+
+    /* &:hover {
+      transform: translateY(-10px);
+    } */
+  }
+
+  & > *:last-child {
+    border-right: ${(props) => props.gap} solid transparent;
+  }
+
+  & > *:first-child {
+    border-left: 0;
+  }
+
+  gap: 0;
+
+  overflow-x: hidden;
+`;
+
+type Props = React.PropsWithChildren &
+  HorizontalListWrapperProps & {
+    noAutoScroll?: boolean;
+    intervalMs?: number;
+    chunkSize?: ContainerBreakpointsProps;
+    chunkGap?: React.CSSProperties['gap'];
+  };
+
+const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...props }) => {
+  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const interval = useRef<number>();
+  const horizontalList = useRef<HorizontalListModel>();
+
+  if (ref) {
+    horizontalList.current = new HorizontalListModel(ref);
+  }
+
+  const horizontalListService = useMemo(() => {
+    if (!ref) {
+      return null;
+    }
+
+    if (!horizontalList.current) {
+      horizontalList.current = new HorizontalListModel(ref);
+    }
+
+    return new HorizontalListService(horizontalList.current);
+  }, [ref]);
+
+  const horizontalListHandlers = useMemo(() => {
+    if (!ref) {
+      return null;
+    }
+
+    if (!horizontalList.current) {
+      horizontalList.current = new HorizontalListModel(ref);
+    }
+
+    return new HorizontalListHandlers(horizontalList.current);
+  }, [ref]);
+
+  const handleInterval = useCallback(() => {
+    if (!horizontalList.current?.moving) {
+      horizontalListService?.moveForward();
+    }
+  }, [horizontalListService]);
+
+  const resetInterval = useCallback(() => {
+    if (noAutoScroll) {
+      return;
+    }
+
+    clearInterval(interval.current);
+    interval.current = setInterval(handleInterval, intervalMs);
+  }, [handleInterval, intervalMs, noAutoScroll]);
+
+  useEffect(() => {
+    const listRef = ref;
+    if (!listRef?.hasChildNodes || !horizontalListService || !horizontalListHandlers) {
+      return;
+    }
+
+    if (noAutoScroll) {
+      interval.current = setInterval(handleInterval, intervalMs);
+    }
+
+    let timeout = setTimeout(() => horizontalListService.fixScrollPosition(), 1000);
+    const resizeEventHandler = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => horizontalListService.fixScrollPosition(), 300);
+    };
+
+    window.addEventListener('resize', resizeEventHandler);
+
+    const fixScrollPositionScrollEndHandler = () => {
+      horizontalListHandlers.scrollEndHandler(false);
+      listRef.addEventListener('scroll', listScrollEndHandler);
+    };
+
+    let listScrollEndTimeout: number;
+    const listScrollEndHandler = () => {
+      clearTimeout(listScrollEndTimeout);
+      listScrollEndTimeout = setTimeout(() => {
+        if (horizontalList.current?.moving) {
+          return;
+        }
+
+        resetInterval();
+        listRef.removeEventListener('scroll', listScrollEndHandler);
+
+        horizontalListHandlers.scrollEndHandler();
+
+        listRef.addEventListener('scroll', fixScrollPositionScrollEndHandler, { once: true });
+      }, 20);
+    };
+
+    listRef.addEventListener('scroll', listScrollEndHandler);
+
+    return () => {
+      clearInterval(interval.current);
+      clearTimeout(timeout);
+
+      clearTimeout(listScrollEndTimeout);
+
+      window.removeEventListener('resize', resizeEventHandler);
+      listRef.removeEventListener('scroll', listScrollEndHandler);
+    };
+  }, [handleInterval, horizontalListHandlers, horizontalListService, intervalMs, noAutoScroll, ref, resetInterval]);
+
+  // Arrow controlls handlers
+  const onBackButtonClick = useCallback(() => {
+    if (horizontalListService?.moveBackward()) {
+      resetInterval();
+    }
+  }, [horizontalListService, resetInterval]);
+
+  const onForwardButtonClick = useCallback(() => {
+    if (horizontalListService?.moveForward()) {
+      resetInterval();
+    }
+  }, [horizontalListService, resetInterval]);
+
+  const handleMouseUp: React.MouseEventHandler<HTMLElement> = () => {
+    resetInterval();
+    horizontalListHandlers?.mouseUpHandler();
+  };
+
+  return (
+    <HorizontalListWrapper gap={props.gap} centered={props.centered} maxWidth={props.maxWidth}>
+      <HorizontalListChildrenWrapper
+        preserveWhenXs
+        onMouseUp={handleMouseUp}
+        onMouseDown={() => horizontalListHandlers?.mouseDownHandler()}
+        onTouchStart={(event) => horizontalListHandlers?.touchStartHandler(event)}
+        onTouchEnd={() => horizontalListHandlers?.touchEndHandler()}
+        onMouseMove={(event) => horizontalListHandlers?.mouseMoveHandler(event)}
+        onTouchMove={(event) => horizontalListHandlers?.touchMoveHandler(event)}
+        onMouseEnter={() => horizontalListHandlers?.mouseEnterHandler()}
+        onMouseLeave={() => horizontalListHandlers?.mouseLeaveHandler()}
+        ref={setRef}
+        direction="row"
+        gap={props.chunkGap}
+      >
+        {React.Children.map(props.children, (child, index) => {
+          return (
+            <Container {...props.chunkSize} preserveWhenXs key={index}>
+              {child}
+            </Container>
+          );
+        })}
+      </HorizontalListChildrenWrapper>
+      <StyledLeftArrowButton
+        icon={<MdArrowBackIos />}
+        maxContent
+        iconSize="lg"
+        themeType="ghost"
+        onClick={onBackButtonClick}
+      />
+      <StyledRightArrowButton
+        icon={<MdArrowForwardIos />}
+        maxContent
+        iconSize="lg"
+        themeType="ghost"
+        onClick={onForwardButtonClick}
+      />
+    </HorizontalListWrapper>
+  );
+};
+
+const memoHorizontalList = React.memo(HorizontalList);
+
+export default memoHorizontalList;

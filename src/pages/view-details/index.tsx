@@ -15,7 +15,7 @@ import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
 import MiniProductCard from 'components/card/MiniProductCard';
-import HorizontalList from 'pages/home/HorizontalList';
+import HorizontalList from 'components/horizontalList/HorizontalList';
 import SimpleTable from 'pages/home/SimpleTable';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
@@ -201,7 +201,7 @@ const ViewDetails: React.FC = () => {
               </BoxAnimation>
             </Container>
             <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="1rem">
-              <HorizontalList chunkGap="10px" chunkSize={{ xs: '50%' }}>
+              <HorizontalList noAutoScroll chunkGap="10px" chunkSize={{ xs: '50%' }}>
                 {product?.images.map((image, index) => (
                   <Image
                     onClick={() => handleImageClick(index)}

@@ -15,7 +15,7 @@ import { products } from 'pages/constants';
 import BoxAnimation from 'components/BoxAnimation';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import FAQ from 'pages/home/Faq';
-import HorizontalList from 'pages/home/HorizontalList';
+import HorizontalList from 'components/horizontalList/HorizontalList';
 import ProductsSection from 'pages/home/ProductsSection';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
