@@ -4,6 +4,8 @@ import Car1Image from 'assets/Car1.jpg';
 import Car2Image from 'assets/Car2.jpg';
 import SUVBodyTypeImage from 'assets/SUV.png';
 
+export const TELEPHONE = '+38977648648';
+
 export const bodyTypes = [
   { id: 0, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
   { id: 1, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },

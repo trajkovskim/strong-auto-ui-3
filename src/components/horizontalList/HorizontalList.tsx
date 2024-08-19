@@ -161,11 +161,11 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
       return;
     }
 
-    if (noAutoScroll) {
+    if (!noAutoScroll) {
       interval.current = setInterval(handleInterval, intervalMs);
     }
 
-    let timeout = setTimeout(() => horizontalListService.fixScrollPosition(), 1000);
+    let timeout = 0;
     const resizeEventHandler = () => {
       clearTimeout(timeout);
       timeout = setTimeout(() => horizontalListService.fixScrollPosition(), 300);
@@ -173,25 +173,17 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
 
     window.addEventListener('resize', resizeEventHandler);
 
-    const fixScrollPositionScrollEndHandler = () => {
-      horizontalListHandlers.scrollEndHandler(false);
-      listRef.addEventListener('scroll', listScrollEndHandler);
-    };
-
     let listScrollEndTimeout: number;
     const listScrollEndHandler = () => {
       clearTimeout(listScrollEndTimeout);
       listScrollEndTimeout = setTimeout(() => {
-        if (horizontalList.current?.moving) {
+        if (horizontalList.current?.mouseDown) {
           return;
         }
 
+        clearTimeout(listScrollEndTimeout);
         resetInterval();
-        listRef.removeEventListener('scroll', listScrollEndHandler);
-
-        horizontalListHandlers.scrollEndHandler();
-
-        listRef.addEventListener('scroll', fixScrollPositionScrollEndHandler, { once: true });
+        horizontalListHandlers.scrollEndHandler(false);
       }, 20);
     };
 
@@ -209,17 +201,38 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
   }, [handleInterval, horizontalListHandlers, horizontalListService, intervalMs, noAutoScroll, ref, resetInterval]);
 
   // Arrow controlls handlers
+
+  const createListScrollEndEvent = useCallback(() => {
+    let listScrollEndTimeout: number;
+
+    const listScrollEndHandler = () => {
+      clearTimeout(listScrollEndTimeout);
+      listScrollEndTimeout = setTimeout(() => {
+        horizontalListHandlers?.scrollEndHandler();
+        ref?.removeEventListener('scroll', listScrollEndHandler);
+      }, 40);
+    };
+
+    return listScrollEndHandler;
+  }, [horizontalListHandlers, ref]);
+
   const onBackButtonClick = useCallback(() => {
     if (horizontalListService?.moveBackward()) {
       resetInterval();
+
+      const listScrollEndHandler = createListScrollEndEvent();
+      ref?.addEventListener('scroll', listScrollEndHandler);
     }
-  }, [horizontalListService, resetInterval]);
+  }, [createListScrollEndEvent, horizontalListService, ref, resetInterval]);
 
   const onForwardButtonClick = useCallback(() => {
     if (horizontalListService?.moveForward()) {
       resetInterval();
+
+      const listScrollEndHandler = createListScrollEndEvent();
+      ref?.addEventListener('scroll', listScrollEndHandler);
     }
-  }, [horizontalListService, resetInterval]);
+  }, [createListScrollEndEvent, horizontalListService, ref, resetInterval]);
 
   const handleMouseUp: React.MouseEventHandler<HTMLElement> = () => {
     resetInterval();

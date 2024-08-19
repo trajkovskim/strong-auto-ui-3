@@ -87,6 +87,16 @@ const ViewDetails: React.FC = () => {
 
   const handleImageClick = (imageIndex: number) => carouselRef.current?.next(imageIndex);
 
+  const imagesHorizontalList = (
+    <HorizontalList noAutoScroll gap="10px" chunkGap="1rem" chunkSize={{ xs: '50%' }}>
+      {product?.images.map((image, index) => (
+        <BoxAnimation key={index}>
+          <Image onClick={() => handleImageClick(index)} rounded src={image} height="150px" objectFit="cover" />
+        </BoxAnimation>
+      ))}
+    </HorizontalList>
+  );
+
   return (
     <Container padding={{ left: 'md', right: 'md', bottom: 'xl', top: 'xl' }}>
       <Container sm="1400px" centered gap="2rem" relative>
@@ -104,7 +114,7 @@ const ViewDetails: React.FC = () => {
         <Container gap="2rem">
           <BoxAnimation>
             <Container relative sm={8} gap="1rem">
-              <Container preserveWhenXs direction="row" gap="1rem">
+              <Container wrap preserveWhenXs direction="row" gap="1rem">
                 <Button padding="md" maxContent size="md" themeType="ghost" icon={<BiCalendar />} iconSize="lg">
                   {product.year}
                 </Button>
@@ -122,7 +132,7 @@ const ViewDetails: React.FC = () => {
           </BoxAnimation>
 
           <Container direction="row" wrap gap="1rem" alignItems="flex-start" justifyContent="space-between">
-            <Container sm={12} md={8} gap="1rem">
+            <Container sm={12} md={8} gap="2rem">
               <BoxAnimation>
                 <CarouselWrapper>
                   <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
@@ -135,50 +145,59 @@ const ViewDetails: React.FC = () => {
                 </CarouselWrapper>
               </BoxAnimation>
 
-              <BoxAnimation>
-                <Text fontSize="2xl">Description</Text>
-              </BoxAnimation>
-              <BoxAnimation>
-                <Text fontSize="md">{product.description}</Text>
-              </BoxAnimation>
-              <BoxAnimation>
-                <Text fontSize="2xl">Car overview</Text>
-              </BoxAnimation>
-              <Container direction="row" gap="1rem" wrap>
-                <Container sm={12} lg={6}>
-                  <BoxAnimation>
-                    <SimpleTable
-                      rowGap="1rem"
-                      gap="0.5rem"
-                      cellWidth="50%"
-                      data={[
-                        [createTextIcon(<FaCar />, 'Body'), product.bodyType],
-                        [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
-                        [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
-                        [createTextIcon(<BiCalendar />, 'Year'), product.year],
-                        [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
-                        [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
-                      ]}
-                    />
-                  </BoxAnimation>
-                </Container>
-                <Container sm={12} lg={6}>
-                  <BoxAnimation>
-                    <SimpleTable
-                      rowGap="1rem"
-                      gap="0.5rem"
-                      cellWidth="50%"
-                      data={[
-                        [createTextIcon(<FaCar />, 'Condition'), product.condition],
-                        [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
-                        [createTextIcon(<TbDoor />, 'Door'), product.doors],
-                        [createTextIcon(<BiColorFill />, 'Color'), product.color],
-                      ]}
-                    />
-                  </BoxAnimation>
-                </Container>
+              <Container xs={12} md={0}>
+                {imagesHorizontalList}
               </Container>
+
+              <BoxAnimation>
+                <Container gap="0.5rem" preserveWhenXs>
+                  <Text fontSize="2xl">Description</Text>
+                  <Text fontSize="md">{product.description}</Text>
+                </Container>
+              </BoxAnimation>
+
+              <BoxAnimation>
+                <Container direction="row" gap="1rem" wrap>
+                  <Container xs={12}>
+                    <Text fontSize="2xl">Car overview</Text>
+                  </Container>
+                  <Container xs={12} lg={6}>
+                    <BoxAnimation>
+                      <SimpleTable
+                        rowGap="1rem"
+                        gap="0.5rem"
+                        cellWidth="50%"
+                        data={[
+                          [createTextIcon(<FaCar />, 'Body'), product.bodyType],
+                          [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
+                          [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
+                          [createTextIcon(<BiCalendar />, 'Year'), product.year],
+                          [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
+                          [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
+                        ]}
+                      />
+                    </BoxAnimation>
+                  </Container>
+                  <Container xs={12} lg={6}>
+                    <BoxAnimation>
+                      <SimpleTable
+                        rowGap="1rem"
+                        gap="0.5rem"
+                        cellWidth="50%"
+                        data={[
+                          [createTextIcon(<FaCar />, 'Condition'), product.condition],
+                          [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
+                          [createTextIcon(<TbDoor />, 'Door'), product.doors],
+                          [createTextIcon(<BiColorFill />, 'Color'), product.color],
+                        ]}
+                      />
+                    </BoxAnimation>
+                  </Container>
+                </Container>
+              </BoxAnimation>
+
               <Line />
+
               <BoxAnimation>
                 <Container gap="1rem">
                   <Text fontSize="2xl">Features</Text>
@@ -200,22 +219,13 @@ const ViewDetails: React.FC = () => {
                 </Container>
               </BoxAnimation>
             </Container>
-            <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="1rem">
-              <HorizontalList noAutoScroll chunkGap="10px" chunkSize={{ xs: '50%' }}>
-                {product?.images.map((image, index) => (
-                  <Image
-                    onClick={() => handleImageClick(index)}
-                    rounded
-                    key={index}
-                    src={image}
-                    height="150px"
-                    objectFit="cover"
-                  />
-                ))}
-              </HorizontalList>
+            <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="2rem">
+              <Container xs={0} md={12}>
+                {imagesHorizontalList}
+              </Container>
 
               <BoxAnimation>
-                <StyledContainer rounded padding="md" gap="1rem" bordered>
+                <StyledContainer rounded padding="md" gap="1rem" bordered preserveWhenXs>
                   <Container gap="0.3rem">
                     <Text fontSize="lg">Our offer:</Text>
                     {product.price?.totalPromo && (

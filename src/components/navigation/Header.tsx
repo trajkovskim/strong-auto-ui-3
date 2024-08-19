@@ -1,99 +1,62 @@
-import React from 'react';
-import { styled } from 'styled-components';
-
-import Logo from 'assets/logo.png';
+import Button from 'components/Button';
 import Container from 'components/Container';
-import Icon from 'components/Icon';
-import Image from 'components/Image';
-import Dropdown from 'components/form/Dropdown';
-import type { DropdownOption } from 'components/form/types';
-import MobileNavigation from 'components/navigation/MobileNavigation';
-import Navigation from 'components/navigation/Navigation';
-import { Language } from 'context/base';
-import { useLanguage, useTranslation } from 'hooks';
-import { CiGlobe } from 'react-icons/ci';
-import { useNavigate } from 'react-router-dom';
-import { Routes } from 'routes';
+import LanguageChanger from 'components/navigation/LanguageChanger';
+import useSocialMedias from 'components/navigation/useSocialMedias';
+import { TELEPHONE } from 'pages/constants';
+import React from 'react';
+import { MdOutlinePhoneIphone } from 'react-icons/md';
+import styled from 'styled-components';
+import { call, goto } from 'utils';
 
-const StyledDropdown = styled(Dropdown)`
-  border-radius: 10px;
-  background-color: transparent;
-  color: inherit;
-
-  option {
-    color: #000;
-  }
-`;
-
-type HeaderWrapperProps = {
-  transparent?: boolean;
-};
-
-const HeaderWrapper = styled.header<HeaderWrapperProps>`
-  background-color: ${(props) => !props.transparent && '#232628'};
+const StyledHeader = styled.header`
+  background-color: #3d4246;
   color: white;
-  z-index: 10 !important;
-  position: sticky;
-  top: 0;
 `;
 
-const StyledContainer = styled(Container)`
-  z-index: 2;
-  height: 80px;
-`;
+const StyledButton = styled(Button)``;
 
-type Props = HeaderWrapperProps;
-
-const Header: React.FC<Props> = (props) => {
-  const { language, changeLanguage } = useLanguage();
-  const t = useTranslation('languages');
-  const navigate = useNavigate();
-
-  const languageOptions: DropdownOption[] = Object.values(Language).map((value) => ({
-    value,
-    label: t(value),
-  }));
+const Header: React.FC = () => {
+  const socialMedias = useSocialMedias();
 
   return (
-    <>
-      <HeaderWrapper transparent={props.transparent}>
-        <StyledContainer
-          padding={{ left: 'xs', right: 'xs' }}
-          relative
-          direction="row"
-          preserveWhenXs
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Image
-            onClick={() => navigate(Routes.INDEX)}
-            src={Logo}
-            alt="Strong auto logo"
-            width="170px"
-            height="100%"
-            objectFit="contain"
-          />
-          <Container xs={0} lg="max-content" preserveWhenXs alignItems="center">
-            <Navigation />
-          </Container>
-          <Container direction="row" padding={{ right: 'md' }} gap="1rem" preserveWhenXs alignItems="center">
-            <Container preserveWhenXs direction="row" alignItems="center" gap="0.1rem">
-              <Icon icon={<CiGlobe />} height="20px" />
-              <StyledDropdown
-                size="md"
-                name="lang"
-                value={language}
-                onChange={(event) => {
-                  changeLanguage(event.target.value as Language);
-                }}
-                options={languageOptions}
-              />
-            </Container>
-            <MobileNavigation />
-          </Container>
-        </StyledContainer>
-      </HeaderWrapper>
-    </>
+    <StyledHeader>
+      <Container
+        sm={12}
+        preserveWhenXs
+        justifyContent="end"
+        alignItems="center"
+        direction="row"
+        gap="1.5rem"
+        padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
+      >
+        <Container preserveWhenXs>
+          <LanguageChanger />
+        </Container>
+        <Container preserveWhenXs>
+          <StyledButton
+            maxContent
+            themeType="link"
+            size="sm"
+            icon={<MdOutlinePhoneIphone />}
+            onClick={() => call(TELEPHONE)}
+          >
+            {TELEPHONE}
+          </StyledButton>
+        </Container>
+        <Container gap="1.5rem" direction="row" preserveWhenXs>
+          {socialMedias.map((socialMedia, index) => (
+            <StyledButton
+              key={index}
+              themeType="link"
+              maxContent
+              icon={socialMedia.icon}
+              size="sm"
+              onClick={() => goto(socialMedia.href)}
+            />
+          ))}
+        </Container>
+      </Container>
+    </StyledHeader>
   );
 };
 

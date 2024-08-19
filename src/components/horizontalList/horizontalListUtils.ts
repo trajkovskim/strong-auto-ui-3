@@ -41,6 +41,14 @@ export class HorizontalListModel {
     return this.listRef;
   }
 
+  getListRefChildCount() {
+    return this.getListRef().childElementCount;
+  }
+
+  hasMinElements() {
+    return this.getListRefChildCount() >= 5;
+  }
+
   getFirstElementChild() {
     return this.listRef.firstElementChild as HTMLElement | null;
   }
@@ -66,6 +74,10 @@ export class HorizontalListService {
   }
 
   checkIfReorderNeeded(listScrollLeft: number, scroll: boolean): boolean {
+    if (!this.horizontalList.hasMinElements()) {
+      return false;
+    }
+
     const firstChild = this.horizontalList.getFirstElementChild();
     const lastChild = this.horizontalList.getLastElementChild();
 
@@ -120,13 +132,11 @@ export class HorizontalListService {
       return force;
     }
 
-    if (behavior === 'smooth') {
-      // moving.current = false;
-    } else {
+    if (behavior !== 'smooth') {
       this.horizontalList.moving = false;
     }
 
-    return this.horizontalList.moving;
+    return true;
   }
 
   fixScrollPosition() {
@@ -186,7 +196,7 @@ export class HorizontalListHandlers {
     this.horizontalListService = new HorizontalListService(horizontalList);
   }
 
-  scrollEndHandler(fixScrollPosition?: boolean) {
+  scrollEndHandler(fixScrollPosition = true) {
     this.horizontalList.moving = false;
 
     if (fixScrollPosition) {

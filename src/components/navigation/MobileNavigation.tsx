@@ -2,6 +2,8 @@ import { css } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
+import LanguageChanger from 'components/navigation/LanguageChanger';
+import LogoImage from 'components/navigation/LogoImage';
 import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'components/navigation/Navigation.styled';
 import useNavigationOptions from 'components/navigation/useNavigationOptions';
 import useSocialMedias from 'components/navigation/useSocialMedias';
@@ -65,28 +67,41 @@ const MobileNavigation: React.FC = () => {
         >
           <MobileContainer preserveWhenXs>
             <Container>
-              <Container preserveWhenXs alignSelf="flex-end" padding={{ top: 'lg', right: 'md' }}>
-                <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="2xl" />
+              <Container
+                xs={12}
+                preserveWhenXs
+                direction="row"
+                justifyContent="space-between"
+                padding={{ top: 'md', right: 'md' }}
+              >
+                <LogoImage />
+                <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
               </Container>
               <div>{navigation}</div>
             </Container>
             <Container
-              gap="1.5rem"
               direction="row"
-              preserveWhenXs
-              alignSelf="flex-end"
+              justifyContent="space-between"
               padding={{ top: 'lg', bottom: 'md', right: 'md', left: 'md' }}
+              preserveWhenXs
+              xs={12}
+              gap="0.5rem"
             >
-              {socialMedias.map((socialMedia, index) => (
-                <Button
-                  key={index}
-                  themeType="link"
-                  maxContent
-                  icon={socialMedia.icon}
-                  size="2xl"
-                  onClick={() => goto(socialMedia.href)}
-                />
-              ))}
+              <Container>
+                <LanguageChanger />
+              </Container>
+              <Container gap="1.5rem" direction="row" preserveWhenXs>
+                {socialMedias.map((socialMedia, index) => (
+                  <Button
+                    key={index}
+                    themeType="link"
+                    maxContent
+                    icon={socialMedia.icon}
+                    size="2xl"
+                    onClick={() => goto(socialMedia.href)}
+                  />
+                ))}
+              </Container>
             </Container>
           </MobileContainer>
         </Transition>,
@@ -97,7 +112,7 @@ const MobileNavigation: React.FC = () => {
           maxContent
           themeType="link"
           icon={<BiMenu />}
-          size="lg"
+          iconSize="3xl"
           onClick={() => {
             transitionRef.current?.toggle();
           }}
