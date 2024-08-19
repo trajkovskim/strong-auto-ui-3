@@ -55,7 +55,7 @@ const calculateColumnPercentage = (breakpoint: number) => {
 };
 
 const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss?: string) => {
-  const gap = props.parentGap ?? '0rem';
+  const gap = props[breakpoint] !== MAX_COLUMNS ? props.parentGap ?? '0rem' : '0rem';
 
   return createMedia(
     breakpoint,
@@ -194,7 +194,10 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props['2xl'] = props['2xl'] ?? props.xl;
   props['3xl'] = props['3xl'] ?? props['2xl'];
 
-  const childProps = props.direction?.startsWith('row') && props.wrap ? { parentGap: props.gap } : undefined;
+  const childProps =
+    props.direction?.startsWith('row') && props.wrap
+      ? { parentGap: parseFloat(props.gap?.toString() ?? '0') / 2 + 'rem' }
+      : undefined;
 
   return (
     <StyledContainer ref={ref} {...props}>

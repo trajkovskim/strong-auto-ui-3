@@ -102,11 +102,18 @@ const Home: React.FC = () => {
 
       <WhiteBackgroundContainer padding={{ top: 'xl', bottom: '2xl' }} preserveWhenXs sm={12} gap="10rem">
         <BoxAnimation threshold={0.2}>
-          <Container direction="row" minHeight="530px" padding={{ bottom: 'lg', right: 'md', left: 'md' }} gap="2rem">
-            <Container sm={5.5}>
-              <StyledBuyCarImage objectFit="cover" shadow src={RentCarImage} />
+          <Container
+            direction="row"
+            wrap
+            minHeight="530px"
+            padding={{ bottom: 'lg', right: 'md', left: 'md' }}
+            gap="3.5rem"
+            preserveWhenXs
+          >
+            <Container sm={12} lg={7} xl={5.5} preserveWhenXs>
+              <StyledBuyCarImage height="500px" objectFit="cover" shadow src={RentCarImage} />
             </Container>
-            <Container sm={5} gap="1rem">
+            <Container sm={12} lg={5} xl={5} gap="1rem" preserveWhenXs>
               <Title fontSize="2xl" bold title="Buying a car?" textAlign="right" />
               <Text fontSize="lg" textAlign="right">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -126,11 +133,13 @@ const Home: React.FC = () => {
           <Container
             justifyContent="flex-end"
             direction="row"
+            wrap
             minHeight="530px"
             padding={{ bottom: 'lg', right: 'md', left: 'md' }}
-            gap="2rem"
+            gap="3.5rem"
+            preserveWhenXs
           >
-            <Container sm={5} gap="1rem">
+            <Container xs={12} lg={5} xl={5} gap="1rem" preserveWhenXs>
               <Title fontSize="2xl" bold title="Buying a car?" />
               <Text fontSize="lg">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -144,7 +153,7 @@ const Home: React.FC = () => {
                 </Button>
               </Container>
             </Container>
-            <Container sm={5.5}>
+            <Container xs={12} lg={7} xl={5.5} preserveWhenXs>
               <StyledRightImage objectFit="cover" shadow src={RentCarImage} />
             </Container>
           </Container>

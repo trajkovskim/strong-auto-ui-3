@@ -38,21 +38,21 @@ const Review: React.FC<ReviewProps> = (props) => {
 
   return (
     <Container key={props.review.id} gap="3rem" direction="row" centered>
-      <Container preserveWhenXs gap="0.5rem">
+      <Container preserveWhenXs gap="1rem">
         <Container preserveWhenXs>
           <Text fontSize="lg" bold>
             {props.review.username}
           </Text>
           <Text fontSize="sm">{props.review.creationDate.toUTCString()}</Text>
         </Container>
-        <Container preserveWhenXs direction="row" gap="0.5rem" alignItems="center">
+        <Container preserveWhenXs gap="0.5rem">
           <StarsWrapper preserveWhenXs sm="max-content">
             {createdStars}
           </StarsWrapper>
           <Text fontSize="sm">{props.review.rating}-star rating</Text>
         </Container>
       </Container>
-      <Container sm="600px" gap="1rem">
+      <Container gap="1rem">
         <Text fontSize="lg" bold>
           {props.review.comment ??
             // eslint-disable-next-line max-len

@@ -62,6 +62,10 @@ export const StyledBuyCarImage = styled(Image)`
   border-bottom-right-radius: 150px;
   box-shadow: 0px 35px 5px -17px #a3a3a3, 18px 57px 16px -17px #b8b8b8;
   /* clip-path: ellipse(67% 75% at 75% 66%); */
+
+  height: 100%;
+  max-height: 500px;
+  min-height: 300px;
 `;
 
 export const StyledRightImage = styled(Image)`
@@ -69,6 +73,10 @@ export const StyledRightImage = styled(Image)`
   border-top-left-radius: 150px;
   box-shadow: 0px 35px 5px -17px #a3a3a3, 18px 57px 16px -17px #b8b8b8;
   /* clip-path: ellipse(67% 75% at 75% 66%); */
+
+  height: 100%;
+  max-height: 500px;
+  min-height: 300px;
 `;
 
 export const TowingServiceServiceTile = styled(ServiceTile)`
