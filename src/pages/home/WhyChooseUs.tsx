@@ -19,10 +19,12 @@ const WhyChooseUs: React.FC = () => {
       minHeight="430px"
       preserveWhenXs
       padding={{ top: 'xl', bottom: '2xl', left: 'md', right: 'md' }}
-      gap="4rem"
+      gap="3rem"
     >
-      <Title centered title="Why choose us" fontSize="2xl" />
-      <Line />
+      <Container preserveWhenXs gap="2rem">
+        <Title centered title="Why choose us" fontSize="2xl" />
+        <Line />
+      </Container>
       <Container sm="1400px" centered>
         <List sm={1} md={2} lg={4} gap="1rem">
           <BoxAnimation>
