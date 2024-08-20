@@ -54,7 +54,7 @@ const AboutUs: React.FC = () => {
     <>
       <Container gap="1rem">
         <AboutUsTitleWrapper>
-          <Container xs="1400px" centered>
+          <Container xs="1400px" centered padding={{ left: 'md', right: 'md' }}>
             <Title fontSize="3xl" title="About us" />
           </Container>
         </AboutUsTitleWrapper>
@@ -64,7 +64,7 @@ const AboutUs: React.FC = () => {
           justifyContent="end"
           wrap
           gap="3rem"
-          padding={{ top: '2xl', bottom: '2xl' }}
+          padding={{ top: '2xl', bottom: '2xl', left: 'md', right: 'md' }}
         >
           <Container xs={12} lg={5}>
             <BoxAnimation>
@@ -85,7 +85,7 @@ const AboutUs: React.FC = () => {
         <Line />
         <BoxAnimation>
           <Container xs="1400px" centered>
-            <List xs={1} md={3} justifyContent="center" gap="1rem">
+            <List xs={2} md={4} justifyContent="center" gap="1rem">
               <Container padding="md" rounded>
                 <Text fontSize="2xl" bold>
                   10+
