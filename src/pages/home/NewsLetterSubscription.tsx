@@ -1,0 +1,55 @@
+import Button from 'components/Button';
+import Container from 'components/Container';
+import Image from 'components/Image';
+import { Input } from 'components/form';
+import Title from 'components/typography/Title';
+import React from 'react';
+import CarInEnvelope from 'assets/car-in-envelope.png';
+import BoxAnimation from 'components/BoxAnimation';
+import styled from 'styled-components';
+
+const StyledCarInEnvelopeImage = styled(Image)`
+  border-top-right-radius: 150px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 150px;
+  border-bottom-right-radius: 50px;
+`;
+
+const NewsLetterSubscription: React.FC = () => {
+  return (
+    <Container
+      xs="1400px"
+      centered
+      direction="row"
+      wrap
+      gap="3rem"
+      padding={{ top: '2xl', bottom: '2xl', right: 'md', left: 'md' }}
+    >
+      <Container gap="2rem" xs={12} lg={6} xl={5.5}>
+        <BoxAnimation>
+          <Title
+            title="Get Latest Updates And Best Offers"
+            description="Strong auto is the most enticing, creative, modern and multipurpose auto dealer"
+            fontSize={{ title: '2xl', description: 'lg' }}
+            gap="2rem"
+          />
+        </BoxAnimation>
+        <BoxAnimation>
+          <Container gap="1rem" direction="row">
+            <Input size="sm" placeholder="Enter your email" />
+            <Button size="sm" padding="md">
+              Subscribe
+            </Button>
+          </Container>
+        </BoxAnimation>
+      </Container>
+      <Container xs={12} lg={6} xl={6.5}>
+        <BoxAnimation>
+          <StyledCarInEnvelopeImage shadow src={CarInEnvelope} height="400px" objectFit="cover" />
+        </BoxAnimation>
+      </Container>
+    </Container>
+  );
+};
+
+export default NewsLetterSubscription;

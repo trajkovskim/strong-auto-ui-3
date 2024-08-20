@@ -20,12 +20,13 @@ import { GrServices } from 'react-icons/gr';
 const AboutUs: React.FC = () => {
   return (
     <>
-      <Container sm="1400px" gap="1rem" centered padding={{ top: 'lg', bottom: 'lg', left: 'md', right: 'md' }}>
-        <Breadcrumb />
-        <Title fontSize="2xl" title="About us" />
+      <Container gap="1rem">
+        <Container xs="1400px" centered>
+          <Breadcrumb />
+          <Title fontSize="2xl" title="About us" />
+        </Container>
         <BoxAnimation>
-          <Container xs={12} gap="2rem" padding={{ top: 'lg', bottom: 'lg' }}>
-            <Line />
+          <Container xs="1400px" centered gap="2rem" padding={{ top: 'lg', bottom: 'lg' }}>
             <Title
               fontSize="lg"
               title="Welcome to Strong AUTO"
@@ -51,7 +52,14 @@ const AboutUs: React.FC = () => {
           </Container>
         </BoxAnimation>
         <BoxAnimation>
-          <Container gap="1rem" padding={{ top: 'md', bottom: 'md' }} alignItems="center" direction="row">
+          <Container
+            xs="1400px"
+            centered
+            gap="1rem"
+            padding={{ top: 'md', bottom: 'md' }}
+            alignItems="center"
+            direction="row"
+          >
             <Container sm={4}>
               <Icon icon={<GrServices />} width="200px" />
             </Container>
@@ -77,26 +85,28 @@ const AboutUs: React.FC = () => {
         </BoxAnimation>
         <Line />
         <BoxAnimation>
-          <List xs={2} md={4} justifyContent="center" gap="1rem">
-            <Container padding="md" rounded>
-              <Text fontSize="2xl" bold>
-                10+
-              </Text>
-              <Text fontSize="lg">Years</Text>
-            </Container>
-            <Container padding="md">
-              <Text fontSize="2xl" bold>
-                10+
-              </Text>
-              <Text fontSize="lg">Years</Text>
-            </Container>
-            <Container padding="md">
-              <Text fontSize="2xl" bold>
-                10+
-              </Text>
-              <Text fontSize="lg">Years</Text>
-            </Container>
-          </List>
+          <Container xs="1400px" centered>
+            <List xs={2} md={4} justifyContent="center" gap="1rem">
+              <Container padding="md" rounded>
+                <Text fontSize="2xl" bold>
+                  10+
+                </Text>
+                <Text fontSize="lg">Years</Text>
+              </Container>
+              <Container padding="md">
+                <Text fontSize="2xl" bold>
+                  10+
+                </Text>
+                <Text fontSize="lg">Years</Text>
+              </Container>
+              <Container padding="md">
+                <Text fontSize="2xl" bold>
+                  10+
+                </Text>
+                <Text fontSize="lg">Years</Text>
+              </Container>
+            </List>
+          </Container>
         </BoxAnimation>
         <BoxAnimation>
           <WhyChooseUs />

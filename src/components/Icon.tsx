@@ -1,4 +1,4 @@
-import { textFontSize, textFontSizeMobile, textFontSizeTablet } from 'components/typography/constants';
+import { titleFontSize, titleFontSizeMobile, titleFontSizeTablet } from 'components/typography/constants';
 import { FontSize } from 'components/typography/types';
 import React from 'react';
 import styled, { css } from 'styled-components';
@@ -31,13 +31,13 @@ const IconWrapper = styled.span<IconWrapperProps>`
     height: ${(props) => props.height ?? '100%'};
 
     width: ${(props) => !props.size && (props.width ? props.width : '100%')};
-    width: ${(props) => props.size && textFontSize[props.size]};
+    width: ${(props) => props.size && titleFontSize[props.size]};
 
     ${(props) =>
       createMedia(
         'sm',
         css`
-          width: ${props.size && textFontSizeMobile[props.size]};
+          width: ${props.size && titleFontSizeMobile[props.size]};
         `
       )}
 
@@ -45,7 +45,7 @@ const IconWrapper = styled.span<IconWrapperProps>`
       createMedia(
         'md',
         css`
-          width: ${props.size && textFontSizeTablet[props.size]};
+          width: ${props.size && titleFontSizeTablet[props.size]};
         `
       )}
   }
@@ -59,13 +59,13 @@ const IconWrapper = styled.span<IconWrapperProps>`
 
     width: ${(props) => !props.size && (props.width ? props.width : '100%')};
 
-    width: ${(props) => props.size && textFontSize[props.size]};
+    width: ${(props) => props.size && titleFontSize[props.size]};
 
     ${(props) =>
       createMedia(
         'sm',
         css`
-          width: ${props.size && textFontSizeMobile[props.size]};
+          width: ${props.size && titleFontSizeMobile[props.size]};
         `
       )}
 
@@ -73,7 +73,7 @@ const IconWrapper = styled.span<IconWrapperProps>`
       createMedia(
         'md',
         css`
-          width: ${props.size && textFontSizeTablet[props.size]};
+          width: ${props.size && titleFontSizeTablet[props.size]};
         `
       )}
   }

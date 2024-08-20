@@ -6,12 +6,12 @@
   --title-fs-4: clamp(2rem, calc(1.7rem + 1.5vw), 3.5rem);
   --title-fs-5: clamp(2.5rem, calc(2.2rem + 1.5vw), 4rem);
 
-  --text-fs-0: clamp(0.7813rem, 0.6695rem + 0.592vw, 1.1875rem);
-  --text-fs-1: clamp(0.8336rem, 0.7144rem + 0.6316vw, 1.2671rem);
-  --text-fs-2: clamp(0.8894rem, 0.7622rem + 0.674vw, 1.352rem);
-  --text-fs-3: clamp(0.949rem, 0.8133rem + 0.7191vw, 1.4425rem);
-  --text-fs-4: clamp(1.0126rem, 0.8678rem + 0.7673vw, 1.5392rem);
-  --text-fs-5: clamp(1.0805rem, 0.9259rem + 0.8187vw, 1.6423rem);
+  --text-fs-0: clamp(0.9375rem, 0.8906rem + 0.2344vw, 1.125rem);
+  --text-fs-1: clamp(1.0547rem, 1.002rem + 0.2637vw, 1.2656rem);
+  --text-fs-2: clamp(1.1865rem, 1.1272rem + 0.2966vw, 1.4238rem);
+  --text-fs-3: clamp(1.3348rem, 1.2681rem + 0.3337vw, 1.6018rem);
+  --text-fs-4: clamp(1.5017rem, 1.4266rem + 0.3754vw, 1.802rem);
+  --text-fs-5: clamp(1.6894rem, 1.6049rem + 0.4224vw, 2.0273rem);
 }
 
 * {
@@ -27,7 +27,6 @@
 body {
   position: relative;
 }
-
 
 /* clamp(0.5625rem, 0.5087rem + 0.2532vi, 0.8125rem)
 clamp(0.7031rem, 0.6359rem + 0.3165vi, 1.0156rem)

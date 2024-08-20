@@ -44,9 +44,9 @@ const Filters: React.FC<Props> = (props) => {
       <FiltersHeader justifyContent="space-between" direction="row" padding="md">
         <Text>Filtering</Text>
         <Container gap="1rem" direction="row">
-          <Button size="xl" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
+          <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
-            size="xl"
+            size="md"
             disabled
             fullwidth
             themeType="success"
@@ -55,7 +55,7 @@ const Filters: React.FC<Props> = (props) => {
             onClick={resetFilters}
           />
           {!props.noCloseButton && (
-            <Button size="xl" fullwidth themeType="link" icon={<MdClose />} maxContent onClick={props.onClose} />
+            <Button size="md" fullwidth themeType="link" icon={<MdClose />} maxContent onClick={props.onClose} />
           )}
         </Container>
       </FiltersHeader>

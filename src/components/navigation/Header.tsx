@@ -2,11 +2,12 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import LanguageChanger from 'components/navigation/LanguageChanger';
 import useSocialMedias from 'components/navigation/useSocialMedias';
-import { TELEPHONE } from 'pages/constants';
+import { EMAIL, TELEPHONE } from 'pages/constants';
 import React from 'react';
-import { MdOutlinePhoneIphone } from 'react-icons/md';
+import { FaClock } from 'react-icons/fa';
+import { MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
 import styled from 'styled-components';
-import { call, goto } from 'utils';
+import { call, goto, mailTo } from 'utils';
 
 const StyledHeader = styled.header`
   background-color: #3d4246;
@@ -21,8 +22,8 @@ const Header: React.FC = () => {
   return (
     <StyledHeader>
       <Container
-        sm={12}
-        justifyContent="end"
+        xs={12}
+        justifyContent="space-between"
         alignItems="center"
         direction="row"
         gap="1.5rem"
@@ -31,16 +32,28 @@ const Header: React.FC = () => {
         <Container>
           <LanguageChanger />
         </Container>
-        <Container>
-          <StyledButton
-            maxContent
-            themeType="link"
-            size="sm"
-            icon={<MdOutlinePhoneIphone />}
-            onClick={() => call(TELEPHONE)}
-          >
-            {TELEPHONE}
-          </StyledButton>
+        <Container direction="row" gap="1.5rem">
+          <Container>
+            <StyledButton
+              maxContent
+              themeType="link"
+              size="sm"
+              icon={<MdOutlinePhoneIphone />}
+              onClick={() => call(TELEPHONE)}
+            >
+              {TELEPHONE}
+            </StyledButton>
+          </Container>
+          <Container>
+            <StyledButton maxContent themeType="link" size="sm" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
+              {EMAIL}
+            </StyledButton>
+          </Container>
+          <Container>
+            <StyledButton maxContent themeType="link" size="sm" icon={<FaClock />}>
+              Mon-Sun: 08:00 - 20:00
+            </StyledButton>
+          </Container>
         </Container>
         <Container gap="1.5rem" direction="row">
           {socialMedias.map((socialMedia, index) => (

@@ -18,6 +18,11 @@ const StyledCard = styled(Card)`
   transition: all 200ms;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 
+  & > *:first-child {
+    max-height: 600px;
+    flex: 1 0 0;
+  }
+
   position: relative;
 
   cursor: pointer;

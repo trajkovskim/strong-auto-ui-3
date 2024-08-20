@@ -3,7 +3,7 @@ import RoadImage from 'assets/road.jpg';
 import TowTruckImage from 'assets/tow-truck.jpg';
 import Container from 'components/Container';
 import Image from 'components/Image';
-import ServiceTile from 'pages/home/ServiceTile';
+import ServiceCard from 'pages/home/ServiceCard';
 import styled from 'styled-components';
 import theme from 'theme';
 
@@ -58,6 +58,12 @@ export const WhiteBackgroundContainer = styled(Container)`
   color: black;
 `;
 
+export const BuyingACarWrapper = styled(WhiteBackgroundContainer)`
+  @media (min-width: ${theme.breakpoints.minWidth.lg}) {
+    gap: 10rem;
+  }
+`;
+
 export const StyledBuyCarImage = styled(Image)`
   border-bottom-right-radius: 150px;
   box-shadow: 0px 35px 5px -17px #a3a3a3, 18px 57px 16px -17px #b8b8b8;
@@ -79,7 +85,7 @@ export const StyledRightImage = styled(Image)`
   min-height: 300px;
 `;
 
-export const TowingServiceServiceTile = styled(ServiceTile)`
+export const TowingServiceServiceTile = styled(ServiceCard)`
   background-image: url(${TowTruckImage});
   background-size: cover;
   background-position: center center;
@@ -102,7 +108,7 @@ export const TowingServiceServiceTile = styled(ServiceTile)`
   }
 `;
 
-export const CarServiceServiceTile = styled(ServiceTile)`
+export const CarServiceServiceTile = styled(ServiceCard)`
   background-image: url(${CarServiceMechanicImage});
   background-size: cover;
   background-position: center center;

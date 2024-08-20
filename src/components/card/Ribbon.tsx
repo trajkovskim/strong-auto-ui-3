@@ -23,6 +23,7 @@ const Ribbon: React.FC<Props> = ({ className, ...props }) => {
       background={props.background}
       color={props.color}
       xs="max-content"
+      justifyContent="center"
     >
       <Text bold fontSize="sm">
         {props.label}

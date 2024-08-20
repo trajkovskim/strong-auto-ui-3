@@ -86,6 +86,32 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   }
 `;
 
+export const StyledTextarea = styled.textarea<StyledInputProps & { rightContainerWidth?: number }>`
+  width: 100%;
+  height: 100%;
+  height: ${(props) => props.size && inputSize[props.size]};
+  padding: 10px;
+  padding-left: 10px;
+  font-size: ${(props) => props.size && fontSize[props.size]};
+  line-height: 20px;
+  outline: none;
+  border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
+  border-radius: 4px;
+
+  padding-right: ${(props) => `${props.rightContainerWidth}px`};
+
+  &::placeholder {
+    font-size: ${(props) => props.size && fontSize[props.size]};
+  }
+
+  transition: 100ms all;
+
+  &:focus {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    /* border: 1px solid black; */
+  }
+`;
+
 export const StyledRightContainer = styled.span`
   position: absolute;
   right: 0;

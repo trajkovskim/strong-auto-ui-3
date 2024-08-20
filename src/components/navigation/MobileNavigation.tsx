@@ -100,7 +100,7 @@ const MobileNavigation: React.FC = () => {
         </Transition>,
         portalsElement
       )}
-      <Container xs="max-content" lg={0}>
+      <Container xs="max-content" lg={0} alignSelf="end">
         <Button
           maxContent
           themeType="link"

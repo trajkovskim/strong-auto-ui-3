@@ -1,9 +1,9 @@
 import Button from 'components/Button';
 import Container, { ContainerBreakpointsProps } from 'components/Container';
 import {
-  HorizontalListHandlers,
   HorizontalListModel,
-  HorizontalListService,
+  createHorizontalListHandlers,
+  createHorizontalListService,
 } from 'components/horizontalList/horizontalListUtils';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
@@ -16,8 +16,8 @@ type HorizontalListWrapperProps = {
 };
 
 const arrowCss = css`
-  height: 5.25rem;
-  width: 2.125rem;
+  min-height: 5.25rem;
+  min-width: 2.125rem;
   justify-content: center;
   position: absolute;
 
@@ -28,6 +28,7 @@ const arrowCss = css`
   &:hover {
     background-color: #394144;
   }
+  margin: auto;
 `;
 
 const StyledLeftArrowButton = styled(Button)`
@@ -113,32 +114,11 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
   const horizontalList = useRef<HorizontalListModel>();
 
   if (ref) {
-    horizontalList.current = new HorizontalListModel(ref);
+    horizontalList.current = new HorizontalListModel(ref, true);
   }
 
-  const horizontalListService = useMemo(() => {
-    if (!ref) {
-      return null;
-    }
-
-    if (!horizontalList.current) {
-      horizontalList.current = new HorizontalListModel(ref);
-    }
-
-    return new HorizontalListService(horizontalList.current);
-  }, [ref]);
-
-  const horizontalListHandlers = useMemo(() => {
-    if (!ref) {
-      return null;
-    }
-
-    if (!horizontalList.current) {
-      horizontalList.current = new HorizontalListModel(ref);
-    }
-
-    return new HorizontalListHandlers(horizontalList.current);
-  }, [ref]);
+  const horizontalListService = useMemo(() => createHorizontalListService(ref, horizontalList, true), [ref]);
+  const horizontalListHandlers = useMemo(() => createHorizontalListHandlers(ref, horizontalList, true), [ref]);
 
   const handleInterval = useCallback(() => {
     if (!horizontalList.current?.moving) {

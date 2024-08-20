@@ -5,6 +5,7 @@ import Car2Image from 'assets/Car2.jpg';
 import SUVBodyTypeImage from 'assets/SUV.png';
 
 export const TELEPHONE = '+38977648648';
+export const EMAIL = 'vane.stamenov@gmail.com';
 
 export const bodyTypes = [
   { id: 0, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
@@ -29,6 +30,21 @@ export const faqQuestions = [
   },
   {
     id: 1,
+    question: 'Question?',
+    answer: 'Answer',
+  },
+  {
+    id: 2,
+    question: 'Question?',
+    answer: 'Answer',
+  },
+  {
+    id: 3,
+    question: 'Question?',
+    answer: 'Answer',
+  },
+  {
+    id: 4,
     question: 'Question?',
     answer: 'Answer',
   },

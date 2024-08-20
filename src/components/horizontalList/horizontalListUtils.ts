@@ -32,9 +32,11 @@ export class HorizontalListModel {
   previousTouch: number | null = null;
   moving = false;
   dragDirection: DragDirection = DragDirection.LEFT;
+  circular = true;
 
-  constructor(listRef: HTMLElement) {
+  constructor(listRef: HTMLElement, circular: boolean) {
     this.listRef = listRef;
+    this.circular = circular;
   }
 
   getListRef() {
@@ -74,7 +76,7 @@ export class HorizontalListService {
   }
 
   checkIfReorderNeeded(listScrollLeft: number, scroll: boolean): boolean {
-    if (!this.horizontalList.hasMinElements()) {
+    if (!this.horizontalList.hasMinElements() || !this.horizontalList.circular) {
       return false;
     }
 
@@ -289,3 +291,35 @@ export class HorizontalListHandlers {
     }
   }
 }
+
+export const createHorizontalListService = (
+  ref: HTMLElement | null,
+  horizontalList: React.MutableRefObject<HorizontalListModel | undefined>,
+  circular: boolean
+) => {
+  if (!ref) {
+    return null;
+  }
+
+  if (!horizontalList.current) {
+    horizontalList.current = new HorizontalListModel(ref, circular);
+  }
+
+  return new HorizontalListService(horizontalList.current);
+};
+
+export const createHorizontalListHandlers = (
+  ref: HTMLElement | null,
+  horizontalList: React.MutableRefObject<HorizontalListModel | undefined>,
+  circular: boolean
+) => {
+  if (!ref) {
+    return null;
+  }
+
+  if (!horizontalList.current) {
+    horizontalList.current = new HorizontalListModel(ref, circular);
+  }
+
+  return new HorizontalListHandlers(horizontalList.current);
+};

@@ -9,7 +9,7 @@ import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import styled from 'styled-components';
 
 const StarsWrapper = styled(Container)`
-  color: #f4cd00;
+  color: #232323;
 `;
 
 type ReviewProps = {
@@ -63,20 +63,20 @@ const Review: React.FC<ReviewProps> = (props) => {
 };
 
 const Wrapper = styled(Container)`
-  background-color: #1c72c5;
-  color: white;
+  /* background-color: #1c72c5; */
+  /* color: white; */
 `;
 
 const StyledLine = styled(Line)`
-  border-color: #f4cd00;
+  border-color: #232323;
   border-width: 4px;
   border-image: none;
 `;
 
 const Reviews: React.FC = () => {
   return (
-    <Wrapper minHeight="430px" sm={12} gap="4rem" centered padding={{ top: 'xl', bottom: 'xl' }}>
-      <Container sm="1400px" padding={{ left: 'md', right: 'md' }} centered>
+    <Wrapper sm={12} gap="4rem" centered>
+      <Container sm="1400px" padding={{ left: 'md', right: 'md', top: '3xl', bottom: '2xl' }} centered>
         <Carousel noArrows noChangeOptions>
           {reviews.map((review) => {
             return <Review key={review.id} review={review} />;

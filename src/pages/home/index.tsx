@@ -2,32 +2,32 @@ import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 import RentCarImage from 'assets/rent-car-image.jpg';
 
+import BoxAnimation from 'components/BoxAnimation';
 import Button from 'components/Button';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
-import List from 'components/List';
 import MiniProductCard from 'components/card/MiniProductCard';
 import { RibbonType } from 'components/card/types';
+import HorizontalList from 'components/horizontalList/HorizontalList';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { products } from 'pages/constants';
-import BoxAnimation from 'components/BoxAnimation';
 import TabButtonsGroup from 'pages/home/ButtonsGroup';
 import FAQ from 'pages/home/Faq';
-import HorizontalList from 'components/horizontalList/HorizontalList';
+import NewsLetterSubscription from 'pages/home/NewsLetterSubscription';
 import ProductsSection from 'pages/home/ProductsSection';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
+import Services from 'pages/home/Services';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import {
-  CarServiceServiceTile,
+  BuyingACarWrapper,
   CarouselWrapper,
   HomeWrapper,
   PopularMakesWrapper,
   StyledBuyCarImage,
   StyledRightImage,
-  TowingServiceServiceTile,
   WhiteBackgroundContainer,
 } from 'pages/home/index.styled';
 import React from 'react';
@@ -79,12 +79,12 @@ const Home: React.FC = () => {
             wrap
             centered
             itemsCentered
-            padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}
+            padding={{ top: 'xl', bottom: 'xl' }}
           >
-            <Container sm={12} md={5} itemsCentered>
+            <Container xs={12}>
               <SearchBox />
             </Container>
-            <Container sm={12} md={7} gap="1rem">
+            {/* <Container sm={12} md={7} gap="1rem">
               <Text fontSize="xl">Lookup cars for sale</Text>
               <Text fontSize="lg">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -92,14 +92,14 @@ const Home: React.FC = () => {
                 scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap
                 into electronic typesetting, remaining essentially unchanged.
               </Text>
-            </Container>
+            </Container> */}
           </Container>
         </BoxAnimation>
       </WhiteBackgroundContainer>
 
       <ProductsSection />
 
-      <WhiteBackgroundContainer padding={{ top: 'xl', bottom: '2xl' }} sm={12} gap="10rem">
+      <BuyingACarWrapper padding={{ top: 'xl', bottom: '2xl' }} sm={12} gap="2rem">
         <BoxAnimation threshold={0.2}>
           <Container
             direction="row"
@@ -155,11 +155,11 @@ const Home: React.FC = () => {
             </Container>
           </Container>
         </BoxAnimation>
-      </WhiteBackgroundContainer>
+      </BuyingACarWrapper>
       <PopularMakesWrapper sm={12}>
         <BoxAnimation threshold={0.2}>
-          <Container padding={{ top: 'xl', bottom: '2xl' }} gap="4rem">
-            <Container sm={12} centered alignItems="center" gap="3rem" padding={{ right: 'md' }}>
+          <Container padding={{ top: '2xl', bottom: '3xl' }} gap="2rem">
+            <Container sm={12} centered alignItems="center" gap="4rem" padding={{ right: 'md' }}>
               <Container xs={12} gap="1rem" direction="row" alignItems="center" justifyContent="space-between">
                 <Container xs={0} md={2} />
                 <Container xs={12} alignItems="center">
@@ -187,54 +187,7 @@ const Home: React.FC = () => {
         </BoxAnimation>
       </PopularMakesWrapper>
       <WhiteBackgroundContainer>
-        <Container sm="1400px" centered itemsCentered padding={{ top: '2xl', bottom: 'xl', left: 'md', right: 'md' }}>
-          <List xs={1} sm={2} lg={4} gap="2rem" justifyContent="center" elementWidth="1fr">
-            <BoxAnimation duration="250ms">
-              <CarServiceServiceTile
-                titleDescriptionContainer={{ gap: '1rem' }}
-                title="CAR SERVICE"
-                description={`mply dummy text of the printing 
-              and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-              It has survived not only five centuries, but`}
-                padding="lg"
-                xs={'100%'}
-              />
-            </BoxAnimation>
-            <BoxAnimation duration="500ms">
-              <TowingServiceServiceTile
-                titleDescriptionContainer={{ gap: '1rem' }}
-                title="FAST AND INEXPENSIVE TOWING SERVICES"
-                description={`
-            When it is not possible to fix a vehicle on-site, we utilise our extensive
-            network of local providers across Europe to deliver a professional and reliable towing service.`}
-                padding="lg"
-                xs={'100%'}
-              />
-            </BoxAnimation>
-            <BoxAnimation duration="750ms">
-              <CarServiceServiceTile
-                titleDescriptionContainer={{ gap: '1rem' }}
-                title="CAR SERVICE"
-                description={`mply dummy text of the printing 
-              and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
-              It has survived not only five centuries, but`}
-                padding="lg"
-                xs={'100%'}
-              />
-            </BoxAnimation>
-            <BoxAnimation duration="1s">
-              <TowingServiceServiceTile
-                titleDescriptionContainer={{ gap: '1rem' }}
-                title="FAST AND INEXPENSIVE TOWING SERVICES"
-                description={`
-            When it is not possible to fix a vehicle on-site, we utilise our extensive
-            network of local providers across Europe to deliver a professional and reliable towing service.`}
-                padding="lg"
-                xs={'100%'}
-              />
-            </BoxAnimation>
-          </List>
-        </Container>
+        <Services />
       </WhiteBackgroundContainer>
       {/* <CantFindVehicle /> */}
       {/* <CarLot /> */}
@@ -246,6 +199,11 @@ const Home: React.FC = () => {
       <WhiteBackgroundContainer>
         <BoxAnimation>
           <Reviews />
+        </BoxAnimation>
+      </WhiteBackgroundContainer>
+      <WhiteBackgroundContainer>
+        <BoxAnimation>
+          <NewsLetterSubscription />
         </BoxAnimation>
       </WhiteBackgroundContainer>
       <WhiteBackgroundContainer>

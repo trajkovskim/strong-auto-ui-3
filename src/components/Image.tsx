@@ -16,7 +16,7 @@ const StyledImage = styled.img<StyledImageProps & { pointer?: boolean }>`
   object-position: ${(props) => props.objectPosition};
   border-radius: ${(props) => props.rounded && '5px'};
 
-  filter: ${(props) => props.shadow && 'drop-shadow(0 0 0.05rem #aaa5a5)'};
+  filter: ${(props) => props.shadow && 'drop-shadow(0 0 0.06rem #aaa5a5)'};
 
   user-select: none;
   max-width: ${(props) => props.width};

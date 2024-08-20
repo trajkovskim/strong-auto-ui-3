@@ -12,7 +12,7 @@ const BookmarkedButton: React.FC<Props> = (props) => {
     <Button
       maxContent
       themeType="link"
-      iconSize="3xl"
+      iconSize="lg"
       icon={props.bookmarked ? <MdFavorite /> : <MdFavoriteBorder />}
       onClick={props.onClick}
     />
