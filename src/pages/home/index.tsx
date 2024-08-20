@@ -158,7 +158,7 @@ const Home: React.FC = () => {
       </BuyingACarWrapper>
       <PopularMakesWrapper sm={12}>
         <BoxAnimation threshold={0.2}>
-          <Container padding={{ top: '2xl', bottom: '3xl' }} gap="2rem">
+          <Container padding={{ top: 'xl', bottom: '2xl' }} gap="2rem">
             <Container sm={12} centered alignItems="center" gap="4rem" padding={{ right: 'md' }}>
               <Container xs={12} gap="1rem" direction="row" alignItems="center" justifyContent="space-between">
                 <Container xs={0} md={2} />

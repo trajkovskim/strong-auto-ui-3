@@ -2,6 +2,7 @@ import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
 import Line from 'components/Line';
+import List from 'components/List';
 import Text from 'components/typography/Text';
 import { reviews } from 'pages/constants';
 import React, { useMemo } from 'react';
@@ -37,7 +38,7 @@ const Review: React.FC<ReviewProps> = (props) => {
   );
 
   return (
-    <Container key={props.review.id} gap="3rem" direction="row" centered>
+    <List key={props.review.id} xs={1} lg={2} elementWidth="auto" gap="3rem">
       <Container gap="1rem">
         <Container>
           <Text fontSize="lg" bold>
@@ -58,7 +59,7 @@ const Review: React.FC<ReviewProps> = (props) => {
         </Text>
         <Text>via {props.review.platform}</Text>
       </Container>
-    </Container>
+    </List>
   );
 };
 
