@@ -58,7 +58,7 @@ const Shop: React.FC = () => {
     <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between">
       <Container gap="1rem">
         <Breadcrumb />
-        <Container xs={0} md="max-content" preserveWhenXs direction="row" gap="1rem">
+        <Container xs={0} md="max-content" direction="row" gap="1rem">
           <Dropdown
             fullwidth
             size="md"
@@ -85,11 +85,11 @@ const Shop: React.FC = () => {
           />
         </Container>
       </Container>
-      <Container direction="row" preserveWhenXs justifyContent="space-between" alignItems="flex-end">
-        <Container xs="max-content" md={0} preserveWhenXs direction="row" gap="1rem">
+      <Container direction="row" justifyContent="space-between" alignItems="flex-end">
+        <Container xs="max-content" md={0} direction="row" gap="1rem">
           <Button maxContent icon={<BiMenu />} themeType="link" size="lg" />
         </Container>
-        <Container sm="max-content" preserveWhenXs direction="row" gap="0.3rem">
+        <Container sm="max-content" direction="row" gap="0.3rem">
           <Container xs={'max-content'} lg={0}>
             <Button
               maxContent
@@ -125,7 +125,7 @@ const Shop: React.FC = () => {
   const handleCloseSidebar = () => setSidebarShow(false);
 
   const sidebarMobile = (
-    <Sidebar preserveWhenXs sm={12} md="300px" open={sidebarShow} onClose={handleCloseSidebar}>
+    <Sidebar sm={12} md="300px" open={sidebarShow} onClose={handleCloseSidebar}>
       <Filters onClose={handleCloseSidebar} />
     </Sidebar>
   );

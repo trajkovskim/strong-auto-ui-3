@@ -24,7 +24,7 @@ const StyledSearchButton = styled(Button)`
 
 const SearchBox: React.FC = () => {
   return (
-    <SearchBoxWrapper sm="550px" gap="1.2rem" wrap rounded padding="md" preserveWhenXs>
+    <SearchBoxWrapper sm="550px" gap="1.2rem" wrap rounded padding="md">
       <Container sm={12}>
         <Title title="Find what you are looking for" bold fontSize="md" />
       </Container>
@@ -37,7 +37,7 @@ const SearchBox: React.FC = () => {
       <Container sm={12}>
         <Autocomplete fullwidth label="Price" placeholder="Any price" size="md" options={[{ value: 'audi' }]} />
       </Container>
-      <Container preserveWhenXs sm={12} justifyContent="flex-end" alignItems="center" direction="row" gap="0.5rem">
+      <Container sm={12} justifyContent="flex-end" alignItems="center" direction="row" gap="0.5rem">
         <Button padding="md" themeType="link" maxContent size="md" icon={<BiFilter />}>
           Advanced
         </Button>

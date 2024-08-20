@@ -16,11 +16,7 @@ export const StyledImage = styled(Image)`
   height: ${(props) => props.height ?? '100%'};
 `;
 
-export const StyledRibbon = styled(Ribbon)`
-  top: 10px;
-  left: 10px;
-  position: absolute;
-`;
+export const StyledRibbon = styled(Ribbon)``;
 
 export const StyledIcon = styled(Icon)`
   color: #a5a5a5;
@@ -36,5 +32,27 @@ export const PriceWrapper = styled(Container)`
 `;
 
 export const StyledCarousel = styled(Carousel)`
+  height: 100%;
+  max-height: 600px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0px -31px 50px -6px black;
+
+    /* -webkit-box-shadow: inset 0px -36px 60px -20px black;
+    -moz-box-shadow: inset 0px -36px 60px -20px black;
+    box-shadow: inset 0px -36px 60px -20px black; */
+    overflow: hidden;
+  }
+`;
+
+export const OnImageContainer = styled(Container)`
+  position: absolute;
+  width: 100%;
   height: 100%;
 `;

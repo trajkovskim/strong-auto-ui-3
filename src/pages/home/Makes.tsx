@@ -67,8 +67,6 @@ const Makes: React.FC = () => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       direction="row"
-      preserveWhenXs
-      // padding={{ top: 'lg', bottom: 'lg' }}
     >
       <MakeTile>
         <Image src={FiatLogo} alt="Fiat" objectFit="contain" width={'150px'} centered />

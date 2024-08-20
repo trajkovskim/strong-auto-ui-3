@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
     <StyledFooter>
       <Container centered sm="1400px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
         <Container xs={12} direction="row" wrap justifyContent="space-between" alignItems="center" gap="1rem">
-          <Container sm={12} preserveWhenXs md="max-content">
+          <Container sm={12} md="max-content">
             <Title
               title="Join our newletter"
               fontSize="md"
@@ -52,7 +52,6 @@ const Footer: React.FC = () => {
           <StyledNewsLetterFormContainer
             sm={12}
             md="max-content"
-            preserveWhenXs
             padding="sm"
             direction="row"
             alignItems="center"
@@ -84,7 +83,7 @@ const Footer: React.FC = () => {
               <br />
               California 90017
             </Text>
-            <SocialMedias gap="1.5rem" direction="row" preserveWhenXs>
+            <SocialMedias gap="1.5rem" direction="row">
               {socialMedias.map((socialMedia, index) => (
                 <Button
                   key={index}

@@ -32,23 +32,14 @@ const Navbar: React.FC<Props> = (props) => {
         padding={{ left: 'xs', right: 'xs' }}
         relative
         direction="row"
-        preserveWhenXs
         justifyContent="space-between"
         alignItems="center"
       >
         <LogoImage />
-        <Container xs={0} lg="max-content" preserveWhenXs alignItems="center">
+        <Container xs={0} lg="max-content" alignItems="center">
           <Navigation />
         </Container>
-        <Container
-          xs="max-content"
-          lg={0}
-          direction="row"
-          padding={{ right: 'md' }}
-          gap="1rem"
-          preserveWhenXs
-          alignItems="center"
-        >
+        <Container xs="max-content" lg={0} direction="row" padding={{ right: 'md' }} gap="1rem" alignItems="center">
           <MobileNavigation />
         </Container>
       </StyledContainer>

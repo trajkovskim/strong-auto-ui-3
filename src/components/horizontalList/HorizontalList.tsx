@@ -242,7 +242,6 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
   return (
     <HorizontalListWrapper gap={props.gap} centered={props.centered} maxWidth={props.maxWidth}>
       <HorizontalListChildrenWrapper
-        preserveWhenXs
         onMouseUp={handleMouseUp}
         onMouseDown={() => horizontalListHandlers?.mouseDownHandler()}
         onTouchStart={(event) => horizontalListHandlers?.touchStartHandler(event)}
@@ -257,7 +256,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
       >
         {React.Children.map(props.children, (child, index) => {
           return (
-            <Container {...props.chunkSize} preserveWhenXs key={index}>
+            <Container {...props.chunkSize} key={index}>
               {child}
             </Container>
           );

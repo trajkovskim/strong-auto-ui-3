@@ -170,7 +170,6 @@ export const CarouselChangeOptions: React.FC<ChangeOptionsProps> = (props) => {
     <Container
       className="carousel_change-options"
       direction="row"
-      preserveWhenXs
       onClick={(event) => {
         event.stopPropagation();
       }}

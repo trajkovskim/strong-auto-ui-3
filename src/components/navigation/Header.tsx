@@ -22,17 +22,16 @@ const Header: React.FC = () => {
     <StyledHeader>
       <Container
         sm={12}
-        preserveWhenXs
         justifyContent="end"
         alignItems="center"
         direction="row"
         gap="1.5rem"
         padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
       >
-        <Container preserveWhenXs>
+        <Container>
           <LanguageChanger />
         </Container>
-        <Container preserveWhenXs>
+        <Container>
           <StyledButton
             maxContent
             themeType="link"
@@ -43,7 +42,7 @@ const Header: React.FC = () => {
             {TELEPHONE}
           </StyledButton>
         </Container>
-        <Container gap="1.5rem" direction="row" preserveWhenXs>
+        <Container gap="1.5rem" direction="row">
           {socialMedias.map((socialMedia, index) => (
             <StyledButton
               key={index}

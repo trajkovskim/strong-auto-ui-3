@@ -12,15 +12,8 @@ const CantFindVehicleContainer = styled(Container)`
 
 const CantFindVehicle: React.FC = () => {
   return (
-    <CantFindVehicleContainer preserveWhenXs direction="row" alignItems="center" justifyContent="flex-end" relative>
-      <Container
-        preserveWhenXs
-        padding={{ top: 'lg', bottom: 'lg', right: 'md' }}
-        gap="2rem"
-        sm="1400px"
-        centered
-        alignItems="center"
-      >
+    <CantFindVehicleContainer direction="row" alignItems="center" justifyContent="flex-end" relative>
+      <Container padding={{ top: 'lg', bottom: 'lg', right: 'md' }} gap="2rem" sm="1400px" centered alignItems="center">
         <Title
           centered
           title="Can't find the vehicle you are looking for?"

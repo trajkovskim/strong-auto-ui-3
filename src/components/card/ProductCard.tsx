@@ -1,35 +1,18 @@
+import BoxAnimation from 'components/BoxAnimation';
 import Button from 'components/Button';
 import { CarouselHandle } from 'components/Carousel';
 import Container from 'components/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
 import Card from 'components/card/Card';
-import { PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
+import { OnImageContainer, PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
+import Ribbon from 'components/card/Ribbon';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Text from 'components/typography/Text';
-import BoxAnimation from 'components/BoxAnimation';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import { formatNumber } from 'utils';
-
-const ImageWrapper = styled(Container)`
-  height: 100%;
-  max-height: 600px;
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    -webkit-box-shadow: inset 0px -36px 60px -20px black;
-    -moz-box-shadow: inset 0px -36px 60px -20px black;
-    box-shadow: inset 0px -36px 60px -20px black;
-    overflow: hidden;
-  }
-`;
 
 const StyledCard = styled(Card)`
   transition: all 200ms;
@@ -68,7 +51,7 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const BodyTitleWrapper = styled(Container)`
+const ProductCardTitleWrapper = styled(Container)`
   button {
     display: block;
   }
@@ -80,31 +63,23 @@ const BodyTitleWrapper = styled(Container)`
   }
 `;
 
-const BodyWrapper = styled(Container)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-  right: 0;
-`;
-
 const ProductCard: React.FC<Props> = (props) => {
   const [imageCarouselRef, setImageCarouselRef] = useState<CarouselHandle | null>(null);
 
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm' }} preserveWhenXs>
+    <PriceWrapper>
       {props.price?.totalPromo && (
-        <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
+        <Container alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
-          </Text>{' '}
+          </Text>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.totalPromo)}
           </Text>
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end" preserveWhenXs>
+        <Container alignItems="flex-end">
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -113,51 +88,45 @@ const ProductCard: React.FC<Props> = (props) => {
     </PriceWrapper>
   );
 
-  const body = (
-    <BodyWrapper
-      preserveWhenXs
-      direction="row"
-      gap="1rem"
-      padding="md"
-      justifyContent="space-between"
-      alignItems="flex-end"
-    >
-      <Container xs={12} preserveWhenXs direction="row" alignItems="end" justifyContent="space-between">
-        <BodyTitleWrapper overflow="hidden">
-          <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
-            <Text>{props.title}</Text>
-            {props.summary && (
-              <Text fontSize="md" title={props.summary}>
-                {props.summary}
-              </Text>
-            )}
-          </Button>
-        </BodyTitleWrapper>
-        {price}
-      </Container>
-    </BodyWrapper>
+  const productCardTitlePrice = (
+    <Container xs={12} direction="row" alignItems="end" gap="1rem" justifyContent="space-between">
+      <ProductCardTitleWrapper overflow="hidden">
+        <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
+          <Text fontSize="md" title={props.title}>
+            {props.title}
+          </Text>
+          {props.summary && (
+            <Text fontSize="md" title={props.summary}>
+              {props.summary}
+            </Text>
+          )}
+        </Button>
+      </ProductCardTitleWrapper>
+      {price}
+    </Container>
   );
 
   const onImageContainer = (
-    <>
-      <BookmarkedButton
-        bookmarked={props.bookmarked}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      />
-      {body}
-    </>
+    <OnImageContainer justifyContent="space-between" padding="md">
+      <Container direction="row" justifyContent="space-between" gap="1rem">
+        {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
+        <BookmarkedButton
+          bookmarked={props.bookmarked}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        />
+      </Container>
+      {productCardTitlePrice}
+    </OnImageContainer>
   );
 
   const image = (
-    <ImageWrapper>
-      <StyledCarousel noChangeOptions noArrows ref={setImageCarouselRef}>
-        {props.images?.map((image, index) => (
-          <StyledImage key={index} shadow objectFit="cover" height="450px" src={image} />
-        ))}
-      </StyledCarousel>
-    </ImageWrapper>
+    <StyledCarousel noChangeOptions noArrows ref={setImageCarouselRef}>
+      {props.images?.map((image, index) => (
+        <StyledImage key={index} shadow objectFit="cover" height="450px" src={image} />
+      ))}
+    </StyledCarousel>
   );
 
   // const footer = (
@@ -176,19 +145,19 @@ const ProductCard: React.FC<Props> = (props) => {
   //       padding={{ bottom: 'xs', top: 'xs', left: 'md', right: 'md' }}
   //     >
   //       {props.km && (
-  //         <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{formatNumber(props.km)}km</Text>
   //           <StyledIcon size="lg" icon={<FaRoad />} />
   //         </Container>
   //       )}
   //       {props.fuelType && (
-  //         <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{props.fuelType}</Text>
   //           <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
   //         </Container>
   //       )}
   //       {props.transmission && (
-  //         <Container preserveWhenXs padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{props.transmission}</Text>
   //           <StyledIcon size="lg" icon={<TbManualGearbox />} />
   //         </Container>
@@ -204,7 +173,6 @@ const ProductCard: React.FC<Props> = (props) => {
         // body={body}
         image={image}
         onImageContainer={onImageContainer}
-        ribbon={props.ribbon && ribbons[props.ribbon]}
         onClick={props.onView}
         // footer={footer}
         bordered

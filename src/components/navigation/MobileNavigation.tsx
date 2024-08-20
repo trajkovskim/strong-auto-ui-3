@@ -65,15 +65,9 @@ const MobileNavigation: React.FC = () => {
             `,
           }}
         >
-          <MobileContainer preserveWhenXs>
+          <MobileContainer>
             <Container>
-              <Container
-                xs={12}
-                preserveWhenXs
-                direction="row"
-                justifyContent="space-between"
-                padding={{ top: 'md', right: 'md' }}
-              >
+              <Container xs={12} direction="row" justifyContent="space-between" padding={{ top: 'md', right: 'md' }}>
                 <LogoImage />
                 <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
               </Container>
@@ -83,14 +77,13 @@ const MobileNavigation: React.FC = () => {
               direction="row"
               justifyContent="space-between"
               padding={{ top: 'lg', bottom: 'md', right: 'md', left: 'md' }}
-              preserveWhenXs
               xs={12}
               gap="0.5rem"
             >
               <Container>
                 <LanguageChanger />
               </Container>
-              <Container gap="1.5rem" direction="row" preserveWhenXs>
+              <Container gap="1.5rem" direction="row">
                 {socialMedias.map((socialMedia, index) => (
                   <Button
                     key={index}
@@ -107,7 +100,7 @@ const MobileNavigation: React.FC = () => {
         </Transition>,
         portalsElement
       )}
-      <Container xs="max-content" lg={0} preserveWhenXs>
+      <Container xs="max-content" lg={0}>
         <Button
           maxContent
           themeType="link"

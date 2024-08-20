@@ -19,7 +19,7 @@ type ReviewProps = {
 const Review: React.FC<ReviewProps> = (props) => {
   const createdStars = useMemo(
     () => (
-      <Container preserveWhenXs direction="row" gap="0.5rem">
+      <Container direction="row" gap="0.5rem">
         {new Array(5).fill(0).map((_, index) => {
           const remainingRating = props.review.rating - index;
 
@@ -38,17 +38,15 @@ const Review: React.FC<ReviewProps> = (props) => {
 
   return (
     <Container key={props.review.id} gap="3rem" direction="row" centered>
-      <Container preserveWhenXs gap="1rem">
-        <Container preserveWhenXs>
+      <Container gap="1rem">
+        <Container>
           <Text fontSize="lg" bold>
             {props.review.username}
           </Text>
           <Text fontSize="sm">{props.review.creationDate.toUTCString()}</Text>
         </Container>
-        <Container preserveWhenXs gap="0.5rem">
-          <StarsWrapper preserveWhenXs sm="max-content">
-            {createdStars}
-          </StarsWrapper>
+        <Container gap="0.5rem">
+          <StarsWrapper sm="max-content">{createdStars}</StarsWrapper>
           <Text fontSize="sm">{props.review.rating}-star rating</Text>
         </Container>
       </Container>
@@ -77,7 +75,7 @@ const StyledLine = styled(Line)`
 
 const Reviews: React.FC = () => {
   return (
-    <Wrapper minHeight="430px" sm={12} gap="4rem" centered padding={{ top: 'xl', bottom: 'xl' }} preserveWhenXs>
+    <Wrapper minHeight="430px" sm={12} gap="4rem" centered padding={{ top: 'xl', bottom: 'xl' }}>
       <Container sm="1400px" padding={{ left: 'md', right: 'md' }} centered>
         <Carousel noArrows noChangeOptions>
           {reviews.map((review) => {

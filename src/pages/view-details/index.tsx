@@ -114,7 +114,7 @@ const ViewDetails: React.FC = () => {
         <Container gap="2rem">
           <BoxAnimation>
             <Container relative sm={8} gap="1rem">
-              <Container wrap preserveWhenXs direction="row" gap="1rem">
+              <Container wrap direction="row" gap="1rem">
                 <Button padding="md" maxContent size="md" themeType="ghost" icon={<BiCalendar />} iconSize="lg">
                   {product.year}
                 </Button>
@@ -150,7 +150,7 @@ const ViewDetails: React.FC = () => {
               </Container>
 
               <BoxAnimation>
-                <Container gap="0.5rem" preserveWhenXs>
+                <Container gap="0.5rem">
                   <Text fontSize="2xl">Description</Text>
                   <Text fontSize="md">{product.description}</Text>
                 </Container>
@@ -203,7 +203,7 @@ const ViewDetails: React.FC = () => {
                   <Text fontSize="2xl">Features</Text>
                   <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
                     {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
-                      <Container sm={12} preserveWhenXs key={featureTitleKey} alignItems="flex-start" gap="0.5rem">
+                      <Container sm={12} key={featureTitleKey} alignItems="flex-start" gap="0.5rem">
                         <Container direction="column" gap="0.3rem">
                           <Text fontSize="xl">{featureTitleKey}</Text>
                           {featureValueKeys.map((valueKey) => (
@@ -225,7 +225,7 @@ const ViewDetails: React.FC = () => {
               </Container>
 
               <BoxAnimation>
-                <StyledContainer rounded padding="md" gap="1rem" bordered preserveWhenXs>
+                <StyledContainer rounded padding="md" gap="1rem" bordered>
                   <Container gap="0.3rem">
                     <Text fontSize="lg">Our offer:</Text>
                     {product.price?.totalPromo && (

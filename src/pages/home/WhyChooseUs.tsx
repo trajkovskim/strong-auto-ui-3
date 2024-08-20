@@ -15,20 +15,15 @@ const StyledIcon = styled(Icon)`
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <Container
-      minHeight="430px"
-      preserveWhenXs
-      padding={{ top: 'xl', bottom: '2xl', left: 'md', right: 'md' }}
-      gap="3rem"
-    >
-      <Container preserveWhenXs gap="2rem">
+    <Container minHeight="430px" padding={{ top: 'xl', bottom: '2xl', left: 'md', right: 'md' }} gap="3rem">
+      <Container gap="2rem">
         <Title centered title="Why choose us" fontSize="2xl" />
         <Line />
       </Container>
       <Container sm="1400px" centered>
         <List sm={1} md={2} lg={4} gap="1rem">
           <BoxAnimation>
-            <Container gap="0.7rem" preserveWhenXs>
+            <Container gap="0.7rem">
               <StyledIcon size="3xl" icon={<VscWorkspaceTrusted />} />
               <Text bold fontSize="lg">
                 Trusted Car Dealership
@@ -40,7 +35,7 @@ const WhyChooseUs: React.FC = () => {
             </Container>
           </BoxAnimation>
           <BoxAnimation>
-            <Container gap="0.7rem" preserveWhenXs>
+            <Container gap="0.7rem">
               <StyledIcon size="3xl" icon={<VscWorkspaceTrusted />} />
               <Text bold fontSize="lg">
                 Trusted Car Dealership
@@ -52,7 +47,7 @@ const WhyChooseUs: React.FC = () => {
             </Container>
           </BoxAnimation>
           <BoxAnimation>
-            <Container gap="0.7rem" preserveWhenXs>
+            <Container gap="0.7rem">
               <StyledIcon size="3xl" icon={<VscWorkspaceTrusted />} />
               <Text bold fontSize="lg">
                 Trusted Car Dealership
@@ -64,7 +59,7 @@ const WhyChooseUs: React.FC = () => {
             </Container>
           </BoxAnimation>
           <BoxAnimation>
-            <Container gap="0.7rem" preserveWhenXs>
+            <Container gap="0.7rem">
               <StyledIcon size="3xl" icon={<VscWorkspaceTrusted />} />
               <Text bold fontSize="lg">
                 Trusted Car Dealership

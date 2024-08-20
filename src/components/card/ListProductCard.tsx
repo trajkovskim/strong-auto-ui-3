@@ -26,7 +26,7 @@ const ListProductCard: React.FC<Props> = (props) => {
   const price = (
     <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }}>
       {props.price?.totalPromo && (
-        <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
+        <Container alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
           </Text>{' '}
@@ -36,7 +36,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end" preserveWhenXs>
+        <Container alignItems="flex-end">
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -48,7 +48,7 @@ const ListProductCard: React.FC<Props> = (props) => {
   const productAttributes = (
     <List gap="1rem" sm={2} md={2} lg={2} xl={3} {...{ '2xl': 5 }} justifyContent="flex-start">
       {props.km && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
           <StyledIcon size="lg" icon={<FaRoad />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -59,7 +59,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {props.fuelType && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
           <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -70,7 +70,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {props.transmission && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
           <StyledIcon size="lg" icon={<TbManualGearbox />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -82,7 +82,7 @@ const ListProductCard: React.FC<Props> = (props) => {
       )}
 
       {props.year && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
           <StyledIcon size="lg" icon={<BiCalendar />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -94,7 +94,7 @@ const ListProductCard: React.FC<Props> = (props) => {
       )}
 
       {props.driveType && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" preserveWhenXs padding="sm" direction="row">
+        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
           <StyledIcon size="lg" icon={<FaGear />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -108,7 +108,7 @@ const ListProductCard: React.FC<Props> = (props) => {
   );
 
   const body = (
-    <Container preserveWhenXs gap="0.5rem" style={{ flex: '1 0 100%' }} justifyContent="space-between">
+    <Container gap="0.5rem" style={{ flex: '1 0 100%' }} justifyContent="space-between">
       <Container>
         <Container direction="row" padding={{ left: 'md' }} justifyContent="space-between">
           <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
@@ -121,11 +121,9 @@ const ListProductCard: React.FC<Props> = (props) => {
               )}
             </Button>
           </Container>
-          <Container preserveWhenXs direction="row">
-            {price}
-          </Container>
+          <Container direction="row">{price}</Container>
         </Container>
-        <Container padding={{ left: 'md' }} xs="max-content" preserveWhenXs>
+        <Container padding={{ left: 'md' }} xs="max-content">
           {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
         </Container>
       </Container>

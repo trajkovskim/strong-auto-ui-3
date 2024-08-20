@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const StyledContainer = styled(Container)`
@@ -33,22 +33,19 @@ export type ButtonProps = {
 type Props = {
   onChange?: (button: ButtonProps, index: number) => void;
   buttons: ButtonProps[];
-  defaultActive?: number;
+  active?: number;
 };
 
 const TabButtonsGroup: React.FC<Props> = (props) => {
-  const [active, setActive] = useState(props.defaultActive ?? 0);
-
   return (
-    <StyledContainer preserveWhenXs direction="row" alignItems="flex-start" gap="1rem">
+    <StyledContainer direction="row" alignItems="flex-start" gap="1rem">
       {props.buttons.map((button, index) => (
         <StyledButton
           key={index}
           size="lg"
           themeType="link"
-          active={active === index}
+          active={props.active === index}
           onClick={() => {
-            setActive(index);
             button.onClick && button.onClick();
             props.onChange && props.onChange(button, index);
           }}

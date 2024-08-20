@@ -39,14 +39,14 @@ const Home: React.FC = () => {
 
   return (
     <HomeWrapper>
-      <CarouselWrapper minHeight="800px" maxHeight="100vh" preserveWhenXs>
+      <CarouselWrapper minHeight="800px" maxHeight="100vh">
         <Carousel absolute minHeight="800px" maxHeight="100vh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" objectPosition="center" height="100%" />
         </Carousel>
-        <Container preserveWhenXs gap="3rem" padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}>
+        <Container gap="3rem" padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}>
           <BoxAnimation>
-            <Container xs="600px" preserveWhenXs centered itemsCentered>
+            <Container xs="600px" centered itemsCentered>
               <Title
                 fontSize={{ title: '3xl', description: 'xl' }}
                 bold
@@ -58,7 +58,7 @@ const Home: React.FC = () => {
             </Container>
           </BoxAnimation>
           <BoxAnimation>
-            <Container xs="600px" preserveWhenXs direction="row" gap="1rem" centered itemsCentered>
+            <Container xs="600px" direction="row" gap="1rem" centered itemsCentered>
               <Button maxContent size="lg" padding="md">
                 Get to the Inventory
               </Button>
@@ -70,14 +70,13 @@ const Home: React.FC = () => {
         </Container>
       </CarouselWrapper>
 
-      <WhiteBackgroundContainer sm={12} preserveWhenXs>
+      <WhiteBackgroundContainer sm={12}>
         <BoxAnimation threshold={0.2}>
           <Container
             sm="1400px"
             gap="2rem"
             direction="row"
             wrap
-            preserveWhenXs
             centered
             itemsCentered
             padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }}
@@ -85,7 +84,7 @@ const Home: React.FC = () => {
             <Container sm={12} md={5} itemsCentered>
               <SearchBox />
             </Container>
-            <Container sm={12} md={7} gap="1rem" preserveWhenXs>
+            <Container sm={12} md={7} gap="1rem">
               <Text fontSize="xl">Lookup cars for sale</Text>
               <Text fontSize="lg">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -100,7 +99,7 @@ const Home: React.FC = () => {
 
       <ProductsSection />
 
-      <WhiteBackgroundContainer padding={{ top: 'xl', bottom: '2xl' }} preserveWhenXs sm={12} gap="10rem">
+      <WhiteBackgroundContainer padding={{ top: 'xl', bottom: '2xl' }} sm={12} gap="10rem">
         <BoxAnimation threshold={0.2}>
           <Container
             direction="row"
@@ -108,12 +107,11 @@ const Home: React.FC = () => {
             minHeight="530px"
             padding={{ bottom: 'lg', right: 'md', left: 'md' }}
             gap="3.5rem"
-            preserveWhenXs
           >
-            <Container sm={12} lg={7} xl={5.5} preserveWhenXs>
+            <Container sm={12} lg={7} xl={5.5}>
               <StyledBuyCarImage height="500px" objectFit="cover" shadow src={RentCarImage} />
             </Container>
-            <Container sm={12} lg={5} xl={5} gap="1rem" preserveWhenXs>
+            <Container sm={12} lg={5} xl={5} gap="1rem">
               <Title fontSize="2xl" bold title="Buying a car?" textAlign="right" />
               <Text fontSize="lg" textAlign="right">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -137,9 +135,8 @@ const Home: React.FC = () => {
             minHeight="530px"
             padding={{ bottom: 'lg', right: 'md', left: 'md' }}
             gap="3.5rem"
-            preserveWhenXs
           >
-            <Container xs={12} lg={5} xl={5} gap="1rem" preserveWhenXs>
+            <Container xs={12} lg={5} xl={5} gap="1rem">
               <Title fontSize="2xl" bold title="Buying a car?" />
               <Text fontSize="lg">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -153,7 +150,7 @@ const Home: React.FC = () => {
                 </Button>
               </Container>
             </Container>
-            <Container xs={12} lg={7} xl={5.5} preserveWhenXs>
+            <Container xs={12} lg={7} xl={5.5}>
               <StyledRightImage objectFit="cover" shadow src={RentCarImage} />
             </Container>
           </Container>
@@ -161,18 +158,11 @@ const Home: React.FC = () => {
       </WhiteBackgroundContainer>
       <PopularMakesWrapper sm={12}>
         <BoxAnimation threshold={0.2}>
-          <Container preserveWhenXs padding={{ top: 'xl', bottom: '2xl' }} gap="4rem">
+          <Container padding={{ top: 'xl', bottom: '2xl' }} gap="4rem">
             <Container sm={12} centered alignItems="center" gap="3rem" padding={{ right: 'md' }}>
-              <Container
-                xs={12}
-                preserveWhenXs
-                gap="1rem"
-                direction="row"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Container preserveWhenXs xs={0} md={2} />
-                <Container xs={12} preserveWhenXs alignItems="center">
+              <Container xs={12} gap="1rem" direction="row" alignItems="center" justifyContent="space-between">
+                <Container xs={0} md={2} />
+                <Container xs={12} alignItems="center">
                   <Title title="Popular Makes" fontSize="2xl" bold />
                 </Container>
                 <Container xs="max-content" md={2}>
@@ -196,14 +186,8 @@ const Home: React.FC = () => {
           </Container>
         </BoxAnimation>
       </PopularMakesWrapper>
-      <WhiteBackgroundContainer preserveWhenXs>
-        <Container
-          sm="1400px"
-          preserveWhenXs
-          centered
-          itemsCentered
-          padding={{ top: '2xl', bottom: 'xl', left: 'md', right: 'md' }}
-        >
+      <WhiteBackgroundContainer>
+        <Container sm="1400px" centered itemsCentered padding={{ top: '2xl', bottom: 'xl', left: 'md', right: 'md' }}>
           <List xs={1} sm={2} lg={4} gap="2rem" justifyContent="center" elementWidth="1fr">
             <BoxAnimation duration="250ms">
               <CarServiceServiceTile
@@ -213,7 +197,6 @@ const Home: React.FC = () => {
               and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
               It has survived not only five centuries, but`}
                 padding="lg"
-                preserveWhenXs
                 xs={'100%'}
               />
             </BoxAnimation>
@@ -225,7 +208,6 @@ const Home: React.FC = () => {
             When it is not possible to fix a vehicle on-site, we utilise our extensive
             network of local providers across Europe to deliver a professional and reliable towing service.`}
                 padding="lg"
-                preserveWhenXs
                 xs={'100%'}
               />
             </BoxAnimation>
@@ -237,7 +219,6 @@ const Home: React.FC = () => {
               and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever 
               It has survived not only five centuries, but`}
                 padding="lg"
-                preserveWhenXs
                 xs={'100%'}
               />
             </BoxAnimation>
@@ -249,7 +230,6 @@ const Home: React.FC = () => {
             When it is not possible to fix a vehicle on-site, we utilise our extensive
             network of local providers across Europe to deliver a professional and reliable towing service.`}
                 padding="lg"
-                preserveWhenXs
                 xs={'100%'}
               />
             </BoxAnimation>

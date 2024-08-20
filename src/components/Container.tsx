@@ -39,7 +39,6 @@ type StyledContainerProps = ContainerBreakpointsProps & {
   bordered?: boolean | Sides<boolean>;
   rounded?: boolean | Edges<boolean>;
   parentGap?: React.CSSProperties['gap'];
-  preserveWhenXs?: boolean;
   relative?: boolean;
   absolute?: boolean;
   zIndex?: number;
@@ -161,18 +160,6 @@ const StyledContainer = styled.div<StyledContainerProps>`
   text-align: ${(props) => props.textAlign};
   text-align: ${(props) => props.textCentered && 'center'};
 
-  ${(props) =>
-    !props.preserveWhenXs &&
-    css`
-      @media (max-width: ${theme.breakpoints.maxWidth.sm}) {
-        flex-direction: column !important;
-        width: 100% !important;
-        padding: ${props.padding && theme.padding.sm};
-        margin: 0 auto;
-        justify-content: center !important;
-      }
-    `}
-
   ${(props) => createMediaQ(props, 'xs')};
   ${(props) => createMediaQ(props, 'sm')};
   ${(props) => createMediaQ(props, 'md')};
@@ -194,14 +181,15 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props['2xl'] = props['2xl'] ?? props.xl;
   props['3xl'] = props['3xl'] ?? props['2xl'];
 
-  const childProps = props.direction?.startsWith('row') && props.wrap ? { parentGap: props.gap } : undefined;
+  const includeParentGap = props.direction?.startsWith('row') && props.wrap;
+  const childProps = includeParentGap ? { parentGap: props.gap } : undefined;
 
   return (
     <StyledContainer ref={ref} {...props}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          return React.cloneElement<any>(child, childProps);
+          return React.cloneElement<any>(child, { ...child.props, ...childProps });
         }
 
         return child;

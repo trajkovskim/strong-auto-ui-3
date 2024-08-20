@@ -1,6 +1,4 @@
 import Container from 'components/Container';
-import { StyledRibbon } from 'components/card/Card.styled';
-import { RibbonProps } from 'components/card/types';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -31,13 +29,11 @@ type Props = StyledCardProps & {
   image?: React.ReactNode;
   onImageContainer?: React.ReactNode;
   body?: React.ReactNode;
-  ribbon?: RibbonProps;
 } & React.ComponentProps<typeof Container>;
 
-const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, ...props }) => {
+const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ...props }) => {
   return (
     <StyledCard
-      preserveWhenXs
       fullwidth={props.fullwidth}
       alignItems="stretch"
       justifyContent="space-between"
@@ -46,11 +42,10 @@ const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ribbon, 
     >
       <Container relative>
         {image}
-        {ribbon && <StyledRibbon {...ribbon} />}
         {onImageContainer}
       </Container>
-      {body && <Container overflow="hidden">{body}</Container>}
-      {footer && <Container sm={12}>{footer}</Container>}
+      {body && <Container xs={12}>{body}</Container>}
+      {footer && <Container xs={12}>{footer}</Container>}
     </StyledCard>
   );
 };

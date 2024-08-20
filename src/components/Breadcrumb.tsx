@@ -28,7 +28,7 @@ const Breadcrumb: React.FC = () => {
   }
 
   return (
-    <Container direction="row" gap="0.3rem" preserveWhenXs alignItems="center">
+    <Container direction="row" gap="0.3rem" alignItems="center">
       {paths.map((path, index) => (
         <>
           {index !== paths.length - 1 ? (

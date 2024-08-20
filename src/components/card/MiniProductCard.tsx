@@ -1,7 +1,7 @@
 import Button from 'components/Button';
 import BookmarkedButton from 'components/card/BookmarkedButton';
 import Card from 'components/card/Card';
-import { PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
+import { OnImageContainer, PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Container from 'components/Container';
@@ -11,15 +11,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
 import { formatNumber } from 'utils';
-
-const BodyWrapper = styled(Container)`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  bottom: 0;
-  right: 0;
-  box-shadow: inset 0px -31px 50px -6px black;
-`;
+import Ribbon from 'components/card/Ribbon';
 
 const StyledCard = styled(Card)`
   transition: all 200ms;
@@ -60,9 +52,9 @@ const StyledCard = styled(Card)`
 
 const MiniProductCard: React.FC<Props> = (props) => {
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm' }} preserveWhenXs>
+    <PriceWrapper padding={{ left: 'lg', right: 'sm' }}>
       {props.price?.totalPromo && (
-        <Container preserveWhenXs alignItems="flex-end" gap="0.3rem">
+        <Container alignItems="flex-end" gap="0.3rem">
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
           </Text>{' '}
@@ -72,7 +64,7 @@ const MiniProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end" preserveWhenXs>
+        <Container alignItems="flex-end">
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -81,38 +73,31 @@ const MiniProductCard: React.FC<Props> = (props) => {
     </PriceWrapper>
   );
 
-  const body = (
-    <BodyWrapper
-      preserveWhenXs
-      direction="row"
-      gap="1rem"
-      padding="md"
-      justifyContent="space-between"
-      alignItems="flex-end"
-    >
+  const productCardTitlePrice = (
+    <Container direction="row" gap="1rem" justifyContent="space-between" alignItems="flex-end">
       <Container overflow="hidden" padding={{ top: 'sm' }}>
         <Button maxContent themeType="link" onClick={props.onView} size="lg">
           <div>{props.title}</div>
         </Button>
       </Container>
-      <Container preserveWhenXs direction="row">
-        {price}
-      </Container>
-    </BodyWrapper>
+      <Container direction="row">{price}</Container>
+    </Container>
   );
 
   const onImageContainer = (
-    <>
-      <BookmarkedButton
-        bookmarked={props.bookmarked}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      />
-      {body}
-    </>
+    <OnImageContainer justifyContent="space-between" padding="md">
+      <Container direction="row" justifyContent="space-between" gap="1rem">
+        {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
+        <BookmarkedButton
+          bookmarked={props.bookmarked}
+          onClick={(event) => {
+            event.stopPropagation();
+          }}
+        />
+      </Container>
+      {productCardTitlePrice}
+    </OnImageContainer>
   );
-
   const image = (
     <StyledCarousel noChangeOptions>
       {props.images?.map((image, index) => (
@@ -127,7 +112,6 @@ const MiniProductCard: React.FC<Props> = (props) => {
         fullwidth={props.fullwidth}
         image={image}
         onImageContainer={onImageContainer}
-        ribbon={props.ribbon && ribbons[props.ribbon]}
         onClick={props.onView}
       />
     </BoxAnimation>

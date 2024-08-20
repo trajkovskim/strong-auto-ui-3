@@ -41,9 +41,9 @@ const Filters: React.FC<Props> = (props) => {
 
   return (
     <Container bordered={{ right: true, bottom: true }} gap="1rem">
-      <FiltersHeader justifyContent="space-between" preserveWhenXs direction="row" padding="md">
+      <FiltersHeader justifyContent="space-between" direction="row" padding="md">
         <Text>Filtering</Text>
-        <Container gap="1rem" direction="row" preserveWhenXs>
+        <Container gap="1rem" direction="row">
           <Button size="xl" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
             size="xl"
@@ -120,7 +120,7 @@ const Filters: React.FC<Props> = (props) => {
             size="md"
             options={[{ value: 'awd_4wd' }, { value: '2wd_fwd' }, { value: '2wd_rwd' }]}
           />
-          <Container direction="row" preserveWhenXs alignItems="center" gap="3px">
+          <Container direction="row" alignItems="center" gap="3px">
             <Autocomplete
               placeholder="Year"
               size="md"
@@ -135,7 +135,7 @@ const Filters: React.FC<Props> = (props) => {
               options={years.map((year) => ({ value: year.toString() }))}
             />
           </Container>
-          <Container direction="row" preserveWhenXs alignItems="center" gap="3px">
+          <Container direction="row" alignItems="center" gap="3px">
             <Autocomplete
               placeholder="Mileage"
               size="md"

@@ -27,7 +27,7 @@ const LanguageChanger: React.FC = () => {
   }));
 
   return (
-    <Container preserveWhenXs direction="row" alignItems="center" gap="0.1rem">
+    <Container direction="row" alignItems="center" gap="0.1rem">
       <Icon icon={<CiGlobe />} size="sm" />
       <StyledDropdown
         size="sm"

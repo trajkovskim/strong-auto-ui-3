@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
           </Container>
           <Container gap="0.5rem">
             <Text fontSize="lg">Social media</Text>
-            <Container preserveWhenXs direction="row" gap="1rem">
+            <Container direction="row" gap="1rem">
               <Button
                 themeType="link"
                 maxContent

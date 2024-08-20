@@ -30,13 +30,13 @@ const StyledTileWrapper = styled(Container)`
 
 const Tile: React.FC<Props> = ({ imageSrc, title, price, ...props }) => {
   return (
-    <StyledTileWrapper preserveWhenXs padding="xs">
+    <StyledTileWrapper padding="xs">
       <StyledTile {...props}>
-        <Container preserveWhenXs direction="row" gap="1rem">
+        <Container direction="row" gap="1rem">
           <Image src={imageSrc} objectFit="contain" width="120px" verticalCentered />
           <Container gap="0.3rem">
             <Text fontSize="lg">{title}</Text>
-            <Container preserveWhenXs direction="row" gap="3px">
+            <Container direction="row" gap="3px">
               <Icon icon={<BsSpeedometer />} width="15px" /> <Text>{formatNumber(200000)}km</Text>
             </Container>
             <Text fontSize="lg">${price?.toFixed(2)}</Text>
