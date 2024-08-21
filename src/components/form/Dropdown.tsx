@@ -26,7 +26,11 @@ type Props = Omit<React.ComponentProps<'select'>, 'size'> &
 const DropdownWrapper = styled(StyledContainer)`
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 1rem;
+`;
+
+const StyledLabel = styled(Text)`
+  white-space: nowrap;
 `;
 
 const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, size, ...props }) => {
@@ -44,7 +48,7 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, size, 
 
   return (
     <DropdownWrapper fullwidth={fullwidth}>
-      <Text fontSize={size}>{props.label}</Text>
+      {props.label && <StyledLabel fontSize={size}>{props.label}</StyledLabel>}
       <StyledSelect {...props} {...events} size={size} rightContainerWidth={rightContainerRef.current?.offsetWidth}>
         {props.options.map((option) => (
           <StyledOption key={option.value} value={option.value}>

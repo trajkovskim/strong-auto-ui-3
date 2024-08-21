@@ -12,6 +12,13 @@
   --text-fs-3: clamp(1.3348rem, 1.2681rem + 0.3337vw, 1.6018rem);
   --text-fs-4: clamp(1.5017rem, 1.4266rem + 0.3754vw, 1.802rem);
   --text-fs-5: clamp(1.6894rem, 1.6049rem + 0.4224vw, 2.0273rem);
+
+  --icon-fs-0: clamp(1.25rem, 1.1719rem + 0.3906vw, 1.5625rem);
+  --icon-fs-1: clamp(1.4063rem, 1.3184rem + 0.4395vw, 1.7578rem);
+  --icon-fs-2: clamp(1.582rem, 1.4832rem + 0.4944vw, 1.9775rem);
+  --icon-fs-3: clamp(1.7798rem, 1.6685rem + 0.5562vw, 2.2247rem);
+  --icon-fs-4: clamp(2.0023rem, 1.8771rem + 0.6257vw, 2.5028rem);
+  --icon-fs-5: clamp(2.2525rem, 2.1118rem + 0.7039vw, 2.8157rem);
 }
 
 * {

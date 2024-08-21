@@ -16,7 +16,7 @@ import {
 } from 'components/form/Input.styled';
 import { Size } from 'components/form/types';
 import useInput from 'hooks/useInput';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { MdClear } from 'react-icons/md';
 import { styled } from 'styled-components';
 import { Validator } from 'validators';
@@ -85,6 +85,7 @@ const Autocomplete: React.FC<Props> = ({
   options,
   ...props
 }) => {
+  const inputWrapperRef = useRef<HTMLDivElement>(null);
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<TransitionHandle>(null);
 
@@ -96,6 +97,15 @@ const Autocomplete: React.FC<Props> = ({
     validate
   );
 
+  const handleClickOutsideEvent = useCallback((event: MouseEvent) => {
+    const isClickInside = inputWrapperRef.current?.contains(event.target as Node);
+
+    if (!isClickInside) {
+      animationRef.current?.gotoInitialState();
+      document.removeEventListener('click', handleClickOutsideEvent);
+    }
+  }, []);
+
   const events: {
     onChange: typeof onChange;
     onBlur: typeof onBlur;
@@ -104,11 +114,11 @@ const Autocomplete: React.FC<Props> = ({
     onChange,
     onBlur: (event) => {
       onBlur(event);
-      animationRef.current?.toggle();
     },
     onFocus: (event) => {
       onFocus(event);
-      animationRef.current?.toggle();
+      animationRef.current?.gotoFinalState();
+      document.addEventListener('click', handleClickOutsideEvent);
     },
   };
 
@@ -118,6 +128,7 @@ const Autocomplete: React.FC<Props> = ({
 
   const handleOnOptionClick = (option: AutocompleteOption) => {
     changeValue(option.value);
+    animationRef.current?.gotoInitialState();
   };
 
   const filteredOptions = options.filter(
@@ -126,7 +137,7 @@ const Autocomplete: React.FC<Props> = ({
 
   return (
     <StyledContainer fullwidth={fullwidth}>
-      <InputWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
+      <InputWrapper ref={inputWrapperRef} styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
         <StyledInput
           {...props}
           {...events}

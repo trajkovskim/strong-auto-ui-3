@@ -31,18 +31,18 @@ const SearchBox: React.FC = () => {
       </Container>
       <Container xs={12} styleConfig={{ centered: true, gap: '2rem', direction: 'row', wrap: true }}>
         <List sm={1} lg={4} gap="1.5rem">
-          <Autocomplete fullwidth placeholder="Any make" size="md" options={[{ value: 'audi' }]} />
-          <Autocomplete fullwidth placeholder="Any model" size="md" options={[{ value: 'audi' }]} />
-          <Autocomplete fullwidth placeholder="Any price" size="md" options={[{ value: 'audi' }]} />
+          <Autocomplete fullwidth placeholder="Any make" size="xl" options={[{ value: 'audi' }]} />
+          <Autocomplete fullwidth placeholder="Any model" size="xl" options={[{ value: 'audi' }]} />
+          <Autocomplete fullwidth placeholder="Any price" size="xl" options={[{ value: 'audi' }]} />
         </List>
         <Container
           xs={12}
-          styleConfig={{ justifyContent: 'flex-end', alignItems: 'center', direction: 'row', gap: '0.5rem' }}
+          styleConfig={{ justifyContent: 'flex-end', alignItems: 'center', direction: 'row', gap: '1rem' }}
         >
-          <Button padding="md" themeType="link" maxContent size="md" icon={<BiFilter />}>
+          <Button themeType="link" maxContent size="md" icon={<BiFilter />}>
             Advanced
           </Button>
-          <StyledSearchButton padding="md" maxContent size="md" iconSize="md" icon={<BiSearch />}>
+          <StyledSearchButton maxContent size="md" iconSize="md" icon={<BiSearch />}>
             Search
           </StyledSearchButton>
         </Container>

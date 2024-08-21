@@ -27,10 +27,10 @@ const LanguageChanger: React.FC = () => {
   }));
 
   return (
-    <Container styleConfig={{ gap: '0.1rem', direction: 'row', alignItems: 'center' }}>
-      <Icon icon={<CiGlobe />} size="sm" />
+    <Container styleConfig={{ gap: '0.5rem', direction: 'row', alignItems: 'center' }}>
+      <Icon icon={<CiGlobe />} size="md" />
       <StyledDropdown
-        size="sm"
+        size="md"
         name="lang"
         value={language}
         onChange={(event) => {

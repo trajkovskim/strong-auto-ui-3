@@ -7,6 +7,7 @@ import { Input } from 'components/form';
 import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
+import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
@@ -51,10 +52,10 @@ const Footer: React.FC = () => {
             wrap: true,
             justifyContent: 'space-between',
             alignItems: 'center',
-            gap: '1rem',
+            gap: '2rem',
           }}
         >
-          <Container xs={12} md="max-content">
+          <Container xs={12} lg="max-content">
             <Title
               title="Join our newletter"
               fontSize="md"
@@ -63,16 +64,16 @@ const Footer: React.FC = () => {
           </Container>
           <StyledNewsLetterFormContainer
             xs={12}
-            md="max-content"
+            lg="max-content"
             styleConfig={{
               padding: 'sm',
               direction: 'row',
               alignItems: 'center',
-              gap: '1rem',
+              gap: '0.5rem',
             }}
           >
             <Input fullwidth size="md" placeholder="Your email address" noBorder />
-            <Button size="md" maxContent padding="md">
+            <Button size="md" maxContent>
               Subscribe
             </Button>
           </StyledNewsLetterFormContainer>
@@ -91,11 +92,16 @@ const Footer: React.FC = () => {
               Find us
             </Text>
             <Text fontSize="md">
-              27 Rainbow Rd
+              15 Somewhere in strumica
               <br />
-              Los Angeles, CA
+              North Macedonia, MK
               <br />
-              California 90017
+              Strumica 2400
+            </Text>
+            <Text fontSize="md">
+              Open hours:
+              <br />
+              {OPEN_HOURS}
             </Text>
             <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row' }}>
               {socialMedias.map((socialMedia, index) => (
@@ -115,19 +121,21 @@ const Footer: React.FC = () => {
             <Text type="sub" bold fontSize="sm">
               Contacts
             </Text>
-            <Button size="md" maxContent themeType="link" onClick={() => call('+38977648648')}>
+            <Button size="md" maxContent themeType="link" onClick={() => call(TELEPHONE)}>
               General:
               <br />
-              +38977648648
+              {TELEPHONE}
             </Button>
-            <Button size="md" maxContent themeType="link" onClick={() => mailTo('vane.stamenov@gmail.com')}>
+            <Button size="md" maxContent themeType="link" onClick={() => mailTo(EMAIL)}>
               Email:
               <br />
-              vane.stamenov@gmail.com
+              {EMAIL}
             </Button>
           </Container>
           <Container sm={4} lg={2.5} styleConfig={{ gap: '2rem' }}>
-            <Text>Useful links:</Text>
+            <Text type="sub" bold fontSize="sm">
+              Useful links:
+            </Text>
             <Container styleConfig={{ gap: '0.5rem' }}>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.INDEX)}>
                 Home

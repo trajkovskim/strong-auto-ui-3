@@ -7,11 +7,13 @@ import LogoImage from 'components/navigation/LogoImage';
 import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'components/navigation/Navigation.styled';
 import useNavigationOptions from 'components/navigation/useNavigationOptions';
 import useSocialMedias from 'components/navigation/useSocialMedias';
+import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { BiMenu } from 'react-icons/bi';
-import { MdClear } from 'react-icons/md';
-import { goto } from 'utils';
+import { FaClock } from 'react-icons/fa';
+import { MdClear, MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
+import { call, goto, mailTo } from 'utils';
 
 const MobileNavigation: React.FC = () => {
   const transitionRef = useRef<TransitionHandle>(null);
@@ -24,13 +26,13 @@ const MobileNavigation: React.FC = () => {
 
   const navigation = (
     <StyledNavigationWrapper>
-      <Container styleConfig={{ direction: 'row', wrap: true, padding: 'md', justifyContent: 'flex-end', gap: '1rem' }}>
+      <Container styleConfig={{ gap: '1rem' }}>
         {Object.values(navOptions).map((option) => (
           <Container key={option.label} xs={12} lg="max-content">
             <StyledButton
               fullwidth
               size="xl"
-              iconSize="2xl"
+              iconSize="lg"
               themeType="link"
               icon={option.icon}
               active={option.active}
@@ -65,15 +67,12 @@ const MobileNavigation: React.FC = () => {
             `,
           }}
         >
-          <MobileContainer>
+          <MobileContainer styleConfig={{ gap: '1rem', padding: { top: 'md', left: 'md', right: 'md' } }}>
+            <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
+              <LogoImage />
+              <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
+            </Container>
             <Container>
-              <Container
-                xs={12}
-                styleConfig={{ direction: 'row', justifyContent: 'space-between', padding: { top: 'md', right: 'md' } }}
-              >
-                <LogoImage />
-                <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
-              </Container>
               <div>{navigation}</div>
             </Container>
             <Container
@@ -81,25 +80,46 @@ const MobileNavigation: React.FC = () => {
               styleConfig={{
                 direction: 'row',
                 justifyContent: 'space-between',
-                padding: { top: 'lg', bottom: 'md', right: 'md', left: 'md' },
-                gap: '0.5rem',
+                alignItems: 'end',
+                gap: '1rem',
               }}
             >
-              <Container>
-                <LanguageChanger />
-              </Container>
-              <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
-                {socialMedias.map((socialMedia, index) => (
+              <Container styleConfig={{ gap: '0.8rem' }}>
+                <Container>
                   <Button
-                    key={index}
-                    themeType="link"
                     maxContent
-                    icon={socialMedia.icon}
-                    size="2xl"
-                    onClick={() => goto(socialMedia.href)}
-                  />
-                ))}
+                    themeType="link"
+                    size="lg"
+                    icon={<MdOutlinePhoneIphone />}
+                    onClick={() => call(TELEPHONE)}
+                  >
+                    {TELEPHONE}
+                  </Button>
+                </Container>
+                <Container>
+                  <Button maxContent themeType="link" size="lg" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
+                    {EMAIL}
+                  </Button>
+                </Container>
+                <Container>
+                  <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
+                    {OPEN_HOURS}
+                  </Button>
+                </Container>
+                <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+                  {socialMedias.map((socialMedia, index) => (
+                    <Button
+                      key={index}
+                      themeType="link"
+                      maxContent
+                      icon={socialMedia.icon}
+                      size="lg"
+                      onClick={() => goto(socialMedia.href)}
+                    />
+                  ))}
+                </Container>
               </Container>
+              <LanguageChanger />
             </Container>
           </MobileContainer>
         </Transition>,

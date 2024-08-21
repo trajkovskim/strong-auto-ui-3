@@ -40,7 +40,7 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   const handleClickOutsideEvent = useCallback(
     (event: MouseEvent) => {
       const isClickInside = containerRef?.contains(event.target as Node);
-
+      console.log(isClickInside);
       if (!isClickInside) {
         close();
       }
@@ -48,18 +48,13 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
     [close, containerRef]
   );
 
-  useEffect(() => {
-    if (open) {
-      transitionRef.current?.gotoFinalState();
-    }
-
-    if (!open) {
-      document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
-    }
-  }, [handleClickOutsideEvent, open]);
-
   if (!open) {
+    document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
     return null;
+  }
+
+  if (open) {
+    transitionRef.current?.gotoFinalState();
   }
 
   return createPortal(
@@ -87,7 +82,7 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
       >
         <GrayedContainer>
           <StyledSidebar {...props} ref={setContainerRef}>
-            <div>{children}</div>
+            {children}
           </StyledSidebar>
         </GrayedContainer>
       </Transition>

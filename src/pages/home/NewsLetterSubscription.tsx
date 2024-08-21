@@ -38,10 +38,8 @@ const NewsLetterSubscription: React.FC = () => {
         </BoxAnimation>
         <BoxAnimation>
           <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
-            <Input size="sm" placeholder="Enter your email" />
-            <Button size="sm" padding="md">
-              Subscribe
-            </Button>
+            <Input size="lg" fullwidth placeholder="Enter your email" />
+            <Button size="lg">Subscribe</Button>
           </Container>
         </BoxAnimation>
       </Container>

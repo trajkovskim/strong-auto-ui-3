@@ -27,13 +27,8 @@ type Props = StyledCardProps & {
 
 const Card: React.FC<Props> = ({ footer, image, onImageContainer, body, ...props }) => {
   return (
-    <StyledCard
-      fullwidth={props.fullwidth}
-      styleConfig={{ alignItems: 'stretch' }}
-      // justifyContent="space-between"
-      {...props}
-    >
-      <Container styleConfig={{ relative: true }}>
+    <StyledCard {...props} fullwidth={props.fullwidth} styleConfig={{ alignItems: 'stretch', ...props.styleConfig }}>
+      <Container xs={12} styleConfig={{ relative: true }}>
         {image}
         {onImageContainer}
       </Container>

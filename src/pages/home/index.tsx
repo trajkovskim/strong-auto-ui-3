@@ -42,10 +42,10 @@ const Home: React.FC = () => {
           </BoxAnimation>
           <BoxAnimation>
             <Container xs="600px" styleConfig={{ direction: 'row', gap: '1rem', centered: true, itemsCentered: true }}>
-              <Button maxContent size="lg" padding="md">
+              <Button maxContent size="lg">
                 Get to the Inventory
               </Button>
-              <Button maxContent size="lg" themeType="ghost" padding="md">
+              <Button maxContent size="lg" themeType="ghost">
                 Scroll down
               </Button>
             </Container>

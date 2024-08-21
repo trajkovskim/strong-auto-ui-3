@@ -8,6 +8,7 @@ import {
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import styled, { css } from 'styled-components';
+import theme from 'theme';
 
 type HorizontalListWrapperProps = {
   centered?: boolean;
@@ -29,6 +30,12 @@ const arrowCss = css`
     background-color: #394144;
   }
   margin: auto;
+
+  display: none;
+
+  @media (min-width: ${theme.breakpoints.minWidth.lg}) {
+    display: flex;
+  }
 `;
 
 const StyledLeftArrowButton = styled(Button)`
@@ -108,7 +115,7 @@ type Props = React.PropsWithChildren &
     chunkGap?: React.CSSProperties['gap'];
   };
 
-const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...props }) => {
+const HorizontalList: React.FC<Props> = ({ intervalMs = 10000, noAutoScroll, ...props }) => {
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
   const interval = useRef<number>();
   const horizontalList = useRef<HorizontalListModel>();
@@ -245,14 +252,14 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
       <StyledLeftArrowButton
         icon={<MdArrowBackIos />}
         maxContent
-        iconSize="lg"
+        iconSize="md"
         themeType="ghost"
         onClick={onBackButtonClick}
       />
       <StyledRightArrowButton
         icon={<MdArrowForwardIos />}
         maxContent
-        iconSize="lg"
+        iconSize="md"
         themeType="ghost"
         onClick={onForwardButtonClick}
       />

@@ -142,16 +142,16 @@ const ViewDetails: React.FC = () => {
             </BoxAnimation>
             <BoxAnimation>
               <Container styleConfig={{ wrap: true, direction: 'row', gap: '1rem' }}>
-                <Button padding="md" maxContent size="md" themeType="ghost" icon={<BiCalendar />} iconSize="lg">
+                <Button maxContent size="md" themeType="link" icon={<BiCalendar />} iconSize="lg">
                   {product.year}
                 </Button>
-                <Button padding="md" maxContent size="md" themeType="ghost" icon={<TbManualGearbox />} iconSize="lg">
+                <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
                   {product.transmission}
                 </Button>
-                <Button padding="md" maxContent size="md" themeType="ghost" icon={<BsFuelPump />} iconSize="lg">
+                <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
                   {product.fuelType}
                 </Button>
-                <Button padding="md" maxContent size="md" themeType="ghost" icon={<SlSpeedometer />} iconSize="lg">
+                <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
                   {formatNumber(product.km)}
                 </Button>
               </Container>

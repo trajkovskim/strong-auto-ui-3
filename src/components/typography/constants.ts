@@ -21,5 +21,16 @@ export const textFontSize: Record<FontSize, string> = {
   '3xl': 'var(--text-fs-5)',
   default: 'inherit',
 };
+
 export const textFontSizeMobile: Record<FontSize, string> = textFontSize;
 export const textFontSizeTablet: Record<FontSize, string> = textFontSizeMobile;
+
+export const iconFontSize: Record<FontSize, string> = {
+  sm: 'var(--icon-fs-0)',
+  md: 'var(--icon-fs-1)',
+  lg: 'var(--icon-fs-2)',
+  xl: 'var(--icon-fs-3)',
+  '2xl': 'var(--icon-fs-4)',
+  '3xl': 'var(--icon-fs-5)',
+  default: 'inherit',
+};

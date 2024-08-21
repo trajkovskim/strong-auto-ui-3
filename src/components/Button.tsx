@@ -1,12 +1,13 @@
 import { Sides, createPaddingProperty } from 'components/Container';
 import Icon from 'components/Icon';
 import Text from 'components/typography/Text';
+import { textFontSize } from 'components/typography/constants';
 import React from 'react';
 import { css, styled } from 'styled-components';
 import { Breakpoints } from 'theme';
 
 type ThemeType = 'link' | 'link-colored' | 'default' | 'ghost' | 'delete' | 'success' | 'white';
-type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+type Size = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'default';
 
 type StyledProps = {
   themeType?: ThemeType;
@@ -29,7 +30,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     border: '1px solid rgba(27, 31, 35, 0.15);',
     'border-radius': '4px',
     color: '#fff',
-    paddin: '0px',
     'padding-right': '10px',
     'padding-left': '10px',
   },
@@ -41,7 +41,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'box-shadow-active': 'rgba(20, 70, 32, 0.2) 0 1px 0 inset',
     border: '1px solid rgba(27, 31, 35, 0.15);',
     color: '#000',
-    paddin: '0px',
     'padding-right': '10px',
     'padding-left': '10px',
   },
@@ -50,14 +49,12 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#075ebb',
     'color-active': '#255b9475',
     border: '0px',
-    paddin: '0px',
   },
   delete: {
     'background-color': 'transparent',
     'color-hover': 'red',
     'color-active': 'red',
     border: '0px',
-    paddin: '0px',
   },
   ghost: {
     'background-color': 'transparent',
@@ -75,7 +72,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#075ebb',
     'color-active': '#255b9475',
     border: '0px',
-    paddin: '0px',
   },
   success: {
     'background-color': 'transparent',
@@ -83,34 +79,69 @@ const themes: Record<ThemeType, Record<string, string>> = {
     'color-hover': '#08ad08',
     'color-active': '#08a108',
     border: '0px',
-    paddin: '0px',
   },
+};
+
+const fontSize = textFontSize;
+const buttonSize: Record<Size, string> = {
+  sm: `calc(${fontSize.sm} + 25px)`,
+  md: `calc(${fontSize.md} + 30px)`,
+  lg: `calc(${fontSize.lg} + 35px)`,
+  xl: `calc(${fontSize.xl} + 40px)`,
+  '2xl': `calc(${fontSize['2xl']} + 45px)`,
+  '3xl': `calc(${fontSize['2xl']} + 50px)`,
+  default: 'auto',
+};
+
+const paddingSize: Record<Size, string> = {
+  sm: '13px',
+  md: '20px',
+  lg: '25px',
+  xl: '30px',
+  '2xl': '35px',
+  '3xl': '40px',
+  default: 'auto',
 };
 
 const sizes: Record<Size, Record<string, Partial<Record<ThemeType, string> | string>>> = {
   sm: {
     'max-width': '80px',
-    height: { default: '38px', white: '38px', ghost: '30px' },
+    height: { default: buttonSize.sm, white: buttonSize.sm, ghost: buttonSize.sm },
+    'padding-left': { default: paddingSize.sm, white: paddingSize.sm, ghost: paddingSize.sm },
+    'padding-right': { default: paddingSize.sm, white: paddingSize.sm, ghost: paddingSize.sm },
   },
   md: {
     'max-width': '100px',
-    height: { default: '38px', white: '38px', ghost: '38px' },
+    height: { default: buttonSize.md, white: buttonSize.md, ghost: buttonSize.md },
+    'padding-left': { default: paddingSize.md, white: paddingSize.md, ghost: paddingSize.md },
+    'padding-right': { default: paddingSize.md, white: paddingSize.md, ghost: paddingSize.md },
   },
   lg: {
     'max-width': '120px',
-    height: { default: '45px', white: '45px', ghost: '45px' },
+    height: { default: buttonSize.lg, white: buttonSize.lg, ghost: buttonSize.lg },
+    'padding-left': { default: paddingSize.lg, white: paddingSize.lg, ghost: paddingSize.lg },
+    'padding-right': { default: paddingSize.lg, white: paddingSize.lg, ghost: paddingSize.lg },
   },
   xl: {
     'max-width': '120px',
-    height: { default: '45px', white: '45px', ghost: '45px' },
+    height: { default: buttonSize.xl, white: buttonSize.xl, ghost: buttonSize.xl },
+    'padding-left': { default: paddingSize.xl, white: paddingSize.xl, ghost: paddingSize.xl },
+    'padding-right': { default: paddingSize.xl, white: paddingSize.xl, ghost: paddingSize.xl },
   },
   '2xl': {
     'max-width': '120px',
-    height: { default: '50px', white: '50px', ghost: '50px' },
+    height: { default: buttonSize['2xl'], white: buttonSize['2xl'], ghost: buttonSize['2xl'] },
+    'padding-left': { default: paddingSize['2xl'], white: paddingSize['2xl'], ghost: paddingSize['2xl'] },
+    'padding-right': { default: paddingSize['2xl'], white: paddingSize['2xl'], ghost: paddingSize['2xl'] },
   },
   '3xl': {
     'max-width': '120px',
-    height: { default: '55px', white: '55px', ghost: '50px' },
+    height: { default: buttonSize['3xl'], white: buttonSize['3xl'], ghost: buttonSize['3xl'] },
+    'padding-left': { default: paddingSize['3xl'], white: paddingSize['3xl'], ghost: paddingSize['3xl'] },
+    'padding-right': { default: paddingSize['3xl'], white: paddingSize['3xl'], ghost: paddingSize['3xl'] },
+  },
+  default: {
+    height: { default: buttonSize.default, white: buttonSize.default, ghost: buttonSize.default },
   },
 };
 
@@ -130,13 +161,6 @@ const StyledButton = styled.button<StyledProps>`
     align-items: center;
     gap: 0.5rem;
 
-    padding-top: ${themes[themeType]['padding-top']};
-    padding-right: ${themes[themeType]['padding-right']};
-    padding-bottom: ${themes[themeType]['padding-bottom']};
-    padding-left: ${themes[themeType]['padding-left']};
-
-    ${createPaddingProperty(padding)};
-
     background-color: ${themes[themeType]['background-color']};
     border-radius: ${themes[themeType]['border-radius']};
     color: ${themes[themeType]['color'] ?? 'inherit'};
@@ -152,12 +176,22 @@ const StyledButton = styled.button<StyledProps>`
     margin-right: ${centered && 'auto'};
 
     width: 100%;
+
+    ${Object.entries(sizes[size])
+      .map(([property, value]) =>
+        typeof value === 'object' ? `${property}: ${value[themeType]}` : `${property}: ${value}`
+      )
+      .join(';')};
+
     max-width: ${(maxContent && !fullwidth) || !sizes[size] ? 'max-content' : sizes[size]['max-width']};
     max-width: ${fullwidth && '100%'};
-    height: ${sizes[size] && typeof sizes[size]['height'] === 'object'
+
+    /* height: ${sizes[size] && typeof sizes[size]['height'] === 'object'
       ? (sizes[size]['height'] as Record<ThemeType, string>)[themeType]
-      : sizes[size]['height']};
+      : sizes[size]['height']}; */
     border: ${themes[themeType]['border']};
+
+    ${createPaddingProperty(padding)};
 
     &:focus {
       box-shadow: ${themes[themeType]['box-shadow-focus']};

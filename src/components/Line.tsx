@@ -5,8 +5,6 @@ const Line = styled.div<{
   height?: string;
   width?: string;
 }>`
-  margin: 0 auto;
-
   --border-color: #bdb9b976;
 
   ${(props) =>

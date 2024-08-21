@@ -81,7 +81,7 @@ const MiniProductCard: React.FC<Props> = (props) => {
   const productCardTitlePrice = (
     <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between', alignItems: 'flex-end' }}>
       <Container styleConfig={{ overflow: 'hidden', padding: { top: 'sm' } }}>
-        <Button maxContent themeType="link" onClick={props.onView} size="lg">
+        <Button size="lg" maxContent themeType="link" onClick={props.onView}>
           <div>{props.title}</div>
         </Button>
       </Container>

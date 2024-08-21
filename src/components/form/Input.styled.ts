@@ -12,25 +12,15 @@ export type StyledInputProps = {
   noBorder?: boolean;
 };
 
-export const inputSize: Record<Size, string> = {
-  sm: '39px',
-  md: '38px',
-  lg: '45px',
-  xl: '55px',
-  '2xl': '55px',
-  '3xl': '55px',
-  default: 'auto',
-};
-
 export const fontSize: Record<FontSize, string> = textFontSize;
 
-export const labelSize: Record<FontSize, string> = {
-  sm: '39px',
-  md: '38px',
-  lg: '45px',
-  xl: '55px',
-  '2xl': '55px',
-  '3xl': '55px',
+export const inputSize: Record<Size, string> = {
+  sm: `calc(${fontSize.sm} + 25px)`,
+  md: `calc(${fontSize.md} + 30px)`,
+  lg: `calc(${fontSize.lg} + 35px)`,
+  xl: `calc(${fontSize.xl} + 40px)`,
+  '2xl': `calc(${fontSize['2xl']} + 45px)`,
+  '3xl': `calc(${fontSize['2xl']} + 50px)`,
   default: 'auto',
 };
 
@@ -60,6 +50,8 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
   }
 `;
 
+export const TextareaWrapper = styled(InputWrapper)``;
+
 export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth?: number }>`
   width: 100%;
   height: 100%;
@@ -75,7 +67,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   padding-right: ${(props) => `${props.rightContainerWidth}px`};
 
   &::placeholder {
-    font-size: ${(props) => props.size && fontSize[props.size]};
+    font-size: ${(props) => props.size && fontSize['sm']};
   }
 
   transition: 100ms all;
@@ -89,7 +81,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
 export const StyledTextarea = styled.textarea<StyledInputProps & { rightContainerWidth?: number }>`
   width: 100%;
   height: 100%;
-  height: ${(props) => props.size && inputSize[props.size]};
+  /* height: ${(props) => props.size && inputSize[props.size]}; */
   padding: 10px;
   padding-left: 10px;
   font-size: ${(props) => props.size && fontSize[props.size]};

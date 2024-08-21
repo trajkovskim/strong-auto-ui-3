@@ -25,15 +25,10 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
     }
   }, [defaultState]);
 
-  const transitionFinalCss = css`
-    overflow: visible;
-    max-height: ${containerRef?.scrollHeight}px;
-  `;
-
   return (
     <Container
       styleConfig={{
-        gap: '0.3rem',
+        // gap: '1rem',
         padding: { left: 'md', right: 'md', bottom: 'sm', top: 'sm' },
       }}
     >
@@ -42,7 +37,12 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
         iconRight={<BiPlus />}
         size="lg"
         fullwidth
-        onClick={() => transitionRef.current?.toggle()}
+        onClick={() => {
+          if (transitionRef.current?.isInFinalState()) {
+            containerRef?.style.setProperty('overflow', 'hidden');
+          }
+          transitionRef.current?.toggle();
+        }}
       >
         {props.header}
       </StyledButton>
@@ -55,7 +55,15 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
             overflow: hidden;
             max-height: 0;
           `,
-          final: transitionFinalCss,
+          final: css`
+            padding-top: 1rem;
+            max-height: calc(${containerRef?.scrollHeight}px + 1rem);
+          `,
+        }}
+        onTransitionEnd={() => {
+          if (transitionRef.current?.isInFinalState()) {
+            containerRef?.style.setProperty('overflow', 'visible');
+          }
         }}
       >
         <Container ref={setContainerRef}>{children}</Container>

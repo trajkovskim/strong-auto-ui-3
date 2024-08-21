@@ -1,5 +1,4 @@
 import {
-  InputWrapper,
   StyledBiErrorCircle,
   StyledContainer,
   StyledContainerProps,
@@ -8,6 +7,7 @@ import {
   StyledRightContainer,
   StyledSpinner,
   StyledTextarea,
+  TextareaWrapper,
 } from 'components/form/Input.styled';
 import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
@@ -37,14 +37,14 @@ const Textarea: React.FC<Props> = ({ label, fullwidth, rightContainer, validate,
   return (
     <>
       <StyledContainer fullwidth={fullwidth}>
-        <InputWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
+        <TextareaWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
           <StyledTextarea
             {...props}
             {...events}
             value={state.value}
             rightContainerWidth={rightContainerRef.current?.offsetWidth}
           />
-        </InputWrapper>
+        </TextareaWrapper>
         <StyledRightContainer ref={rightContainerRef}>
           {state.dirty && validate && (
             <span>

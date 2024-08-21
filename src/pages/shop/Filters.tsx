@@ -42,7 +42,7 @@ const Filters: React.FC<Props> = (props) => {
   return (
     <Container styleConfig={{ bordered: { right: true, bottom: true }, gap: '1rem' }}>
       <FiltersHeader styleConfig={{ justifyContent: 'space-between', direction: 'row', padding: 'md' }}>
-        <Text>Filtering</Text>
+        <Text fontSize="md">Filtering</Text>
         <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
           <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button

@@ -37,6 +37,10 @@ const arrowCss = css`
   &:hover {
     background-color: ${theme.carousel.arrowBackgroundColorHover};
   }
+
+  @media (min-width: ${theme.breakpoints.minWidth.lg}) {
+    display: flex;
+  }
 `;
 
 const StyledLeftArrowButton = styled(Button)`

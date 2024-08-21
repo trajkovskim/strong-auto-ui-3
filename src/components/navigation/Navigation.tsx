@@ -21,6 +21,7 @@ const Navigation: React.FC = () => {
             <StyledButton
               themeType="link"
               size="md"
+              iconSize="sm"
               maxContent
               icon={option.icon}
               active={option.active}

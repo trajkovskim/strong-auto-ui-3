@@ -11,14 +11,15 @@ type StyledInputProps = {
 
 export const StyledSelect = styled.select<StyledInputProps>`
   ${({ size = 'sm', ...props }) => css`
+    background: inherit;
     box-sizing: border-box;
     width: 100%;
     height: ${inputSize[size]};
-    padding: 0 7px;
+    /* padding: 0 7px; */
     display: inline-block;
     font-size: ${fontSize[size]};
     line-height: 20px;
-    background-color: #f6f6f6;
+    /* background-color: #f6f6f6; */
     border: none;
     outline: none;
 

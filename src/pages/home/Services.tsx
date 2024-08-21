@@ -34,7 +34,7 @@ const Services: React.FC = () => {
                 description="Strong auto is the most enticing, creative, modern and multipurpose auto dealer"
                 gap="2rem"
               />
-              <Button maxContent size="md" padding={{ top: 'lg', bottom: 'lg', left: 'lg', right: 'lg' }}>
+              <Button maxContent size="lg">
                 View all our services
               </Button>
             </Container>

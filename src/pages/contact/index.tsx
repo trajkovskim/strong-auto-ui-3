@@ -38,13 +38,13 @@ const Contact: React.FC = () => {
             />
             <Container styleConfig={{ gap: '1rem' }}>
               <List lg={2} gap="1rem">
-                <Input fullwidth placeholder="Your name" />
-                <Input fullwidth placeholder="Your email" />
-                <Input fullwidth placeholder="Your phone" />
-                <Input fullwidth placeholder="Subject" />
+                <Input size="md" fullwidth placeholder="Your name" />
+                <Input size="md" fullwidth placeholder="Your email" />
+                <Input size="md" fullwidth placeholder="Your phone" />
+                <Input size="md" fullwidth placeholder="Subject" />
               </List>
               <Container>
-                <Textarea fullwidth rows={10} placeholder="Message" />
+                <Textarea size="md" fullwidth rows={10} placeholder="Message" />
               </Container>
               <Container styleConfig={{ alignSelf: 'end' }}>
                 <Button maxContent size="md">

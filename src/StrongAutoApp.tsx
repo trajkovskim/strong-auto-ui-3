@@ -41,7 +41,7 @@ const StrongAutoApp: React.FC = () => {
           </main>
           <Footer />
         </StyledLayout>
-        <BackToTopButton iconSize="lg" icon={<BsArrowUp />} onClick={scrollToTop} />
+        <BackToTopButton iconSize="md" icon={<BsArrowUp />} onClick={scrollToTop} />
       </div>
     </ApplicationContextProvider>
   );
