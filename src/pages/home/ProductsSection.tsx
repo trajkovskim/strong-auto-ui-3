@@ -20,7 +20,6 @@ const ProductsSection: React.FC = () => {
         relative: true,
         centered: true,
         alignItems: 'center',
-        padding: { top: 'xl', bottom: '2xl' },
       }}
     >
       <BoxAnimation threshold={0.2}>

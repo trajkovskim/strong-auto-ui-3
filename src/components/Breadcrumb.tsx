@@ -2,14 +2,26 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Text from 'components/typography/Text';
 import React from 'react';
+import { FaHome } from 'react-icons/fa';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'routes';
 
 const Breadcrumb: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const paths: { label: string; pathname?: string }[] = [{ label: 'Home', pathname: Routes.INDEX }];
   const { id } = useParams();
+
+  const paths: {
+    label: string;
+    pathname?: string;
+    icon?: React.ReactNode;
+  }[] = [
+    {
+      label: 'Home',
+      pathname: Routes.INDEX,
+      icon: <FaHome />,
+    },
+  ];
 
   if (location.pathname.startsWith(Routes.SHOP)) {
     paths.push({ label: 'Listing', pathname: Routes.SHOP });
@@ -33,11 +45,12 @@ const Breadcrumb: React.FC = () => {
         <>
           {index !== paths.length - 1 ? (
             <Button
+              key={path.pathname}
               size="md"
               maxContent
+              themeType="link"
+              icon={path.icon}
               onClick={() => navigate({ pathname: path.pathname })}
-              themeType="link-colored"
-              key={path.pathname}
             >
               {path.label}
             </Button>
@@ -45,7 +58,7 @@ const Breadcrumb: React.FC = () => {
             <Text fontSize="md">{path.label}</Text>
           )}
 
-          {index !== paths.length - 1 && <Text type="sub">{'>'}</Text>}
+          {index !== paths.length - 1 && <Text>{'>'}</Text>}
         </>
       ))}
     </Container>

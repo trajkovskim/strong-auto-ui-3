@@ -5,6 +5,7 @@ import Icon from 'components/Icon';
 import Line from 'components/Line';
 import List from 'components/List';
 import Text from 'components/typography/Text';
+import Title from 'components/typography/Title';
 import { reviews } from 'pages/constants';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useMemo } from 'react';
@@ -75,15 +76,18 @@ const Reviews: React.FC = () => {
   return (
     <>
       <WhiteBackgroundContainer>
-        <BoxAnimation>
-          <Container sm="1400px" styleConfig={{ padding: { left: 'md', right: 'md' }, centered: true }}>
+        <Container xs="1400px" styleConfig={{ gap: '4rem', padding: { left: 'md', right: 'md' }, centered: true }}>
+          <BoxAnimation>
+            <Title centered fontSize="2xl" title="What our clients say about us" />
+          </BoxAnimation>
+          <BoxAnimation>
             <Carousel noArrows noChangeOptions>
               {reviews.map((review) => {
                 return <Review key={review.id} review={review} />;
               })}
             </Carousel>
-          </Container>
-        </BoxAnimation>
+          </BoxAnimation>
+        </Container>
       </WhiteBackgroundContainer>
       <StyledLine />
     </>

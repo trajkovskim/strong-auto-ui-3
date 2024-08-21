@@ -63,21 +63,19 @@ const FAQ: React.FC = () => {
       xs="1400px"
       styleConfig={{
         centered: true,
-        gap: '0.2rem',
+        gap: '3rem',
         direction: 'row',
         wrap: true,
         padding: { left: 'md', right: 'md' },
       }}
     >
-      <Container xs={12} lg={6} styleConfig={{ gap: '3rem' }}>
-        <Container styleConfig={{ gap: '2rem' }}>
-          <Title
-            fontSize={{ title: '2xl', description: 'lg' }}
-            title="General FAQs"
-            description="Check out in our frequently asked questions that we have ready for you"
-            gap="2rem"
-          />
-        </Container>
+      <Container xs={12} lg={6}>
+        <Title
+          fontSize={{ title: '2xl', description: 'lg' }}
+          title="General FAQs"
+          description="Check out in our frequently asked questions that we have ready for you"
+          gap="2rem"
+        />
       </Container>
       <Container xs={12} lg={6}>
         <Container styleConfig={{ gap: '2rem' }}>

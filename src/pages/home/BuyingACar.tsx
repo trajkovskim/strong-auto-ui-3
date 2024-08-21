@@ -43,13 +43,11 @@ const BuyingACar: React.FC = () => {
             padding: { bottom: 'lg', right: 'md', left: 'md' },
             gap: '3.5rem',
           }}
+          lgStyle={{ textAlign: 'right' }}
         >
-          <Container xs={12} lg={7} xl={5.5}>
-            <StyledBuyCarImage height="500px" objectFit="cover" shadow src={RentCarImage} />
-          </Container>
-          <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }}>
-            <Title fontSize="2xl" bold title="Buying a car?" textAlign="right" />
-            <Text fontSize="lg" textAlign="right">
+          <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }} lgStyle={{ order: 2 }}>
+            <Title fontSize="2xl" bold title="Buying a car?" />
+            <Text fontSize="lg">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
               scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
@@ -60,6 +58,9 @@ const BuyingACar: React.FC = () => {
                 Visit our cars shop
               </Button>
             </Container>
+          </Container>
+          <Container xs={12} lg={7} xl={5.5} lgStyle={{ order: 1 }}>
+            <StyledBuyCarImage height="500px" objectFit="cover" shadow src={RentCarImage} />
           </Container>
         </Container>
       </BoxAnimation>
@@ -82,7 +83,7 @@ const BuyingACar: React.FC = () => {
               scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </Text>
-            <Container xs={12}>
+            <Container xs={12} styleConfig={{ alignItems: 'flex-end' }}>
               <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
                 Visit our cars shop
               </Button>

@@ -21,7 +21,11 @@ export type Edges<T> = {
   bottomRight?: T;
 };
 
-type StyledContainerBaseProps = {
+export type ContainerParentGapBreakpointsProps = {
+  [key in `${Breakpoints}ParentGap`]?: React.CSSProperties['gap'];
+};
+
+type StyledContainerBaseProps = ContainerParentGapBreakpointsProps & {
   parentGap?: React.CSSProperties['gap'];
 };
 
@@ -48,6 +52,7 @@ type StyledContainerStyleProps = {
   overflow?: React.CSSProperties['overflow'];
   minHeight?: React.CSSProperties['minHeight'];
   maxHeight?: React.CSSProperties['maxHeight'];
+  order?: React.CSSProperties['order'];
 };
 
 type ContainerBreakpointsStyleProps = {
@@ -61,22 +66,30 @@ type StyledContainerProps = ContainerBreakpointsProps &
 const MAX_COLUMNS = 12;
 
 const calculateColumnPercentage = (breakpoint: number) => {
-  return (breakpoint * 100) / MAX_COLUMNS + '%';
+  return `${breakpoint} / ${MAX_COLUMNS} * 100%`;
+};
+
+const calculateColumnGap = (breakpoint: number, gap: string) => {
+  return `(1 - ${breakpoint} / ${MAX_COLUMNS}) * ${gap}`;
 };
 
 const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss?: string) => {
-  const gap = props[breakpoint] !== MAX_COLUMNS ? props.parentGap ?? '0rem' : '0rem';
+  const breakpointValue = props[breakpoint];
+  const parentGap =
+    breakpointValue !== MAX_COLUMNS
+      ? props[`${breakpoint}ParentGap`]?.toString() ?? props.parentGap?.toString() ?? '0rem'
+      : '0rem';
 
   return createMedia(
     breakpoint,
     css`
-      display: ${typeof props[breakpoint] === 'number' && props[breakpoint] === 0 && 'none'};
+      display: ${typeof breakpointValue === 'number' && breakpointValue === 0 && 'none'};
 
-      width: ${typeof props[breakpoint] === 'string' && `calc(100% - ${gap})`};
-      max-width: ${typeof props[breakpoint] === 'string' && props[breakpoint]};
+      width: ${typeof breakpointValue === 'string' && `calc(100% - ${parentGap})`};
+      max-width: ${typeof breakpointValue === 'string' && breakpointValue};
 
-      width: ${typeof props[breakpoint] === 'number' &&
-      `calc(${calculateColumnPercentage(props[breakpoint] as number)} - ${gap})`};
+      width: ${typeof breakpointValue === 'number' &&
+      `calc(${calculateColumnPercentage(breakpointValue)} - ${calculateColumnGap(breakpointValue, parentGap)})`};
 
       ${createStyleProps(props[`${breakpoint}Style`])}
       ${csss};
@@ -161,6 +174,7 @@ const createStyleProps = (styleConfig: StyledContainerStyleProps | undefined) =>
 
         flex-direction: ${styleConfig.direction};
         flex-wrap: ${styleConfig.wrap && 'wrap'};
+        order: ${styleConfig.order};
 
         align-items: ${styleConfig.alignItems};
         align-items: ${styleConfig.itemsCentered && 'center'};
@@ -192,7 +206,10 @@ const StyledContainer = styled.div<StyledContainerProps>`
 `;
 
 type Props = React.PropsWithRef<
-  React.PropsWithChildren<React.ComponentProps<'div'> & Omit<StyledContainerProps, 'breakpoints' | 'childrenCount'>>
+  React.PropsWithChildren<
+    React.ComponentProps<'div'> &
+      Omit<StyledContainerProps, 'breakpoints' | 'childrenCount' | keyof StyledContainerBaseProps>
+  >
 >;
 
 const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props }, ref) => {
@@ -213,10 +230,20 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props.styleConfig = props.styleConfig ?? {};
   props.styleConfig.direction = props.styleConfig.direction ?? 'column';
 
-  const { direction, wrap, gap } = props.styleConfig;
-
+  const { direction, wrap } = props.styleConfig;
   const includeParentGap = direction?.startsWith('row') && wrap;
-  const childProps = includeParentGap ? { parentGap: gap } : undefined;
+  const childProps = includeParentGap
+    ? {
+        parentGap: props.styleConfig.gap,
+        xsParentGap: props.xsStyle?.gap,
+        smParentGap: props.smStyle?.gap ?? props.xsStyle?.gap,
+        mdParentGap: props.mdStyle?.gap ?? props.smStyle?.gap,
+        lgParentGap: props.lgStyle?.gap ?? props.mdStyle?.gap,
+        xlParentGap: props.xlStyle?.gap ?? props.lgStyle?.gap,
+        ['2xlParentGap']: props['2xlStyle']?.gap ?? props.xlStyle?.gap,
+        ['3xlParentGap']: props['3xlStyle']?.gap ?? props['2xlStyle']?.gap,
+      }
+    : undefined;
 
   return (
     <StyledContainer ref={ref} {...props}>

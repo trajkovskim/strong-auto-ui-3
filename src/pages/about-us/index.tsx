@@ -15,6 +15,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import AudiHeadlightsImage from 'assets/audi-headlights.jpg';
+import Breadcrumb from 'components/Breadcrumb';
 
 const AboutUsTitleWrapper = styled(Container)`
   background-image: url(${AudiHeadlightsImage});
@@ -58,8 +59,21 @@ const AboutUs: React.FC = () => {
   return (
     <Container styleConfig={{ gap: '4rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
       <AboutUsTitleWrapper>
-        <Container xs="1400px" styleConfig={{ padding: { left: 'md', right: 'md' }, centered: true }}>
+        <Container
+          xs="1400px"
+          styleConfig={{
+            gap: '3rem',
+            padding: { left: 'md', right: 'md' },
+            alignItems: 'center',
+            centered: true,
+          }}
+          lgStyle={{
+            direction: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           <Title fontSize="3xl" title="About us" />
+          <Breadcrumb />
         </Container>
       </AboutUsTitleWrapper>
       <WelcomeIntroWrapper
@@ -77,8 +91,8 @@ const AboutUs: React.FC = () => {
           <BoxAnimation>
             <Title
               gap="2rem"
-              fontSize={{ title: '2xl', description: 'lg' }}
-              title="Welcome"
+              fontSize={{ title: '2xl', description: 'md' }}
+              title="Who we are"
               description={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.`}
             />
           </BoxAnimation>

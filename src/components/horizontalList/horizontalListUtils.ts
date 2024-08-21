@@ -214,6 +214,14 @@ export class HorizontalListHandlers {
     this.horizontalList.mouseOver = false;
   }
 
+  // wheelHandler(event: React.WheelEvent<HTMLElement>) {
+  //   if (event.deltaX <= -5) {
+  //     this.horizontalListService.moveBackward();
+  //   } else if (event.deltaX >= 5) {
+  //     this.horizontalListService.moveForward();
+  //   }
+  // }
+
   mouseUpHandler() {
     this.horizontalList.mouseDown = false;
     this.horizontalList.moving = false;
@@ -283,7 +291,6 @@ export class HorizontalListHandlers {
 
   touchMoveHandler(event: React.TouchEvent<HTMLElement>) {
     {
-      event.preventDefault();
       if (this.horizontalList.previousTouch) {
         this.mouseMoveHandlerP(event.touches[0].pageX - this.horizontalList.previousTouch);
       }

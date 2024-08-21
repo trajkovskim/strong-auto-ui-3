@@ -230,6 +230,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
         onTouchMove={(event) => horizontalListHandlers?.touchMoveHandler(event)}
         onMouseEnter={() => horizontalListHandlers?.mouseEnterHandler()}
         onMouseLeave={() => horizontalListHandlers?.mouseLeaveHandler()}
+        // onWheel={(event) => horizontalListHandlers?.wheelHandler(event)}
         ref={setRef}
         styleConfig={{ direction: 'row', gap: props.chunkGap }}
       >
