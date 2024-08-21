@@ -55,10 +55,10 @@ const Shop: React.FC = () => {
   };
 
   const listHeaderComponent = (
-    <ListHeader padding="sm" gap="1rem" direction="row" justifyContent="space-between">
-      <Container gap="1rem">
+    <ListHeader styleConfig={{ padding: 'sm', gap: '1rem', direction: 'row', justifyContent: 'space-between' }}>
+      <Container styleConfig={{ gap: '1rem' }}>
         <Breadcrumb />
-        <Container xs={0} md="max-content" direction="row" gap="1rem">
+        <Container xs={0} md="max-content" styleConfig={{ gap: '1rem', direction: 'row' }}>
           <Dropdown
             fullwidth
             size="md"
@@ -85,11 +85,11 @@ const Shop: React.FC = () => {
           />
         </Container>
       </Container>
-      <Container direction="row" justifyContent="space-between" alignItems="flex-end">
-        <Container xs="max-content" md={0} direction="row" gap="1rem">
+      <Container styleConfig={{ direction: 'row', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <Container xs="max-content" md={0} styleConfig={{ gap: '1rem', direction: 'row' }}>
           <Button maxContent icon={<BiMenu />} themeType="link" size="lg" />
         </Container>
-        <Container sm="max-content" direction="row" gap="0.3rem">
+        <Container sm="max-content" styleConfig={{ gap: '0.3rem', direction: 'row' }}>
           <Container xs={'max-content'} lg={0}>
             <Button
               maxContent
@@ -103,7 +103,7 @@ const Shop: React.FC = () => {
               </Container>
             </Button>
           </Container>
-          <Container xs={'max-content'} gap="0.5rem">
+          <Container xs={'max-content'} styleConfig={{ gap: '0.5rem' }}>
             {/* <Button
               maxContent
               nowrap
@@ -125,7 +125,7 @@ const Shop: React.FC = () => {
   const handleCloseSidebar = () => setSidebarShow(false);
 
   const sidebarMobile = (
-    <Sidebar sm={12} md="300px" open={sidebarShow} onClose={handleCloseSidebar}>
+    <Sidebar xs={12} md="300px" open={sidebarShow} onClose={handleCloseSidebar}>
       <Filters onClose={handleCloseSidebar} />
     </Sidebar>
   );
@@ -137,17 +137,16 @@ const Shop: React.FC = () => {
         {listHeaderComponent}
       </ListActionsMobileWrapper>
 
-      <Container direction="row" alignItems="flex-start" padding={{ bottom: 'md' }}>
+      <Container styleConfig={{ direction: 'row', alignItems: 'flex-start', padding: { bottom: 'md' } }}>
         <FiltersContainer xs={0} lg={3} xl={2.5} {...{ '2xl': 2 }}>
           <Filters noCloseButton />
         </FiltersContainer>
         <Container
-          sm={12}
+          xs={12}
           lg={9}
           xl={9.5}
           {...{ '2xl': 10 }}
-          padding={{ left: 'md', right: 'md', top: 'md' }}
-          gap="2rem"
+          styleConfig={{ padding: { left: 'md', right: 'md', top: 'md' }, gap: '2rem' }}
         >
           <Container xs={0} lg={12}>
             {listHeaderComponent}
@@ -185,7 +184,7 @@ const Shop: React.FC = () => {
             )}
           </List>
           {page === totalPages && (
-            <Container itemsCentered>
+            <Container styleConfig={{ itemsCentered: true }}>
               <Text fontSize="sm" type="sub">
                 All results displayed
               </Text>

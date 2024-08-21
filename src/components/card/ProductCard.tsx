@@ -74,7 +74,7 @@ const ProductCard: React.FC<Props> = (props) => {
   const price = (
     <PriceWrapper>
       {props.price?.totalPromo && (
-        <Container alignItems="flex-end" gap="0.3rem">
+        <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
           </Text>
@@ -84,7 +84,7 @@ const ProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end">
+        <Container styleConfig={{ alignItems: 'end' }}>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -94,8 +94,11 @@ const ProductCard: React.FC<Props> = (props) => {
   );
 
   const productCardTitlePrice = (
-    <Container xs={12} direction="row" alignItems="end" gap="1rem" justifyContent="space-between">
-      <ProductCardTitleWrapper overflow="hidden">
+    <Container
+      xs={12}
+      styleConfig={{ alignItems: 'end', gap: '1rem', direction: 'row', justifyContent: 'space-between' }}
+    >
+      <ProductCardTitleWrapper styleConfig={{ overflow: 'hidden' }}>
         <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
           <Text fontSize="md" title={props.title}>
             {props.title}
@@ -112,8 +115,8 @@ const ProductCard: React.FC<Props> = (props) => {
   );
 
   const onImageContainer = (
-    <OnImageContainer justifyContent="space-between" padding="md">
-      <Container direction="row" justifyContent="space-between" gap="1rem">
+    <OnImageContainer styleConfig={{ justifyContent: 'space-between', padding: 'md' }}>
+      <Container styleConfig={{ direction: 'row', justifyContent: 'space-between', gap: '1rem' }}>
         {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
         <BookmarkedButton
           bookmarked={props.bookmarked}
@@ -150,19 +153,19 @@ const ProductCard: React.FC<Props> = (props) => {
   //       padding={{ bottom: 'xs', top: 'xs', left: 'md', right: 'md' }}
   //     >
   //       {props.km && (
-  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" xs={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{formatNumber(props.km)}km</Text>
   //           <StyledIcon size="lg" icon={<FaRoad />} />
   //         </Container>
   //       )}
   //       {props.fuelType && (
-  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" xs={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{props.fuelType}</Text>
   //           <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
   //         </Container>
   //       )}
   //       {props.transmission && (
-  //         <Container padding="sm" sm={12} direction="row" gap="0.3rem">
+  //         <Container padding="sm" xs={12} direction="row" gap="0.3rem">
   //           <Text fontSize="md">{props.transmission}</Text>
   //           <StyledIcon size="lg" icon={<TbManualGearbox />} />
   //         </Container>
@@ -180,7 +183,7 @@ const ProductCard: React.FC<Props> = (props) => {
         onImageContainer={onImageContainer}
         onClick={props.onView}
         // footer={footer}
-        bordered
+        styleConfig={{ bordered: true }}
       />
     </BoxAnimation>
   );

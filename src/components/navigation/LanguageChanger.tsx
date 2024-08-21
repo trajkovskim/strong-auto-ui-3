@@ -27,7 +27,7 @@ const LanguageChanger: React.FC = () => {
   }));
 
   return (
-    <Container direction="row" alignItems="center" gap="0.1rem">
+    <Container styleConfig={{ gap: '0.1rem', direction: 'row', alignItems: 'center' }}>
       <Icon icon={<CiGlobe />} size="sm" />
       <StyledDropdown
         size="sm"

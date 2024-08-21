@@ -1,3 +1,4 @@
+import BoxAnimation from 'components/BoxAnimation';
 import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Icon from 'components/Icon';
@@ -5,6 +6,7 @@ import Line from 'components/Line';
 import List from 'components/List';
 import Text from 'components/typography/Text';
 import { reviews } from 'pages/constants';
+import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useMemo } from 'react';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 import styled from 'styled-components';
@@ -20,7 +22,7 @@ type ReviewProps = {
 const Review: React.FC<ReviewProps> = (props) => {
   const createdStars = useMemo(
     () => (
-      <Container direction="row" gap="0.5rem">
+      <Container styleConfig={{ gap: '0.5rem', direction: 'row' }}>
         {new Array(5).fill(0).map((_, index) => {
           const remainingRating = props.review.rating - index;
 
@@ -39,19 +41,19 @@ const Review: React.FC<ReviewProps> = (props) => {
 
   return (
     <List key={props.review.id} xs={1} lg={2} elementWidth="auto" gap="3rem">
-      <Container gap="1rem">
+      <Container styleConfig={{ gap: '1rem' }}>
         <Container>
           <Text fontSize="lg" bold>
             {props.review.username}
           </Text>
           <Text fontSize="sm">{props.review.creationDate.toUTCString()}</Text>
         </Container>
-        <Container gap="0.5rem">
+        <Container styleConfig={{ gap: '0.5rem' }}>
           <StarsWrapper sm="max-content">{createdStars}</StarsWrapper>
           <Text fontSize="sm">{props.review.rating}-star rating</Text>
         </Container>
       </Container>
-      <Container gap="1rem">
+      <Container styleConfig={{ gap: '1rem' }}>
         <Text fontSize="lg" bold>
           {props.review.comment ??
             // eslint-disable-next-line max-len
@@ -63,11 +65,6 @@ const Review: React.FC<ReviewProps> = (props) => {
   );
 };
 
-const Wrapper = styled(Container)`
-  /* background-color: #1c72c5; */
-  /* color: white; */
-`;
-
 const StyledLine = styled(Line)`
   border-color: #232323;
   border-width: 4px;
@@ -76,16 +73,20 @@ const StyledLine = styled(Line)`
 
 const Reviews: React.FC = () => {
   return (
-    <Wrapper sm={12} gap="4rem" centered>
-      <Container sm="1400px" padding={{ left: 'md', right: 'md', top: '3xl', bottom: '2xl' }} centered>
-        <Carousel noArrows noChangeOptions>
-          {reviews.map((review) => {
-            return <Review key={review.id} review={review} />;
-          })}
-        </Carousel>
-      </Container>
+    <>
+      <WhiteBackgroundContainer>
+        <BoxAnimation>
+          <Container sm="1400px" styleConfig={{ padding: { left: 'md', right: 'md' }, centered: true }}>
+            <Carousel noArrows noChangeOptions>
+              {reviews.map((review) => {
+                return <Review key={review.id} review={review} />;
+              })}
+            </Carousel>
+          </Container>
+        </BoxAnimation>
+      </WhiteBackgroundContainer>
       <StyledLine />
-    </Wrapper>
+    </>
   );
 };
 

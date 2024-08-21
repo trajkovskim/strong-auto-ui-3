@@ -14,12 +14,14 @@ const ProductsSection: React.FC = () => {
 
   return (
     <WhiteBackgroundContainer
-      relative
       xs={12}
-      centered
-      alignItems="center"
-      gap="3rem"
-      padding={{ top: 'xl', bottom: '2xl' }}
+      styleConfig={{
+        gap: '3rem',
+        relative: true,
+        centered: true,
+        alignItems: 'center',
+        padding: { top: 'xl', bottom: '2xl' },
+      }}
     >
       <BoxAnimation threshold={0.2}>
         <TabButtonsGroup
@@ -30,7 +32,7 @@ const ProductsSection: React.FC = () => {
       </BoxAnimation>
 
       <BoxAnimation fullwidth threshold={0.2}>
-        <Container direction="row" relative xs={12}>
+        <Container styleConfig={{ direction: 'row', relative: true }} xs={12}>
           {exploreVehiclesActiveTab === 0 && (
             <HorizontalList chunkGap="1.5rem" chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }} centered>
               {products.map((product) => (

@@ -169,7 +169,7 @@ export const CarouselChangeOptions: React.FC<ChangeOptionsProps> = (props) => {
   const element = (
     <Container
       className="carousel_change-options"
-      direction="row"
+      styleConfig={{ direction: 'row' }}
       onClick={(event) => {
         event.stopPropagation();
       }}

@@ -18,12 +18,14 @@ const Ribbon: React.FC<Props> = ({ className, ...props }) => {
   return (
     <StyledRibbon
       className={className}
-      rounded
-      padding={{ left: 'md', right: 'md', top: 'xs', bottom: 'xs' }}
+      styleConfig={{
+        rounded: true,
+        padding: { left: 'md', right: 'md', top: 'xs', bottom: 'xs' },
+        justifyContent: 'center',
+      }}
       background={props.background}
       color={props.color}
       xs="max-content"
-      justifyContent="center"
     >
       <Text bold fontSize="sm">
         {props.label}

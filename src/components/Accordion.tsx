@@ -31,7 +31,12 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
   `;
 
   return (
-    <Container gap="0.3rem" padding={{ left: 'md', right: 'md', bottom: 'sm', top: 'sm' }}>
+    <Container
+      styleConfig={{
+        gap: '0.3rem',
+        padding: { left: 'md', right: 'md', bottom: 'sm', top: 'sm' },
+      }}
+    >
       <StyledButton
         themeType="link"
         iconRight={<BiPlus />}

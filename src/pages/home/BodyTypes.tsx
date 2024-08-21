@@ -1,12 +1,8 @@
 import List from 'components/List';
-import {
-  HorizontalListModel,
-  createHorizontalListHandlers,
-  createHorizontalListService,
-} from 'components/horizontalList/horizontalListUtils';
+import { HorizontalListModel, createHorizontalListHandlers } from 'components/horizontalList/horizontalListUtils';
 import { bodyTypes } from 'pages/constants';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
-import React, { TouchEventHandler, useCallback, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled(List)`
@@ -16,12 +12,7 @@ const Wrapper = styled(List)`
 
 const BodyTypes: React.FC = () => {
   const [ref, setRef] = useState<HTMLDivElement | null>(null);
-  const mouseDown = useRef<boolean>(false);
-  const mouseOver = useRef<boolean>(false);
-  const previousTouch = useRef<number>();
-  const moving = useRef<boolean>(false);
   const horizontalList = useRef<HorizontalListModel>();
-
   const horizontalListHandlers = useMemo(() => createHorizontalListHandlers(ref, horizontalList, false), [ref]);
 
   return (

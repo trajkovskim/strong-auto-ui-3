@@ -79,7 +79,15 @@ const Parts: React.FC = () => {
 
   return (
     <Container>
-      <Container sm="1600px" centered gap="1rem" padding="sm" relative>
+      <Container
+        sm="1600px"
+        styleConfig={{
+          centered: true,
+          gap: '1rem',
+          padding: 'sm',
+          relative: true,
+        }}
+      >
         <Container>
           <Text fontSize="md">Home / Parts </Text>
           <Title

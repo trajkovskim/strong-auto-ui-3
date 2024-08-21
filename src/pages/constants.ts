@@ -6,6 +6,7 @@ import SUVBodyTypeImage from 'assets/SUV.png';
 
 export const TELEPHONE = '+38977648648';
 export const EMAIL = 'vane.stamenov@gmail.com';
+export const OPEN_HOURS = 'Mon-Sun: 08:00 - 20:00';
 
 export const bodyTypes = [
   { id: 0, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },

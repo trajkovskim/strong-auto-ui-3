@@ -3,12 +3,19 @@ import TowTruckImage from 'assets/tow-truck.jpg';
 import BoxAnimation from 'components/BoxAnimation';
 import Container from 'components/Container';
 import List from 'components/List';
-import ServiceCard from 'pages/home/ServiceCard';
+import ServiceCard from 'components/card/ServiceCard';
 import React from 'react';
 
 const Services: React.FC = () => {
   return (
-    <Container xs="1400px" centered itemsCentered padding={{ top: '2xl', bottom: '2xl', left: 'md', right: 'md' }}>
+    <Container
+      xs="1400px"
+      styleConfig={{
+        centered: true,
+        itemsCentered: true,
+        padding: { left: 'md', right: 'md' },
+      }}
+    >
       <List xs={1} md={2} gap="4rem" justifyContent="center" elementWidth="1fr">
         <BoxAnimation duration="250ms">
           <ServiceCard

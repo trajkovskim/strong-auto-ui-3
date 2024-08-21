@@ -27,7 +27,11 @@ type Props = {
 
 const Tile: React.FC<Props> = (props) => {
   return (
-    <TileWrapper sm={12} padding="sm" direction="row" alignItems="center" gap="0.5rem" onClick={props.onClick}>
+    <TileWrapper
+      xs={12}
+      styleConfig={{ padding: 'sm', direction: 'row', alignItems: 'center', gap: '0.5rem' }}
+      onClick={props.onClick}
+    >
       <Image objectFit="contain" src={props.imageSrc} height="100px" />
       <Text fontSize="lg">{props.title}</Text>
     </TileWrapper>

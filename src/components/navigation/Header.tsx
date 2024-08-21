@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import LanguageChanger from 'components/navigation/LanguageChanger';
 import useSocialMedias from 'components/navigation/useSocialMedias';
-import { EMAIL, TELEPHONE } from 'pages/constants';
+import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { FaClock } from 'react-icons/fa';
 import { MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
@@ -23,16 +23,27 @@ const Header: React.FC = () => {
     <StyledHeader>
       <Container
         xs={12}
-        justifyContent="space-between"
-        alignItems="center"
-        direction="row"
-        gap="1.5rem"
-        padding={{ top: 'sm', bottom: 'sm', left: 'md', right: 'md' }}
+        styleConfig={{
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          direction: 'row',
+          gap: '1.5rem',
+          padding: { top: 'xs', bottom: 'xs', left: 'md', right: 'md' },
+        }}
       >
-        <Container>
-          <LanguageChanger />
+        <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+          {socialMedias.map((socialMedia, index) => (
+            <StyledButton
+              key={index}
+              themeType="link"
+              maxContent
+              icon={socialMedia.icon}
+              size="sm"
+              onClick={() => goto(socialMedia.href)}
+            />
+          ))}
         </Container>
-        <Container direction="row" gap="1.5rem">
+        <Container styleConfig={{ direction: 'row', gap: '1.5rem' }}>
           <Container>
             <StyledButton
               maxContent
@@ -51,21 +62,12 @@ const Header: React.FC = () => {
           </Container>
           <Container>
             <StyledButton maxContent themeType="link" size="sm" icon={<FaClock />}>
-              Mon-Sun: 08:00 - 20:00
+              {OPEN_HOURS}
             </StyledButton>
           </Container>
         </Container>
-        <Container gap="1.5rem" direction="row">
-          {socialMedias.map((socialMedia, index) => (
-            <StyledButton
-              key={index}
-              themeType="link"
-              maxContent
-              icon={socialMedia.icon}
-              size="sm"
-              onClick={() => goto(socialMedia.href)}
-            />
-          ))}
+        <Container>
+          <LanguageChanger />
         </Container>
       </Container>
     </StyledHeader>

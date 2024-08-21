@@ -12,7 +12,7 @@ type Props = React.ComponentProps<typeof Container> & {
 
 const ServiceCard: React.FC<Props> = (props) => {
   const body = (
-    <Container xs={12} gap="1rem" padding={{ top: 'lg' }}>
+    <Container xs={12} styleConfig={{ gap: '1rem', padding: { top: 'lg' } }}>
       <Text fontSize="2xl" bold>
         {props.title}
       </Text>

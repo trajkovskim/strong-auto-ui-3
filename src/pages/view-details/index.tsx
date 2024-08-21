@@ -16,7 +16,7 @@ import Line from 'components/Line';
 import List from 'components/List';
 import MiniProductCard from 'components/card/MiniProductCard';
 import HorizontalList from 'components/horizontalList/HorizontalList';
-import SimpleTable from 'pages/home/SimpleTable';
+import SimpleTable from 'components/SimpleTable';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
 import { FaCar } from 'react-icons/fa';
@@ -98,23 +98,36 @@ const ViewDetails: React.FC = () => {
   );
 
   return (
-    <Container padding={{ left: 'md', right: 'md', bottom: 'xl', top: 'xl' }}>
-      <Container sm="1400px" centered gap="2rem" relative>
-        <BoxAnimation>
-          <Container sm={12} gap="1rem">
-            <Breadcrumb />
-            <Title
-              title={product.title}
-              description={product.summary}
-              fontSize={{ title: 'xl', description: 'md' }}
-              bold={{ title: true }}
-            />
-          </Container>
-        </BoxAnimation>
-        <Container gap="2rem">
-          <BoxAnimation>
-            <Container relative sm={8} gap="1rem">
-              <Container wrap direction="row" gap="1rem">
+    <Container
+      xs="1400px"
+      styleConfig={{
+        centered: true,
+        gap: '3rem',
+        relative: true,
+        padding: { left: 'md', right: 'md', bottom: 'xl', top: 'xl' },
+      }}
+    >
+      <BoxAnimation>
+        <Title
+          title={product.title}
+          description={product.summary}
+          fontSize={{ title: 'xl', description: 'md' }}
+          bold={{ title: true }}
+        />
+      </BoxAnimation>
+      <Container styleConfig={{ gap: '2rem' }}>
+        <Container
+          styleConfig={{
+            direction: 'row',
+            wrap: true,
+            gap: '1rem',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+          }}
+        >
+          <Container xs={12} md={8} styleConfig={{ gap: '2rem' }}>
+            <BoxAnimation>
+              <Container styleConfig={{ wrap: true, direction: 'row', gap: '1rem' }}>
                 <Button padding="md" maxContent size="md" themeType="ghost" icon={<BiCalendar />} iconSize="lg">
                   {product.year}
                 </Button>
@@ -128,183 +141,178 @@ const ViewDetails: React.FC = () => {
                   {formatNumber(product.km)}
                 </Button>
               </Container>
+            </BoxAnimation>
+            <BoxAnimation>
+              <CarouselWrapper>
+                <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
+                  {product?.images.map((image, index) => (
+                    <BoxAnimation fullheight key={index}>
+                      <Image key={index} src={image} height={'500px'} objectFit="cover" />
+                    </BoxAnimation>
+                  ))}
+                </Carousel>
+              </CarouselWrapper>
+            </BoxAnimation>
+
+            <Container xs={12} md={0}>
+              {imagesHorizontalList}
             </Container>
-          </BoxAnimation>
 
-          <Container direction="row" wrap gap="1rem" alignItems="flex-start" justifyContent="space-between">
-            <Container sm={12} md={8} gap="2rem">
-              <BoxAnimation>
-                <CarouselWrapper>
-                  <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
-                    {product?.images.map((image, index) => (
-                      <BoxAnimation fullheight key={index}>
-                        <Image key={index} src={image} height={'500px'} objectFit="cover" />
-                      </BoxAnimation>
-                    ))}
-                  </Carousel>
-                </CarouselWrapper>
-              </BoxAnimation>
-
-              <Container xs={12} md={0}>
-                {imagesHorizontalList}
+            <BoxAnimation>
+              <Container styleConfig={{ gap: '0.5rem' }}>
+                <Text fontSize="2xl">Description</Text>
+                <Text fontSize="md">{product.description}</Text>
               </Container>
+            </BoxAnimation>
 
-              <BoxAnimation>
-                <Container gap="0.5rem">
-                  <Text fontSize="2xl">Description</Text>
-                  <Text fontSize="md">{product.description}</Text>
+            <BoxAnimation>
+              <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
+                <Container xs={12}>
+                  <Text fontSize="2xl">Car overview</Text>
                 </Container>
-              </BoxAnimation>
-
-              <BoxAnimation>
-                <Container direction="row" gap="1rem" wrap>
-                  <Container xs={12}>
-                    <Text fontSize="2xl">Car overview</Text>
-                  </Container>
-                  <Container xs={12} lg={6}>
-                    <BoxAnimation>
-                      <SimpleTable
-                        rowGap="1rem"
-                        gap="0.5rem"
-                        cellWidth="50%"
-                        data={[
-                          [createTextIcon(<FaCar />, 'Body'), product.bodyType],
-                          [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
-                          [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
-                          [createTextIcon(<BiCalendar />, 'Year'), product.year],
-                          [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
-                          [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
-                        ]}
-                      />
-                    </BoxAnimation>
-                  </Container>
-                  <Container xs={12} lg={6}>
-                    <BoxAnimation>
-                      <SimpleTable
-                        rowGap="1rem"
-                        gap="0.5rem"
-                        cellWidth="50%"
-                        data={[
-                          [createTextIcon(<FaCar />, 'Condition'), product.condition],
-                          [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
-                          [createTextIcon(<TbDoor />, 'Door'), product.doors],
-                          [createTextIcon(<BiColorFill />, 'Color'), product.color],
-                        ]}
-                      />
-                    </BoxAnimation>
-                  </Container>
+                <Container xs={12} lg={6}>
+                  <BoxAnimation>
+                    <SimpleTable
+                      rowGap="1rem"
+                      gap="0.5rem"
+                      cellWidth="50%"
+                      data={[
+                        [createTextIcon(<FaCar />, 'Body'), product.bodyType],
+                        [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
+                        [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
+                        [createTextIcon(<BiCalendar />, 'Year'), product.year],
+                        [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
+                        [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
+                      ]}
+                    />
+                  </BoxAnimation>
                 </Container>
-              </BoxAnimation>
+                <Container xs={12} lg={6}>
+                  <BoxAnimation>
+                    <SimpleTable
+                      rowGap="1rem"
+                      gap="0.5rem"
+                      cellWidth="50%"
+                      data={[
+                        [createTextIcon(<FaCar />, 'Condition'), product.condition],
+                        [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
+                        [createTextIcon(<TbDoor />, 'Door'), product.doors],
+                        [createTextIcon(<BiColorFill />, 'Color'), product.color],
+                      ]}
+                    />
+                  </BoxAnimation>
+                </Container>
+              </Container>
+            </BoxAnimation>
 
-              <Line />
+            <Line />
 
-              <BoxAnimation>
-                <Container gap="1rem">
-                  <Text fontSize="2xl">Features</Text>
-                  <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
-                    {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
-                      <Container sm={12} key={featureTitleKey} alignItems="flex-start" gap="0.5rem">
-                        <Container direction="column" gap="0.3rem">
-                          <Text fontSize="xl">{featureTitleKey}</Text>
-                          {featureValueKeys.map((valueKey) => (
-                            <div key={valueKey}>
-                              <Icon icon={<BiCheckCircle />} size="md" />
-                              <Text fontSize="md">{valueKey}</Text>
-                            </div>
-                          ))}
-                        </Container>
+            <BoxAnimation>
+              <Container styleConfig={{ gap: '1rem' }}>
+                <Text fontSize="2xl">Features</Text>
+                <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
+                  {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
+                    <Container xs={12} key={featureTitleKey} styleConfig={{ gap: '0.5rem', alignItems: 'flex-start' }}>
+                      <Container styleConfig={{ gap: '0.3rem' }}>
+                        <Text fontSize="xl">{featureTitleKey}</Text>
+                        {featureValueKeys.map((valueKey) => (
+                          <div key={valueKey}>
+                            <Icon icon={<BiCheckCircle />} size="md" />
+                            <Text fontSize="md">{valueKey}</Text>
+                          </div>
+                        ))}
                       </Container>
-                    ))}
-                  </List>
-                </Container>
-              </BoxAnimation>
-            </Container>
-            <Container sm={12} md={4} style={{ position: 'sticky', top: 100 }} gap="2rem">
-              <Container xs={0} md={12}>
-                {imagesHorizontalList}
+                    </Container>
+                  ))}
+                </List>
               </Container>
-
-              <BoxAnimation>
-                <StyledContainer rounded padding="md" gap="1rem" bordered>
-                  <Container gap="0.3rem">
-                    <Text fontSize="lg">Our offer:</Text>
-                    {product.price?.totalPromo && (
-                      <div>
-                        <Text fontSize="lg" textDecoration="line-through">
-                          {formatNumber(product.price.total)}
-                        </Text>{' '}
-                        <Text fontSize="3xl" bold>
-                          {formatNumber(product.price.totalPromo)}
-                        </Text>
-                      </div>
-                    )}
-                    {!product.price?.totalPromo && (
-                      <div>
-                        <Text fontSize="3xl" bold>
-                          {formatNumber(product.price.total)}
-                        </Text>
-                      </div>
-                    )}
-                    {product.price?.saving && (
-                      <div>
-                        <Text fontSize="lg">Saving: {formatNumber(product.price.saving)}</Text>
-                      </div>
-                    )}
-                  </Container>
-                  <StyledButton fullwidth themeType={'ghost'} size="xl">
-                    Send a message
-                  </StyledButton>
-                </StyledContainer>
-              </BoxAnimation>
-
-              <BoxAnimation>
-                <StyledContainer rounded gap="1rem" padding="md">
-                  <Button
-                    themeType="link"
-                    maxContent
-                    icon={<BiPhoneCall />}
-                    size="lg"
-                    iconSize="3xl"
-                    onClick={() => call('+38977648648')}
-                  >
-                    +38977648648
-                  </Button>
-                  <Button
-                    themeType="link"
-                    maxContent
-                    icon={<MdEmail />}
-                    size="lg"
-                    iconSize="3xl"
-                    onClick={() => mailTo('vane.stamenov@gmail.com')}
-                  >
-                    vane.stamenov@gmail.com
-                  </Button>
-                </StyledContainer>
-              </BoxAnimation>
+            </BoxAnimation>
+          </Container>
+          <Container xs={12} md={4} style={{ position: 'sticky', top: 100 }} styleConfig={{ gap: '2rem' }}>
+            <Container xs={0} md={12}>
+              {imagesHorizontalList}
             </Container>
+
+            <BoxAnimation>
+              <StyledContainer styleConfig={{ rounded: true, padding: 'md', gap: '1rem', bordered: true }}>
+                <Container styleConfig={{ gap: '0.3rem' }}>
+                  <Text fontSize="lg">Our offer:</Text>
+                  {product.price?.totalPromo && (
+                    <div>
+                      <Text fontSize="lg" textDecoration="line-through">
+                        {formatNumber(product.price.total)}
+                      </Text>{' '}
+                      <Text fontSize="3xl" bold>
+                        {formatNumber(product.price.totalPromo)}
+                      </Text>
+                    </div>
+                  )}
+                  {!product.price?.totalPromo && (
+                    <div>
+                      <Text fontSize="3xl" bold>
+                        {formatNumber(product.price.total)}
+                      </Text>
+                    </div>
+                  )}
+                  {product.price?.saving && (
+                    <div>
+                      <Text fontSize="lg">Saving: {formatNumber(product.price.saving)}</Text>
+                    </div>
+                  )}
+                </Container>
+                <StyledButton fullwidth themeType={'ghost'} size="xl">
+                  Send a message
+                </StyledButton>
+              </StyledContainer>
+            </BoxAnimation>
+
+            <BoxAnimation>
+              <StyledContainer styleConfig={{ rounded: true, gap: '1rem', padding: 'md' }}>
+                <Button
+                  themeType="link"
+                  maxContent
+                  icon={<BiPhoneCall />}
+                  size="lg"
+                  iconSize="3xl"
+                  onClick={() => call('+38977648648')}
+                >
+                  +38977648648
+                </Button>
+                <Button
+                  themeType="link"
+                  maxContent
+                  icon={<MdEmail />}
+                  size="lg"
+                  iconSize="3xl"
+                  onClick={() => mailTo('vane.stamenov@gmail.com')}
+                >
+                  vane.stamenov@gmail.com
+                </Button>
+              </StyledContainer>
+            </BoxAnimation>
           </Container>
         </Container>
-        <Container sm="1400px" centered gap="1rem">
-          <Line />
-          <Title fontSize="xl" title="Featured products" />
-          <HorizontalList
-            gap="2rem"
-            chunkGap="1rem"
-            chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }}
-            centered
-          >
-            {products.map((product) => (
-              <MiniProductCard
-                key={product.id}
-                price={product.price}
-                title={product.title}
-                images={product.images}
-                summary={product.summary}
-                onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-              />
-            ))}
-          </HorizontalList>
-        </Container>
+      </Container>
+      <Container xs="1400px" styleConfig={{ centered: true, gap: '1rem' }}>
+        <Line />
+        <Title fontSize="xl" title="Featured products" />
+        <HorizontalList
+          gap="2rem"
+          chunkGap="1rem"
+          chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }}
+          centered
+        >
+          {products.map((product) => (
+            <MiniProductCard
+              key={product.id}
+              price={product.price}
+              title={product.title}
+              images={product.images}
+              summary={product.summary}
+              onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+            />
+          ))}
+        </HorizontalList>
       </Container>
     </Container>
   );

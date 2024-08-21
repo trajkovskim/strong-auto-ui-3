@@ -72,15 +72,16 @@ type Props = Omit<StyledTitleProps, 'bold' | 'fontSize' | 'textAlign'> & {
 const Title: React.FC<Props> = (props) => {
   return (
     <Container
-      relative={props.relative}
-      direction="column"
-      gap={props.gap ?? '0.5rem'}
-      itemsCentered={props.centered}
-      textCentered={props.centered}
-      centered={props.centered}
-      sm={typeof props.maxWidth === 'string' ? props.maxWidth : undefined}
+      xs={typeof props.maxWidth === 'string' ? props.maxWidth : undefined}
+      styleConfig={{
+        relative: props.relative,
+        gap: props.gap ?? '0.5rem',
+        itemsCentered: props.centered,
+        textCentered: props.centered,
+        centered: props.centered,
+      }}
     >
-      <Container sm={typeof props.maxWidth === 'object' ? props.maxWidth.title : undefined}>
+      <Container xs={typeof props.maxWidth === 'object' ? props.maxWidth.title : undefined}>
         <StyledTitle
           textAlign={typeof props.textAlign === 'object' ? props.textAlign?.title : props.textAlign}
           fontSize={typeof props.fontSize === 'object' ? props.fontSize?.title : props.fontSize}
@@ -92,7 +93,7 @@ const Title: React.FC<Props> = (props) => {
         </StyledTitle>
       </Container>
       {props.description && (
-        <Container sm={typeof props.maxWidth === 'object' ? props.maxWidth.description : undefined}>
+        <Container xs={typeof props.maxWidth === 'object' ? props.maxWidth.description : undefined}>
           <Text
             textAlign={typeof props.textAlign === 'object' ? props.textAlign?.description : props.textAlign}
             fontSize={typeof props.fontSize === 'object' ? props.fontSize?.description : props.fontSize}

@@ -8,9 +8,16 @@ const Navigation: React.FC = () => {
 
   const navigation = (
     <StyledNavigationWrapper>
-      <Container direction="row" wrap padding="md" justifyContent="flex-end">
+      <Container
+        styleConfig={{
+          direction: 'row',
+          wrap: true,
+          padding: 'md',
+          justifyContent: 'flex-end',
+        }}
+      >
         {Object.values(navOptions).map((option) => (
-          <Container key={option.label} sm={12} lg="max-content">
+          <Container key={option.label} xs={12} lg="max-content">
             <StyledButton
               themeType="link"
               size="md"

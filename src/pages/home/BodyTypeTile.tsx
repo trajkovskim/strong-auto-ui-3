@@ -30,7 +30,10 @@ type Props = {
 
 const BodyTypeTile: React.FC<Props> = (props) => {
   return (
-    <Tile textCentered padding="md" gap="0.5rem" onClick={props.onClick} alignItems="center">
+    <Tile
+      styleConfig={{ textCentered: true, padding: 'md', gap: '0.5rem', alignItems: 'center' }}
+      onClick={props.onClick}
+    >
       <Image src={props.imageSrc} alt={props.label} objectFit="contain" centered />
       <Container>
         <Text fontSize="md">{props.label}</Text>

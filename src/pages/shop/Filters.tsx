@@ -40,10 +40,10 @@ const Filters: React.FC<Props> = (props) => {
   const resetFilters = () => undefined;
 
   return (
-    <Container bordered={{ right: true, bottom: true }} gap="1rem">
-      <FiltersHeader justifyContent="space-between" direction="row" padding="md">
+    <Container styleConfig={{ bordered: { right: true, bottom: true }, gap: '1rem' }}>
+      <FiltersHeader styleConfig={{ justifyContent: 'space-between', direction: 'row', padding: 'md' }}>
         <Text>Filtering</Text>
-        <Container gap="1rem" direction="row">
+        <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
           <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
           <Button
             size="md"
@@ -60,7 +60,7 @@ const Filters: React.FC<Props> = (props) => {
         </Container>
       </FiltersHeader>
       <StyledFilterAccordion defaultState="open" header={<Text>Basic</Text>}>
-        <Container gap="1rem">
+        <Container styleConfig={{ gap: '1rem' }}>
           <Autocomplete
             fullwidth
             placeholder="Any Make"
@@ -82,7 +82,7 @@ const Filters: React.FC<Props> = (props) => {
             size="md"
             options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
           />
-          <Container gap="0.5rem" padding={{ left: 'sm' }}>
+          <Container styleConfig={{ gap: '0.5rem', padding: { left: 'sm' } }}>
             {[{ value: 'Sold' }, { value: 'Featured' }].map((checkbox) => (
               <Checkbox key={checkbox.value} label={checkbox.value} value={checkbox.value} size="md" />
             ))}
@@ -90,7 +90,7 @@ const Filters: React.FC<Props> = (props) => {
         </Container>
       </StyledFilterAccordion>
       <StyledFilterAccordion header={<Text>Technical</Text>}>
-        <Container gap="1rem">
+        <Container styleConfig={{ gap: '1rem' }}>
           <Autocomplete
             fullwidth
             placeholder="Condition"
@@ -98,9 +98,9 @@ const Filters: React.FC<Props> = (props) => {
             size="md"
             options={[{ value: 'new' }, { value: 'used' }]}
           />
-          <Container gap="0.5rem">
+          <Container styleConfig={{ gap: '0.5rem' }}>
             <Text fontSize="lg">Body Type</Text>
-            <CheckboxWrapper gap="0.5rem">
+            <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
               {[{ value: 'sedan' }, { value: 'coupe' }, { value: 'suv' }].map((bodyType) => (
                 <Checkbox key={bodyType.value} label={bodyType.value} value={bodyType.value} size="md" />
               ))}
@@ -120,7 +120,7 @@ const Filters: React.FC<Props> = (props) => {
             size="md"
             options={[{ value: 'awd_4wd' }, { value: '2wd_fwd' }, { value: '2wd_rwd' }]}
           />
-          <Container direction="row" alignItems="center" gap="3px">
+          <Container styleConfig={{ gap: '3px', direction: 'row', alignItems: 'center' }}>
             <Autocomplete
               placeholder="Year"
               size="md"
@@ -135,7 +135,7 @@ const Filters: React.FC<Props> = (props) => {
               options={years.map((year) => ({ value: year.toString() }))}
             />
           </Container>
-          <Container direction="row" alignItems="center" gap="3px">
+          <Container styleConfig={{ gap: '3px', direction: 'row', alignItems: 'center' }}>
             <Autocomplete
               placeholder="Mileage"
               size="md"
@@ -167,8 +167,8 @@ const Filters: React.FC<Props> = (props) => {
         </Container>
       </StyledFilterAccordion>
       <StyledFilterAccordion header={<Text>Features</Text>}>
-        <Container gap="0.5rem" padding={{ left: 'xs' }}>
-          <CheckboxWrapper gap="0.5rem">
+        <Container styleConfig={{ gap: '0.5rem', padding: { left: 'xs' } }}>
+          <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
             {[
               { value: 'Air conditioner' },
               { value: 'Apple CarPlay' },
@@ -191,7 +191,7 @@ const Filters: React.FC<Props> = (props) => {
           </CheckboxWrapper>
         </Container>
       </StyledFilterAccordion>
-      <FiltersWrapper gap="0.5rem" padding="md" itemsCentered>
+      <FiltersWrapper styleConfig={{ gap: '0.5rem', padding: 'md', itemsCentered: true }}>
         <Button themeType="ghost" fullwidth iconRight={<BiSearch />} onClick={props.onClose} iconSize="lg" size="md">
           Search cars
         </Button>

@@ -19,13 +19,15 @@ const NewsLetterSubscription: React.FC = () => {
   return (
     <Container
       xs="1400px"
-      centered
-      direction="row"
-      wrap
-      gap="3rem"
-      padding={{ top: '2xl', bottom: '2xl', right: 'md', left: 'md' }}
+      styleConfig={{
+        centered: true,
+        direction: 'row',
+        wrap: true,
+        gap: '3rem',
+        padding: { right: 'md', left: 'md' },
+      }}
     >
-      <Container gap="2rem" xs={12} lg={6} xl={5.5}>
+      <Container xs={12} lg={6} xl={5.5} styleConfig={{ gap: '2rem' }}>
         <BoxAnimation>
           <Title
             title="Get Latest Updates And Best Offers"
@@ -35,7 +37,7 @@ const NewsLetterSubscription: React.FC = () => {
           />
         </BoxAnimation>
         <BoxAnimation>
-          <Container gap="1rem" direction="row">
+          <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
             <Input size="sm" placeholder="Enter your email" />
             <Button size="sm" padding="md">
               Subscribe

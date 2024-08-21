@@ -28,7 +28,10 @@ const Checkbox: React.FC<Props> = ({ label, ...props }) => {
   }, []);
 
   return (
-    <Container onClick={handleClick} direction="row" gap="5px" alignItems="center" userSelect="none">
+    <Container
+      onClick={handleClick}
+      styleConfig={{ gap: '5px', direction: 'row', alignItems: 'center', userSelect: 'none' }}
+    >
       <StyledInput type="checkbox" {...props} checked={checked} size={undefined} ref={undefined} />
       <StyledLabel checked={checked} nowrap fontSize={props.size}>
         {label}

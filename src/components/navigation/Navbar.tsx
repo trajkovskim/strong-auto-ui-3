@@ -29,17 +29,28 @@ const Navbar: React.FC<Props> = (props) => {
   return (
     <Wrapper transparent={props.transparent}>
       <StyledContainer
-        padding={{ left: 'xs', right: 'xs' }}
-        relative
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
+        styleConfig={{
+          padding: { left: 'xs', right: 'xs' },
+          relative: true,
+          direction: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
         <LogoImage />
-        <Container xs={0} lg="max-content" alignItems="center">
+        <Container xs={0} lg="max-content" styleConfig={{ alignItems: 'center' }}>
           <Navigation />
         </Container>
-        <Container xs="max-content" lg={0} direction="row" padding={{ right: 'md' }} gap="1rem" alignItems="center">
+        <Container
+          xs="max-content"
+          lg={0}
+          styleConfig={{
+            direction: 'row',
+            padding: { right: 'md' },
+            gap: '1rem',
+            alignItems: 'center',
+          }}
+        >
           <MobileNavigation />
         </Container>
       </StyledContainer>

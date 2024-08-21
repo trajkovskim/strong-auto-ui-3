@@ -24,7 +24,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
   const [containerRef, setContainerRef] = useState<HTMLSpanElement | null>(null);
 
   return (
-    <Container padding={{ top: 'md', bottom: 'md' }} gap="0.3rem">
+    <Container styleConfig={{ padding: { top: 'md', bottom: 'md' }, gap: '0.3rem' }}>
       <StyledButton
         themeType="link"
         key={props.faq.id}
@@ -61,14 +61,16 @@ const FAQ: React.FC = () => {
   return (
     <Container
       xs="1400px"
-      centered
-      gap="2rem"
-      direction="row"
-      wrap
-      padding={{ top: '2xl', bottom: '2xl', left: 'md', right: 'md' }}
+      styleConfig={{
+        centered: true,
+        gap: '0.2rem',
+        direction: 'row',
+        wrap: true,
+        padding: { left: 'md', right: 'md' },
+      }}
     >
-      <Container xs={12} lg={6} gap="3rem">
-        <Container gap="2rem">
+      <Container xs={12} lg={6} styleConfig={{ gap: '3rem' }}>
+        <Container styleConfig={{ gap: '2rem' }}>
           <Title
             fontSize={{ title: '2xl', description: 'lg' }}
             title="General FAQs"
@@ -78,7 +80,7 @@ const FAQ: React.FC = () => {
         </Container>
       </Container>
       <Container xs={12} lg={6}>
-        <Container gap="2rem">
+        <Container styleConfig={{ gap: '2rem' }}>
           {faqQuestions.map((faq) => (
             <Container key={faq.id}>
               <BoxAnimation>

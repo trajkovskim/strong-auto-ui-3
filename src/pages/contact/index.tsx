@@ -9,7 +9,7 @@ import Textarea from 'components/form/Textarea';
 import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import { EMAIL, TELEPHONE } from 'pages/constants';
+import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
@@ -19,21 +19,24 @@ const Contact: React.FC = () => {
   const socialMedias = useSocialMedias();
 
   return (
-    <Container gap="10rem">
-      <Container xs="1400px" centered padding={{ top: 'xl', bottom: 'xl', left: 'md', right: 'md' }} gap="3rem">
+    <Container styleConfig={{ gap: '2rem' }} lgStyle={{ gap: '10rem' }}>
+      <Container
+        xs="1400px"
+        styleConfig={{ centered: true, gap: '3rem', padding: { top: 'xl', left: 'md', right: 'md' } }}
+      >
         <Container>
           <Title title="Lets get in touch!" fontSize="2xl" />
         </Container>
 
-        <Container gap="4rem" direction="row" wrap>
-          <Container xs={12} lg={7} gap="2rem">
+        <Container styleConfig={{ gap: '4rem', direction: 'row', wrap: true }}>
+          <Container xs={12} lg={7} styleConfig={{ gap: '2rem' }}>
             <Title
-              title="Give us a message to let us know"
+              title="Give us a message and let us know"
               description="We will have a look at it and provide you with an answer as soon as possible"
               fontSize={{ title: 'xl', description: 'md' }}
               gap="1rem"
             />
-            <Container gap="1rem">
+            <Container styleConfig={{ gap: '1rem' }}>
               <List lg={2} gap="1rem">
                 <Input fullwidth placeholder="Your name" />
                 <Input fullwidth placeholder="Your email" />
@@ -43,15 +46,15 @@ const Contact: React.FC = () => {
               <Container>
                 <Textarea fullwidth rows={10} placeholder="Message" />
               </Container>
-              <Container alignSelf="end">
+              <Container styleConfig={{ alignSelf: 'end' }}>
                 <Button maxContent size="md">
                   Send message
                 </Button>
               </Container>
             </Container>
           </Container>
-          <Container xs={12} lg={5} gap="3rem">
-            <Container gap="1rem">
+          <Container xs={12} lg={5} styleConfig={{ gap: '3rem' }}>
+            <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="xl" bold>
                 Location
               </Text>
@@ -71,7 +74,7 @@ const Contact: React.FC = () => {
               iconSize="lg"
               onClick={() => call(TELEPHONE)}
             >
-              <Container gap="0.2rem">
+              <Container styleConfig={{ gap: '0.2rem' }}>
                 <Text fontSize="lg">Call us: </Text>
                 {TELEPHONE}
               </Container>
@@ -84,16 +87,16 @@ const Contact: React.FC = () => {
               iconSize="lg"
               onClick={() => mailTo(EMAIL)}
             >
-              <Container gap="0.2rem">
+              <Container styleConfig={{ gap: '0.2rem' }}>
                 <Text fontSize="lg">Send us an email: </Text>
                 {EMAIL}
               </Container>
             </Button>
-            <Container gap="0.5rem">
+            <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="lg" bold>
                 Social media
               </Text>
-              <Container direction="row" gap="1rem">
+              <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
                 {socialMedias.map((socialMedia) => (
                   <Button
                     key={socialMedia.type}
@@ -107,16 +110,16 @@ const Contact: React.FC = () => {
                 ))}
               </Container>
             </Container>
-            <Container gap="1rem">
+            <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="lg" bold>
                 Open hours:
               </Text>
-              <Text fontSize="md">Monday - Sunday: 08:00 - 20:00</Text>
+              <Text fontSize="md">{OPEN_HOURS}</Text>
             </Container>
           </Container>
         </Container>
       </Container>
-      <Container sm={12}>
+      <Container xs={12}>
         <BoxAnimation>
           <Image height="600px" src={MapLocationImage} objectFit="cover" objectPosition="center center" alt="Map" />
         </BoxAnimation>

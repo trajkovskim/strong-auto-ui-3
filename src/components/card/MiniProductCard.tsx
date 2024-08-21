@@ -57,19 +57,19 @@ const StyledCard = styled(Card)`
 
 const MiniProductCard: React.FC<Props> = (props) => {
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm' }}>
+    <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm' } }}>
       {props.price?.totalPromo && (
-        <Container alignItems="flex-end" gap="0.3rem">
+        <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
-          </Text>{' '}
+          </Text>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.totalPromo)}
           </Text>
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end">
+        <Container styleConfig={{ alignItems: 'end' }}>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -79,19 +79,19 @@ const MiniProductCard: React.FC<Props> = (props) => {
   );
 
   const productCardTitlePrice = (
-    <Container direction="row" gap="1rem" justifyContent="space-between" alignItems="flex-end">
-      <Container overflow="hidden" padding={{ top: 'sm' }}>
+    <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+      <Container styleConfig={{ overflow: 'hidden', padding: { top: 'sm' } }}>
         <Button maxContent themeType="link" onClick={props.onView} size="lg">
           <div>{props.title}</div>
         </Button>
       </Container>
-      <Container direction="row">{price}</Container>
+      <Container styleConfig={{ direction: 'row' }}>{price}</Container>
     </Container>
   );
 
   const onImageContainer = (
-    <OnImageContainer justifyContent="space-between" padding="md">
-      <Container direction="row" justifyContent="space-between" gap="1rem">
+    <OnImageContainer styleConfig={{ justifyContent: 'space-between', padding: 'md' }}>
+      <Container styleConfig={{ direction: 'row', justifyContent: 'space-between', gap: '1rem' }}>
         {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
         <BookmarkedButton
           bookmarked={props.bookmarked}

@@ -24,7 +24,7 @@ const MobileNavigation: React.FC = () => {
 
   const navigation = (
     <StyledNavigationWrapper>
-      <Container direction="row" wrap padding="md" justifyContent="flex-end" gap="1rem">
+      <Container styleConfig={{ direction: 'row', wrap: true, padding: 'md', justifyContent: 'flex-end', gap: '1rem' }}>
         {Object.values(navOptions).map((option) => (
           <Container key={option.label} xs={12} lg="max-content">
             <StyledButton
@@ -67,23 +67,28 @@ const MobileNavigation: React.FC = () => {
         >
           <MobileContainer>
             <Container>
-              <Container xs={12} direction="row" justifyContent="space-between" padding={{ top: 'md', right: 'md' }}>
+              <Container
+                xs={12}
+                styleConfig={{ direction: 'row', justifyContent: 'space-between', padding: { top: 'md', right: 'md' } }}
+              >
                 <LogoImage />
                 <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
               </Container>
               <div>{navigation}</div>
             </Container>
             <Container
-              direction="row"
-              justifyContent="space-between"
-              padding={{ top: 'lg', bottom: 'md', right: 'md', left: 'md' }}
               xs={12}
-              gap="0.5rem"
+              styleConfig={{
+                direction: 'row',
+                justifyContent: 'space-between',
+                padding: { top: 'lg', bottom: 'md', right: 'md', left: 'md' },
+                gap: '0.5rem',
+              }}
             >
               <Container>
                 <LanguageChanger />
               </Container>
-              <Container gap="1.5rem" direction="row">
+              <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
                 {socialMedias.map((socialMedia, index) => (
                   <Button
                     key={index}
@@ -100,7 +105,7 @@ const MobileNavigation: React.FC = () => {
         </Transition>,
         portalsElement
       )}
-      <Container xs="max-content" lg={0} alignSelf="end">
+      <Container xs="max-content" lg={0} styleConfig={{ alignSelf: 'end' }}>
         <Button
           maxContent
           themeType="link"

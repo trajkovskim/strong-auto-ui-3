@@ -21,7 +21,11 @@ export type Edges<T> = {
   bottomRight?: T;
 };
 
-type StyledContainerProps = ContainerBreakpointsProps & {
+type StyledContainerBaseProps = {
+  parentGap?: React.CSSProperties['gap'];
+};
+
+type StyledContainerStyleProps = {
   margin?: Breakpoints | Sides<Breakpoints>;
   padding?: Breakpoints | Sides<Breakpoints>;
   direction?: React.CSSProperties['flexDirection'];
@@ -38,7 +42,6 @@ type StyledContainerProps = ContainerBreakpointsProps & {
   textCentered?: boolean;
   bordered?: boolean | Sides<boolean>;
   rounded?: boolean | Edges<boolean>;
-  parentGap?: React.CSSProperties['gap'];
   relative?: boolean;
   absolute?: boolean;
   zIndex?: number;
@@ -46,6 +49,14 @@ type StyledContainerProps = ContainerBreakpointsProps & {
   minHeight?: React.CSSProperties['minHeight'];
   maxHeight?: React.CSSProperties['maxHeight'];
 };
+
+type ContainerBreakpointsStyleProps = {
+  [key in `${Breakpoints}Style`]?: StyledContainerStyleProps;
+};
+
+type StyledContainerProps = ContainerBreakpointsProps &
+  ContainerBreakpointsStyleProps &
+  StyledContainerBaseProps & { styleConfig?: StyledContainerStyleProps };
 
 const MAX_COLUMNS = 12;
 
@@ -66,6 +77,8 @@ const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss
 
       width: ${typeof props[breakpoint] === 'number' &&
       `calc(${calculateColumnPercentage(props[breakpoint] as number)} - ${gap})`};
+
+      ${createStyleProps(props[`${breakpoint}Style`])}
       ${csss};
     `
   );
@@ -108,7 +121,7 @@ export const createBorderProperty = (bordered?: Sides<boolean> | boolean) => css
 `;
 
 export const createBorderRadiusProperty = (rounded?: Edges<boolean> | boolean) => css`
-  --border-radius: 15px;
+  --border-radius: 5px;
   border-radius: ${typeof rounded === 'boolean' && rounded && 'var(--border-radius)'};
   ${typeof rounded == 'object' &&
   css`
@@ -119,46 +132,55 @@ export const createBorderRadiusProperty = (rounded?: Edges<boolean> | boolean) =
   `}
 `;
 
+const createStyleProps = (styleConfig: StyledContainerStyleProps | undefined) =>
+  styleConfig
+    ? css`
+        min-height: ${styleConfig.minHeight};
+        max-height: ${styleConfig.maxHeight};
+
+        position: ${styleConfig.relative && 'relative'};
+        position: ${styleConfig.absolute && 'absolute'};
+
+        z-index: ${styleConfig.zIndex && `${styleConfig.zIndex} !important`};
+
+        overflow: ${styleConfig.overflow};
+
+        margin-top: ${styleConfig.centered !== 'horizontal' && !!styleConfig.centered && 'auto'};
+        margin-bottom: ${styleConfig.centered !== 'horizontal' && !!styleConfig.centered && 'auto'};
+        margin-left: ${styleConfig.centered !== 'vertical' && !!styleConfig.centered && 'auto'};
+        margin-right: ${styleConfig.centered !== 'vertical' && !!styleConfig.centered && 'auto'};
+
+        ${createPaddingProperty(styleConfig.padding)};
+        ${createMarginProperty(styleConfig.margin)};
+        ${createBorderRadiusProperty(styleConfig.rounded)};
+        ${createBorderProperty(styleConfig.bordered)};
+
+        user-select: ${styleConfig.userSelect};
+
+        gap: ${styleConfig.gap};
+
+        flex-direction: ${styleConfig.direction};
+        flex-wrap: ${styleConfig.wrap && 'wrap'};
+
+        align-items: ${styleConfig.alignItems};
+        align-items: ${styleConfig.itemsCentered && 'center'};
+
+        align-self: ${styleConfig.alignSelf};
+        justify-self: ${styleConfig.justifySelf};
+
+        justify-content: ${styleConfig.justifyContent};
+        justify-content: ${styleConfig.itemsCentered && 'center'};
+
+        text-align: ${styleConfig.textAlign};
+        text-align: ${styleConfig.textCentered && 'center'};
+      `
+    : undefined;
+
 const StyledContainer = styled.div<StyledContainerProps>`
-  min-height: ${(props) => props.minHeight};
-  max-height: ${(props) => props.maxHeight};
   box-sizing: border-box;
   display: flex;
-  position: ${(props) => props.relative && 'relative'};
-  position: ${(props) => props.absolute && 'absolute'};
 
-  z-index: ${(props) => props.zIndex && `${props.zIndex} !important`};
-
-  overflow: ${(props) => props.overflow};
-
-  ${(props) => createPaddingProperty(props.padding)}
-  ${(props) => createMarginProperty(props.margin)}
-  ${(props) => createBorderRadiusProperty(props.rounded)}
-  ${(props) => createBorderProperty(props.bordered)};
-
-  margin-top: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
-  margin-bottom: ${(props) => props.centered !== 'horizontal' && !!props.centered && 'auto'};
-  margin-left: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
-  margin-right: ${(props) => props.centered !== 'vertical' && !!props.centered && 'auto'};
-
-  user-select: ${(props) => props.userSelect};
-
-  gap: ${(props) => props.gap};
-
-  flex-direction: ${(props) => props.direction ?? 'column'};
-  flex-wrap: ${(props) => props.wrap && 'wrap'};
-
-  align-items: ${(props) => props.alignItems};
-  align-items: ${(props) => props.itemsCentered && 'center'};
-
-  align-self: ${(props) => props.alignSelf};
-  justify-self: ${(props) => props.justifySelf};
-
-  justify-content: ${(props) => props.justifyContent};
-  justify-content: ${(props) => props.itemsCentered && 'center'};
-
-  text-align: ${(props) => props.textAlign};
-  text-align: ${(props) => props.textCentered && 'center'};
+  ${(props) => createStyleProps(props.styleConfig)}
 
   ${(props) => createMediaQ(props, 'xs')};
   ${(props) => createMediaQ(props, 'sm')};
@@ -181,8 +203,20 @@ const Container = React.forwardRef<HTMLDivElement, Props>(({ children, ...props 
   props['2xl'] = props['2xl'] ?? props.xl;
   props['3xl'] = props['3xl'] ?? props['2xl'];
 
-  const includeParentGap = props.direction?.startsWith('row') && props.wrap;
-  const childProps = includeParentGap ? { parentGap: props.gap } : undefined;
+  props.smStyle = props.smStyle ?? props.xsStyle;
+  props.mdStyle = props.mdStyle ?? props.smStyle;
+  props.lgStyle = props.lgStyle ?? props.mdStyle;
+  props.xlStyle = props.xlStyle ?? props.lgStyle;
+  props['2xlStyle'] = props['2xlStyle'] ?? props.xlStyle;
+  props['3xlStyle'] = props['3xlStyle'] ?? props['2xlStyle'];
+
+  props.styleConfig = props.styleConfig ?? {};
+  props.styleConfig.direction = props.styleConfig.direction ?? 'column';
+
+  const { direction, wrap, gap } = props.styleConfig;
+
+  const includeParentGap = direction?.startsWith('row') && wrap;
+  const childProps = includeParentGap ? { parentGap: gap } : undefined;
 
   return (
     <StyledContainer ref={ref} {...props}>

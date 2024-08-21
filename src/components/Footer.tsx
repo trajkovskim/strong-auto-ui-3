@@ -40,9 +40,21 @@ const Footer: React.FC = () => {
 
   return (
     <StyledFooter>
-      <Container centered sm="1400px" gap="2rem" padding={{ left: 'md', right: 'md', top: 'lg', bottom: 'lg' }}>
-        <Container xs={12} direction="row" wrap justifyContent="space-between" alignItems="center" gap="1rem">
-          <Container sm={12} md="max-content">
+      <Container
+        xs="1400px"
+        styleConfig={{ centered: true, gap: '2rem', padding: { left: 'md', right: 'md', top: 'lg', bottom: 'lg' } }}
+      >
+        <Container
+          xs={12}
+          styleConfig={{
+            direction: 'row',
+            wrap: true,
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
+          <Container xs={12} md="max-content">
             <Title
               title="Join our newletter"
               fontSize="md"
@@ -50,12 +62,14 @@ const Footer: React.FC = () => {
             />
           </Container>
           <StyledNewsLetterFormContainer
-            sm={12}
+            xs={12}
             md="max-content"
-            padding="sm"
-            direction="row"
-            alignItems="center"
-            gap="1rem"
+            styleConfig={{
+              padding: 'sm',
+              direction: 'row',
+              alignItems: 'center',
+              gap: '1rem',
+            }}
           >
             <Input fullwidth size="md" placeholder="Your email address" noBorder />
             <Button size="md" maxContent padding="md">
@@ -64,15 +78,15 @@ const Footer: React.FC = () => {
           </StyledNewsLetterFormContainer>
         </Container>
         <Line />
-        <Container gap="3rem" wrap direction="row">
-          <Container sm={12} lg={3.5} gap="2rem" itemsCentered>
+        <Container styleConfig={{ gap: '3rem', wrap: true, direction: 'row' }}>
+          <Container xs={12} lg={3.5} styleConfig={{ gap: '2rem', itemsCentered: true }}>
             <Image alt="Logo" shadow objectFit="contain" width="200px" src={Logo} />
             <Text>
               Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto
               is a auto is a Strong auto is a
             </Text>
           </Container>
-          <Container sm={4} lg={3} gap="2rem">
+          <Container sm={4} lg={3} styleConfig={{ gap: '2rem' }}>
             <Text type="sub" bold fontSize="sm">
               Find us
             </Text>
@@ -83,7 +97,7 @@ const Footer: React.FC = () => {
               <br />
               California 90017
             </Text>
-            <SocialMedias gap="1.5rem" direction="row">
+            <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row' }}>
               {socialMedias.map((socialMedia, index) => (
                 <Button
                   key={index}
@@ -97,7 +111,7 @@ const Footer: React.FC = () => {
               ))}
             </SocialMedias>
           </Container>
-          <Container sm={4} lg={3} gap="2rem">
+          <Container sm={4} lg={3} styleConfig={{ gap: '2rem' }}>
             <Text type="sub" bold fontSize="sm">
               Contacts
             </Text>
@@ -112,9 +126,9 @@ const Footer: React.FC = () => {
               vane.stamenov@gmail.com
             </Button>
           </Container>
-          <Container sm={4} lg={2.5} gap="2rem">
+          <Container sm={4} lg={2.5} styleConfig={{ gap: '2rem' }}>
             <Text>Useful links:</Text>
-            <Container gap="0.5rem">
+            <Container styleConfig={{ gap: '0.5rem' }}>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.INDEX)}>
                 Home
               </Button>

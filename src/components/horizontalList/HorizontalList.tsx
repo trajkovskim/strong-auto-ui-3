@@ -77,8 +77,8 @@ const HorizontalListChildrenWrapper = styled(Container)`
 
     user-select: none;
 
-    border-left: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
-    border-right: ${(props) => `calc(${props.gap} / 2)`} solid transparent;
+    border-left: ${(props) => `calc(${props.styleConfig?.gap} / 2)`} solid transparent;
+    border-right: ${(props) => `calc(${props.styleConfig?.gap} / 2)`} solid transparent;
 
     transition: 200ms all;
 
@@ -88,7 +88,7 @@ const HorizontalListChildrenWrapper = styled(Container)`
   }
 
   & > *:last-child {
-    border-right: ${(props) => props.gap} solid transparent;
+    border-right: ${(props) => props.styleConfig?.gap} solid transparent;
   }
 
   & > *:first-child {
@@ -231,8 +231,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 5000, noAutoScroll, ...p
         onMouseEnter={() => horizontalListHandlers?.mouseEnterHandler()}
         onMouseLeave={() => horizontalListHandlers?.mouseLeaveHandler()}
         ref={setRef}
-        direction="row"
-        gap={props.chunkGap}
+        styleConfig={{ direction: 'row', gap: props.chunkGap }}
       >
         {React.Children.map(props.children, (child, index) => {
           return (

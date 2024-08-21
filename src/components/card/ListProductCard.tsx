@@ -24,9 +24,9 @@ type Props = ProductCardProps & {
 
 const ListProductCard: React.FC<Props> = (props) => {
   const price = (
-    <PriceWrapper padding={{ left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' }}>
+    <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' } }}>
       {props.price?.totalPromo && (
-        <Container alignItems="flex-end" gap="0.3rem">
+        <Container styleConfig={{ alignItems: 'flex-end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
             ${formatNumber(props.price.total)}
           </Text>{' '}
@@ -36,7 +36,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {!props.price?.totalPromo && (
-        <Container alignItems="flex-end">
+        <Container styleConfig={{ alignItems: 'flex-end' }}>
           <Text fontSize="lg" bold>
             ${formatNumber(props.price.total)}
           </Text>
@@ -45,10 +45,11 @@ const ListProductCard: React.FC<Props> = (props) => {
     </PriceWrapper>
   );
 
+  const attributeStyleConfig = { gap: '5px', alignItems: 'flex-start', padding: 'sm', direction: 'row' } as never;
   const productAttributes = (
     <List gap="1rem" sm={2} md={2} lg={2} xl={3} {...{ '2xl': 5 }} justifyContent="flex-start">
       {props.km && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<FaRoad />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -59,7 +60,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {props.fuelType && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -70,7 +71,7 @@ const ListProductCard: React.FC<Props> = (props) => {
         </Container>
       )}
       {props.transmission && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<TbManualGearbox />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -82,7 +83,7 @@ const ListProductCard: React.FC<Props> = (props) => {
       )}
 
       {props.year && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<BiCalendar />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -94,7 +95,7 @@ const ListProductCard: React.FC<Props> = (props) => {
       )}
 
       {props.driveType && (
-        <Container gap="5px" xs="max-content" alignItems="flex-start" padding="sm" direction="row">
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<FaGear />} />
           <Container>
             <Text type="sub" fontSize="sm">
@@ -108,10 +109,10 @@ const ListProductCard: React.FC<Props> = (props) => {
   );
 
   const body = (
-    <Container gap="0.5rem" style={{ flex: '1 0 100%' }} justifyContent="space-between">
+    <Container styleConfig={{ gap: '0.5rem', justifyContent: 'space-between' }} style={{ flex: '1 0 100%' }}>
       <Container>
-        <Container direction="row" padding={{ left: 'md' }} justifyContent="space-between">
-          <Container overflow="hidden" alignItems="center" padding={{ top: 'sm' }}>
+        <Container styleConfig={{ direction: 'row', padding: { left: 'md' }, justifyContent: 'space-between' }}>
+          <Container styleConfig={{ overflow: 'hidden', alignItems: 'center', padding: { top: 'sm' } }}>
             <Button maxContent themeType="link" onClick={props.onView} size="lg">
               <div>{props.title}</div>
               {props.summary && (
@@ -121,20 +122,22 @@ const ListProductCard: React.FC<Props> = (props) => {
               )}
             </Button>
           </Container>
-          <Container direction="row">{price}</Container>
+          <Container styleConfig={{ direction: 'row' }}>{price}</Container>
         </Container>
-        <Container padding={{ left: 'md' }} xs="max-content">
+        <Container styleConfig={{ padding: { left: 'md' } }} xs="max-content">
           {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
         </Container>
       </Container>
-      <Container direction="row" gap="1rem" justifyContent="space-between">
-        <Container padding={{ left: 'md' }}>{productAttributes}</Container>
+      <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between' }}>
+        <Container styleConfig={{ padding: { left: 'md' } }}>{productAttributes}</Container>
         <Container
-          padding={{ left: 'md', right: 'md', top: 'sm', bottom: 'sm' }}
-          justifyContent="flex-end"
-          alignItems="flex-end"
-          gap="1rem"
-          direction="row"
+          styleConfig={{
+            padding: { left: 'md', right: 'md', top: 'sm', bottom: 'sm' },
+            justifyContent: 'flex-end',
+            alignItems: 'flex-end',
+            gap: '1rem',
+            direction: 'row',
+          }}
         >
           <Button
             themeType="white"
@@ -163,7 +166,9 @@ const ListProductCard: React.FC<Props> = (props) => {
     </Carousel>
   );
 
-  return <Card direction="row" fullwidth={props.fullwidth} body={body} image={image} bordered />;
+  return (
+    <Card styleConfig={{ direction: 'row', bordered: true }} fullwidth={props.fullwidth} body={body} image={image} />
+  );
 };
 
 export default ListProductCard;

@@ -38,7 +38,7 @@ type Props = {
 
 const TabButtonsGroup: React.FC<Props> = (props) => {
   return (
-    <StyledContainer direction="row" alignItems="flex-start" gap="1rem">
+    <StyledContainer styleConfig={{ direction: 'row', alignItems: 'flex-start', gap: '1rem' }}>
       {props.buttons.map((button, index) => (
         <StyledButton
           key={index}
