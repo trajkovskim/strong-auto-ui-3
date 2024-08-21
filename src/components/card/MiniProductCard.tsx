@@ -106,7 +106,7 @@ const MiniProductCard: React.FC<Props> = (props) => {
   const image = (
     <StyledCarousel noChangeOptions>
       {props.images?.map((image, index) => (
-        <StyledImage key={index} shadow objectFit="cover" src={image} />
+        <StyledImage key={index} shadow objectFit="cover" height="350px" src={image} />
       ))}
     </StyledCarousel>
   );

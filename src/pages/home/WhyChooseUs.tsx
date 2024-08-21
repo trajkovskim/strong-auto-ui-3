@@ -23,7 +23,7 @@ const StyledCarLotImage = styled(Image)`
   border-bottom-left-radius: 150px;
 
   height: 100%;
-  min-height: 300px;
+  min-height: 400px;
 `;
 
 const WhyChooseUs: React.FC = () => {
@@ -33,7 +33,7 @@ const WhyChooseUs: React.FC = () => {
         <Container
           styleConfig={{
             minHeight: '430px',
-            padding: { top: 'lg', bottom: 'xl', left: 'md', right: 'md' },
+            padding: { top: 'xl', bottom: 'xl', left: 'md', right: 'md' },
             gap: '3rem',
             direction: 'row',
             wrap: true,

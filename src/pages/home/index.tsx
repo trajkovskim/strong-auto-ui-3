@@ -21,7 +21,7 @@ import React from 'react';
 
 const Home: React.FC = () => {
   return (
-    <HomeWrapper styleConfig={{ gap: '2rem', padding: { bottom: '2xl' } }} lgStyle={{ gap: '9rem' }}>
+    <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: '2xl' } }} lgStyle={{ gap: '9rem' }}>
       <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100vh' }}>
         <Carousel absolute minHeight="800px" maxHeight="100vh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />

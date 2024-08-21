@@ -22,11 +22,6 @@ const Services: React.FC = () => {
       >
         <List xs={1} md={2} gap="4rem" justifyContent="center" elementWidth="1fr">
           <BoxAnimation duration="250ms">
-            {/* <ServiceCard
-            image={CarServiceMechanicImage}
-            title="CAR SERVICE"
-            description="mply dummy text of the printing and typesetting industry."
-          /> */}
             <Container styleConfig={{ gap: '3rem' }}>
               <Title
                 title="Our Services"

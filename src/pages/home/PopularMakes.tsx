@@ -24,7 +24,7 @@ const PopularMakes: React.FC = () => {
     <PopularMakesWrapper xs={12}>
       <BoxAnimation threshold={0.2}>
         <Container
-          styleConfig={{ gap: '2rem', padding: { top: 'lg', bottom: 'xl' } }}
+          styleConfig={{ gap: '2rem', padding: { top: 'xl', bottom: 'xl' } }}
           lgStyle={{ padding: { top: 'xl', bottom: '2xl' } }}
         >
           <Container

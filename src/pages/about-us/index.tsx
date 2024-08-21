@@ -51,8 +51,8 @@ const WelcomeIntroImage = styled(Image)`
   /* clip-path: ellipse(67% 75% at 75% 66%); */
 
   height: 100%;
-  max-height: 500px;
-  min-height: 300px;
+  max-height: 600px;
+  min-height: 400px;
 `;
 
 const AboutUs: React.FC = () => {

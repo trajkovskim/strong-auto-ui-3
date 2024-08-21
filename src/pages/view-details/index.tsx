@@ -326,7 +326,7 @@ const ViewDetails: React.FC = () => {
           </BoxAnimation>
         </Container>
       </Container>
-      <Container xs="1400px" styleConfig={{ centered: true, gap: '1rem' }}>
+      <Container xs="1400px" styleConfig={{ centered: true, gap: '1rem', padding: 'md' }}>
         <Line />
         <Title fontSize="xl" title="Featured products" />
         <HorizontalList
