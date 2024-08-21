@@ -33,12 +33,13 @@ const WhyChooseUs: React.FC = () => {
         <Container
           styleConfig={{
             minHeight: '430px',
-            padding: { top: '2xl', bottom: '2xl', left: 'md', right: 'md' },
+            padding: { top: 'lg', bottom: 'xl', left: 'md', right: 'md' },
             gap: '3rem',
             direction: 'row',
             wrap: true,
             justifyContent: 'end',
           }}
+          lgStyle={{ padding: { top: '2xl', bottom: '2xl', left: 'md', right: 'md' } }}
         >
           <Container xs={12} lg={5} xl={4.5} styleConfig={{ gap: '2rem' }}>
             <Title

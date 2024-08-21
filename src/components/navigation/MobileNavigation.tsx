@@ -78,10 +78,12 @@ const MobileNavigation: React.FC = () => {
             <Container
               xs={12}
               styleConfig={{
-                direction: 'row',
                 justifyContent: 'space-between',
-                alignItems: 'end',
                 gap: '1rem',
+              }}
+              smStyle={{
+                direction: 'row',
+                alignItems: 'end',
               }}
             >
               <Container styleConfig={{ gap: '0.8rem' }}>
