@@ -26,7 +26,8 @@ const PopularMakes: React.FC = () => {
         <Container styleConfig={{ gap: '2rem', padding: { top: 'xl', bottom: '2xl' } }}>
           <Container
             xs="1400px"
-            styleConfig={{ centered: true, alignItems: 'center', gap: '4rem', padding: { right: 'md' } }}
+            styleConfig={{ centered: true, alignItems: 'center', gap: '2rem', padding: { left: 'md', right: 'md' } }}
+            lgStyle={{ gap: '3rem' }}
           >
             <Container
               xs={12}

@@ -76,7 +76,11 @@ const Reviews: React.FC = () => {
   return (
     <>
       <WhiteBackgroundContainer>
-        <Container xs="1400px" styleConfig={{ gap: '4rem', padding: { left: 'md', right: 'md' }, centered: true }}>
+        <Container
+          xs="1400px"
+          styleConfig={{ gap: '3rem', padding: { left: 'md', right: 'md' }, centered: true }}
+          lgStyle={{ gap: '6rem' }}
+        >
           <BoxAnimation>
             <Title centered fontSize="2xl" title="What our clients say about us" />
           </BoxAnimation>

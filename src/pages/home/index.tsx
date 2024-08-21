@@ -41,7 +41,11 @@ const Home: React.FC = () => {
             </Container>
           </BoxAnimation>
           <BoxAnimation>
-            <Container xs="600px" styleConfig={{ direction: 'row', gap: '1rem', centered: true, itemsCentered: true }}>
+            <Container
+              xs="600px"
+              styleConfig={{ gap: '1rem', centered: true, itemsCentered: true }}
+              smStyle={{ direction: 'row' }}
+            >
               <Button maxContent size="lg">
                 Get to the Inventory
               </Button>

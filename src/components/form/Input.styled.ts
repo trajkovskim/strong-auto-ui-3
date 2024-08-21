@@ -73,7 +73,7 @@ export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth
   transition: 100ms all;
 
   &:focus {
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    box-shadow: 0 3px 3px rgb(0 0 0 / 0.2);
     /* border: 1px solid black; */
   }
 `;
