@@ -24,12 +24,12 @@ const PopularMakes: React.FC = () => {
     <PopularMakesWrapper xs={12}>
       <BoxAnimation threshold={0.2}>
         <Container
-          styleConfig={{ gap: '2rem', padding: { top: 'xl', bottom: 'xl' } }}
+          styleConfig={{ gap: '2rem', padding: { top: 'xl', bottom: 'xl', left: 'md', right: 'md' } }}
           lgStyle={{ padding: { top: 'xl', bottom: '2xl' } }}
         >
           <Container
             xs="1400px"
-            styleConfig={{ centered: true, alignItems: 'center', gap: '2rem', padding: { left: 'md', right: 'md' } }}
+            styleConfig={{ centered: true, alignItems: 'center', gap: '2rem' }}
             lgStyle={{ gap: '3rem' }}
           >
             <Container
@@ -52,7 +52,7 @@ const PopularMakes: React.FC = () => {
               buttons={[{ label: 'Audi' }, { label: 'BMW' }, { label: 'Toyota' }]}
             />
           </Container>
-          <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered>
+          <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered circular>
             {popularMakesProducts.map((product) => (
               <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
             ))}

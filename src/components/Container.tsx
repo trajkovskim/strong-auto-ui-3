@@ -80,12 +80,20 @@ const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss
       ? props[`${breakpoint}ParentGap`]?.toString() ?? props.parentGap?.toString() ?? '0rem'
       : '0rem';
 
+  // const factor =
+  // eslint-disable-next-line max-len
+  //   typeof breakpointValue === 'string' && /^\d*(\.\d*)?%$/.test(breakpointValue) && parseFloat(breakpointValue) / 100;
+
+  // max-width: ${typeof breakpointValue === 'string' && factor
+  //       ? `calc(${breakpointValue} - (1 - ${factor}) * ${parentGap})`
+  //       : breakpointValue};
+
   return createMedia(
     breakpoint,
     css`
       display: ${typeof breakpointValue === 'number' && breakpointValue === 0 && 'none'};
 
-      width: ${typeof breakpointValue === 'string' && `calc(100% - ${parentGap})`};
+      width: ${typeof breakpointValue === 'string' && '100%'};
       max-width: ${typeof breakpointValue === 'string' && breakpointValue};
 
       width: ${typeof breakpointValue === 'number' &&

@@ -20,6 +20,7 @@ const ProductsSection: React.FC = () => {
         relative: true,
         centered: true,
         alignItems: 'center',
+        padding: { left: 'md', right: 'md' },
       }}
     >
       <BoxAnimation threshold={0.2}>
@@ -33,7 +34,7 @@ const ProductsSection: React.FC = () => {
       <BoxAnimation fullwidth threshold={0.2}>
         <Container styleConfig={{ direction: 'row', relative: true }} xs={12}>
           {exploreVehiclesActiveTab === 0 && (
-            <HorizontalList chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4, xl: 3 }} centered>
+            <HorizontalList chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4, xl: 3 }} centered circular>
               {products.map((product) => (
                 <ProductCard
                   {...product}

@@ -21,6 +21,7 @@ export const bodyTypes = [
   { id: 9, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
   { id: 10, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
   { id: 11, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
+  { id: 12, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
 ];
 
 export const faqQuestions = [

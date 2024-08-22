@@ -54,15 +54,19 @@ const MobileNavigation: React.FC = () => {
       {createPortal(
         <Transition
           ref={transitionRef}
-          duration="200ms"
+          duration="300ms"
           timingFunction="ease-in-out"
           transition={{
             initial: css`
               overflow: hidden;
-              transform: translateY(-100%);
+              opacity: 0;
+              z-index: -99;
+              /* transform: translateY(-100%); */
             `,
             final: css`
-              transform: translateY(0);
+              /* transform: translateY(0); */
+              opacity: 1;
+              z-index: 99;
               overflow: auto;
             `,
           }}

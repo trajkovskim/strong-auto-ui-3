@@ -1,40 +1,24 @@
-import List from 'components/List';
-import { HorizontalListModel, createHorizontalListHandlers } from 'components/horizontalList/horizontalListUtils';
+import Container from 'components/Container';
+import HorizontalList from 'components/horizontalList/HorizontalList';
 import { bodyTypes } from 'pages/constants';
 import BodyTypeTile from 'pages/home/BodyTypeTile';
-import React, { useMemo, useRef, useState } from 'react';
-import styled from 'styled-components';
-
-const Wrapper = styled(List)`
-  overflow-x: scroll;
-  position: relative;
-`;
+import React from 'react';
 
 const BodyTypes: React.FC = () => {
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
-  const horizontalList = useRef<HorizontalListModel>();
-  const horizontalListHandlers = useMemo(() => createHorizontalListHandlers(ref, horizontalList, false), [ref]);
-
   return (
-    <Wrapper
-      xs={7}
-      elementWidth="300px"
-      ref={setRef}
-      onMouseUp={() => horizontalListHandlers?.mouseUpHandler()}
-      onMouseDown={() => horizontalListHandlers?.mouseDownHandler()}
-      onTouchStart={(event) => horizontalListHandlers?.touchStartHandler(event)}
-      onTouchEnd={() => horizontalListHandlers?.touchEndHandler()}
-      onMouseMove={(event) => horizontalListHandlers?.mouseMoveHandler(event)}
-      onTouchMove={(event) => horizontalListHandlers?.touchMoveHandler(event)}
-      onMouseEnter={() => horizontalListHandlers?.mouseEnterHandler()}
-      onMouseLeave={() => horizontalListHandlers?.mouseLeaveHandler()}
-      padding={{ top: 'md', bottom: 'md' }}
-      gap="1rem"
-    >
-      {bodyTypes.map((bodyType) => (
-        <BodyTypeTile key={bodyType.id} {...bodyType} />
+    <HorizontalList chunkGap="1rem" chunkSize={{ xs: '300px' }}>
+      {new Array(Math.floor(bodyTypes.length / 2)).fill(0).map((_, index) => (
+        <Container key={`${bodyTypes[2 * index].id}_${bodyTypes[2 * index + 1].id}`} styleConfig={{ gap: '1rem' }}>
+          <BodyTypeTile {...bodyTypes[2 * index]} />
+          <BodyTypeTile {...bodyTypes[2 * index + 1]} />
+        </Container>
       ))}
-    </Wrapper>
+      {!!(bodyTypes.length % 2) && (
+        <Container>
+          <BodyTypeTile {...bodyTypes[bodyTypes.length - 1]} />
+        </Container>
+      )}
+    </HorizontalList>
   );
 };
 

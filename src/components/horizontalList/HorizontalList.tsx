@@ -108,6 +108,7 @@ type Props = React.PropsWithChildren &
     intervalMs?: number;
     chunkSize?: ContainerBreakpointsProps;
     chunkGap?: React.CSSProperties['gap'];
+    circular?: boolean;
   };
 
 const HorizontalList: React.FC<Props> = ({ intervalMs = 10000, noAutoScroll, ...props }) => {
@@ -116,7 +117,7 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 10000, noAutoScroll, ...
   const horizontalList = useRef<HorizontalListModel>();
 
   if (ref) {
-    horizontalList.current = new HorizontalListModel(ref, true);
+    horizontalList.current = new HorizontalListModel(ref, !!props.circular);
   }
 
   const horizontalListService = useMemo(() => createHorizontalListService(ref, horizontalList, true), [ref]);
