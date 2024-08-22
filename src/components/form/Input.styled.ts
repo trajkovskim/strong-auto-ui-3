@@ -14,7 +14,7 @@ export type StyledInputProps = {
 
 export const fontSize: Record<FontSize, string> = {
   sm: textFontSize.sm,
-  md: textFontSize.sm,
+  md: textFontSize.md,
   lg: textFontSize.md,
   xl: textFontSize.md,
   '2xl': textFontSize.lg,
