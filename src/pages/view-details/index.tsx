@@ -127,10 +127,11 @@ const ViewDetails: React.FC = () => {
             gap: '2rem',
           }}
           lgStyle={{
-            direction: 'row',
+            direction: 'row-reverse',
             justifyContent: 'space-between',
           }}
         >
+          <Breadcrumb />
           <Container styleConfig={{ gap: '2rem' }}>
             <BoxAnimation>
               <Title
@@ -157,7 +158,6 @@ const ViewDetails: React.FC = () => {
               </Container>
             </BoxAnimation>
           </Container>
-          <Breadcrumb />
         </Container>
       </ViewDetailTitleWrapper>
       <Container
@@ -165,23 +165,24 @@ const ViewDetails: React.FC = () => {
         styleConfig={{
           centered: true,
           gap: '3rem',
-          padding: { left: 'md', right: 'md', bottom: 'xl', top: 'xl' },
+          padding: { bottom: 'xl', top: 'lg' },
           direction: 'row',
           wrap: true,
           relative: true,
-          alignItems: 'flex-start',
+          alignItems: 'start',
         }}
         lgStyle={{
+          padding: { top: 'xl' },
           gap: '1rem',
         }}
       >
         <Container xs={12} lg={8} styleConfig={{ gap: '2rem' }}>
           <BoxAnimation>
             <CarouselWrapper>
-              <Carousel minHeight="500px" maxHeight="500px" ref={carouselRef}>
+              <Carousel minHeight="400px" maxHeight="400px" ref={carouselRef}>
                 {product?.images.map((image, index) => (
                   <BoxAnimation fullheight key={index}>
-                    <Image key={index} src={image} height={'500px'} objectFit="cover" />
+                    <Image key={index} src={image} height="100%" objectFit="cover" />
                   </BoxAnimation>
                 ))}
               </Carousel>
@@ -326,7 +327,10 @@ const ViewDetails: React.FC = () => {
           </BoxAnimation>
         </Container>
       </Container>
-      <Container xs="1400px" styleConfig={{ centered: true, gap: '1rem', padding: 'md' }}>
+      <Container
+        xs="1400px"
+        styleConfig={{ centered: true, gap: '3rem', padding: { left: 'md', right: 'md', bottom: 'xl' } }}
+      >
         <Line />
         <Title fontSize="xl" title="Featured products" />
         <HorizontalList

@@ -38,6 +38,8 @@ const arrowCss = css`
     background-color: ${theme.carousel.arrowBackgroundColorHover};
   }
 
+  display: none;
+
   @media (min-width: ${theme.breakpoints.minWidth.lg}) {
     display: flex;
   }

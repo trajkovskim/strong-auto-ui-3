@@ -93,4 +93,4 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
 
 Sidebar.displayName = 'Sidebar';
 
-export default Sidebar;
+export default React.memo(Sidebar);

@@ -99,7 +99,10 @@ const Shop: React.FC = () => {
   );
 
   const listHeaderComponent = (
-    <ListHeader styleConfig={{ padding: 'lg', gap: '1.5rem', minHeight: '100px', bordered: true, rounded: true }}>
+    <ListHeader
+      styleConfig={{ padding: 'md', gap: '1.5rem', bordered: true, rounded: true }}
+      lgStyle={{ padding: 'lg' }}
+    >
       <Container xs={12} styleConfig={{ gap: '1rem' }}>
         <Breadcrumb />
         <Text type="sub" fontSize="sm">
@@ -117,7 +120,6 @@ const Shop: React.FC = () => {
             icon={filtersSidebarShow ? <HiFilter /> : <HiOutlineFilter />}
             themeType="link"
             size="lg"
-            iconSize="2xl"
           >
             <Container xs={0} sm="max-content">
               Filters
@@ -126,13 +128,7 @@ const Shop: React.FC = () => {
           <Line type="vertical" />
         </Container>
         <Container xs="max-content" lg={0} styleConfig={{ gap: '1rem', direction: 'row' }}>
-          <Button
-            maxContent
-            icon={<BiMenu />}
-            themeType="link"
-            iconSize="2xl"
-            onClick={() => setSortAndSizeSidebarShow(true)}
-          />
+          <Button maxContent icon={<BiMenu />} themeType="link" onClick={() => setSortAndSizeSidebarShow(true)} />
         </Container>
       </Container>
     </ListHeader>

@@ -12,30 +12,76 @@ export type StyledInputProps = {
   noBorder?: boolean;
 };
 
-export const fontSize: Record<FontSize, string> = textFontSize;
+export const fontSize: Record<FontSize, string> = {
+  sm: textFontSize.sm,
+  md: textFontSize.sm,
+  lg: textFontSize.md,
+  xl: textFontSize.md,
+  '2xl': textFontSize.lg,
+  '3xl': textFontSize.xl,
+  default: 'inherit',
+};
 
 export const inputSize: Record<Size, string> = {
-  sm: `calc(${fontSize.sm} + 25px)`,
-  md: `calc(${fontSize.md} + 30px)`,
-  lg: `calc(${fontSize.lg} + 35px)`,
-  xl: `calc(${fontSize.xl} + 40px)`,
-  '2xl': `calc(${fontSize['2xl']} + 45px)`,
-  '3xl': `calc(${fontSize['2xl']} + 50px)`,
+  sm: `calc(${textFontSize.sm} + 25px)`,
+  md: `calc(${textFontSize.md} + 30px)`,
+  lg: `calc(${textFontSize.lg} + 35px)`,
+  xl: `calc(${textFontSize.xl} + 40px)`,
+  '2xl': `calc(${textFontSize['2xl']} + 45px)`,
+  '3xl': `calc(${textFontSize['2xl']} + 50px)`,
   default: 'auto',
 };
 
-export const getCalcInputHeightCss = (size: FontSize) => `calc(${inputSize[size]} + ${fontSize[size]} / 2)`;
+export const getCalcInputHeightCss = (size: FontSize, includeLabelSize = false) =>
+  includeLabelSize ? `calc(${inputSize[size]} + ${fontSize[size]} / 2)` : inputSize[size];
+
+type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWidth?: number };
+
+const inputCss = css<StyledInputWithRightContainerProps>`
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  padding-left: 10px;
+  font-size: inherit;
+  line-height: 20px;
+  outline: none;
+  border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
+  border-radius: 4px;
+
+  padding-right: ${(props) => `${props.rightContainerWidth}px`};
+  transition: 100ms all;
+
+  &::placeholder {
+    font-size: inherit;
+  }
+
+  &:focus {
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    /* border: 1px solid black; */
+  }
+`;
+
+export const StyledInput = styled.input<StyledInputWithRightContainerProps>`
+  ${inputCss}
+`;
+
+export const StyledTextarea = styled.textarea<StyledInputWithRightContainerProps>`
+  ${inputCss}
+`;
 
 export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
-  height: 100%;
+  height: ${(props) => props.size && inputSize[props.size]};
+  font-size: ${(props) => props.size && fontSize[props.size]};
   position: relative;
 
   ${(props) =>
     props.label &&
     css`
-      > input {
+      height: ${props.size && getCalcInputHeightCss(props.size, true)};
+
+      > input,
+      textarea {
         padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
-        height: ${props.size && getCalcInputHeightCss(props.size)};
         line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`};
       }
     `}
@@ -45,64 +91,12 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
     pointer-events: none;
     top: 5px;
     left: 10px;
-    font-size: ${(props) => props.size && `calc(${textFontSize[props.size]} - ${textFontSize[props.size]} / 3.5)`};
+    font-size: ${(props) => props.size && `calc(${fontSize[props.size]} - ${fontSize[props.size]} / 4.5)`};
     position: absolute;
   }
 `;
 
 export const TextareaWrapper = styled(InputWrapper)``;
-
-export const StyledInput = styled.input<StyledInputProps & { rightContainerWidth?: number }>`
-  width: 100%;
-  height: 100%;
-  height: ${(props) => props.size && inputSize[props.size]};
-  padding: 10px;
-  padding-left: 10px;
-  font-size: ${(props) => props.size && fontSize[props.size]};
-  line-height: 20px;
-  outline: none;
-  border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
-  border-radius: 4px;
-
-  padding-right: ${(props) => `${props.rightContainerWidth}px`};
-
-  &::placeholder {
-    font-size: ${(props) => props.size && fontSize['sm']};
-  }
-
-  transition: 100ms all;
-
-  &:focus {
-    box-shadow: 0 3px 3px rgb(0 0 0 / 0.2);
-    /* border: 1px solid black; */
-  }
-`;
-
-export const StyledTextarea = styled.textarea<StyledInputProps & { rightContainerWidth?: number }>`
-  width: 100%;
-  height: 100%;
-  /* height: ${(props) => props.size && inputSize[props.size]}; */
-  padding: 10px;
-  padding-left: 10px;
-  font-size: ${(props) => props.size && fontSize[props.size]};
-  line-height: 20px;
-  outline: none;
-  border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
-  border-radius: 4px;
-
-  padding-right: ${(props) => `${props.rightContainerWidth}px`};
-
-  &::placeholder {
-    font-size: ${(props) => props.size && fontSize[props.size]};
-  }
-
-  transition: 100ms all;
-
-  &:focus {
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    /* border: 1px solid black; */
-  }
-`;
 
 export const StyledRightContainer = styled.span`
   position: absolute;

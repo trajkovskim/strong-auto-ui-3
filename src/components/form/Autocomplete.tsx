@@ -11,7 +11,6 @@ import {
   StyledInputProps,
   StyledRightContainer,
   StyledSpinner,
-  fontSize,
   getCalcInputHeightCss,
 } from 'components/form/Input.styled';
 import { Size } from 'components/form/types';
@@ -22,7 +21,7 @@ import { styled } from 'styled-components';
 import { Validator } from 'validators';
 
 const StyledOptionsWrapper = styled.div`
-  z-index: 9999;
+  z-index: 999;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-top: none;
   position: absolute;
@@ -33,7 +32,7 @@ const StyledOptionsWrapper = styled.div`
   background-color: #fff;
   user-select: none;
   bottom: 0;
-  transform: translateY(calc(100% + 1px));
+  /* transform: translateY(calc(100% + 1px)); */
 
   /* > * + * {
     border-top: 1px solid #dcdcdc;
@@ -44,9 +43,9 @@ type StyledOptionProps = {
   size?: Size;
 };
 
-const StyledOption = styled.option<StyledOptionProps>`
-  min-height: ${(props) => props.size && getCalcInputHeightCss(props.size)};
-  font-size: ${(props) => props.size && fontSize[props.size]};
+const StyledOption = styled.option<StyledOptionProps & { includeLabel: boolean }>`
+  min-height: ${(props) => props.size && getCalcInputHeightCss(props.size, props.includeLabel)};
+  font-size: inherit;
   padding: 7px;
   padding-left: 12px;
   color: black;
@@ -148,7 +147,6 @@ const Autocomplete: React.FC<Props> = ({
         <Transition
           ref={animationRef}
           duration="100ms"
-          property="all"
           transition={{
             initial: css`
               opacity: 0;
@@ -157,6 +155,7 @@ const Autocomplete: React.FC<Props> = ({
             `,
             final: css`
               opacity: 1;
+              overflow: hidden;
               overflow: auto;
               max-height: 230px;
             `,
@@ -169,6 +168,7 @@ const Autocomplete: React.FC<Props> = ({
                 size={props.size}
                 onClick={() => handleOnOptionClick(option)}
                 value={option.value}
+                includeLabel={!!label}
               >
                 {option.label ?? option.value}
               </StyledOption>

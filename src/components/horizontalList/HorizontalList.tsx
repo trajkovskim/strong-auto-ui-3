@@ -77,6 +77,9 @@ const HorizontalListWrapper = styled(Container)<HorizontalListWrapperProps>`
 `;
 
 const HorizontalListChildrenWrapper = styled(Container)`
+  /* margin-left: ${(props) => `calc(${props.styleConfig?.gap}`}; */
+  /* margin-right: ${(props) => `calc(${props.styleConfig?.gap} / -2)`}; */
+
   & > * {
     flex: 1 0 100%;
     min-height: 100%;

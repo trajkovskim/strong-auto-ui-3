@@ -45,7 +45,7 @@ const BuyingACar: React.FC = () => {
           }}
           lgStyle={{ textAlign: 'right' }}
         >
-          <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }} lgStyle={{ order: 2 }}>
+          <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }} lgStyle={{ order: 2, alignItems: 'end' }}>
             <Title fontSize="2xl" bold title="Buying a car?" />
             <Text fontSize="lg">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
@@ -53,11 +53,9 @@ const BuyingACar: React.FC = () => {
               scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </Text>
-            <Container xs={12} styleConfig={{ alignItems: 'flex-end' }}>
-              <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
-                Visit our cars shop
-              </Button>
-            </Container>
+            <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
+              Visit our cars shop
+            </Button>
           </Container>
           <Container xs={12} lg={7} xl={5.5} lgStyle={{ order: 1 }}>
             <StyledBuyCarImage height="500px" objectFit="cover" shadow src={RentCarImage} />
@@ -83,11 +81,9 @@ const BuyingACar: React.FC = () => {
               scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
               electronic typesetting, remaining essentially unchanged.
             </Text>
-            <Container xs={12} styleConfig={{ alignItems: 'flex-end' }}>
-              <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
-                Visit our cars shop
-              </Button>
-            </Container>
+            <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
+              Visit our cars shop
+            </Button>
           </Container>
           <Container xs={12} lg={7} xl={5.5}>
             <StyledRightImage objectFit="cover" shadow src={RentCarImage} />
