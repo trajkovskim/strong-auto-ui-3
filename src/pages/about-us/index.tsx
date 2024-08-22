@@ -68,12 +68,12 @@ const AboutUs: React.FC = () => {
             centered: true,
           }}
           lgStyle={{
-            direction: 'row',
+            direction: 'row-reverse',
             justifyContent: 'space-between',
           }}
         >
-          <Title fontSize="3xl" title="About us" />
           <Breadcrumb />
+          <Title fontSize="3xl" title="About us" />
         </Container>
       </AboutUsTitleWrapper>
       <WelcomeIntroWrapper

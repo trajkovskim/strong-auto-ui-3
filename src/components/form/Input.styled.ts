@@ -39,10 +39,7 @@ type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWid
 
 const inputCss = css<StyledInputWithRightContainerProps>`
   width: 100%;
-  height: ${(props) => props.size && inputSize[props.size]};
-  height: 100%;
   padding: 10px;
-  padding-left: 10px;
   font-size: inherit;
   line-height: 20px;
   outline: none;
@@ -64,38 +61,43 @@ const inputCss = css<StyledInputWithRightContainerProps>`
 
 export const StyledInput = styled.input<StyledInputWithRightContainerProps>`
   ${inputCss}
+  height: 100%;
+  padding-left: 10px;
 `;
 
 export const StyledTextarea = styled.textarea<StyledInputWithRightContainerProps>`
   ${inputCss}
+  padding-left: 8px;
 `;
 
 export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
+  height: ${(props) => props.size && getCalcInputHeightCss(props.size, false)};
   font-size: ${(props) => props.size && fontSize[props.size]};
   position: relative;
 
   ${(props) =>
     props.label &&
     css`
+      height: ${props.size && getCalcInputHeightCss(props.size, true)};
       > input,
       textarea {
-        height: ${props.size && getCalcInputHeightCss(props.size, true)};
-        padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
-        line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`};
+        padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 10px)`};
+      }
+
+      &::before {
+        content: '${props.label}';
+        pointer-events: none;
+        top: 5px;
+        left: 10px;
+        font-size: ${props.size && `calc(${fontSize[props.size]} - ${fontSize[props.size]} / 4.5)`};
+        position: absolute;
       }
     `}
-
-  &::before {
-    content: '${(props) => props.label}';
-    pointer-events: none;
-    top: 5px;
-    left: 10px;
-    font-size: ${(props) => props.size && `calc(${fontSize[props.size]} - ${fontSize[props.size]} / 4.5)`};
-    position: absolute;
-  }
 `;
 
-export const TextareaWrapper = styled(InputWrapper)``;
+export const TextareaWrapper = styled(InputWrapper)`
+  height: unset !important;
+`;
 
 export const StyledRightContainer = styled.span`
   position: absolute;

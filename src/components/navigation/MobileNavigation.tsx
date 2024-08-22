@@ -67,61 +67,56 @@ const MobileNavigation: React.FC = () => {
             `,
           }}
         >
-          <MobileContainer styleConfig={{ gap: '1rem', padding: { top: 'md', left: 'md', right: 'md' } }}>
-            <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
-              <LogoImage />
-              <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
-            </Container>
-            <Container>
+          <MobileContainer
+            styleConfig={{
+              gap: '1rem',
+              padding: 'md',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Container styleConfig={{ gap: '3rem' }}>
+              <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
+                <LogoImage />
+                <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
+              </Container>
               <div>{navigation}</div>
             </Container>
-            <Container
-              xs={12}
-              styleConfig={{
-                justifyContent: 'space-between',
-                gap: '1rem',
-              }}
-              smStyle={{
-                direction: 'row',
-                alignItems: 'end',
-              }}
-            >
-              <Container styleConfig={{ gap: '0.8rem' }}>
-                <Container>
-                  <Button
-                    maxContent
-                    themeType="link"
-                    size="lg"
-                    icon={<MdOutlinePhoneIphone />}
-                    onClick={() => call(TELEPHONE)}
-                  >
-                    {TELEPHONE}
-                  </Button>
-                </Container>
-                <Container>
-                  <Button maxContent themeType="link" size="lg" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
-                    {EMAIL}
-                  </Button>
-                </Container>
-                <Container>
-                  <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
-                    {OPEN_HOURS}
-                  </Button>
-                </Container>
-                <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
-                  {socialMedias.map((socialMedia, index) => (
-                    <Button
-                      key={index}
-                      themeType="link"
-                      maxContent
-                      icon={socialMedia.icon}
-                      size="lg"
-                      onClick={() => goto(socialMedia.href)}
-                    />
-                  ))}
-                </Container>
-              </Container>
+
+            <Container styleConfig={{ gap: '0.8rem', alignItems: 'center' }}>
               <LanguageChanger />
+              <Container>
+                <Button
+                  maxContent
+                  themeType="link"
+                  size="lg"
+                  icon={<MdOutlinePhoneIphone />}
+                  onClick={() => call(TELEPHONE)}
+                >
+                  {TELEPHONE}
+                </Button>
+              </Container>
+              <Container>
+                <Button maxContent themeType="link" size="lg" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
+                  {EMAIL}
+                </Button>
+              </Container>
+              <Container>
+                <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
+                  {OPEN_HOURS}
+                </Button>
+              </Container>
+              <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+                {socialMedias.map((socialMedia, index) => (
+                  <Button
+                    key={index}
+                    themeType="link"
+                    maxContent
+                    icon={socialMedia.icon}
+                    size="lg"
+                    onClick={() => goto(socialMedia.href)}
+                  />
+                ))}
+              </Container>
             </Container>
           </MobileContainer>
         </Transition>,

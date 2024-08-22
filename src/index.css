@@ -33,6 +33,7 @@
 
 body {
   position: relative;
+  min-height: 100dvh;
 }
 
 /* clamp(0.5625rem, 0.5087rem + 0.2532vi, 0.8125rem)

@@ -173,10 +173,10 @@ const ViewDetails: React.FC = () => {
         }}
         lgStyle={{
           padding: { top: 'xl' },
-          gap: '1rem',
+          gap: '0.5rem',
         }}
       >
-        <Container xs={12} lg={8} styleConfig={{ gap: '2rem' }}>
+        <Container xs={12} lg={8} styleConfig={{ gap: '2rem' }} lgStyle={{ padding: { left: 'md' } }}>
           <BoxAnimation>
             <CarouselWrapper>
               <Carousel minHeight="400px" maxHeight="400px" ref={carouselRef}>
@@ -194,14 +194,16 @@ const ViewDetails: React.FC = () => {
           </Container>
 
           <BoxAnimation>
-            <Container styleConfig={{ gap: '0.5rem' }}>
+            <Container styleConfig={{ gap: '0.5rem', padding: { left: 'md', right: 'md' } }}>
               <Text fontSize="2xl">Description</Text>
               <Text fontSize="md">{product.description}</Text>
             </Container>
           </BoxAnimation>
 
           <BoxAnimation>
-            <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
+            <Container
+              styleConfig={{ gap: '1rem', direction: 'row', wrap: true, padding: { left: 'md', right: 'md' } }}
+            >
               <Container xs={12}>
                 <Text fontSize="2xl">Car overview</Text>
               </Container>
@@ -243,7 +245,7 @@ const ViewDetails: React.FC = () => {
           <Line />
 
           <BoxAnimation>
-            <Container styleConfig={{ gap: '1rem' }}>
+            <Container styleConfig={{ gap: '1rem', padding: { left: 'md', right: 'md' } }}>
               <Text fontSize="2xl">Features</Text>
               <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
                 {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
@@ -263,7 +265,13 @@ const ViewDetails: React.FC = () => {
             </Container>
           </BoxAnimation>
         </Container>
-        <Container xs={12} lg={4} style={{ position: 'sticky', top: 100 }} styleConfig={{ gap: '2rem' }}>
+        <Container
+          xs={12}
+          lg={4}
+          style={{ position: 'sticky', top: 100 }}
+          styleConfig={{ gap: '2rem', padding: { left: 'md', right: 'md' } }}
+          lgStyle={{ padding: { right: 'md' } }}
+        >
           <Container xs={0} lg={12}>
             {imagesHorizontalList}
           </Container>

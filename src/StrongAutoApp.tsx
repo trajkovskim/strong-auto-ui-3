@@ -8,7 +8,11 @@ import styled from 'styled-components';
 import { scrollToTop } from 'utils';
 
 const StyledLayout = styled.div`
-  height: 100%;
+  min-height: 100dvh;
+
+  > main {
+    min-height: 100dvh;
+  }
   background-color: white;
 `;
 

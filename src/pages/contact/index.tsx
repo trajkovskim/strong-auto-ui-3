@@ -1,5 +1,6 @@
 import MapLocationImage from 'assets/map-location.jpg';
 import BoxAnimation from 'components/BoxAnimation';
+import Breadcrumb from 'components/Breadcrumb';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Image from 'components/Image';
@@ -22,14 +23,23 @@ const Contact: React.FC = () => {
     <Container styleConfig={{ gap: '2rem' }} lgStyle={{ gap: '10rem' }}>
       <Container
         xs="1400px"
-        styleConfig={{ centered: true, gap: '3rem', padding: { top: 'xl', left: 'md', right: 'md' } }}
+        styleConfig={{ centered: true, gap: '2rem', padding: { top: 'xl', left: 'md', right: 'md' } }}
+        lgStyle={{ gap: '3rem' }}
       >
-        <Container>
-          <Title title="Lets get in touch!" fontSize="2xl" />
+        <Container
+          styleConfig={{ gap: '1rem' }}
+          lgStyle={{ gap: '4rem', direction: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <Container xs={12} lg={4} lgStyle={{ order: 2 }}>
+            <Breadcrumb />
+          </Container>
+          <Container xs={12} lg={8} lgStyle={{ order: 1 }}>
+            <Title title="Lets get in touch!" fontSize="2xl" />
+          </Container>
         </Container>
 
         <Container styleConfig={{ gap: '4rem', direction: 'row', wrap: true }}>
-          <Container xs={12} lg={7} styleConfig={{ gap: '2rem' }}>
+          <Container xs={12} lg={8} styleConfig={{ gap: '2rem' }}>
             <Title
               title="Give us a message and let us know"
               description="We will have a look at it and provide you with an answer as soon as possible"
@@ -38,13 +48,13 @@ const Contact: React.FC = () => {
             />
             <Container styleConfig={{ gap: '1rem' }}>
               <List lg={2} gap="1rem">
-                <Input size="md" fullwidth placeholder="Your name" />
-                <Input size="md" fullwidth placeholder="Your email" />
-                <Input size="md" fullwidth placeholder="Your phone" />
-                <Input size="md" fullwidth placeholder="Subject" />
+                <Input size="lg" fullwidth placeholder="Your name" />
+                <Input size="lg" fullwidth placeholder="Your email" />
+                <Input size="lg" fullwidth placeholder="Your phone" />
+                <Input size="lg" fullwidth placeholder="Subject" />
               </List>
               <Container>
-                <Textarea size="md" fullwidth rows={10} placeholder="Message" />
+                <Textarea size="lg" fullwidth rows={10} placeholder="Message" />
               </Container>
               <Container styleConfig={{ alignSelf: 'end' }}>
                 <Button maxContent size="md">
@@ -53,7 +63,7 @@ const Contact: React.FC = () => {
               </Container>
             </Container>
           </Container>
-          <Container xs={12} lg={5} styleConfig={{ gap: '3rem' }}>
+          <Container xs={12} lg={4} styleConfig={{ gap: '3rem' }}>
             <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="xl" bold>
                 Location

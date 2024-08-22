@@ -119,7 +119,7 @@ const Shop: React.FC = () => {
             onClick={() => setFiltersSidebarShow(true)}
             icon={filtersSidebarShow ? <HiFilter /> : <HiOutlineFilter />}
             themeType="link"
-            size="lg"
+            size="md"
           >
             <Container xs={0} sm="max-content">
               Filters
@@ -128,7 +128,13 @@ const Shop: React.FC = () => {
           <Line type="vertical" />
         </Container>
         <Container xs="max-content" lg={0} styleConfig={{ gap: '1rem', direction: 'row' }}>
-          <Button maxContent icon={<BiMenu />} themeType="link" onClick={() => setSortAndSizeSidebarShow(true)} />
+          <Button
+            maxContent
+            icon={<BiMenu />}
+            size="md"
+            themeType="link"
+            onClick={() => setSortAndSizeSidebarShow(true)}
+          />
         </Container>
       </Container>
     </ListHeader>

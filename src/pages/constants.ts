@@ -123,7 +123,9 @@ export const products = [
       currency: 'MKD',
     },
     title: 'Toyota Camry New',
-    description: '3.5D Power pulse Momentum 5dr RWD',
+    description:
+      // eslint-disable-next-line max-len
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially ',
     summary: '3.5D Power pulse Momentum 5dr RWD',
     year: 2020,
     engineSize: '4.0',
