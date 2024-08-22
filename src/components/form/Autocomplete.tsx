@@ -26,7 +26,6 @@ const StyledOptionsWrapper = styled.div`
   border-top: none;
   /* position: absolute; */
   width: 100%;
-  height: 100%;
   border-bottom-left-radius: 4x;
   border-bottom-right-radius: 4px;
   border: 1px solid rgb(238, 238, 238);
@@ -44,7 +43,7 @@ type StyledOptionProps = {
   size?: Size;
 };
 
-const StyledOption = styled.option<StyledOptionProps & { includeLabel: boolean }>`
+const StyledOption = styled.div<StyledOptionProps & { includeLabel: boolean }>`
   min-height: ${(props) => props.size && getCalcInputHeightCss(props.size, props.includeLabel)};
   font-size: inherit;
   padding: 7px;
@@ -162,13 +161,11 @@ const Autocomplete: React.FC<Props> = ({
           }}
         >
           <StyledOptionsWrapper>
-            options
             {filteredOptions.map((option, index) => (
               <StyledOption
                 key={index}
                 size={props.size}
                 onClick={() => handleOnOptionClick(option)}
-                value={option.value}
                 includeLabel={!!label}
               >
                 {option.label ?? option.value}
