@@ -21,7 +21,8 @@ const StyledOptionsWrapper = styled.div`
   border: 1px solid rgb(238, 238, 238);
   background-color: #fff;
   user-select: none;
-  top: 0;
+  bottom: 0;
+  transform: translateY(calc(100% + 1px));
 
   /* > * + * {
     border-top: 1px solid #dcdcdc;

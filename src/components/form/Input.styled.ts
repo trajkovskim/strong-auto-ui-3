@@ -39,6 +39,7 @@ type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWid
 
 const inputCss = css<StyledInputWithRightContainerProps>`
   width: 100%;
+  height: ${(props) => props.size && inputSize[props.size]};
   height: 100%;
   padding: 10px;
   padding-left: 10px;
@@ -70,17 +71,15 @@ export const StyledTextarea = styled.textarea<StyledInputWithRightContainerProps
 `;
 
 export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
-  height: ${(props) => props.size && inputSize[props.size]};
   font-size: ${(props) => props.size && fontSize[props.size]};
   position: relative;
 
   ${(props) =>
     props.label &&
     css`
-      height: ${props.size && getCalcInputHeightCss(props.size, true)};
-
       > input,
       textarea {
+        height: ${props.size && getCalcInputHeightCss(props.size, true)};
         padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 5px)`};
         line-height: ${props.size && `calc(${inputSize[props.size]} + ${fontSize[props.size]})`};
       }
