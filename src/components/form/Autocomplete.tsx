@@ -162,6 +162,7 @@ const Autocomplete: React.FC<Props> = ({
           }}
         >
           <StyledOptionsWrapper>
+            options
             {filteredOptions.map((option, index) => (
               <StyledOption
                 key={index}
