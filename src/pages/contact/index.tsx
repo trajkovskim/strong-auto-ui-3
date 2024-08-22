@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
       >
         <Container
           styleConfig={{ gap: '1rem' }}
-          lgStyle={{ gap: '4rem', direction: 'row', justifyContent: 'space-between', alignItems: 'center' }}
+          lgStyle={{ gap: '6.5rem', direction: 'row', justifyContent: 'space-between', alignItems: 'center' }}
         >
           <Container xs={12} lg={4} lgStyle={{ order: 2 }}>
             <Breadcrumb />

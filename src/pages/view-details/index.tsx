@@ -107,7 +107,7 @@ const ViewDetails: React.FC = () => {
   const handleImageClick = (imageIndex: number) => carouselRef.current?.next(imageIndex);
 
   const imagesHorizontalList = (
-    <HorizontalList noAutoScroll gap="10px" chunkGap="1rem" chunkSize={{ xs: '50%' }}>
+    <HorizontalList noAutoScroll gap="10px" chunkGap="1rem" chunkSize={{ xs: 6 }}>
       {product?.images.map((image, index) => (
         <BoxAnimation key={index}>
           <Image onClick={() => handleImageClick(index)} rounded src={image} height="150px" objectFit="cover" />
@@ -341,12 +341,7 @@ const ViewDetails: React.FC = () => {
       >
         <Line />
         <Title fontSize="xl" title="Featured products" />
-        <HorizontalList
-          gap="2rem"
-          chunkGap="1rem"
-          chunkSize={{ xs: '100%', md: '50%', lg: '33.33%', xl: '25%' }}
-          centered
-        >
+        <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4, xl: 3 }} centered>
           {products.map((product) => (
             <MiniProductCard
               key={product.id}

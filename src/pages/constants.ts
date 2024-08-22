@@ -163,7 +163,7 @@ export const products = [
   {
     id: 1,
     state: 'featured',
-    images: [ToyotaCamryImage, Car2Image],
+    images: [ToyotaCamryImage, Car2Image, Car1Image],
     price: {
       total: 10000,
       totalPromo: 165000,

@@ -52,12 +52,7 @@ const PopularMakes: React.FC = () => {
               buttons={[{ label: 'Audi' }, { label: 'BMW' }, { label: 'Toyota' }]}
             />
           </Container>
-          <HorizontalList
-            gap="2rem"
-            chunkGap="1rem"
-            chunkSize={{ xs: '100%', md: '50%', lg: '40%', xl: '30%' }}
-            centered
-          >
+          <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered>
             {popularMakesProducts.map((product) => (
               <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
             ))}

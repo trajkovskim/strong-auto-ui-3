@@ -1,4 +1,4 @@
-import { getCssPropertyAsNumber, getElementWidth } from 'utils';
+import { getElementWidth } from 'utils';
 
 enum DragDirection {
   LEFT = 'left',
@@ -10,14 +10,6 @@ const overlapPercentToNextItem = 0.1;
 const percentByDirection = {
   [DragDirection.LEFT]: overlapPercentToNextItem,
   [DragDirection.RIGHT]: 1 - overlapPercentToNextItem,
-};
-
-const getWidth = (element: HTMLElement | null) => {
-  if (!element) {
-    return 0;
-  }
-
-  return getElementWidth(element, 'right') - getCssPropertyAsNumber(element, 'border-right');
 };
 
 const preventClick = (event: Event) => {
@@ -48,7 +40,7 @@ export class HorizontalListModel {
   }
 
   hasMinElements() {
-    return this.getListRefChildCount() >= 5;
+    return this.getListRefChildCount() >= 4;
   }
 
   getFirstElementChild() {
@@ -90,12 +82,12 @@ export class HorizontalListService {
     const maxScrollLeft = this.horizontalList.getMaxScrollLeft();
 
     const listRef = this.horizontalList.getListRef();
-    if (listScrollLeft <= getWidth(firstChild)) {
+    if (listScrollLeft <= getElementWidth(firstChild)) {
       listRef.prepend(lastChild);
       scroll && listRef.scrollTo({ left: listScrollLeft + lastChild.offsetWidth });
 
       return true;
-    } else if (listScrollLeft >= maxScrollLeft - getWidth(lastChild)) {
+    } else if (listScrollLeft >= maxScrollLeft - getElementWidth(lastChild)) {
       listRef.removeChild(firstChild);
       listRef.append(firstChild);
       scroll && listRef.scrollTo({ left: listScrollLeft - firstChild.offsetWidth });
@@ -106,33 +98,29 @@ export class HorizontalListService {
     return false;
   }
 
-  getButtonClickDeltaX() {
-    const firstChild = this.horizontalList.getFirstElementChild();
-
-    return getWidth(firstChild);
-  }
-
-  move(deltaX: number, behavior: ScrollBehavior = 'smooth', force = false) {
-    if (this.horizontalList.moving && !force) {
-      return false;
-    }
-
+  moveBy(deltaX: number) {
     const scrollLeft = this.horizontalList.getScrollLeft();
-    if (!force) {
-      this.checkIfReorderNeeded(scrollLeft, true);
-
-      // moving.current = true;
-    }
 
     const listRef = this.horizontalList.getListRef();
     listRef.scrollTo({
       left: scrollLeft + deltaX,
-      behavior,
     });
 
-    if (force) {
-      return force;
+    return true;
+  }
+
+  moveTo(left: number, behavior: ScrollBehavior = 'smooth') {
+    if (this.horizontalList.moving) {
+      return false;
     }
+
+    this.horizontalList.moving = true;
+
+    const listRef = this.horizontalList.getListRef();
+    listRef.scrollTo({
+      left,
+      behavior,
+    });
 
     if (behavior !== 'smooth') {
       this.horizontalList.moving = false;
@@ -142,22 +130,41 @@ export class HorizontalListService {
   }
 
   fixScrollPosition() {
-    // resetInterval();
-
     const scrollLeft = this.horizontalList.getScrollLeft();
     const listRef = this.horizontalList.getListRef();
 
-    let sum = 0;
     for (const child of listRef.children) {
-      const childWidth = getWidth(child as HTMLElement);
+      const element = child as HTMLElement;
 
-      if (sum + childWidth * percentByDirection[this.horizontalList.dragDirection] > scrollLeft) {
-        this.move(sum - scrollLeft);
+      if (
+        element.offsetLeft + getElementWidth(element) * percentByDirection[this.horizontalList.dragDirection] >
+        scrollLeft
+      ) {
+        this.moveTo(element.offsetLeft);
         break;
       }
-
-      sum += childWidth;
     }
+  }
+
+  private getCurrentFirstElement() {
+    const scrollLeft = this.horizontalList.getScrollLeft();
+    const listRef = this.horizontalList.getListRef();
+
+    for (const child of listRef.children) {
+      const element = child as HTMLElement;
+
+      if (element.offsetLeft >= scrollLeft) {
+        return element;
+      }
+    }
+  }
+
+  private getNextElement() {
+    return this.getCurrentFirstElement()?.nextElementSibling as HTMLElement | null;
+  }
+
+  private getPrevElement() {
+    return this.getCurrentFirstElement()?.previousElementSibling as HTMLElement | null;
   }
 
   moveBackward() {
@@ -165,13 +172,15 @@ export class HorizontalListService {
       return false;
     }
 
-    const deltaX = -this.getButtonClickDeltaX();
-    const scrollLeft = this.horizontalList.getScrollLeft();
-    if (this.checkIfReorderNeeded(scrollLeft + deltaX, false)) {
-      this.move(-deltaX, 'auto', true);
+    let prevElement = this.getPrevElement();
+    if (!prevElement) {
+      const scrollLeft = this.horizontalList.getScrollLeft();
+      this.checkIfReorderNeeded(scrollLeft, true);
+      prevElement = this.horizontalList.getFirstElementChild() as HTMLElement;
     }
 
-    return this.move(deltaX, 'smooth');
+    this.moveTo(prevElement?.offsetLeft);
+    return true;
   }
 
   moveForward() {
@@ -179,13 +188,13 @@ export class HorizontalListService {
       return false;
     }
 
-    const deltaX = this.getButtonClickDeltaX();
+    const nextElement = this.getNextElement();
     const scrollLeft = this.horizontalList.getScrollLeft();
-    if (this.checkIfReorderNeeded(scrollLeft + deltaX, false)) {
-      this.move(-deltaX, 'auto', true);
-    }
+    this.checkIfReorderNeeded(scrollLeft, true);
 
-    return this.move(deltaX, 'smooth');
+    if (nextElement) {
+      this.moveTo(nextElement.offsetLeft);
+    }
   }
 }
 
@@ -198,12 +207,8 @@ export class HorizontalListHandlers {
     this.horizontalListService = new HorizontalListService(horizontalList);
   }
 
-  scrollEndHandler(fixScrollPosition = true) {
+  scrollEndHandler() {
     this.horizontalList.moving = false;
-
-    if (fixScrollPosition) {
-      this.horizontalListService.fixScrollPosition();
-    }
   }
 
   mouseEnterHandler() {
@@ -243,7 +248,7 @@ export class HorizontalListHandlers {
     this.horizontalList.moving = true;
 
     this.horizontalList.dragDirection = movementX < 0 ? DragDirection.LEFT : DragDirection.RIGHT;
-    this.horizontalListService.move(-movementX, 'auto', true);
+    this.horizontalListService.moveBy(-movementX);
 
     const scrollLeft = this.horizontalList.getScrollLeft();
     this.horizontalListService.checkIfReorderNeeded(scrollLeft, true);

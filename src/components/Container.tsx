@@ -91,6 +91,9 @@ const createMediaQ = (props: StyledContainerProps, breakpoint: Breakpoints, csss
       width: ${typeof breakpointValue === 'number' &&
       `calc(${calculateColumnPercentage(breakpointValue)} - ${calculateColumnGap(breakpointValue, parentGap)})`};
 
+      max-width: ${typeof breakpointValue === 'number' &&
+      `calc(${calculateColumnPercentage(breakpointValue)} - ${calculateColumnGap(breakpointValue, parentGap)})`};
+
       ${createStyleProps(props[`${breakpoint}Style`])}
       ${csss};
     `

@@ -87,8 +87,8 @@ const HorizontalListChildrenWrapper = styled(Container)`
 
     user-select: none;
 
-    border-left: ${(props) => `calc(${props.styleConfig?.gap} / 2)`} solid transparent;
-    border-right: ${(props) => `calc(${props.styleConfig?.gap} / 2)`} solid transparent;
+    /* margin-left: ${(props) => `calc(${props.styleConfig?.gap} / 2)`};
+    margin-right: ${(props) => `calc(${props.styleConfig?.gap} / 2)`}; */
 
     transition: 200ms all;
 
@@ -97,15 +97,7 @@ const HorizontalListChildrenWrapper = styled(Container)`
     } */
   }
 
-  & > *:last-child {
-    border-right: ${(props) => props.styleConfig?.gap} solid transparent;
-  }
-
-  & > *:first-child {
-    border-left: 0;
-  }
-
-  gap: 0;
+  /* gap: 0; */
 
   overflow-x: hidden;
 `;
@@ -163,66 +155,40 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 10000, noAutoScroll, ...
 
     window.addEventListener('resize', resizeEventHandler);
 
-    let listScrollEndTimeout: number;
     const listScrollEndHandler = () => {
-      clearTimeout(listScrollEndTimeout);
-      listScrollEndTimeout = setTimeout(() => {
-        if (horizontalList.current?.mouseDown) {
-          return;
-        }
+      resetInterval();
 
-        clearTimeout(listScrollEndTimeout);
-        resetInterval();
-        horizontalListHandlers.scrollEndHandler(false);
-      }, 20);
+      if (horizontalList.current?.mouseDown) {
+        return;
+      }
+
+      horizontalListHandlers.scrollEndHandler();
     };
 
-    listRef.addEventListener('scroll', listScrollEndHandler);
+    listRef.addEventListener('scrollend', listScrollEndHandler);
 
     return () => {
       clearInterval(interval.current);
       clearTimeout(timeout);
 
-      clearTimeout(listScrollEndTimeout);
-
       window.removeEventListener('resize', resizeEventHandler);
-      listRef.removeEventListener('scroll', listScrollEndHandler);
+      listRef.removeEventListener('scrollend', listScrollEndHandler);
     };
   }, [handleInterval, horizontalListHandlers, horizontalListService, intervalMs, noAutoScroll, ref, resetInterval]);
 
   // Arrow controlls handlers
 
-  const createListScrollEndEvent = useCallback(() => {
-    let listScrollEndTimeout: number;
-
-    const listScrollEndHandler = () => {
-      clearTimeout(listScrollEndTimeout);
-      listScrollEndTimeout = setTimeout(() => {
-        horizontalListHandlers?.scrollEndHandler();
-        ref?.removeEventListener('scroll', listScrollEndHandler);
-      }, 40);
-    };
-
-    return listScrollEndHandler;
-  }, [horizontalListHandlers, ref]);
-
   const onBackButtonClick = useCallback(() => {
     if (horizontalListService?.moveBackward()) {
       resetInterval();
-
-      const listScrollEndHandler = createListScrollEndEvent();
-      ref?.addEventListener('scroll', listScrollEndHandler);
     }
-  }, [createListScrollEndEvent, horizontalListService, ref, resetInterval]);
+  }, [horizontalListService, resetInterval]);
 
   const onForwardButtonClick = useCallback(() => {
     if (horizontalListService?.moveForward()) {
       resetInterval();
-
-      const listScrollEndHandler = createListScrollEndEvent();
-      ref?.addEventListener('scroll', listScrollEndHandler);
     }
-  }, [createListScrollEndEvent, horizontalListService, ref, resetInterval]);
+  }, [horizontalListService, resetInterval]);
 
   const handleMouseUp: React.MouseEventHandler<HTMLElement> = () => {
     resetInterval();
@@ -246,7 +212,10 @@ const HorizontalList: React.FC<Props> = ({ intervalMs = 10000, noAutoScroll, ...
       >
         {React.Children.map(props.children, (child, index) => {
           return (
-            <Container {...props.chunkSize} key={index}>
+            // parentGap added manually to children because element is not flex-wrap
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            <Container {...props.chunkSize} parentGap={props.chunkGap} key={index}>
               {child}
             </Container>
           );
