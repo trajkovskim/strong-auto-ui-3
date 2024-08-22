@@ -24,7 +24,7 @@ const StyledOptionsWrapper = styled.div`
   z-index: 999;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-top: none;
-  /* position: absolute; */
+  position: absolute;
   width: 100%;
   border-bottom-left-radius: 4x;
   border-bottom-right-radius: 4px;
@@ -32,7 +32,7 @@ const StyledOptionsWrapper = styled.div`
   background-color: #fff;
   user-select: none;
   bottom: 0;
-  /* transform: translateY(calc(100% + 1px)); */
+  transform: translateY(calc(100% + 1px));
 
   /* > * + * {
     border-top: 1px solid #dcdcdc;
@@ -155,6 +155,7 @@ const Autocomplete: React.FC<Props> = ({
             `,
             final: css`
               opacity: 1;
+              overflow: hidden;
               overflow: scroll;
               max-height: 230px;
             `,
