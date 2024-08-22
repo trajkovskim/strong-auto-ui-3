@@ -155,7 +155,6 @@ const Autocomplete: React.FC<Props> = ({
             `,
             final: css`
               opacity: 1;
-              overflow: hidden;
               overflow: scroll;
               max-height: 230px;
             `,
