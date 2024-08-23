@@ -1,6 +1,7 @@
 import Button from 'components/Button';
 import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
 import Container from 'components/Container';
+import StyledSpinner from 'components/Spinner';
 import MiniProductCard from 'components/card/MiniProductCard';
 import { RibbonType } from 'components/card/types';
 import HorizontalList from 'components/horizontalList/HorizontalList';
@@ -25,7 +26,7 @@ const PopularMakes: React.FC = () => {
   ];
 
   const [activeTab, setActiveTab] = useState<string>(tabs[0].value);
-  const { send } = useRequest();
+  const { send, loading } = useRequest();
   const [vehiclesByMake, setVehiclesByMake] = useState<Record<string, VehicleEmbedded[]>>({});
 
   useEffect(() => {
@@ -39,10 +40,6 @@ const PopularMakes: React.FC = () => {
       )
     );
   }, [send, activeTab, vehiclesByMake]);
-
-  if (!vehiclesByMake[activeTab]) {
-    return null;
-  }
 
   return (
     <PopularMakesWrapper xs={12}>
@@ -71,11 +68,14 @@ const PopularMakes: React.FC = () => {
           </Container>
           <TabButtonsGroup buttons={tabs} active={activeTab} onChange={(tab) => setActiveTab(tab.value)} />
         </Container>
-        <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered circular>
-          {vehiclesByMake[activeTab].map((product) => (
-            <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
-          ))}
-        </HorizontalList>
+        {loading && <StyledSpinner centered />}
+        {vehiclesByMake[activeTab] && (
+          <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered circular>
+            {vehiclesByMake[activeTab].map((product) => (
+              <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+            ))}
+          </HorizontalList>
+        )}
       </Container>
     </PopularMakesWrapper>
   );

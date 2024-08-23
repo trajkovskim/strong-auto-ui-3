@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 
 const Layout: React.FC = () => {
   return (
-    <Container>
+    <Container styleConfig={{ minHeight: '100dvh' }}>
       <Container xs={0} lg={12}>
         <Header />
       </Container>

@@ -516,7 +516,7 @@ export const products: Vehicle[] = [
 ];
 
 export const MOCK_VEHICLE_API: VehicleApi = {
-  searchVehicleEntries: () => createMockResponse<VehiclesResponse>({ vehicles: products } as VehiclesResponse),
+  searchVehicleEntries: () => createMockResponse<VehiclesResponse>({ vehicles: products } as VehiclesResponse, 1500),
   getVehicleEntry: ({ id }: { id: string }) =>
-    createMockResponse<Vehicle>(products.find((product) => product.id === id) as Vehicle),
+    createMockResponse<Vehicle>(products.find((product) => product.id === id) as Vehicle, 1500),
 } as never;

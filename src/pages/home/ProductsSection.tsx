@@ -10,6 +10,7 @@ import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useEffect, useState } from 'react';
 import { searchVehicles } from 'services/VehicleService';
+import StyledSpinner from 'components/Spinner';
 
 const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
   [VehicleState.Featured]: 'featured',
@@ -29,12 +30,16 @@ const ProductsSection: React.FC = () => {
   ];
 
   const [exploreVehiclesActiveTab, setExploreVehiclesActiveTab] = useState<string>(tabs[0].value);
-  const { send } = useRequest();
+  const { send, loading } = useRequest();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
 
   useEffect(() => {
     send(searchVehicles({ vehicleFilters: { featured: true } }).then(setVehiclesResponse));
   }, [send]);
+
+  if (loading) {
+    return <StyledSpinner centered />;
+  }
 
   return (
     <WhiteBackgroundContainer

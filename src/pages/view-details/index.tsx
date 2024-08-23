@@ -28,6 +28,7 @@ import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
 import { Routes } from 'routes';
 import { getVehicleEntry, searchVehicles } from 'services/VehicleService';
 import { call, formatNumber, mailTo } from 'utils';
+import StyledSpinner from 'components/Spinner';
 
 const StyledButton = styled(Button)`
   border-radius: 5px;
@@ -62,7 +63,7 @@ const ViewDetailTitleWrapper = styled(Container)<{ image: string }>`
 const ViewDetails: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { send } = useRequest();
+  const { send, loading } = useRequest();
   const [product, setProduct] = useState<Vehicle>();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
   const carouselRef = useRef<CarouselHandle>(null);
@@ -78,8 +79,12 @@ const ViewDetails: React.FC = () => {
     );
   }, [id, send]);
 
+  if (loading) {
+    return <StyledSpinner centered />;
+  }
+
   if (!product) {
-    return <div />;
+    return null;
   }
 
   const featuresMap = new Map<string, string[]>();

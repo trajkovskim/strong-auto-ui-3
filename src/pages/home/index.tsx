@@ -33,7 +33,7 @@ const Home: React.FC = () => {
               <Title
                 fontSize={{ title: '3xl', description: 'xl' }}
                 bold
-                title="Welcome to Strong AUTO"
+                title="Welcome to StrongAUTO"
                 centered
                 gap="2rem"
                 description="Checkout the cars that we have in our inventory"

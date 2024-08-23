@@ -3,6 +3,7 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Line from 'components/Line';
 import { ListView } from 'components/List';
+import StyledSpinner from 'components/Spinner';
 import ListProductCard from 'components/card/ListProductCard';
 import ShopProductCard from 'components/card/ShopProductCard';
 import { RibbonType } from 'components/card/types';
@@ -41,40 +42,35 @@ const FiltersContainer = styled(Container)`
 
 const Shop: React.FC = () => {
   const navigate = useNavigate();
-  const [listView, setListView] = useState<ListView>(ListView.GRID);
-  const pageSize = 10;
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [sortBy, setSortBy] = useState<string>();
   const totalContentNumber = 34792;
-  const [page] = useState<number>(8);
-  const [totalPages] = useState<number>(8);
+  const [page] = useState<number>(0);
+  const [totalPages] = useState<number>();
   const [filtersSidebarShow, setFiltersSidebarShow] = useState<boolean>(false);
   const [sortAndSizeSidebarShow, setSortAndSizeSidebarShow] = useState<boolean>(false);
-  const { send } = useRequest();
+
+  const { send, loading } = useRequest();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
   const [filters, setFilters] = useState<VehicleFilters>({});
 
   useEffect(() => {
-    send(searchVehicles({ vehicleFilters: {} }).then(setVehiclesResponse));
-  }, [page, send]);
-
-  useEffect(() => {
-    console.log(filters);
-  }, [filters]);
-
-  const toggleListView = () => {
-    listView === ListView.GRID ? setListView(ListView.LIST) : setListView(ListView.GRID);
-  };
-
-  const tListView = {
-    [ListView.GRID]: 'Grid',
-    [ListView.LIST]: 'List',
-  };
+    send(
+      searchVehicles({ vehicleFilters: {}, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
+        setVehiclesResponse
+      )
+    );
+  }, [page, pageSize, send, sortBy]);
 
   const createSortAndSizeDropdowns = (fullwidth: boolean) => (
     <>
       <Dropdown
+        name="sortBy"
         size="md"
         label="Sort by:"
         fullwidth={fullwidth}
+        value={sortBy}
+        onChange={(event) => setSortBy(event.target.value)}
         options={[
           { value: 'unsorted', label: 'Default' },
           { value: 'price_asc', label: 'Price (Ascending)' },
@@ -84,9 +80,12 @@ const Shop: React.FC = () => {
         ]}
       />
       <Dropdown
+        name="size"
         size="md"
         label="Result size:"
         fullwidth={fullwidth}
+        value={pageSize}
+        onChange={(event) => setPageSize(Number(event.target.value))}
         options={[
           { value: '10', label: '10' },
           { value: '20', label: '20' },
@@ -179,29 +178,20 @@ const Shop: React.FC = () => {
             {listHeaderComponent}
           </Container>
           <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
-            {vehiclesResponse?.vehicles.map((product) =>
-              listView === ListView.LIST ? (
-                <ListProductCard
+            {vehiclesResponse?.vehicles.map((product) => (
+              <Container xs={12} lg={6} xl={4} key={product.id}>
+                <ShopProductCard
                   key={product.id}
                   onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                   ribbon={product.state as RibbonType}
                   fullwidth
                   {...product}
                 />
-              ) : (
-                <Container xs={12} lg={6} xl={4} key={product.id}>
-                  <ShopProductCard
-                    key={product.id}
-                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={product.state as RibbonType}
-                    fullwidth
-                    {...product}
-                  />
-                </Container>
-              )
-            )}
+              </Container>
+            ))}
           </Container>
-          {page === totalPages && (
+          {loading && <StyledSpinner centered />}
+          {!loading && page === totalPages && (
             <Container styleConfig={{ itemsCentered: true }}>
               <Text fontSize="sm" type="sub">
                 All results displayed
