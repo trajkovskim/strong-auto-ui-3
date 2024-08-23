@@ -2,7 +2,6 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import List from 'components/List';
 import Autocomplete from 'components/form/Autocomplete';
-import Form from 'components/form/Form';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import React from 'react';

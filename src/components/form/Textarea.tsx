@@ -38,12 +38,7 @@ const Textarea: React.FC<Props> = ({ label, fullwidth, rightContainer, validate,
     <>
       <StyledContainer fullwidth={fullwidth}>
         <TextareaWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
-          <StyledTextarea
-            {...props}
-            {...events}
-            value={state.value}
-            rightContainerWidth={rightContainerRef.current?.offsetWidth}
-          />
+          <StyledTextarea {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
         </TextareaWrapper>
         <StyledRightContainer ref={rightContainerRef}>
           {state.dirty && validate && (

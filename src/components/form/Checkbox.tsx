@@ -1,6 +1,5 @@
 import Container from 'components/Container';
 import { StyledInput } from 'components/form/Input.styled';
-import { triggerChange } from 'components/form/utils';
 import Label from 'components/typography/Label';
 import React, { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';

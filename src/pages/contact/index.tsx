@@ -14,10 +14,15 @@ import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
+import { Form } from 'react-router-dom';
 import { call, goto, mailTo } from 'utils';
 
 const Contact: React.FC = () => {
   const socialMedias = useSocialMedias();
+
+  const handleSend = (values: unknown) => {
+    console.log(values);
+  };
 
   return (
     <Container styleConfig={{ gap: '2rem' }} lgStyle={{ gap: '10rem' }}>
@@ -47,20 +52,22 @@ const Contact: React.FC = () => {
               gap="1rem"
             />
             <Container styleConfig={{ gap: '1rem' }}>
-              <List lg={2} gap="1rem">
-                <Input size="lg" fullwidth placeholder="Your name" />
-                <Input size="lg" fullwidth placeholder="Your email" />
-                <Input size="lg" fullwidth placeholder="Your phone" />
-                <Input size="lg" fullwidth placeholder="Subject" />
-              </List>
-              <Container>
-                <Textarea size="lg" fullwidth rows={10} placeholder="Message" />
-              </Container>
-              <Container styleConfig={{ alignSelf: 'end' }}>
-                <Button maxContent size="md">
-                  Send message
-                </Button>
-              </Container>
+              <Form onSubmit={handleSend}>
+                <List lg={2} gap="1rem">
+                  <Input size="lg" fullwidth placeholder="Your name" />
+                  <Input size="lg" fullwidth placeholder="Your email" />
+                  <Input size="lg" fullwidth placeholder="Your phone" />
+                  <Input size="lg" fullwidth placeholder="Subject" />
+                </List>
+                <Container>
+                  <Textarea size="lg" fullwidth rows={10} placeholder="Message" />
+                </Container>
+                <Container styleConfig={{ alignSelf: 'end' }}>
+                  <Button maxContent size="md">
+                    Send message
+                  </Button>
+                </Container>
+              </Form>
             </Container>
           </Container>
           <Container xs={12} lg={4} styleConfig={{ gap: '3rem' }}>

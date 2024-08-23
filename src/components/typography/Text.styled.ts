@@ -19,7 +19,7 @@ const colors: Record<TextType, string> = {
   sub: '#a5a5a5',
 };
 
-const textCss = css<StyledTextProps>`
+const textCss = css<StyledTextProps & { hasOnClick: boolean }>`
   display: inline-block;
   color: ${(props) => colors[props.type ?? 'base']};
   text-align: ${(props) => props.textAlign};
@@ -27,7 +27,7 @@ const textCss = css<StyledTextProps>`
 
   font-size: ${(props) => textFontSize[props.fontSize ?? 'default']};
   font-weight: ${(props) => props.bold && 'bold'};
-  cursor: ${(props) => props.onClick && 'pointer'};
+  cursor: ${(props) => props.hasOnClick && 'pointer'};
   white-space: ${(props) => props.nowrap && 'nowrap'};
   text-decoration: ${(props) => props.textDecoration};
 
@@ -57,10 +57,10 @@ const textCss = css<StyledTextProps>`
   ${createMedia('2xl')};
 `;
 
-export const StyledText = styled.span<StyledTextProps>`
+export const StyledText = styled.span<StyledTextProps & { hasOnClick: boolean }>`
   ${textCss}
 `;
 
-export const StyledLabel = styled.label<StyledTextProps>`
+export const StyledLabel = styled.label<StyledTextProps & { hasOnClick: boolean }>`
   ${textCss}
 `;

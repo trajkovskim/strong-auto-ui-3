@@ -37,7 +37,8 @@ type Props<T> = Omit<React.ComponentProps<'form'>, 'onSubmit'> & {
 // };
 
 const Form = <T extends object>(props: Props<T>) => {
-  const values = (props.initValues ?? {}) as Record<string, string | string[] | boolean>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const values = (props.initValues ?? {}) as Record<string, any>;
 
   const events: {
     onChange: React.FormEventHandler<HTMLFormElement>;
