@@ -28,26 +28,27 @@ const StyledButton = styled(Button)<StyledButtonProps>`
 export type ButtonProps = {
   onClick?: () => void;
   label: string;
+  value: string;
 };
 
 type Props = {
-  onChange?: (button: ButtonProps, index: number) => void;
+  onChange?: (button: ButtonProps) => void;
   buttons: ButtonProps[];
-  active?: number;
+  active?: string;
 };
 
 const TabButtonsGroup: React.FC<Props> = (props) => {
   return (
     <StyledContainer styleConfig={{ direction: 'row', alignItems: 'flex-start', gap: '1rem' }}>
-      {props.buttons.map((button, index) => (
+      {props.buttons.map((button) => (
         <StyledButton
-          key={index}
+          key={button.value}
           size="lg"
           themeType="link"
-          active={props.active === index}
+          active={props.active === button.value}
           onClick={() => {
             button.onClick && button.onClick();
-            props.onChange && props.onChange(button, index);
+            props.onChange && props.onChange(button);
           }}
         >
           {button.label}

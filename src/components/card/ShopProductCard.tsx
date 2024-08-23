@@ -76,20 +76,20 @@ const ShopProductCard: React.FC<Props> = (props) => {
 
   const price = (
     <PriceWrapper>
-      {props.price?.totalPromo && (
+      {props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.totalPromo)}
+            ${formatNumber(props.amount.totalPromo)}
           </Text>
         </Container>
       )}
-      {!props.price?.totalPromo && (
+      {!props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'end' }}>
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>
         </Container>
       )}
@@ -150,10 +150,10 @@ const ShopProductCard: React.FC<Props> = (props) => {
             <Text fontSize="md">{props.transmission}</Text>
           </Container>
         )}
-        {props.km && (
+        {props.mileage && (
           <Container styleConfig={{ direction: 'row', gap: '0.3rem', padding: { bottom: 'sm' } }}>
             <StyledIcon size="md" icon={<FaRoad />} />
-            <Text fontSize="md">{formatNumber(props.km)}km</Text>
+            <Text fontSize="md">{formatNumber(props.mileage)}km</Text>
           </Container>
         )}
       </List>

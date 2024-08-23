@@ -40,7 +40,6 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   const handleClickOutsideEvent = useCallback(
     (event: MouseEvent) => {
       const isClickInside = containerRef?.contains(event.target as Node);
-      console.log(isClickInside);
       if (!isClickInside) {
         close();
       }

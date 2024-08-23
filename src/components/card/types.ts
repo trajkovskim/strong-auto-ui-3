@@ -1,4 +1,4 @@
-import { products } from 'pages/constants';
+import { Vehicle } from 'generated';
 
 export type RibbonProps = {
   label: React.ReactNode;
@@ -12,17 +12,17 @@ export type StyledRibbonProps = Omit<RibbonProps, 'label'>;
 
 export type Props = {
   rating?: number;
-  title: (typeof products)[number]['title'];
-  summary?: (typeof products)[number]['summary'];
-  price: (typeof products)[number]['price'];
+  title: Vehicle['title'];
+  summary?: Vehicle['summary'];
+  amount: Vehicle['amount'];
   bookmarked?: boolean;
-  images?: (typeof products)[number]['images'];
+  images?: Vehicle['images'];
   onView?: () => void;
   inCart?: boolean;
   ribbon?: RibbonType;
   fullwidth?: boolean;
-  km?: (typeof products)[number]['km'];
-  fuelType?: (typeof products)[number]['fuelType'];
-  year?: (typeof products)[number]['year'];
-  transmission?: (typeof products)[number]['transmission'];
+  mileage?: Vehicle['mileage'];
+  fuelType?: Vehicle['fuelType'];
+  year?: Vehicle['year'];
+  transmission?: Vehicle['transmission'];
 };

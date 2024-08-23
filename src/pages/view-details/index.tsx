@@ -4,7 +4,6 @@ import Container from 'components/Container';
 import Image from 'components/Image';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import { products } from 'pages/constants';
 import React, { useEffect, useRef, useState } from 'react';
 import { MdEmail } from 'react-icons/md';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,6 +17,8 @@ import List from 'components/List';
 import SimpleTable from 'components/SimpleTable';
 import MiniProductCard from 'components/card/MiniProductCard';
 import HorizontalList from 'components/horizontalList/HorizontalList';
+import { Vehicle, VehiclesResponse } from 'generated';
+import useRequest from 'hooks/useRequest';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
 import { FaCar } from 'react-icons/fa';
@@ -25,6 +26,7 @@ import { GiSteeringWheel } from 'react-icons/gi';
 import { SlSpeedometer } from 'react-icons/sl';
 import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
 import { Routes } from 'routes';
+import { getVehicleEntry, searchVehicles } from 'services/VehicleService';
 import { call, formatNumber, mailTo } from 'utils';
 
 const StyledButton = styled(Button)`
@@ -60,13 +62,21 @@ const ViewDetailTitleWrapper = styled(Container)<{ image: string }>`
 const ViewDetails: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState<(typeof products)[number]>();
+  const { send } = useRequest();
+  const [product, setProduct] = useState<Vehicle>();
+  const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
   const carouselRef = useRef<CarouselHandle>(null);
 
   useEffect(() => {
-    const foundProduct = products.find((product) => product?.id.toString() === id);
-    setProduct(foundProduct);
-  }, [id]);
+    if (!id) {
+      return;
+    }
+
+    send(
+      getVehicleEntry({ id }).then(setProduct),
+      searchVehicles({ vehicleFilters: { featured: true } }).then(setVehiclesResponse)
+    );
+  }, [id, send]);
 
   if (!product) {
     return <div />;
@@ -76,7 +86,7 @@ const ViewDetails: React.FC = () => {
   const featuresWithoutClass = [];
 
   product.features
-    .map((feature) => feature.split(':'))
+    ?.map((feature) => feature.split(':'))
     .forEach((feature) => {
       if (feature.length > 2) {
         return;
@@ -108,7 +118,7 @@ const ViewDetails: React.FC = () => {
 
   const imagesHorizontalList = (
     <HorizontalList noAutoScroll gap="10px" chunkGap="1rem" chunkSize={{ xs: 6 }}>
-      {product?.images.map((image, index) => (
+      {product?.images?.map((image, index) => (
         <BoxAnimation key={index}>
           <Image onClick={() => handleImageClick(index)} rounded src={image} height="150px" objectFit="cover" />
         </BoxAnimation>
@@ -118,7 +128,7 @@ const ViewDetails: React.FC = () => {
 
   return (
     <>
-      <ViewDetailTitleWrapper image={product.images[0]}>
+      <ViewDetailTitleWrapper image={product.images?.length ? product.images[0] : ''}>
         <Container
           xs="1400px"
           styleConfig={{
@@ -143,18 +153,26 @@ const ViewDetails: React.FC = () => {
             </BoxAnimation>
             <BoxAnimation>
               <Container styleConfig={{ wrap: true, direction: 'row', gap: '1rem' }}>
-                <Button maxContent size="md" themeType="link" icon={<BiCalendar />} iconSize="lg">
-                  {product.year}
-                </Button>
-                <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
-                  {product.transmission}
-                </Button>
-                <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
-                  {product.fuelType}
-                </Button>
-                <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
-                  {formatNumber(product.km)}
-                </Button>
+                {product.year && (
+                  <Button maxContent size="md" themeType="link" icon={<BiCalendar />} iconSize="lg">
+                    {product.year}
+                  </Button>
+                )}
+                {product.transmission && (
+                  <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
+                    {product.transmission}
+                  </Button>
+                )}
+                {product.fuelType && (
+                  <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
+                    {product.fuelType}
+                  </Button>
+                )}
+                {product.mileage && (
+                  <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
+                    {formatNumber(product.mileage)}
+                  </Button>
+                )}
               </Container>
             </BoxAnimation>
           </Container>
@@ -180,7 +198,7 @@ const ViewDetails: React.FC = () => {
           <BoxAnimation>
             <CarouselWrapper>
               <Carousel minHeight="400px" maxHeight="400px" ref={carouselRef}>
-                {product?.images.map((image, index) => (
+                {product?.images?.map((image, index) => (
                   <BoxAnimation fullheight key={index}>
                     <Image key={index} src={image} height="100%" objectFit="cover" />
                   </BoxAnimation>
@@ -215,7 +233,10 @@ const ViewDetails: React.FC = () => {
                     cellWidth="50%"
                     data={[
                       [createTextIcon(<FaCar />, 'Body'), product.bodyType],
-                      [createTextIcon(<SlSpeedometer />, 'Mileage'), `${formatNumber(product.km)}km`],
+                      [
+                        createTextIcon(<SlSpeedometer />, 'Mileage'),
+                        `${product.mileage && formatNumber(product.mileage)}km`,
+                      ],
                       [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
                       [createTextIcon(<BiCalendar />, 'Year'), product.year],
                       [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
@@ -280,26 +301,26 @@ const ViewDetails: React.FC = () => {
             <Container styleConfig={{ rounded: true, padding: 'md', gap: '1rem', bordered: true }}>
               <Container styleConfig={{ gap: '0.3rem' }}>
                 <Text fontSize="lg">Our offer:</Text>
-                {product.price?.totalPromo && (
+                {product.amount?.totalPromo && (
                   <div>
                     <Text fontSize="lg" textDecoration="line-through">
-                      {formatNumber(product.price.total)}
+                      {formatNumber(product.amount.total)}
                     </Text>{' '}
                     <Text fontSize="3xl" bold>
-                      {formatNumber(product.price.totalPromo)}
+                      {formatNumber(product.amount.totalPromo)}
                     </Text>
                   </div>
                 )}
-                {!product.price?.totalPromo && (
+                {!product.amount?.totalPromo && (
                   <div>
                     <Text fontSize="3xl" bold>
-                      {formatNumber(product.price.total)}
+                      {formatNumber(product.amount.total)}
                     </Text>
                   </div>
                 )}
-                {product.price?.saving && (
+                {product.amount?.saving && (
                   <div>
-                    <Text fontSize="lg">Saving: {formatNumber(product.price.saving)}</Text>
+                    <Text fontSize="lg">Saving: {formatNumber(product.amount.saving)}</Text>
                   </div>
                 )}
               </Container>
@@ -342,10 +363,10 @@ const ViewDetails: React.FC = () => {
         <Line />
         <Title fontSize="xl" title="Featured products" />
         <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4, xl: 3 }} centered>
-          {products.map((product) => (
+          {vehiclesResponse?.vehicles.map((product) => (
             <MiniProductCard
               key={product.id}
-              price={product.price}
+              amount={product.amount}
               title={product.title}
               images={product.images}
               summary={product.summary}

@@ -229,6 +229,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       fullwidth = false,
       textAlign = 'left',
       nowrap = false,
+      type = 'button',
       children,
       icon,
       iconRight,
@@ -236,7 +237,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
     },
     ref
   ) => {
-    const defaultedProps = { themeType, size, maxContent, centered, fullwidth };
+    const defaultedProps = { themeType, size, maxContent, centered, fullwidth, type };
 
     return (
       <StyledButton

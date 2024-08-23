@@ -14,8 +14,9 @@ import {
   getCalcInputHeightCss,
 } from 'components/form/Input.styled';
 import { Size } from 'components/form/types';
+import { triggerChange } from 'components/form/utils';
 import useInput from 'hooks/useInput';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { MdClear } from 'react-icons/md';
 import { styled } from 'styled-components';
 import { Validator } from 'validators';
@@ -85,8 +86,10 @@ const Autocomplete: React.FC<Props> = ({
   ...props
 }) => {
   const inputWrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<TransitionHandle>(null);
+  const [value, setValue] = useState<string | undefined>();
 
   const { state, changeValue, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -111,9 +114,7 @@ const Autocomplete: React.FC<Props> = ({
     onFocus: typeof onFocus;
   } = {
     onChange,
-    onBlur: (event) => {
-      onBlur(event);
-    },
+    onBlur,
     onFocus: (event) => {
       onFocus(event);
       animationRef.current?.gotoFinalState();
@@ -122,16 +123,23 @@ const Autocomplete: React.FC<Props> = ({
   };
 
   const reset = () => {
-    changeValue('');
+    if (inputRef.current) {
+      triggerChange(inputRef.current, undefined);
+    }
+    setValue(undefined);
   };
 
   const handleOnOptionClick = (option: AutocompleteOption) => {
+    if (inputRef.current) {
+      triggerChange(inputRef.current, option.value);
+    }
+
     changeValue(option.value);
     animationRef.current?.gotoInitialState();
   };
 
   const filteredOptions = options.filter(
-    (option) => !state.value || option.value.toLowerCase().startsWith(state.value.toLowerCase())
+    (option) => !value || option.value.toLowerCase().startsWith(value.toLowerCase())
   );
 
   return (
@@ -141,8 +149,8 @@ const Autocomplete: React.FC<Props> = ({
           {...props}
           {...events}
           autoComplete="off"
-          value={state.value}
           rightContainerWidth={rightContainerRef.current?.offsetWidth}
+          ref={inputRef}
         />
         <Transition
           ref={animationRef}
@@ -185,7 +193,7 @@ const Autocomplete: React.FC<Props> = ({
               )}
             </span>
           )}
-          {clearButton && !!state.value && (
+          {clearButton && !!value && (
             <Button
               themeType="link"
               size={props.size === 'default' ? undefined : props.size}

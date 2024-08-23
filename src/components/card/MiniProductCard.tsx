@@ -58,20 +58,20 @@ const StyledCard = styled(Card)`
 const MiniProductCard: React.FC<Props> = (props) => {
   const price = (
     <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm' } }}>
-      {props.price?.totalPromo && (
+      {props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.totalPromo)}
+            ${formatNumber(props.amount.totalPromo)}
           </Text>
         </Container>
       )}
-      {!props.price?.totalPromo && (
+      {!props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'end' }}>
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>
         </Container>
       )}

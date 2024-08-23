@@ -2,6 +2,7 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import List from 'components/List';
 import Autocomplete from 'components/form/Autocomplete';
+import Form from 'components/form/Form';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import React from 'react';
@@ -42,7 +43,7 @@ const SearchBox: React.FC = () => {
           <Button themeType="link" maxContent size="md" icon={<BiFilter />}>
             Advanced
           </Button>
-          <StyledSearchButton maxContent size="md" iconSize="md" icon={<BiSearch />}>
+          <StyledSearchButton type="submit" maxContent size="md" iconSize="md" icon={<BiSearch />}>
             Search
           </StyledSearchButton>
         </Container>

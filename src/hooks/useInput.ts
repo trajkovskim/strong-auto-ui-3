@@ -8,7 +8,7 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
   onBlur1?: FocusEventHandler<T>,
   validate?: Validator
 ) => {
-  const [value, setValue] = useState<string | undefined>(defaultValue?.toString()); // value
+  // const [value, setValue] = useState<string | undefined>(defaultValue?.toString()); // value
   const [error, setError] = useState<string>(); // error message
   const [touched, setTouched] = useState<boolean>(); // whether element has been ever blured (defocused)
   const [visited, setVisited] = useState<boolean>(); // whether element has been ever focused
@@ -30,11 +30,10 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
     return () => {
       clearTimeout(timeout);
     };
-  }, [value, validate]);
+  }, [validate]);
 
   const changeValue = (value: string | undefined) => {
     const message = validate && validate(value);
-    setValue(value);
     setError(message);
     setModified(true);
     setDirty(initial !== value);
@@ -62,7 +61,7 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
     onFocus,
     onBlur,
     changeValue,
-    state: { value, error, touched, validating, visited, modified, active, dirty, valid, initial },
+    state: { error, touched, validating, visited, modified, active, dirty, valid, initial },
   };
 };
 export default useInput;

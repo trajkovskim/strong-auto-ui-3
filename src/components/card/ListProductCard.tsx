@@ -8,7 +8,7 @@ import Ribbon from 'components/card/Ribbon';
 import { ribbons } from 'components/card/constants';
 import { Props as ProductCardProps } from 'components/card/types';
 import Text from 'components/typography/Text';
-import { products } from 'pages/constants';
+import { Vehicle } from 'generated';
 import React from 'react';
 import { BiCalendar, BiShare } from 'react-icons/bi';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
@@ -18,27 +18,27 @@ import { TbManualGearbox } from 'react-icons/tb';
 import { formatNumber } from 'utils';
 
 type Props = ProductCardProps & {
-  driveType: (typeof products)[number]['driveType'];
-  year: (typeof products)[number]['year'];
+  driveType?: Vehicle['driveType'];
+  year?: Vehicle['year'];
 };
 
 const ListProductCard: React.FC<Props> = (props) => {
   const price = (
     <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' } }}>
-      {props.price?.totalPromo && (
+      {props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'flex-end', gap: '0.3rem' }}>
           <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>{' '}
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.totalPromo)}
+            ${formatNumber(props.amount.totalPromo)}
           </Text>
         </Container>
       )}
-      {!props.price?.totalPromo && (
+      {!props.amount?.totalPromo && (
         <Container styleConfig={{ alignItems: 'flex-end' }}>
           <Text fontSize="lg" bold>
-            ${formatNumber(props.price.total)}
+            ${formatNumber(props.amount.total)}
           </Text>
         </Container>
       )}
@@ -48,17 +48,6 @@ const ListProductCard: React.FC<Props> = (props) => {
   const attributeStyleConfig = { gap: '5px', alignItems: 'flex-start', padding: 'sm', direction: 'row' } as never;
   const productAttributes = (
     <List gap="1rem" sm={2} md={2} lg={2} xl={3} {...{ '2xl': 5 }} justifyContent="flex-start">
-      {props.km && (
-        <Container styleConfig={attributeStyleConfig} xs="max-content">
-          <StyledIcon size="lg" icon={<FaRoad />} />
-          <Container>
-            <Text type="sub" fontSize="sm">
-              Mileage
-            </Text>
-            <Text fontSize="md">{formatNumber(props.km)}km</Text>
-          </Container>
-        </Container>
-      )}
       {props.fuelType && (
         <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<BsFuelPumpFill />} />
@@ -81,7 +70,17 @@ const ListProductCard: React.FC<Props> = (props) => {
           </Container>
         </Container>
       )}
-
+      {props.mileage && (
+        <Container styleConfig={attributeStyleConfig} xs="max-content">
+          <StyledIcon size="lg" icon={<FaRoad />} />
+          <Container>
+            <Text type="sub" fontSize="sm">
+              Mileage
+            </Text>
+            <Text fontSize="md">{formatNumber(props.mileage)}km</Text>
+          </Container>
+        </Container>
+      )}
       {props.year && (
         <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<BiCalendar />} />
@@ -93,7 +92,6 @@ const ListProductCard: React.FC<Props> = (props) => {
           </Container>
         </Container>
       )}
-
       {props.driveType && (
         <Container styleConfig={attributeStyleConfig} xs="max-content">
           <StyledIcon size="lg" icon={<FaGear />} />

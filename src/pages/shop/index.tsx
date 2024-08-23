@@ -2,22 +2,23 @@ import Breadcrumb from 'components/Breadcrumb';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Line from 'components/Line';
-import List, { ListView } from 'components/List';
+import { ListView } from 'components/List';
 import ListProductCard from 'components/card/ListProductCard';
-import ProductCard from 'components/card/ProductCard';
 import ShopProductCard from 'components/card/ShopProductCard';
 import { RibbonType } from 'components/card/types';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
-import { products } from 'pages/constants';
+import { VehicleFilters, VehiclesResponse } from 'generated';
+import useRequest from 'hooks/useRequest';
 import Filters from 'pages/shop/Filters';
 import Sidebar from 'pages/shop/Sidebar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
+import { searchVehicles } from 'services/VehicleService';
 import styled from 'styled-components';
 
 const ListActionsMobileWrapper = styled(Container)`
@@ -47,8 +48,17 @@ const Shop: React.FC = () => {
   const [totalPages] = useState<number>(8);
   const [filtersSidebarShow, setFiltersSidebarShow] = useState<boolean>(false);
   const [sortAndSizeSidebarShow, setSortAndSizeSidebarShow] = useState<boolean>(false);
+  const { send } = useRequest();
+  const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
+  const [filters, setFilters] = useState<VehicleFilters>({});
 
-  const mappedProducts = products.slice(0, pageSize);
+  useEffect(() => {
+    send(searchVehicles({ vehicleFilters: {} }).then(setVehiclesResponse));
+  }, [page, send]);
+
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
 
   const toggleListView = () => {
     listView === ListView.GRID ? setListView(ListView.LIST) : setListView(ListView.GRID);
@@ -144,7 +154,7 @@ const Shop: React.FC = () => {
 
   const sidebarMobile = (
     <Sidebar xs={12} md="400px" open={filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
-      <Filters onClose={handleCloseFiltersSidebar} />
+      <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} />
     </Sidebar>
   );
 
@@ -157,7 +167,7 @@ const Shop: React.FC = () => {
       </ListActionsMobileWrapper>
       <Container xs={12} styleConfig={{ direction: 'row', alignItems: 'flex-start', padding: { bottom: 'md' } }}>
         <FiltersContainer xs={0} lg={3} xl={2.5}>
-          <Filters noCloseButton />
+          <Filters noCloseButton filters={filters} onSubmit={setFilters} />
         </FiltersContainer>
         <Container
           xs={12}
@@ -169,7 +179,7 @@ const Shop: React.FC = () => {
             {listHeaderComponent}
           </Container>
           <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
-            {mappedProducts.map((product) =>
+            {vehiclesResponse?.vehicles.map((product) =>
               listView === ListView.LIST ? (
                 <ListProductCard
                   key={product.id}
@@ -181,6 +191,7 @@ const Shop: React.FC = () => {
               ) : (
                 <Container xs={12} lg={6} xl={4} key={product.id}>
                   <ShopProductCard
+                    key={product.id}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                     ribbon={product.state as RibbonType}
                     fullwidth

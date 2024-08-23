@@ -38,12 +38,7 @@ const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, validate, ..
     <>
       <StyledContainer fullwidth={fullwidth}>
         <InputWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
-          <StyledInput
-            {...props}
-            {...events}
-            value={state.value}
-            rightContainerWidth={rightContainerRef.current?.offsetWidth}
-          />
+          <StyledInput {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
         </InputWrapper>
         <StyledRightContainer ref={rightContainerRef}>
           {state.dirty && validate && (
