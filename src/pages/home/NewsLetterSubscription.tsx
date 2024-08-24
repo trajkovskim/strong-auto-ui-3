@@ -1,7 +1,7 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Image from 'components/Image';
-import { Input } from 'components/form';
+import { Form, Input } from 'components/form';
 import Title from 'components/typography/Title';
 import React from 'react';
 import CarInEnvelope from 'assets/car-in-envelope.png';
@@ -18,6 +18,10 @@ const StyledCarInEnvelopeImage = styled(Image)`
 
 const NewsLetterSubscription: React.FC = () => {
   const t = useTranslation('home.newsLetterSubscription');
+
+  const handleSubmit = (values: unknown) => {
+    console.log(values);
+  };
 
   return (
     <Container
@@ -40,10 +44,12 @@ const NewsLetterSubscription: React.FC = () => {
           />
         </BoxAnimation>
         <BoxAnimation>
-          <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
-            <Input size="lg" fullwidth placeholder={t('emailInput.placeholder')} />
-            <Button size="lg">{t('subscribeButton')}</Button>
-          </Container>
+          <Form onSubmit={handleSubmit}>
+            <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
+              <Input size="md" type="email" fullwidth placeholder={t('emailInput.placeholder')} />
+              <Button size="md">{t('subscribeButton')}</Button>
+            </Container>
+          </Form>
         </BoxAnimation>
       </Container>
       <Container xs={12} lg={6} xl={6.5}>

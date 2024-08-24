@@ -101,7 +101,12 @@ const Filters: React.FC<Props> = (props) => {
             />
             <Container styleConfig={{ gap: '0.5rem' }}>
               {Object.values(VehicleState).map((checkbox) => (
-                <Checkbox name={checkbox} key={checkbox} label={baseT(`vehicleState.${checkbox}`)} size="sm" />
+                <Checkbox
+                  name={checkbox.toLowerCase()}
+                  key={checkbox}
+                  label={baseT(`vehicleState.${checkbox}`)}
+                  size="sm"
+                />
               ))}
             </Container>
           </Container>

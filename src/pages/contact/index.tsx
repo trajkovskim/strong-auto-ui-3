@@ -56,8 +56,20 @@ const Contact: React.FC = () => {
               <Container styleConfig={{ gap: '1rem' }}>
                 <List lg={2} gap="1rem">
                   <Input name="name" size="lg" fullwidth placeholder={t('giveUsAMessage.nameInput.placeholder')} />
-                  <Input name="email" size="lg" fullwidth placeholder={t('giveUsAMessage.emailInput.placeholder')} />
-                  <Input name="phone" size="lg" fullwidth placeholder={t('giveUsAMessage.phoneInput.placeholder')} />
+                  <Input
+                    type="email"
+                    name="email"
+                    size="lg"
+                    fullwidth
+                    placeholder={t('giveUsAMessage.emailInput.placeholder')}
+                  />
+                  <Input
+                    type="tel"
+                    name="phone"
+                    size="lg"
+                    fullwidth
+                    placeholder={t('giveUsAMessage.phoneInput.placeholder')}
+                  />
                   <Input
                     name="subject"
                     size="lg"

@@ -59,6 +59,7 @@ const Shop: React.FC = () => {
   const setFilters = (filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters));
 
   useEffect(() => {
+    console.log(filters);
     send(
       searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
         setVehiclesResponse

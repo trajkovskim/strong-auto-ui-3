@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import LanguageChanger from 'components/navigation/LanguageChanger';
 import useSocialMedias from 'components/navigation/useSocialMedias';
-import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
+import { useTranslation } from 'hooks';
 import React from 'react';
 import { FaClock } from 'react-icons/fa';
 import { MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
@@ -15,7 +15,12 @@ const StyledHeader = styled.header`
 `;
 
 const Header: React.FC = () => {
+  const t = useTranslation('header');
   const socialMedias = useSocialMedias();
+
+  const telephone = t('telephone');
+  const email = t('email');
+  const openHours = t('openHours');
 
   return (
     <StyledHeader>
@@ -48,19 +53,19 @@ const Header: React.FC = () => {
               themeType="link"
               size="sm"
               icon={<MdOutlinePhoneIphone />}
-              onClick={() => call(TELEPHONE)}
+              onClick={() => call(telephone)}
             >
-              {TELEPHONE}
+              {telephone}
             </Button>
           </Container>
           <Container>
-            <Button maxContent themeType="link" size="sm" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
-              {EMAIL}
+            <Button maxContent themeType="link" size="sm" icon={<MdEmail />} onClick={() => mailTo(email)}>
+              {email}
             </Button>
           </Container>
           <Container>
             <Button maxContent themeType="link" size="sm" icon={<FaClock />}>
-              {OPEN_HOURS}
+              {openHours}
             </Button>
           </Container>
         </Container>

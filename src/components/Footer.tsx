@@ -3,12 +3,12 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import Line from 'components/Line';
-import { Input } from 'components/form';
+import { Form, Input } from 'components/form';
 import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { useTranslation } from 'hooks';
-import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
+import { EMAIL, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
@@ -41,6 +41,10 @@ const Footer: React.FC = () => {
   const navigate = useNavigate();
   const socialMedias = useSocialMedias();
 
+  const handleSubmit = (values: unknown) => {
+    console.log(values);
+  };
+
   return (
     <StyledFooter>
       <Container
@@ -60,21 +64,23 @@ const Footer: React.FC = () => {
           <Container xs={12} lg="max-content">
             <Title title={t('newsLetter.title')} description={t('newsLetter.description')} fontSize="md" />
           </Container>
-          <StyledNewsLetterFormContainer
-            xs={12}
-            lg="max-content"
-            styleConfig={{
-              padding: 'sm',
-              direction: 'row',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            <Input fullwidth size="md" placeholder={t('newsLetter.emailInput.placeholder')} noBorder />
-            <Button size="md" maxContent>
-              {t('newsLetter.subscribeButton')}
-            </Button>
-          </StyledNewsLetterFormContainer>
+          <Container xs={12} lg="max-content">
+            <Form>
+              <StyledNewsLetterFormContainer
+                styleConfig={{
+                  padding: 'sm',
+                  direction: 'row',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                }}
+              >
+                <Input fullwidth size="md" type="email" placeholder={t('newsLetter.emailInput.placeholder')} noBorder />
+                <Button type="submit" size="md" maxContent>
+                  {t('newsLetter.subscribeButton')}
+                </Button>
+              </StyledNewsLetterFormContainer>
+            </Form>
+          </Container>
         </Container>
         <Line />
         <Container styleConfig={{ gap: '3rem', wrap: true, direction: 'row' }}>
