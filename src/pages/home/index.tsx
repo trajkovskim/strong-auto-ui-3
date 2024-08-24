@@ -7,6 +7,7 @@ import Carousel from 'components/Carousel';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import Title from 'components/typography/Title';
+import { useTranslation } from 'hooks';
 import BuyingACar from 'pages/home/BuyingACar';
 import FAQ from 'pages/home/Faq';
 import NewsLetterSubscription from 'pages/home/NewsLetterSubscription';
@@ -17,9 +18,15 @@ import SearchBox from 'pages/home/SearchBox';
 import Services from 'pages/home/Services';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import { CarouselWrapper, HomeWrapper, WhiteBackgroundContainer } from 'pages/home/index.styled';
-import React from 'react';
+import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+  const secondElement = useRef<HTMLDivElement>(null);
+  const t = useTranslation('home');
+
   return (
     <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: '2xl' } }} lgStyle={{ gap: '9rem' }}>
       <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100vh' }}>
@@ -33,10 +40,10 @@ const Home: React.FC = () => {
               <Title
                 fontSize={{ title: '3xl', description: 'xl' }}
                 bold
-                title="Welcome to StrongAUTO"
+                title={t('carousel.title')}
                 centered
                 gap="2rem"
-                description="Checkout the cars that we have in our inventory"
+                description={t('carousel.description')}
               />
             </Container>
           </BoxAnimation>
@@ -46,18 +53,23 @@ const Home: React.FC = () => {
               styleConfig={{ gap: '1rem', centered: true, itemsCentered: true }}
               smStyle={{ direction: 'row' }}
             >
-              <Button maxContent size="lg">
-                Get to the Inventory
+              <Button maxContent size="lg" onClick={() => navigate(Routes.SHOP)}>
+                {t('carousel.inventoryButton')}
               </Button>
-              <Button maxContent size="lg" themeType="ghost">
-                Scroll down
+              <Button
+                maxContent
+                size="lg"
+                themeType="ghost"
+                onClick={() => scrollTo({ top: (secondElement.current?.offsetTop ?? 0) - 100, behavior: 'smooth' })}
+              >
+                {t('carousel.scrollDownButton')}
               </Button>
             </Container>
           </BoxAnimation>
         </Container>
       </CarouselWrapper>
 
-      <WhiteBackgroundContainer>
+      <WhiteBackgroundContainer ref={secondElement}>
         <Container
           xs="1400px"
           styleConfig={{

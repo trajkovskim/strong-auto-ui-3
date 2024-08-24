@@ -35,11 +35,9 @@ const Textarea: React.FC<Props> = ({ label, fullwidth, rightContainer, validate,
   const events = { onChange, onBlur, onFocus };
 
   return (
-    <>
-      <StyledContainer fullwidth={fullwidth}>
-        <TextareaWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
-          <StyledTextarea {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
-        </TextareaWrapper>
+    <StyledContainer fullwidth={fullwidth}>
+      <TextareaWrapper label={label} size={props.size}>
+        <StyledTextarea {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
         <StyledRightContainer ref={rightContainerRef}>
           {state.dirty && validate && (
             <span>
@@ -54,9 +52,9 @@ const Textarea: React.FC<Props> = ({ label, fullwidth, rightContainer, validate,
           )}
           {rightContainer}
         </StyledRightContainer>
-      </StyledContainer>
+      </TextareaWrapper>
       {!state.valid && <div>{state.error}</div>}
-    </>
+    </StyledContainer>
   );
 };
 

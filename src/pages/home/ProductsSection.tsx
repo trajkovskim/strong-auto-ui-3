@@ -11,6 +11,9 @@ import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useEffect, useState } from 'react';
 import { searchVehicles } from 'services/VehicleService';
 import StyledSpinner from 'components/Spinner';
+import { Routes } from 'routes';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'hooks';
 
 const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
   [VehicleState.Featured]: 'featured',
@@ -18,17 +21,19 @@ const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
 };
 
 const ProductsSection: React.FC = () => {
+  const t = useTranslation('home.vehiclesSection');
   const tabs: ButtonProps[] = [
     {
-      label: 'Featured',
+      label: t('featured'),
       value: 'featured',
     },
     {
-      label: 'Body types',
-      value: 'bodyType',
+      label: t('bodyTypes'),
+      value: 'bodyTypes',
     },
   ];
 
+  const navigate = useNavigate();
   const [exploreVehiclesActiveTab, setExploreVehiclesActiveTab] = useState<string>(tabs[0].value);
   const { send, loading } = useRequest();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
@@ -67,7 +72,7 @@ const ProductsSection: React.FC = () => {
               {vehiclesResponse?.vehicles.map((product) => (
                 <ProductCard
                   key={product.id}
-                  onView={() => undefined}
+                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
                   ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
                   {...product}
                 />

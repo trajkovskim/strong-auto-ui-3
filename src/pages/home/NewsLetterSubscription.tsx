@@ -7,6 +7,7 @@ import React from 'react';
 import CarInEnvelope from 'assets/car-in-envelope.png';
 import BoxAnimation from 'components/BoxAnimation';
 import styled from 'styled-components';
+import { useTranslation } from 'hooks';
 
 const StyledCarInEnvelopeImage = styled(Image)`
   border-top-right-radius: 150px;
@@ -16,6 +17,8 @@ const StyledCarInEnvelopeImage = styled(Image)`
 `;
 
 const NewsLetterSubscription: React.FC = () => {
+  const t = useTranslation('home.newsLetterSubscription');
+
   return (
     <Container
       xs="1400px"
@@ -30,16 +33,16 @@ const NewsLetterSubscription: React.FC = () => {
       <Container xs={12} lg={6} xl={5.5} styleConfig={{ gap: '2rem' }}>
         <BoxAnimation>
           <Title
-            title="Get Latest Updates And Best Offers"
-            description="Strong auto is the most enticing, creative, modern and multipurpose auto dealer"
+            title={t('title')}
+            description={t('description')}
             fontSize={{ title: '2xl', description: 'lg' }}
             gap="2rem"
           />
         </BoxAnimation>
         <BoxAnimation>
           <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
-            <Input size="lg" fullwidth placeholder="Enter your email" />
-            <Button size="lg">Subscribe</Button>
+            <Input size="lg" fullwidth placeholder={t('emailInput.placeholder')} />
+            <Button size="lg">{t('subscribeButton')}</Button>
           </Container>
         </BoxAnimation>
       </Container>

@@ -1,28 +1,24 @@
-import {
-  InputWrapper,
-  StyledBiErrorCircle,
-  StyledContainer,
-  StyledContainerProps,
-  StyledGiCheckMark,
-  StyledInput,
-  StyledInputProps,
-  StyledRightContainer,
-  StyledSpinner,
-} from 'components/form/Input.styled';
+import useForm from 'components/form/hooks/useForm';
+import { StyledContainer, StyledFormFieldContainer, StyledInput } from 'components/form/Input.styled';
+import FormFieldRightContainer from 'components/form/RightContainer';
+import { FormFieldProps } from 'components/form/types';
+import { parseInputValue } from 'components/form/utils';
 import useInput from 'hooks/useInput';
 import React, { useRef } from 'react';
-import { Validator } from 'validators';
 
-type Props = Omit<React.ComponentProps<'input'>, keyof StyledInputProps> &
-  StyledInputProps &
-  StyledContainerProps & {
-    label?: string;
-    rightContainer?: React.ReactNode;
-    validate?: Validator;
-  };
+type Props = FormFieldProps<'input'>;
 
-const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, validate, ...props }) => {
+const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, clearButton, validate, ...props }) => {
   const rightContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const { change, getValue } = useForm();
+  const name = props.name as string;
+  const value = getValue(name);
+
+  if (!value && inputRef.current) {
+    inputRef.current.value = '';
+  }
 
   const { state, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -32,31 +28,47 @@ const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, validate, ..
     validate
   );
 
-  const events = { onChange, onBlur, onFocus };
+  const events: {
+    onChange: typeof onChange;
+    onBlur: typeof onBlur;
+    onFocus: typeof onFocus;
+  } = {
+    onChange: (event) => {
+      change(name, parseInputValue(event.target));
+      onChange(event);
+    },
+    onBlur,
+    onFocus,
+  };
+
+  const clear = () => {
+    change(name, undefined);
+  };
+
+  const rightContainerProps = {
+    state,
+    rightContainer,
+    clearButton,
+    validate: !!validate,
+    size: props.size,
+    onClear: clear,
+    value: value?.toString(),
+  };
 
   return (
-    <>
-      <StyledContainer fullwidth={fullwidth}>
-        <InputWrapper styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
-          <StyledInput {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
-        </InputWrapper>
-        <StyledRightContainer ref={rightContainerRef}>
-          {state.dirty && validate && (
-            <span>
-              {state.validating ? (
-                <StyledSpinner />
-              ) : state.valid ? (
-                <StyledGiCheckMark />
-              ) : (
-                <StyledBiErrorCircle title={state.error} />
-              )}
-            </span>
-          )}
-          {rightContainer}
-        </StyledRightContainer>
-      </StyledContainer>
+    <StyledContainer fullwidth={fullwidth}>
+      <StyledFormFieldContainer label={label} size={props.size}>
+        <StyledInput
+          {...props}
+          {...events}
+          {...{ value: value?.toString() }}
+          rightContainerWidth={rightContainerRef.current?.offsetWidth}
+          ref={inputRef}
+        />
+      </StyledFormFieldContainer>
+      <FormFieldRightContainer ref={rightContainerRef} {...rightContainerProps} />
       {!state.valid && <div>{state.error}</div>}
-    </>
+    </StyledContainer>
   );
 };
 

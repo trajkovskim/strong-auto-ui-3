@@ -30,12 +30,25 @@ const getDataByPath = (data: any, path: string, discriminator: string): string =
 
 const useTranslation = (prefix = '', discriminator = '.') => {
   const { language } = useLanguage();
-  const basePrefix = prefix.length == 0 ? 'kostadinka' : `kostadinka.${prefix}`;
+  const basePrefix = prefix.length == 0 ? 'strongauto' : `strongauto.${prefix}`;
 
   return useCallback(
-    (key: string): string => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (key: string, params?: Record<string, any>): string => {
       const path = `${basePrefix}.${key}`;
-      const message = getDataByPath(messages[language], path, discriminator);
+      let message = getDataByPath(messages[language], path, discriminator);
+
+      if (message && params) {
+        const matches = message.match(/{{[a-zA-Z]*}}/g) ?? [];
+        for (const match of matches) {
+          const property = match.substring(2, match.length - 2);
+
+          if (property in params) {
+            message = message.replaceAll(match, params[property]);
+          }
+        }
+      }
+
       return message ?? path;
     },
     [basePrefix, discriminator, language]

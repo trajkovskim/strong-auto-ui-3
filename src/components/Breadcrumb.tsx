@@ -1,12 +1,14 @@
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Text from 'components/typography/Text';
+import { useTranslation } from 'hooks';
 import React from 'react';
 import { FaHome } from 'react-icons/fa';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'routes';
 
 const Breadcrumb: React.FC = () => {
+  const t = useTranslation('breadcrumb');
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -17,22 +19,22 @@ const Breadcrumb: React.FC = () => {
     icon?: React.ReactNode;
   }[] = [
     {
-      label: 'Home',
+      label: t('home'),
       pathname: Routes.INDEX,
       icon: <FaHome />,
     },
   ];
 
   if (location.pathname.startsWith(Routes.SHOP)) {
-    paths.push({ label: 'Listing', pathname: Routes.SHOP });
+    paths.push({ label: t('shop'), pathname: Routes.SHOP });
   }
 
   if (location.pathname.startsWith(Routes.CONTACT)) {
-    paths.push({ label: 'Contact', pathname: Routes.CONTACT });
+    paths.push({ label: t('contact'), pathname: Routes.CONTACT });
   }
 
   if (location.pathname.startsWith(Routes.ABOUT_US)) {
-    paths.push({ label: 'About us', pathname: Routes.ABOUT_US });
+    paths.push({ label: t('aboutUs'), pathname: Routes.ABOUT_US });
   }
 
   if (id) {

@@ -16,6 +16,7 @@ import styled from 'styled-components';
 
 import AudiHeadlightsImage from 'assets/audi-headlights.jpg';
 import Breadcrumb from 'components/Breadcrumb';
+import { useTranslation } from 'hooks';
 
 const AboutUsTitleWrapper = styled(Container)`
   background-image: url(${AudiHeadlightsImage});
@@ -56,6 +57,8 @@ const WelcomeIntroImage = styled(Image)`
 `;
 
 const AboutUs: React.FC = () => {
+  const t = useTranslation('aboutUs');
+
   return (
     <Container styleConfig={{ gap: '4rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
       <AboutUsTitleWrapper>
@@ -73,7 +76,7 @@ const AboutUs: React.FC = () => {
           }}
         >
           <Breadcrumb />
-          <Title fontSize="3xl" title="About us" />
+          <Title fontSize="3xl" title={t('title')} />
         </Container>
       </AboutUsTitleWrapper>
       <WelcomeIntroWrapper
@@ -92,8 +95,8 @@ const AboutUs: React.FC = () => {
             <Title
               gap="2rem"
               fontSize={{ title: '2xl', description: 'md' }}
-              title="Who we are"
-              description={`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.`}
+              title={t('whoWeAre.title')}
+              description={t('whoWeAre.description')}
             />
           </BoxAnimation>
         </Container>

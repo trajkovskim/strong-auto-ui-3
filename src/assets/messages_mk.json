@@ -1,41 +1,432 @@
 {
-  "kostadinka": {
+  "strongauto": {
     "languages": {
       "title": "Јазик",
       "mk": "Македонски",
       "en": "Англиски"
     },
     "nav": {
-      "home": "Почетна",
+      "home": "Дома",
       "shop": "Салон",
-      "parts": "Авто делови",
-      "blog": "Блог",
       "aboutUs": "За нас",
       "contact": "Контакт"
     },
-    "footer": {
-      "text": "Copyright ©2021 Herbalife International of America, Inc. No reproduction in whole or in part without written permission. All Rights Reserved. All trademarks and product images exhibited on this site, unless otherwise, are the property of Herbalife International, Inc.",
-      "subscribe": "Subscribe to our newsletter",
-      "informations": "Informations"
+    "header": {
+      "phone": "+38977648648",
+      "email": "vane.stamenov@gmail.com",
+      "openHours": "Пон-Нед: 08:00 - 20:00"
     },
-    "home": {
-      "startYourDayCorrectly": {
-        "title": "Start your day correctly",
-        "description": "By starting your day correctly we mean to take nutrients. Refresh yourself. Keep your self hydrated. Start your day with our balanced breakfast that is quick to prepare. Get the essential nutrients your body needs with a delicious Formula 1 shake."
-      },
-      "career": {
-        "title": "Build your own career",
-        "description": "Become a distributor with Herbalife nutrition - one of the leader world wide. Start today, use our respect as a leader in the industry, and put the foundations of your business",
-        "buildPack": {
-          "description": "Order your International Business Pack, which gives you the essential tools and literature to get you up and running. Build your own business with Herbalife Nutrition - one of the worlds leading direct sales brands. Start today - benefit from our proven success as industry leaders and decades of experience and lay the foundations of your own business.",
-          "question": "What will you get in the build pack?",
-          "order": "Order now"
+    "footer": {
+      "description": "Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto is a auto is a Strong auto is a",
+      "findUs": {
+        "title": "Пронајди не",
+        "location": "15 Некаде во Струмица\nСеверна Македонија, NMK\nСтрумица 2400",
+        "openHours": {
+          "title": "Отворени:",
+          "label": "Mon-Sun: 08:00 - 20:00"
         }
       },
-      "programs": {
-        "title": "Our programs",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim justo, congue quis egest as sed, molestie et neque"
+      "contacts": {
+        "title": "Контакти",
+        "general": {
+          "title": "Генерално:",
+          "value": "+38977648648"
+        },
+        "email": {
+          "title": "Електронска пошта:",
+          "value": "vane.stamenov@gmail.com"
+        }
+      },
+      "usefulLinks": {
+        "title": "Корисни линкови:",
+        "home": "Дома",
+        "shop": "Салон",
+        "aboutUs": "За нас",
+        "contact": "Контакт"
+      },
+      "newsLetter": {
+        "title": "Придружете се:",
+        "description": "Добивајте новости, типови и многу повеќе!",
+        "emailInput": {
+          "placeholder": "Вашата електронска пошта"
+        },
+        "subscribeButton": "Претплати се"
       }
+    },
+    "home": {
+      "carousel": {
+        "title": "Добредојдовте во StrongAUTO",
+        "description": "Погледнете ги колите што ги имаме во нашиот салон",
+        "inventoryButton": "Оди до салон",
+        "scrollDownButton": "Надолу"
+      },
+      "searchBox": {
+        "title": "Пронајди тоа што бараш",
+        "makeInput": {
+          "placeholder": "Направена од"
+        },
+        "modelInput": {
+          "placeholder": "Модел"
+        },
+        "priceInput": {
+          "placeholder": "Цена"
+        },
+        "advancedButton": "Напреден",
+        "searchButton": "Преварувај",
+        "popularSearches": "Популарни пребарувања:"
+      },
+      "vehiclesSection": {
+        "featured": "Истакнати",
+        "bodyTypes": "Тело",
+        "available": "{{n}} достапни"
+      },
+      "buyingACar": {
+        "title": "Сакате да купите кола?",
+        "description": "Сакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите кола",
+        "visitButton": "Погледнете во нашиот салон"
+      },
+      "rentingACar": {
+        "title": "Сакате да изнајмите кола?",
+        "description": "Сакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите колаСакате да купите кола",
+        "visitButton": "Погледнете во нашиот салон"
+      },
+      "popularMakes": {
+        "title": "Популарни модели",
+        "viewAllButton": "Види ги сите"
+      },
+      "ourServices": {
+        "title": "Наши сервиси",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "viewAllButton": "Види ги сите сервиси",
+        "towingService": {
+          "title": "БРЗА И НЕ МНОГУ СКАПА ВЛЕЧНА СЛУЖБА ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        },
+        "dpfCleaning": {
+          "title": "DPF ЧИСТЕЊЕ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        },
+        "carService": {
+          "title": "СЕРВИС НА ВАШИОТ АВТОМОБИЛ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        }
+      },
+      "whyChooseUs": {
+        "title": "Зошто би ги избрале нашите сервиси",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "point1": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point2": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point3": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point4": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        }
+      },
+      "reviews": {
+        "title": "Што велат нашите клиенти за нас",
+        "via": "од {{platform}}",
+        "starRating": "{{stars}}-оценка"
+      },
+      "newsLetterSubscription": {
+        "title": "Добијте најнови ажурирања и најдобри понуди",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "emailInput": {
+          "placeholder": "Внесете електронска пошта"
+        },
+        "subscribeButton": "Претплати се"
+      },
+      "generalFaq": {
+        "title": "Генерални чести прашања",
+        "description": "Погледнете ги нашите често поставувани прашања кои ги имаме спремено за вас кои се често поставувани од нашите клиенти",
+        "questions": {
+          "0": {
+            "question": "Прашање 1?",
+            "answer": "Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1Одговор 1"
+          },
+          "1": {
+            "question": "Прашање 2?",
+            "answer": "Одговор 2"
+          },
+          "2": {
+            "question": "Прашање 3?",
+            "answer": "Одговор 3"
+          },
+          "3": {
+            "question": "Прашање 4?",
+            "answer": "Одговор 4"
+          },
+          "4": {
+            "question": "Прашање 5?",
+            "answer": "Одговор 5"
+          }
+        }
+      }
+    },
+    "vehicleState": {
+      "SOLD": "Продадено",
+      "FEATURED": "Истакнато"
+    },
+    "vehicleCondition": {
+      "NEW": "Ново",
+      "USED": "Користено"
+    },
+    "vehicleBodyType": {
+      "SEDAN": "Sedan",
+      "COUPE": "Coupe",
+      "SUV": "SUV"
+    },
+    "vehicleTransmission": {
+      "AUTOMATIC": "Автоматски",
+      "MANUAL": "Рачен"
+    },
+    "vehicleDriveType": {
+      "AWD_4WD": "Погон на сите тркала",
+      "2WD_FWD": "Погон на 2 тркала (Предна)",
+      "2WD_RWD": "Погон на 2 тркала (Задна)"
+    },
+    "vehicleMileage": "{{mileage}}km",
+    "vehicleFuelType": {
+      "ELECTRIC": "Електричен",
+      "DIESEL": "Дизел",
+      "PETROL": "Бензин",
+      "HYBRID": "Хибрид"
+    },
+    "color": {
+      "BLACK": "Црна",
+      "WHITE": "Бела",
+      "RED": "Црвена"
+    },
+    "inventory": {
+      "filters": {
+        "header": "Филтрирање",
+        "basic": {
+          "title": "Основни",
+          "makeInput": {
+            "placeholder": "Направена од",
+            "label": "Направена од"
+          },
+          "modelInput": {
+            "placeholder": "Модел",
+            "label": "Модел"
+          },
+          "priceInput": {
+            "placeholder": "Цена",
+            "label": "Цена"
+          }
+        },
+        "technical": {
+          "title": "Технички",
+          "conditionInput": {
+            "placeholder": "Состојба",
+            "label": "Состојба"
+          },
+          "bodyType": {
+            "title": "Тело"
+          },
+          "transmissionInput": {
+            "placeholder": "Менувач",
+            "label": "Менувач"
+          },
+          "driveTypeInput": {
+            "placeholder": "Погон",
+            "label": "Погон"
+          },
+          "yearFromInput": {
+            "placeholder": "Година (Од)",
+            "label": "Година"
+          },
+          "yearToInput": {
+            "placeholder": "Година (До)",
+            "label": "Година"
+          },
+          "mileageFromInput": {
+            "placeholder": "Километри (Од)",
+            "label": "Километри"
+          },
+          "mileageToInput": {
+            "placeholder": "Километри (До)",
+            "label": "Километри"
+          },
+          "fuelTypeInput": {
+            "placeholder": "Гориво",
+            "label": "Гориво"
+          },
+          "colorInput": {
+            "placeholder": "Боја",
+            "label": "Боја"
+          }
+        },
+        "features": {
+          "title": "Карактеристики"
+        },
+        "searchButton": "Пребарувај",
+        "resetButton": "Ресетирај"
+      },
+      "pagination": {
+        "sortByInput": {
+          "label": "Сортирај по"
+        },
+        "resultSizeInput": {
+          "label": "Резултати"
+        },
+        "resultsShown": "Прикажани резултати {{results}} од {{totalResults}}"
+      }
+    },
+    "aboutUs": {
+      "title": "За нас",
+      "whoWeAre": {
+        "title": "Кој сме ние",
+        "description": "Кој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ние"
+      },
+      "services": {
+        "towingService": {
+          "title": "БРЗА И НЕ МНОГУ СКАПА ВЛЕЧНА СЛУЖБА ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        },
+        "dpfCleaning": {
+          "title": "DPF ЧИСТЕЊЕ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        },
+        "carService": {
+          "title": "СЕРВИС НА ВАШИОТ АВТОМОБИЛ",
+          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
+        }
+      },
+      "whyChooseUs": {
+        "title": "Зошто би ги избрале нашите сервиси",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "point1": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point2": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point3": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        },
+        "point4": {
+          "title": "Доверлив салон за автомобили",
+          "description": "Доверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобилиДоверлив салон за автомобили"
+        }
+      },
+      "reviews": {
+        "title": "Што велат нашите клиенти за нас",
+        "via": "од {{platform}}",
+        "starRating": "{{stars}}-оценка"
+      },
+      "generalFaq": {
+        "title": "Генерални чести прашања",
+        "description": "Погледнете ги нашите често поставувани прашања кои ги имаме спремено за вас кои се често поставувани од нашите клиенти",
+        "questions": {
+          "0": {
+            "question": "Прашање 1?",
+            "answer": "Одговор 1"
+          },
+          "2": {
+            "question": "Прашање 2?",
+            "answer": "Одговор 2"
+          },
+          "3": {
+            "question": "Прашање 3?",
+            "answer": "Одговор 3"
+          },
+          "4": {
+            "question": "Прашање 4?",
+            "answer": "Одговор 4"
+          },
+          "5": {
+            "question": "Прашање 5?",
+            "answer": "Одговор 5"
+          }
+        }
+      }
+    },
+    "contact": {
+      "title": "Стапете во контакт со нас!",
+      "giveUsAMessage": {
+        "title": "Испратете ни порака и известете не",
+        "description": "Ќе ја погледнеме вашата порака најбрзо што можеме ќе ви дадеме одговор што е можно поскоро",
+        "nameInput": {
+          "placeholder": "Вашето име"
+        },
+        "emailInput": {
+          "placeholder": "Вашата електронска пошта"
+        },
+        "phoneInput": {
+          "placeholder": "Вашиот телефон"
+        },
+        "subjectInput": {
+          "placeholder": "Наслов на е-пошта"
+        },
+        "messageInput": {
+          "placeholder": "Порака"
+        },
+        "sendMessageButton": "Прати порака"
+      },
+      "location": {
+        "title": "Локација",
+        "description": "15 Somewhere in strumica\nNorth Macedonia, MK\nStrumica 2400"
+      },
+      "callUs": {
+        "title": "Јавете се:",
+        "telephone": "+38977648648"
+      },
+      "sendUsAnEmail": {
+        "title": "Пратете е-пошта на:",
+        "telephone": "vane.stamenov@gmail.com"
+      },
+      "socialMedia": {
+        "title": "Социјална мрежа"
+      },
+      "openHours": {
+        "title": "Отворено:",
+        "label": "Mon-Sun: 08:00 - 20:00"
+      }
+    },
+    "viewDetails": {
+      "description": {
+        "title": "Опис"
+      },
+      "carOverview": {
+        "title": "Преглед",
+        "bodyType": "Тело",
+        "mileage": "Километри",
+        "fuelType": "Гориво",
+        "year": "Година",
+        "transmission": "Менуваш",
+        "driveType": "Погон",
+        "condition": "Состојба",
+        "engineSize": "Големина на мотор",
+        "doors": "Врати",
+        "color": "Боја"
+      },
+      "features": {
+        "title": "Карактеристики"
+      },
+      "featuredProducts": {
+        "title": "Истакнати производи"
+      },
+      "saving": "Заштеда: {{saving}}$",
+      "offer": "Нашата понуда:",
+      "sendMessageButton": "Прати порака"
+    },
+    "breadcrumb": {
+      "home": "Дома",
+      "shop": "Салон",
+      "aboutUs": "За нас",
+      "contact": "Контакт"
     }
   }
 }

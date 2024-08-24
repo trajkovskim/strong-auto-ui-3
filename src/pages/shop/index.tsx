@@ -7,7 +7,9 @@ import ShopProductCard from 'components/card/ShopProductCard';
 import { RibbonType } from 'components/card/types';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
+import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters, VehiclesResponse } from 'generated';
+import { useApplicationContext, useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
 import Filters from 'pages/shop/Filters';
 import Sidebar from 'pages/shop/Sidebar';
@@ -39,6 +41,7 @@ const FiltersContainer = styled(Container)`
 `;
 
 const Shop: React.FC = () => {
+  const t = useTranslation('inventory');
   const navigate = useNavigate();
   const [pageSize, setPageSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>();
@@ -50,22 +53,26 @@ const Shop: React.FC = () => {
 
   const { send, loading } = useRequest();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
-  const [filters, setFilters] = useState<VehicleFilters>({});
+  const { getState, dispatch } = useApplicationContext();
+
+  const filters = getState().vehicles.filters;
+  const setFilters = (filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters));
 
   useEffect(() => {
     send(
-      searchVehicles({ vehicleFilters: {}, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
+      searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
         setVehiclesResponse
       )
     );
-  }, [page, pageSize, send, sortBy]);
+  }, [filters, page, pageSize, send, sortBy]);
 
   const createSortAndSizeDropdowns = (fullwidth: boolean) => (
     <>
       <Dropdown
         name="sortBy"
+        noBorder
         size="md"
-        label="Sort by:"
+        label={t('pagination.sortByInput.label')}
         fullwidth={fullwidth}
         value={sortBy}
         onChange={(event) => setSortBy(event.target.value)}
@@ -79,8 +86,9 @@ const Shop: React.FC = () => {
       />
       <Dropdown
         name="size"
+        noBorder
         size="md"
-        label="Result size:"
+        label={t('pagination.resultSizeInput.label')}
         fullwidth={fullwidth}
         value={pageSize}
         onChange={(event) => setPageSize(Number(event.target.value))}
@@ -113,7 +121,7 @@ const Shop: React.FC = () => {
       <Container xs={12} styleConfig={{ gap: '1rem' }}>
         <Breadcrumb />
         <Text type="sub" fontSize="sm">
-          Results shown {pageSize * page} - {pageSize * page + pageSize} of {totalContentNumber}
+          {t('pagination.resultsShown', { results: pageSize * page, totalResults: totalContentNumber })}
         </Text>
         <Container xs={0} lg={12} styleConfig={{ gap: '1rem', direction: 'row', justifyContent: 'space-between' }}>
           {createSortAndSizeDropdowns(false)}
@@ -148,10 +156,10 @@ const Shop: React.FC = () => {
   );
 
   const handleCloseFiltersSidebar = () => setFiltersSidebarShow(false);
-
+  const clearFilters = () => setFilters({});
   const sidebarMobile = (
     <Sidebar xs={12} md="400px" open={filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
-      <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} />
+      <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} onReset={clearFilters} />
     </Sidebar>
   );
 
@@ -164,7 +172,7 @@ const Shop: React.FC = () => {
       </ListActionsMobileWrapper>
       <Container xs={12} styleConfig={{ direction: 'row', alignItems: 'flex-start', padding: { bottom: 'md' } }}>
         <FiltersContainer xs={0} lg={3} xl={2.5}>
-          <Filters noCloseButton filters={filters} onSubmit={setFilters} />
+          <Filters noCloseButton filters={filters} onSubmit={setFilters} onReset={clearFilters} />
         </FiltersContainer>
         <Container
           xs={12}

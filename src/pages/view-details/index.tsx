@@ -29,6 +29,7 @@ import { Routes } from 'routes';
 import { getVehicleEntry, searchVehicles } from 'services/VehicleService';
 import { call, formatNumber, mailTo } from 'utils';
 import StyledSpinner from 'components/Spinner';
+import { useTranslation } from 'hooks';
 
 const StyledButton = styled(Button)`
   border-radius: 5px;
@@ -67,6 +68,8 @@ const ViewDetails: React.FC = () => {
   const [product, setProduct] = useState<Vehicle>();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
   const carouselRef = useRef<CarouselHandle>(null);
+  const t = useTranslation('viewDetails');
+  const tBase = useTranslation();
 
   useEffect(() => {
     if (!id) {
@@ -165,17 +168,17 @@ const ViewDetails: React.FC = () => {
                 )}
                 {product.transmission && (
                   <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
-                    {product.transmission}
+                    {tBase(`vehicleTransmission.${product.transmission}`)}
                   </Button>
                 )}
                 {product.fuelType && (
                   <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
-                    {product.fuelType}
+                    {tBase(`vehicleFuelType.${product.fuelType}`)}
                   </Button>
                 )}
                 {product.mileage && (
                   <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
-                    {formatNumber(product.mileage)}
+                    {tBase('vehicleMileage', { mileage: product.mileage })}
                   </Button>
                 )}
               </Container>
@@ -218,7 +221,7 @@ const ViewDetails: React.FC = () => {
 
           <BoxAnimation>
             <Container styleConfig={{ gap: '0.5rem', padding: { left: 'md', right: 'md' } }}>
-              <Text fontSize="2xl">Description</Text>
+              <Text fontSize="2xl">{t('description.title')}</Text>
               <Text fontSize="md">{product.description}</Text>
             </Container>
           </BoxAnimation>
@@ -228,7 +231,7 @@ const ViewDetails: React.FC = () => {
               styleConfig={{ gap: '1rem', direction: 'row', wrap: true, padding: { left: 'md', right: 'md' } }}
             >
               <Container xs={12}>
-                <Text fontSize="2xl">Car overview</Text>
+                <Text fontSize="2xl">{t('carOverview.title')}</Text>
               </Container>
               <Container xs={12} lg={6}>
                 <BoxAnimation>
@@ -237,15 +240,27 @@ const ViewDetails: React.FC = () => {
                     gap="0.5rem"
                     cellWidth="50%"
                     data={[
-                      [createTextIcon(<FaCar />, 'Body'), product.bodyType],
                       [
-                        createTextIcon(<SlSpeedometer />, 'Mileage'),
-                        `${product.mileage && formatNumber(product.mileage)}km`,
+                        createTextIcon(<FaCar />, t('carOverview.bodyType')),
+                        tBase(`vehicleBodyType.${product.bodyType}`),
                       ],
-                      [createTextIcon(<BsFuelPump />, 'Fuel type'), product.fuelType],
-                      [createTextIcon(<BiCalendar />, 'Year'), product.year],
-                      [createTextIcon(<TbManualGearbox />, 'Transmission'), product.transmission],
-                      [createTextIcon(<GiSteeringWheel />, 'Drive type'), product.driveType],
+                      [
+                        createTextIcon(<SlSpeedometer />, t('carOverview.mileage')),
+                        `${product.mileage && tBase('vehicleMileage', { mileage: formatNumber(product.mileage) })}`,
+                      ],
+                      [
+                        createTextIcon(<BsFuelPump />, t('carOverview.fuelType')),
+                        tBase(`vehicleFuelType.${product.fuelType}`),
+                      ],
+                      [createTextIcon(<BiCalendar />, t('carOverview.year')), product.year],
+                      [
+                        createTextIcon(<TbManualGearbox />, t('carOverview.transmission')),
+                        tBase(`vehicleTransmission.${product.transmission}`),
+                      ],
+                      [
+                        createTextIcon(<GiSteeringWheel />, t('carOverview.driveType')),
+                        tBase(`vehicleDriveType.${product.driveType}`),
+                      ],
                     ]}
                   />
                 </BoxAnimation>
@@ -257,10 +272,13 @@ const ViewDetails: React.FC = () => {
                     gap="0.5rem"
                     cellWidth="50%"
                     data={[
-                      [createTextIcon(<FaCar />, 'Condition'), product.condition],
-                      [createTextIcon(<TbEngine />, 'Engine size'), product.engineSize],
-                      [createTextIcon(<TbDoor />, 'Door'), product.doors],
-                      [createTextIcon(<BiColorFill />, 'Color'), product.color],
+                      [
+                        createTextIcon(<FaCar />, t('carOverview.condition')),
+                        tBase(`vehicleCondition.${product.condition}`),
+                      ],
+                      [createTextIcon(<TbEngine />, t('carOverview.engineSize')), product.engineSize],
+                      [createTextIcon(<TbDoor />, t('carOverview.doors')), product.doors],
+                      [createTextIcon(<BiColorFill />, t('carOverview.color')), tBase(`color.${product.color}`)],
                     ]}
                   />
                 </BoxAnimation>
@@ -272,7 +290,7 @@ const ViewDetails: React.FC = () => {
 
           <BoxAnimation>
             <Container styleConfig={{ gap: '1rem', padding: { left: 'md', right: 'md' } }}>
-              <Text fontSize="2xl">Features</Text>
+              <Text fontSize="2xl">{t('features.title')}</Text>
               <List gap="2rem" xs={1} sm={2} justifyContent="space-between">
                 {Array.from(featuresMap).map(([featureTitleKey, featureValueKeys]) => (
                   <Container xs={12} key={featureTitleKey} styleConfig={{ gap: '0.5rem', alignItems: 'flex-start' }}>
@@ -305,12 +323,12 @@ const ViewDetails: React.FC = () => {
           <BoxAnimation>
             <Container styleConfig={{ rounded: true, padding: 'md', gap: '1rem', bordered: true }}>
               <Container styleConfig={{ gap: '0.3rem' }}>
-                <Text fontSize="lg">Our offer:</Text>
+                <Text fontSize="lg">{t('offer')}</Text>
                 {product.amount?.totalPromo && (
                   <div>
                     <Text fontSize="lg" textDecoration="line-through">
                       {formatNumber(product.amount.total)}
-                    </Text>{' '}
+                    </Text>
                     <Text fontSize="3xl" bold>
                       {formatNumber(product.amount.totalPromo)}
                     </Text>
@@ -325,12 +343,12 @@ const ViewDetails: React.FC = () => {
                 )}
                 {product.amount?.saving && (
                   <div>
-                    <Text fontSize="lg">Saving: {formatNumber(product.amount.saving)}</Text>
+                    <Text fontSize="lg">{t('saving', { saving: formatNumber(product.amount.saving) })}</Text>
                   </div>
                 )}
               </Container>
-              <StyledButton fullwidth themeType={'ghost'} size="xl">
-                Send a message
+              <StyledButton fullwidth themeType="ghost" size="xl">
+                {t('sendMessageButton')}
               </StyledButton>
             </Container>
           </BoxAnimation>
@@ -366,7 +384,7 @@ const ViewDetails: React.FC = () => {
         styleConfig={{ centered: true, gap: '3rem', padding: { left: 'md', right: 'md', bottom: 'xl' } }}
       >
         <Line />
-        <Title fontSize="xl" title="Featured products" />
+        <Title fontSize="xl" title={t('featuredProducts.title')} />
         <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4, xl: 3 }} centered>
           {vehiclesResponse?.vehicles.map((product) => (
             <MiniProductCard

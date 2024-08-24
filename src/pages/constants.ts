@@ -23,28 +23,28 @@ export const bodyTypes = [
 export const faqQuestions = [
   {
     id: 0,
-    question: 'Question?',
-    answer: 'Answer',
+    question: 'questions.0.question',
+    answer: 'questions.0.answer',
   },
   {
     id: 1,
-    question: 'Question?',
-    answer: 'Answer',
+    question: 'questions.1.question',
+    answer: 'questions.1.answer',
   },
   {
     id: 2,
-    question: 'Question?',
-    answer: 'Answer',
+    question: 'questions.2.question',
+    answer: 'questions.2.answer',
   },
   {
     id: 3,
-    question: 'Question?',
-    answer: 'Answer',
+    question: 'questions.3.question',
+    answer: 'questions.3.answer',
   },
   {
     id: 4,
-    question: 'Question?',
-    answer: 'Answer',
+    question: 'questions.4.question',
+    answer: 'questions.4.answer',
   },
 ];
 

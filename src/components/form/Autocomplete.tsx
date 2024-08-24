@@ -1,80 +1,18 @@
 import { css } from '@emotion/css';
-import Button from 'components/Button';
 import Transition, { TransitionHandle } from 'components/Transition';
-import {
-  InputWrapper,
-  StyledBiErrorCircle,
-  StyledContainer,
-  StyledContainerProps,
-  StyledGiCheckMark,
-  StyledInput,
-  StyledInputProps,
-  StyledRightContainer,
-  StyledSpinner,
-  getCalcInputHeightCss,
-} from 'components/form/Input.styled';
-import { Size } from 'components/form/types';
-import { triggerChange } from 'components/form/utils';
+import { StyledOption, StyledOptionsWrapper } from 'components/form/Autocomplete.styled';
+import { StyledContainer, StyledFormFieldContainer, StyledInput } from 'components/form/Input.styled';
+import FormFieldRightContainer from 'components/form/RightContainer';
+import useForm from 'components/form/hooks/useForm';
+import { AutocompleteOption, FormFieldProps } from 'components/form/types';
+import { parseInputValue } from 'components/form/utils';
 import useInput from 'hooks/useInput';
-import React, { useCallback, useRef, useState } from 'react';
-import { MdClear } from 'react-icons/md';
-import { styled } from 'styled-components';
-import { Validator } from 'validators';
+import React, { useCallback, useRef } from 'react';
 
-const StyledOptionsWrapper = styled.div`
-  z-index: 999;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  border-top: none;
-  position: absolute;
-  width: 100%;
-  border-bottom-left-radius: 4x;
-  border-bottom-right-radius: 4px;
-  border: 1px solid rgb(238, 238, 238);
-  background-color: #fff;
-  user-select: none;
-  bottom: 0;
-  transform: translateY(calc(100% + 1px));
-
-  /* > * + * {
-    border-top: 1px solid #dcdcdc;
-  } */
-`;
-
-type StyledOptionProps = {
-  size?: Size;
+type Props = FormFieldProps<'input'> & {
+  options: AutocompleteOption[];
+  clearButton?: boolean;
 };
-
-const StyledOption = styled.div<StyledOptionProps & { includeLabel: boolean }>`
-  min-height: ${(props) => props.size && getCalcInputHeightCss(props.size, props.includeLabel)};
-  font-size: inherit;
-  padding: 7px;
-  padding-left: 12px;
-  color: black;
-  display: flex;
-  align-items: center;
-  width: 100%;
-
-  &:hover,
-  &:active {
-    /* background-color: #dcdcdc7d; */
-    color: #075ebb;
-  }
-`;
-
-export type AutocompleteOption = {
-  label?: React.ReactNode;
-  value: string;
-};
-
-type Props = Omit<React.ComponentProps<'input'>, keyof StyledInputProps> &
-  StyledInputProps &
-  StyledContainerProps & {
-    label?: string;
-    rightContainer?: React.ReactNode;
-    validate?: Validator;
-    options: AutocompleteOption[];
-    clearButton?: boolean;
-  };
 
 const Autocomplete: React.FC<Props> = ({
   label,
@@ -89,7 +27,14 @@ const Autocomplete: React.FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<TransitionHandle>(null);
-  const [value, setValue] = useState<string | undefined>();
+
+  const { change, getValue } = useForm();
+  const name = props.name as string;
+  const value = getValue(name);
+
+  if (!value && inputRef.current) {
+    inputRef.current.value = '';
+  }
 
   const { state, changeValue, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -113,7 +58,10 @@ const Autocomplete: React.FC<Props> = ({
     onBlur: typeof onBlur;
     onFocus: typeof onFocus;
   } = {
-    onChange,
+    onChange: (event) => {
+      onChange(event);
+      change(name, parseInputValue(event.target));
+    },
     onBlur,
     onFocus: (event) => {
       onFocus(event);
@@ -122,32 +70,37 @@ const Autocomplete: React.FC<Props> = ({
     },
   };
 
-  const reset = () => {
-    if (inputRef.current) {
-      triggerChange(inputRef.current, undefined);
-    }
-    setValue(undefined);
+  const clear = () => {
+    change(name, undefined);
   };
 
   const handleOnOptionClick = (option: AutocompleteOption) => {
-    if (inputRef.current) {
-      triggerChange(inputRef.current, option.value);
-    }
-
+    change(name, option.value);
     changeValue(option.value);
     animationRef.current?.gotoInitialState();
   };
 
   const filteredOptions = options.filter(
-    (option) => !value || option.value.toLowerCase().startsWith(value.toLowerCase())
+    (option) => !value || option.value.toLowerCase().startsWith(value.toString().toLowerCase())
   );
+
+  const rightContainerProps = {
+    state,
+    rightContainer,
+    clearButton,
+    validate: !!validate,
+    size: props.size,
+    onClear: clear,
+    value: value?.toString(),
+  };
 
   return (
     <StyledContainer fullwidth={fullwidth}>
-      <InputWrapper ref={inputWrapperRef} styleConfig={{ gap: '1rem' }} label={label} size={props.size}>
+      <StyledFormFieldContainer ref={inputWrapperRef} label={label} size={props.size}>
         <StyledInput
           {...props}
           {...events}
+          {...{ value: value?.toString() }}
           autoComplete="off"
           rightContainerWidth={rightContainerRef.current?.offsetWidth}
           ref={inputRef}
@@ -168,43 +121,23 @@ const Autocomplete: React.FC<Props> = ({
             `,
           }}
         >
-          <StyledOptionsWrapper>
-            {filteredOptions.map((option, index) => (
-              <StyledOption
-                key={index}
-                size={props.size}
-                onClick={() => handleOnOptionClick(option)}
-                includeLabel={!!label}
-              >
-                {option.label ?? option.value}
-              </StyledOption>
-            ))}
-          </StyledOptionsWrapper>
+          {!!filteredOptions.length && (
+            <StyledOptionsWrapper>
+              {filteredOptions.map((option) => (
+                <StyledOption
+                  key={option.value}
+                  size={props.size}
+                  onClick={() => handleOnOptionClick(option)}
+                  includeLabel={!!label}
+                >
+                  {option.label ?? option.value}
+                </StyledOption>
+              ))}
+            </StyledOptionsWrapper>
+          )}
         </Transition>
-        <StyledRightContainer ref={rightContainerRef}>
-          {state.dirty && validate && (
-            <span>
-              {state.validating ? (
-                <StyledSpinner />
-              ) : state.valid ? (
-                <StyledGiCheckMark />
-              ) : (
-                <StyledBiErrorCircle title={state.error} />
-              )}
-            </span>
-          )}
-          {clearButton && !!value && (
-            <Button
-              themeType="link"
-              size={props.size === 'default' ? undefined : props.size}
-              maxContent
-              icon={<MdClear />}
-              onClick={reset}
-            />
-          )}
-          {rightContainer}
-        </StyledRightContainer>
-      </InputWrapper>
+        <FormFieldRightContainer ref={rightContainerRef} {...rightContainerProps} />
+      </StyledFormFieldContainer>
       {!state.valid && <div>{state.error}</div>}
     </StyledContainer>
   );

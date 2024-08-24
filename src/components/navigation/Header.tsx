@@ -14,8 +14,6 @@ const StyledHeader = styled.header`
   color: white;
 `;
 
-const StyledButton = styled(Button)``;
-
 const Header: React.FC = () => {
   const socialMedias = useSocialMedias();
 
@@ -33,7 +31,7 @@ const Header: React.FC = () => {
       >
         <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
           {socialMedias.map((socialMedia, index) => (
-            <StyledButton
+            <Button
               key={index}
               themeType="link"
               maxContent
@@ -45,7 +43,7 @@ const Header: React.FC = () => {
         </Container>
         <Container styleConfig={{ direction: 'row', gap: '1.5rem' }}>
           <Container>
-            <StyledButton
+            <Button
               maxContent
               themeType="link"
               size="sm"
@@ -53,17 +51,17 @@ const Header: React.FC = () => {
               onClick={() => call(TELEPHONE)}
             >
               {TELEPHONE}
-            </StyledButton>
+            </Button>
           </Container>
           <Container>
-            <StyledButton maxContent themeType="link" size="sm" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
+            <Button maxContent themeType="link" size="sm" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
               {EMAIL}
-            </StyledButton>
+            </Button>
           </Container>
           <Container>
-            <StyledButton maxContent themeType="link" size="sm" icon={<FaClock />}>
+            <Button maxContent themeType="link" size="sm" icon={<FaClock />}>
               {OPEN_HOURS}
-            </StyledButton>
+            </Button>
           </Container>
         </Container>
         <Container>

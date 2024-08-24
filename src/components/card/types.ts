@@ -1,7 +1,7 @@
 import { Vehicle } from 'generated';
 
 export type RibbonProps = {
-  label: React.ReactNode;
+  label?: string;
   background: React.CSSProperties['background'];
   color?: React.CSSProperties['color'];
 };

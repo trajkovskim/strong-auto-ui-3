@@ -7,9 +7,12 @@ import { RibbonType } from 'components/card/types';
 import HorizontalList from 'components/horizontalList/HorizontalList';
 import Title from 'components/typography/Title';
 import { VehicleEmbedded } from 'generated';
+import { useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 import { searchVehicles } from 'services/VehicleService';
 import styled from 'styled-components';
 
@@ -25,9 +28,11 @@ const PopularMakes: React.FC = () => {
     { label: 'Toyota', value: 'TOYOTA' },
   ];
 
+  const t = useTranslation('home.popularMakes');
   const [activeTab, setActiveTab] = useState<string>(tabs[0].value);
   const { send, loading } = useRequest();
   const [vehiclesByMake, setVehiclesByMake] = useState<Record<string, VehicleEmbedded[]>>({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (activeTab in vehiclesByMake) {
@@ -58,21 +63,26 @@ const PopularMakes: React.FC = () => {
           >
             <Container xs={0} lg={2} />
             <Container xs={12} styleConfig={{ alignItems: 'center' }}>
-              <Title title="Popular Makes" fontSize="2xl" bold />
+              <Title title={t('title')} fontSize="2xl" bold />
             </Container>
             <Container xs="max-content" md={2}>
               <Button themeType="link" maxContent size="lg" iconRight={<BsArrowUpRight />}>
-                View all
+                {t('viewAllButton')}
               </Button>
             </Container>
           </Container>
           <TabButtonsGroup buttons={tabs} active={activeTab} onChange={(tab) => setActiveTab(tab.value)} />
         </Container>
         {loading && <StyledSpinner centered />}
-        {vehiclesByMake[activeTab] && (
+        {!loading && vehiclesByMake[activeTab] && (
           <HorizontalList gap="2rem" chunkGap="1rem" chunkSize={{ xs: 12, md: 6, lg: 4.8, xl: 3.6 }} centered circular>
             {vehiclesByMake[activeTab].map((product) => (
-              <MiniProductCard {...product} ribbon={product.state as RibbonType} key={product.id} />
+              <MiniProductCard
+                {...product}
+                ribbon={product.state as RibbonType}
+                key={product.id}
+                onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+              />
             ))}
           </HorizontalList>
         )}

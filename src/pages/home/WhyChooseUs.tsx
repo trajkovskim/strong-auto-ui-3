@@ -5,6 +5,7 @@ import Icon from 'components/Icon';
 import Image from 'components/Image';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
+import { useTranslation } from 'hooks';
 import React from 'react';
 import { VscWorkspaceTrusted } from 'react-icons/vsc';
 import styled from 'styled-components';
@@ -27,6 +28,8 @@ const StyledCarLotImage = styled(Image)`
 `;
 
 const WhyChooseUs: React.FC = () => {
+  const t = useTranslation('home.whyChooseUs');
+
   return (
     <Wrapper>
       <BoxAnimation>
@@ -43,8 +46,8 @@ const WhyChooseUs: React.FC = () => {
         >
           <Container xs={12} lg={5} xl={4.5} styleConfig={{ gap: '2rem' }}>
             <Title
-              title="Why choose our services"
-              description="Strong auto is the most enticing, creative, modern and multipurpose auto dealer."
+              title={t('title')}
+              description={t('description')}
               gap="1rem"
               fontSize={{ title: 'xl', description: 'md' }}
             />
@@ -55,12 +58,9 @@ const WhyChooseUs: React.FC = () => {
                 </Container>
                 <Container styleConfig={{ gap: '1rem' }}>
                   <Text bold fontSize="lg">
-                    Trusted Car Dealership
+                    {t('point1.title')}
                   </Text>
-                  <Text fontSize="md">
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout.
-                  </Text>
+                  <Text fontSize="md">{t('point1.description')}</Text>
                 </Container>
               </Container>
             </BoxAnimation>
@@ -71,12 +71,9 @@ const WhyChooseUs: React.FC = () => {
                 </Container>
                 <Container styleConfig={{ gap: '1rem' }}>
                   <Text bold fontSize="lg">
-                    Trusted Car Dealership
+                    {t('point2.title')}
                   </Text>
-                  <Text fontSize="md">
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout.
-                  </Text>
+                  <Text fontSize="md">{t('point2.description')}</Text>
                 </Container>
               </Container>
             </BoxAnimation>
@@ -87,12 +84,9 @@ const WhyChooseUs: React.FC = () => {
                 </Container>
                 <Container styleConfig={{ gap: '1rem' }}>
                   <Text bold fontSize="lg">
-                    Trusted Car Dealership
+                    {t('point3.title')}
                   </Text>
-                  <Text fontSize="md">
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout.
-                  </Text>
+                  <Text fontSize="md">{t('point3.description')}</Text>
                 </Container>
               </Container>
             </BoxAnimation>
@@ -103,12 +97,9 @@ const WhyChooseUs: React.FC = () => {
                 </Container>
                 <Container styleConfig={{ gap: '1rem' }}>
                   <Text bold fontSize="lg">
-                    Trusted Car Dealership
+                    {t('point3.title')}
                   </Text>
-                  <Text fontSize="md">
-                    It is a long established fact that a reader will be distracted by the readable content of a page
-                    when looking at its layout.
-                  </Text>
+                  <Text fontSize="md">{t('point3.description')}</Text>
                 </Container>
               </Container>
             </BoxAnimation>

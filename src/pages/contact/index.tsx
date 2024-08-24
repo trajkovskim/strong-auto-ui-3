@@ -5,19 +5,20 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Image from 'components/Image';
 import List from 'components/List';
-import { Input } from 'components/form';
+import { Form, Input } from 'components/form';
 import Textarea from 'components/form/Textarea';
 import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
-import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
+import { useTranslation } from 'hooks';
+import { EMAIL, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
-import { Form } from 'react-router-dom';
 import { call, goto, mailTo } from 'utils';
 
 const Contact: React.FC = () => {
+  const t = useTranslation('contact');
   const socialMedias = useSocialMedias();
 
   const handleSend = (values: unknown) => {
@@ -39,49 +40,54 @@ const Contact: React.FC = () => {
             <Breadcrumb />
           </Container>
           <Container xs={12} lg={8} lgStyle={{ order: 1 }}>
-            <Title title="Lets get in touch!" fontSize="2xl" />
+            <Title title={t('title')} fontSize="2xl" />
           </Container>
         </Container>
 
         <Container styleConfig={{ gap: '4rem', direction: 'row', wrap: true }}>
           <Container xs={12} lg={8} styleConfig={{ gap: '2rem' }}>
             <Title
-              title="Give us a message and let us know"
-              description="We will have a look at it and provide you with an answer as soon as possible"
+              title={t('giveUsAMessage.title')}
+              description={t('giveUsAMessage.description')}
               fontSize={{ title: 'xl', description: 'md' }}
               gap="1rem"
             />
-            <Container styleConfig={{ gap: '1rem' }}>
-              <Form onSubmit={handleSend}>
+            <Form onSubmit={handleSend}>
+              <Container styleConfig={{ gap: '1rem' }}>
                 <List lg={2} gap="1rem">
-                  <Input size="lg" fullwidth placeholder="Your name" />
-                  <Input size="lg" fullwidth placeholder="Your email" />
-                  <Input size="lg" fullwidth placeholder="Your phone" />
-                  <Input size="lg" fullwidth placeholder="Subject" />
+                  <Input name="name" size="lg" fullwidth placeholder={t('giveUsAMessage.nameInput.placeholder')} />
+                  <Input name="email" size="lg" fullwidth placeholder={t('giveUsAMessage.emailInput.placeholder')} />
+                  <Input name="phone" size="lg" fullwidth placeholder={t('giveUsAMessage.phoneInput.placeholder')} />
+                  <Input
+                    name="subject"
+                    size="lg"
+                    fullwidth
+                    placeholder={t('giveUsAMessage.subjectInput.placeholder')}
+                  />
                 </List>
                 <Container>
-                  <Textarea size="lg" fullwidth rows={10} placeholder="Message" />
+                  <Textarea
+                    name="message"
+                    size="lg"
+                    fullwidth
+                    rows={10}
+                    placeholder={t('giveUsAMessage.messageInput.placeholder')}
+                  />
                 </Container>
                 <Container styleConfig={{ alignSelf: 'end' }}>
-                  <Button maxContent size="md">
-                    Send message
+                  <Button type="submit" maxContent size="md">
+                    {t('giveUsAMessage.sendMessageButton')}
                   </Button>
                 </Container>
-              </Form>
-            </Container>
+              </Container>
+            </Form>
           </Container>
           <Container xs={12} lg={4} styleConfig={{ gap: '3rem' }}>
             <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="xl" bold>
-                Location
+                {t('location.title')}
               </Text>
-              <Text fontSize="md">
-                15 Somewhere in strumica
-                <br />
-                North Macedonia, MK
-                <br />
-                Strumica 2400
-              </Text>
+              <Text fontSize="md">{t('location.description')}</Text>
             </Container>
             <Button
               themeType="link"
@@ -92,8 +98,8 @@ const Contact: React.FC = () => {
               onClick={() => call(TELEPHONE)}
             >
               <Container styleConfig={{ gap: '0.2rem' }}>
-                <Text fontSize="lg">Call us: </Text>
-                {TELEPHONE}
+                <Text fontSize="lg">{t('callUs.title')}</Text>
+                {t('callUs.telephone')}
               </Container>
             </Button>
             <Button
@@ -105,13 +111,13 @@ const Contact: React.FC = () => {
               onClick={() => mailTo(EMAIL)}
             >
               <Container styleConfig={{ gap: '0.2rem' }}>
-                <Text fontSize="lg">Send us an email: </Text>
-                {EMAIL}
+                <Text fontSize="lg">{t('sendUsAnEmail.title')}</Text>
+                {t('sendUsAnEmail.telephone')}
               </Container>
             </Button>
             <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="lg" bold>
-                Social media
+                {t('socialMedia.title')}
               </Text>
               <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
                 {socialMedias.map((socialMedia) => (
@@ -129,9 +135,9 @@ const Contact: React.FC = () => {
             </Container>
             <Container styleConfig={{ gap: '1rem' }}>
               <Text fontSize="lg" bold>
-                Open hours:
+                {t('openHours.title')}
               </Text>
-              <Text fontSize="md">{OPEN_HOURS}</Text>
+              <Text fontSize="md">{t('openHours.label')}</Text>
             </Container>
           </Container>
         </Container>

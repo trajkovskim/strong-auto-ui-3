@@ -1,6 +1,33 @@
 export const triggerChange = (input: HTMLElement, newValue: string | undefined) => {
   const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
   nativeInputValueSetter?.call(input, newValue);
+};
 
-  input.dispatchEvent(new Event('change', { bubbles: true }));
+export const triggerChangeCheckbox = (input: HTMLElement, newValue: boolean | undefined) => {
+  const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'checked')?.set;
+  nativeInputValueSetter?.call(input, newValue);
+};
+
+export const parseInputValue = (input: HTMLInputElement) => {
+  const inputType = input.getAttribute('type');
+
+  if (inputType === 'number') {
+    return input.valueAsNumber;
+  }
+
+  return input.value;
+};
+
+export const parseCheckboxValue = (checkbox: HTMLInputElement) => {
+  const allCheckboxesByName = checkbox.form?.querySelectorAll(`input[type=checkbox][name=${checkbox.name}]:checked`);
+
+  const mapToValue = (element: HTMLInputElement) => (element.getAttribute('value') ? element.value : element.checked);
+
+  if (allCheckboxesByName && allCheckboxesByName?.length > 1) {
+    return Array.from(allCheckboxesByName.values()).map((checkbox) => mapToValue(checkbox as HTMLInputElement));
+  } else if (allCheckboxesByName?.length === 1) {
+    return mapToValue(checkbox);
+  }
+
+  return undefined;
 };

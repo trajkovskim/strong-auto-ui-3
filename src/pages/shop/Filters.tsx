@@ -5,7 +5,17 @@ import { Checkbox } from 'components/form';
 import Autocomplete from 'components/form/Autocomplete';
 import Form from 'components/form/Form';
 import Text from 'components/typography/Text';
-import { VehicleFilters } from 'generated';
+import {
+  VehicleBodyType,
+  VehicleColor,
+  VehicleCondition,
+  VehicleDriveType,
+  VehicleFilters,
+  VehicleFuelType,
+  VehicleState,
+  VehicleTransmission,
+} from 'generated';
+import { useTranslation } from 'hooks';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
@@ -33,15 +43,16 @@ const StyledFilterAccordion = styled(Accordion)`
 type Props = {
   onSubmit?: (values: VehicleFilters) => void;
   onClose?: () => void;
+  onReset?: () => void;
   noCloseButton?: boolean;
   filters?: VehicleFilters;
 };
 
 const Filters: React.FC<Props> = (props) => {
+  const t = useTranslation('inventory.filters');
+  const baseT = useTranslation();
   const yearNow = new Date().getFullYear();
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
-
-  const resetFilters = () => undefined;
 
   return (
     <Form
@@ -53,143 +64,137 @@ const Filters: React.FC<Props> = (props) => {
     >
       <Container styleConfig={{ bordered: { right: true, bottom: true }, gap: '1rem' }}>
         <FiltersHeader styleConfig={{ justifyContent: 'space-between', direction: 'row', padding: 'md' }}>
-          <Text fontSize="md">Filtering</Text>
+          <Text fontSize="md">{t('header')}</Text>
           <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
-            <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={resetFilters} />
-            <Button
-              size="md"
-              disabled
-              fullwidth
-              themeType="success"
-              icon={<MdCheck />}
-              maxContent
-              onClick={resetFilters}
-            />
+            <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={props.onReset} />
+            <Button type="submit" size="md" disabled fullwidth themeType="success" icon={<MdCheck />} maxContent />
             {!props.noCloseButton && (
               <Button size="md" fullwidth themeType="link" icon={<MdClose />} maxContent onClick={props.onClose} />
             )}
           </Container>
         </FiltersHeader>
-        <StyledFilterAccordion defaultState="open" header={<Text>Basic</Text>}>
+        <StyledFilterAccordion defaultState="open" header={<Text>{t('basic.title')}</Text>}>
           <Container styleConfig={{ gap: '1rem' }}>
             <Autocomplete
               fullwidth
               name="make"
-              placeholder="Any Make"
-              label="Make"
+              placeholder={t('basic.makeInput.placeholder')}
+              label={t('basic.makeInput.label')}
               size="md"
               options={[{ value: 'audi' }, { value: 'bmw' }]}
             />
             <Autocomplete
               fullwidth
               name="model"
-              placeholder="Any Model"
-              label="Model"
+              placeholder={t('basic.modelInput.placeholder')}
+              label={t('basic.modelInput.label')}
               size="md"
               options={[{ value: 'b8' }, { value: 'b9' }]}
             />
             <Autocomplete
               fullwidth
               name="price"
-              placeholder="Any Price"
-              label="Price"
+              placeholder={t('basic.priceInput.placeholder')}
+              label={t('basic.priceInput.label')}
               size="md"
               options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
             />
-            <Container styleConfig={{ gap: '0.5rem', padding: { left: 'sm' } }}>
-              {[{ value: 'Sold' }, { value: 'Featured' }].map((checkbox) => (
-                <Checkbox
-                  name={checkbox.value.toLowerCase()}
-                  key={checkbox.value}
-                  label={checkbox.value}
-                  value="true"
-                  size="md"
-                />
+            <Container styleConfig={{ gap: '0.5rem' }}>
+              {Object.values(VehicleState).map((checkbox) => (
+                <Checkbox name={checkbox} key={checkbox} label={baseT(`vehicleState.${checkbox}`)} size="sm" />
               ))}
             </Container>
           </Container>
         </StyledFilterAccordion>
-        <StyledFilterAccordion header={<Text>Technical</Text>}>
+        <StyledFilterAccordion header={<Text>{t('technical.title')}</Text>}>
           <Container styleConfig={{ gap: '1rem' }}>
             <Autocomplete
               fullwidth
               name="condition"
-              placeholder="Condition"
-              label="Condition"
+              placeholder={t('technical.conditionInput.placeholder')}
+              label={t('technical.conditionInput.label')}
               size="md"
-              options={[{ value: 'new' }, { value: 'used' }]}
+              options={Object.values(VehicleCondition).map((condition) => ({
+                value: condition,
+                label: baseT(`vehicleCondition.${condition}`),
+              }))}
             />
             <Container styleConfig={{ gap: '0.5rem' }}>
-              <Text fontSize="lg">Body Type</Text>
-              <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
-                {[{ value: 'sedan' }, { value: 'coupe' }, { value: 'suv' }].map((bodyType) => (
-                  <Checkbox
-                    name="bodyType"
-                    key={bodyType.value}
-                    label={bodyType.value}
-                    value={bodyType.value}
-                    size="md"
-                  />
-                ))}
-              </CheckboxWrapper>
+              <Text fontSize="md">Body Type</Text>
+              {Object.values(VehicleBodyType).map((bodyType) => (
+                <Checkbox
+                  name="bodyType"
+                  key={bodyType}
+                  label={baseT(`vehicleBodyType.${bodyType}`)}
+                  value={bodyType}
+                  size="sm"
+                />
+              ))}
             </Container>
             <Autocomplete
               fullwidth
               name="transmission"
-              placeholder="Transmission"
-              label="Transmission"
+              placeholder={t('technical.transmissionInput.placeholder')}
+              label={t('technical.transmissionInput.label')}
               size="md"
-              options={[{ value: 'automatic' }, { value: 'manual' }]}
+              options={Object.values(VehicleTransmission).map((transmission) => ({
+                value: transmission,
+                label: baseT(`vehicleTransmission.${transmission}`),
+              }))}
             />
             <Autocomplete
               fullwidth
               name="driveType"
-              placeholder="Drive type"
-              label="Drive type"
+              placeholder={t('technical.driveTypeInput.placeholder')}
+              label={t('technical.driveTypeInput.label')}
               size="md"
-              options={[{ value: 'awd_4wd' }, { value: '2wd_fwd' }, { value: '2wd_rwd' }]}
+              options={Object.values(VehicleDriveType).map((driveType) => ({
+                value: driveType,
+                label: baseT(`vehicleDriveType.${driveType}`),
+              }))}
             />
             <Container styleConfig={{ gap: '3px', direction: 'row', alignItems: 'center' }}>
               <Autocomplete
                 name="yearFrom"
-                placeholder="Year"
+                placeholder={t('technical.yearFromInput.placeholder')}
+                label={t('technical.yearFromInput.label')}
                 size="md"
-                label="Year (From)"
                 options={years.map((year) => ({ value: year.toString() }))}
               />
-              <Text fontSize="sm">To</Text>
               <Autocomplete
                 name="yearTo"
-                placeholder="Year"
+                placeholder={t('technical.yearToInput.placeholder')}
+                label={t('technical.yearToInput.label')}
                 size="md"
-                label="Year (To)"
                 options={years.map((year) => ({ value: year.toString() }))}
               />
             </Container>
             <Container styleConfig={{ gap: '3px', direction: 'row', alignItems: 'center' }}>
               <Autocomplete
                 name="mileageFrom"
-                placeholder="Mileage"
+                placeholder={t('technical.mileageFromInput.placeholder')}
+                label={t('technical.mileageFromInput.label')}
                 size="md"
-                label="Mileage (From)"
                 options={years.map((year) => ({ value: year.toString() }))}
               />
-              <Text fontSize="sm">To</Text>
               <Autocomplete
                 name="mileageTo"
-                placeholder="Mileage"
+                placeholder={t('technical.mileageToInput.placeholder')}
+                label={t('technical.mileageToInput.label')}
                 size="md"
-                label="Mileage (To)"
                 options={years.map((year) => ({ value: year.toString() }))}
               />
             </Container>
             <Autocomplete
               name="fuelType"
               fullwidth
-              placeholder="Fuel type"
-              label="Fuel type"
+              placeholder={t('technical.fuelTypeInput.placeholder')}
+              label={t('technical.fuelTypeInput.label')}
               size="md"
-              options={[{ value: 'Diesel' }, { value: 'Petrol' }, { value: 'Hybrid' }]}
+              options={Object.values(VehicleFuelType).map((fuelType) => ({
+                value: fuelType,
+                label: baseT(`vehicleFuelType.${fuelType}`),
+              }))}
             />
             <Autocomplete
               name="color"
@@ -197,47 +202,55 @@ const Filters: React.FC<Props> = (props) => {
               placeholder="Color"
               label="Color"
               size="md"
-              options={[{ value: 'black' }, { value: 'white' }, { value: 'red' }]}
+              options={Object.values(VehicleColor).map((color) => ({
+                value: color,
+                label: baseT(`color.${color}`),
+              }))}
             />
           </Container>
         </StyledFilterAccordion>
-        <StyledFilterAccordion header={<Text>Features</Text>}>
-          <Container styleConfig={{ gap: '0.5rem', padding: { left: 'xs' } }}>
-            <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
-              {[
-                { value: 'Air conditioner' },
-                { value: 'Apple CarPlay' },
-                { value: 'Break Assist' },
-                { value: 'Heater' },
-                { value: 'Power Steering' },
-                { value: 'Traction control' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-                { value: 'Bluetooth' },
-              ].map((feature, index) => (
-                <Checkbox
-                  name="features"
-                  key={`${feature.value}-${index}`}
-                  label={feature.value}
-                  value={feature.value}
-                  size="md"
-                />
-              ))}
-            </CheckboxWrapper>
-          </Container>
+        <StyledFilterAccordion header={<Text>{t('features.title')}</Text>}>
+          <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
+            {[
+              { value: 'Air conditioner' },
+              { value: 'Apple CarPlay' },
+              { value: 'Break Assist' },
+              { value: 'Heater' },
+              { value: 'Power Steering' },
+              { value: 'Traction control' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+              { value: 'Bluetooth' },
+            ].map((feature, index) => (
+              <Checkbox
+                name="features"
+                key={`${feature.value}-${index}`}
+                label={feature.value}
+                value={feature.value}
+                size="sm"
+              />
+            ))}
+          </CheckboxWrapper>
         </StyledFilterAccordion>
         <FiltersWrapper styleConfig={{ gap: '0.5rem', padding: 'md', itemsCentered: true }}>
-          <Button themeType="ghost" fullwidth iconRight={<BiSearch />} type="submit" iconSize="lg" size="md">
-            Search cars
+          <Button type="submit" themeType="ghost" fullwidth iconRight={<BiSearch />} iconSize="lg" size="md">
+            {t('searchButton')}
           </Button>
-          <Button maxContent themeType="delete" iconRight={<MdRestore />} iconSize="lg" size="md">
-            Reset search
+          <Button
+            maxContent
+            themeType="delete"
+            iconRight={<MdRestore />}
+            iconSize="lg"
+            size="md"
+            onClick={props.onReset}
+          >
+            {t('resetButton')}
           </Button>
         </FiltersWrapper>
       </Container>

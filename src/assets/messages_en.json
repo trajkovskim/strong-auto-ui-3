@@ -1,5 +1,5 @@
 {
-  "kostadinka": {
+  "strongauto": {
     "languages": {
       "title": "Language",
       "mk": "Macedonian",
@@ -7,35 +7,425 @@
     },
     "nav": {
       "home": "Home",
-      "shop": "Showroom",
-      "parts": "Auto parts",
-      "blog": "Blog",
-      "aboutUs": "About us",
+      "shop": "Inventory",
+      "aboutUs": "About Us",
       "contact": "Contact"
     },
-    "footer": {
-      "text": "Copyright ©2021 Herbalife International of America, Inc. No reproduction in whole or in part without written permission. All Rights Reserved. All trademarks and product images exhibited on this site, unless otherwise, are the property of Herbalife International, Inc.",
-      "informations": "Checkout our social media profiles for even more information"
+    "header": {
+      "phone": "+38977648648",
+      "email": "vane.stamenov@gmail.com",
+      "openHours": "Mon-Sun: 08:00 - 20:00"
     },
-    "home": {
-      "startYourDayCorrectly": {
-        "title": "Start your day correctly",
-        "description": "By starting your day correctly we mean to take nutrients. Refresh yourself. Keep your self hydrated. Start your day with our balanced breakfast that is quick to prepare. Get the essential nutrients your body needs with a delicious Formula 1 shake."
-      },
-      "career": {
-        "title": "Build your own career",
-        "description": "Become a distributor with Herbalife nutrition - one of the leader world wide. Start today, use our respect as a leader in the industry, and put the foundations of your business",
-        "button": "Begin now",
-        "buildPack": {
-          "description": "Order your International Business Pack, which gives you the essential tools and literature to get you up and running. Build your own business with Herbalife Nutrition - one of the worlds leading direct sales brands. Start today - benefit from our proven success as industry leaders and decades of experience and lay the foundations of your own business.",
-          "question": "What will you get in the build pack?",
-          "order": "Order now"
+    "footer": {
+      "description": "Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto is a auto is a Strong auto is a",
+      "findUs": {
+        "title": "Find us",
+        "location": "15 Somewhere in strumica\nNorth Macedonia, MK\nStrumica 2400",
+        "openHours": {
+          "title": "Open hours:",
+          "label": "Mon-Sun: 08:00 - 20:00"
         }
       },
-      "programs": {
-        "title": "Our programs",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum enim justo, congue quis egest as sed, molestie et neque"
+      "contacts": {
+        "title": "Contacts",
+        "general": {
+          "title": "General:",
+          "value": "+38977648648"
+        },
+        "email": {
+          "title": "Email:",
+          "value": "vane.stamenov@gmail.com"
+        }
+      },
+      "usefulLinks": {
+        "title": "Useful links:",
+        "home": "Home",
+        "shop": "Shop",
+        "aboutUs": "About us",
+        "contact": "Contact"
+      },
+      "newsLetter": {
+        "title": "Join our newsletter",
+        "description": "Receive pricing updates, shopping tips & more!",
+        "emailInput": {
+          "placeholder": "Your email address"
+        },
+        "subscribeButton": "Subscribe"
       }
+    },
+    "home": {
+      "carousel": {
+        "title": "Welcome to StrongAUTO",
+        "description": "Checkout the cars that we have in our inventory",
+        "inventoryButton": "Get to the inventory",
+        "scrollDownButton": "Scroll down"
+      },
+      "searchBox": {
+        "title": "Find what you are looking for",
+        "makeInput": {
+          "placeholder": "Any make"
+        },
+        "modelInput": {
+          "placeholder": "Any model"
+        },
+        "priceInput": {
+          "placeholder": "Any price"
+        },
+        "advancedButton": "Advanced",
+        "searchButton": "Search",
+        "popularSearches": "Popular searches:"
+      },
+      "vehiclesSection": {
+        "featured": "Featured",
+        "bodyTypes": "Body types",
+        "available": "{{n}} available"
+      },
+      "buyingACar": {
+        "title": "Buying a car?",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "visitButton": "Visit our cars shop"
+      },
+      "rentingACar": {
+        "title": "Renting a car?",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "visitButton": "Visit our cars shop"
+      },
+      "popularMakes": {
+        "title": "Popular makes",
+        "viewAllButton": "View all"
+      },
+      "ourServices": {
+        "title": "Our services",
+        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer",
+        "viewAllButton": "View all our services",
+        "towingService": {
+          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "dpfCleaning": {
+          "title": "DPF CLEANING",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "carService": {
+          "title": "CAR SERVICE",
+          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
+        }
+      },
+      "whyChooseUs": {
+        "title": "Why choose our services",
+        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer.",
+        "point1": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point2": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point3": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point4": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        }
+      },
+      "reviews": {
+        "title": "What our clients say about us",
+        "via": "via {{platform}}",
+        "starRating": "{{stars}}-star rating"
+      },
+      "newsLetterSubscription": {
+        "title": "Get Latest Updates And Best Offers",
+        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer",
+        "emailInput": {
+          "placeholder": "Enter your email"
+        },
+        "subscribeButton": "Subscribe"
+      },
+      "generalFaq": {
+        "title": "General FAQs",
+        "description": "Check out in our frequently asked questions that we have ready for you",
+        "questions": {
+          "0": {
+            "question": "Question 1?",
+            "answer": "Answer 1"
+          },
+          "1": {
+            "question": "Question 2?",
+            "answer": "Answer 2"
+          },
+          "2": {
+            "question": "Question 3?",
+            "answer": "Answer 3"
+          },
+          "3": {
+            "question": "Question 4?",
+            "answer": "Answer 4"
+          },
+          "4": {
+            "question": "Question 5?",
+            "answer": "Answer 5"
+          }
+        }
+      }
+    },
+    "vehicleState": {
+      "SOLD": "Sold",
+      "FEATURED": "Featured"
+    },
+    "vehicleCondition": {
+      "NEW": "New",
+      "USED": "Used"
+    },
+    "vehicleBodyType": {
+      "SEDAN": "Sedan",
+      "COUPE": "Coupe",
+      "SUV": "SUV"
+    },
+    "vehicleTransmission": {
+      "AUTOMATIC": "Automatic",
+      "MANUAL": "Manual"
+    },
+    "vehicleDriveType": {
+      "AWD_4WD": "All wheel drive",
+      "2WD_FWD": "2 wheel drive (Front)",
+      "2WD_RWD": "2 wheel drive (Rear)"
+    },
+    "vehicleMileage": "{{mileage}}km",
+    "vehicleFuelType": {
+      "ELECTRIC": "Electric",
+      "DIESEL": "Diesel",
+      "PETROL": "Petrol",
+      "HYBRID": "Hybrid"
+    },
+    "color": {
+      "BLACK": "Black",
+      "WHITE": "White",
+      "RED": "Red"
+    },
+    "inventory": {
+      "filters": {
+        "header": "Filtering",
+        "basic": {
+          "title": "Basic",
+          "makeInput": {
+            "placeholder": "Any make",
+            "label": "Make"
+          },
+          "modelInput": {
+            "placeholder": "Any model",
+            "label": "Model"
+          },
+          "priceInput": {
+            "placeholder": "Any price",
+            "label": "Price"
+          }
+        },
+        "technical": {
+          "title": "Technical",
+          "conditionInput": {
+            "placeholder": "Condition",
+            "label": "Condition"
+          },
+          "bodyType": {
+            "title": "Body type"
+          },
+          "transmissionInput": {
+            "placeholder": "Transmission",
+            "label": "Transmission"
+          },
+          "driveTypeInput": {
+            "placeholder": "Drive Type",
+            "label": "Drive Type"
+          },
+          "yearFromInput": {
+            "placeholder": "Year (From)",
+            "label": "Year"
+          },
+          "yearToInput": {
+            "placeholder": "Year (To)",
+            "label": "Year"
+          },
+          "mileageFromInput": {
+            "placeholder": "Mileage (From)",
+            "label": "Mileage"
+          },
+          "mileageToInput": {
+            "placeholder": "Mileage (To)",
+            "label": "Mileage"
+          },
+          "fuelTypeInput": {
+            "placeholder": "Fuel type",
+            "label": "Fuel type"
+          },
+          "colorInput": {
+            "placeholder": "Color",
+            "label": "Color"
+          }
+        },
+        "features": {
+          "title": "Features"
+        },
+        "searchButton": "Search cars",
+        "resetButton": "Reset search"
+      },
+      "pagination": {
+        "sortByInput": {
+          "label": "Sort by"
+        },
+        "resultSizeInput": {
+          "label": "Result size"
+        },
+        "resultsShown": "Results shown {{results}} of {{totalResults}}"
+      }
+    },
+    "aboutUs": {
+      "title": "About Us",
+      "whoWeAre": {
+        "title": "Who we are",
+        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages."
+      },
+      "services": {
+        "towingService": {
+          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "dpfCleaning": {
+          "title": "DPF CLEANING",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "carService": {
+          "title": "CAR SERVICE",
+          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
+        }
+      },
+      "whyChooseUs": {
+        "title": "Why choose our services",
+        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer.",
+        "point1": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point2": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point3": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        },
+        "point4": {
+          "title": "Trusted Car Dealership",
+          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
+        }
+      },
+      "reviews": {
+        "title": "What our clients say about us",
+        "via": "via",
+        "starRating": "{{stars}}-star rating"
+      },
+      "generalFaq": {
+        "title": "General FAQs",
+        "description": "Check out in our frequently asked questions that we have ready for you",
+        "questions": {
+          "0": {
+            "question": "Question 1?",
+            "answer": "Answer 1"
+          },
+          "1": {
+            "question": "Question 2?",
+            "answer": "Answer 2"
+          },
+          "2": {
+            "question": "Question 3?",
+            "answer": "Answer 3"
+          },
+          "3": {
+            "question": "Question 4?",
+            "answer": "Answer 4"
+          },
+          "4": {
+            "question": "Question 5?",
+            "answer": "Answer 5"
+          }
+        }
+      }
+    },
+    "contact": {
+      "title": "Lets get in touch!",
+      "giveUsAMessage": {
+        "title": "Give us a message and let us know",
+        "description": "We will have a look at it and provide you with an answer as soon as possible",
+        "nameInput": {
+          "placeholder": "Your name"
+        },
+        "emailInput": {
+          "placeholder": "Your email"
+        },
+        "phoneInput": {
+          "placeholder": "Your phone"
+        },
+        "subjectInput": {
+          "placeholder": "Subject"
+        },
+        "messageInput": {
+          "placeholder": "Message"
+        },
+        "sendMessageButton": "Send message"
+      },
+      "location": {
+        "title": "Location",
+        "description": "15 Somewhere in strumica\nNorth Macedonia, MK\nStrumica 2400"
+      },
+      "callUs": {
+        "title": "Call us:",
+        "telephone": "+38977648648"
+      },
+      "sendUsAnEmail": {
+        "title": "Send us an email:",
+        "telephone": "vane.stamenov@gmail.com"
+      },
+      "socialMedia": {
+        "title": "Social media"
+      },
+      "openHours": {
+        "title": "Open hours:",
+        "label": "Mon-Sun: 08:00 - 20:00"
+      }
+    },
+    "viewDetails": {
+      "description": {
+        "title": "Description"
+      },
+      "carOverview": {
+        "title": "Car overview",
+        "bodyType": "Body",
+        "mileage": "Mileage",
+        "fuelType": "Fuel type",
+        "year": "Year",
+        "transmission": "Transmission",
+        "driveType": "Drive type",
+        "condition": "Condition",
+        "engineSize": "Engine Size",
+        "doors": "Doors",
+        "color": "Color"
+      },
+      "features": {
+        "title": "Features"
+      },
+      "featuredProducts": {
+        "title": "Featured products"
+      },
+      "offer": "Our offer:",
+      "sendMessageButton": "Send message"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "shop": "Inventory",
+      "aboutUs": "About Us",
+      "contact": "Contact"
     }
   }
 }

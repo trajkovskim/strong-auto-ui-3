@@ -8,8 +8,11 @@ import Title from 'components/typography/Title';
 import ServiceCard from 'components/card/ServiceCard';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React from 'react';
+import { useTranslation } from 'hooks';
 
 const Services: React.FC = () => {
+  const t = useTranslation('home.ourServices');
+
   return (
     <WhiteBackgroundContainer>
       <Container
@@ -24,36 +27,35 @@ const Services: React.FC = () => {
           <BoxAnimation duration="250ms">
             <Container styleConfig={{ gap: '3rem' }}>
               <Title
-                title="Our Services"
+                title={t('title')}
                 fontSize={{ title: 'xl', description: 'md' }}
-                description="Strong auto is the most enticing, creative, modern and multipurpose auto dealer"
+                description={t('description')}
                 gap="2rem"
               />
               <Button maxContent size="lg">
-                View all our services
+                {t('viewAllButton')}
               </Button>
             </Container>
           </BoxAnimation>
           <BoxAnimation duration="500ms">
             <ServiceCard
               image={CarServiceMechanicImage}
-              title="FAST AND INEXPENSIVE TOWING SERVICES"
-              description="When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+              title={t('towingService.title')}
+              description={t('towingService.description')}
             />
           </BoxAnimation>
           <BoxAnimation duration="750ms">
             <ServiceCard
               image={TowTruckImage}
-              title="CAR SERVICE"
-              // eslint-disable-next-line max-len
-              description="mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
+              title={t('dpfCleaning.title')}
+              description={t('dpfCleaning.description')}
             />
           </BoxAnimation>
           <BoxAnimation duration="1s">
             <ServiceCard
               image={TowTruckImage}
-              title="FAST AND INEXPENSIVE TOWING SERVICES"
-              description="When it is not possible to fix a vehicle on-site, we utilise our extensive network of l"
+              title={t('carService.title')}
+              description={t('carService.description')}
             />
           </BoxAnimation>
         </List>

@@ -1,4 +1,7 @@
-import React from 'react';
+import FormContextProvider from 'components/form/FormProvider';
+import useForm from 'components/form/hooks/useForm';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 
 type Props<T> = Omit<React.ComponentProps<'form'>, 'onSubmit'> & {
   initValues?: T;
@@ -36,83 +39,38 @@ type Props<T> = Omit<React.ComponentProps<'form'>, 'onSubmit'> & {
 //   return values;
 // };
 
+const StyledForm = styled.form`
+  width: 100%;
+`;
+
 const Form = <T extends object>(props: Props<T>) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const values = (props.initValues ?? {}) as Record<string, any>;
+  const { setValues, values } = useForm<T>();
+
+  useEffect(() => {
+    setValues(props.initValues ?? ({} as T));
+  }, [props.initValues, setValues]);
 
   const events: {
-    onChange: React.FormEventHandler<HTMLFormElement>;
     onSubmit: React.FormEventHandler<HTMLFormElement>;
   } = {
     onSubmit: (event) => {
       event.preventDefault();
-      props.onSubmit && props.onSubmit(values as T);
-    },
-    onChange: (event) => {
-      const targetElement = event.target as HTMLInputElement;
-      const name = targetElement.getAttribute('name');
-
-      if (!name) {
-        return;
-      }
-
-      if (targetElement.getAttribute('type') === 'checkbox') {
-        if (!(name in values)) {
-          values[name] = targetElement.value;
-          return;
-        }
-
-        if (Array.isArray(values[name])) {
-          if (targetElement.checked) {
-            values[name].push(targetElement.value);
-          } else if (values[name].length > 1) {
-            const targetElementValueIndex = values[name].indexOf(targetElement.value);
-            values[name].splice(targetElementValueIndex, 1);
-          } else {
-            delete values[name];
-          }
-        } else {
-          if (targetElement.checked) {
-            values[name] = [values[name] as string, targetElement.value];
-          } else {
-            delete values[name];
-          }
-        }
-
-        return;
-      }
-
-      values[name] = targetElement.value;
-      props.onChange && props.onChange(event);
+      props.onSubmit && props.onSubmit(values);
     },
   };
-
-  const initForm = (form: HTMLFormElement | null) => {
-    if (!form) {
-      return;
-    }
-
-    for (const [key, value] of Object.entries(values)) {
-      const inputFields = form.querySelectorAll(`input[name=${key}]`);
-      if (!inputFields.length) {
-        break;
-      }
-
-      for (const [_, inputField] of inputFields.entries()) {
-        const input = inputField as HTMLInputElement;
-        const inputType = input.getAttribute('type');
-        const inputValue = input.value;
-
-        if (inputType === 'checkbox') {
-          input.checked = (Array.isArray(value) && value.includes(inputValue)) || value === inputValue;
-        } else {
-          input.value = value as string;
-        }
-      }
-    }
-  };
-
-  return <form {...props} {...events} ref={initForm} />;
+  return (
+    <StyledForm {...props} {...events}>
+      {props.children}
+    </StyledForm>
+  );
 };
 
-export default Form;
+const FormWithProvider = <T extends object>(props: Props<T>) => {
+  return (
+    <FormContextProvider>
+      <Form {...props} />
+    </FormContextProvider>
+  );
+};
+
+export default FormWithProvider;

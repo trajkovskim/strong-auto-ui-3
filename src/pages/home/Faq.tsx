@@ -10,6 +10,7 @@ import BoxAnimation from 'components/BoxAnimation';
 import React, { useRef, useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
+import { useTranslation } from 'hooks';
 
 const StyledButton = styled(Button)`
   justify-content: space-between;
@@ -20,6 +21,7 @@ type FAQAccordionProps = {
 };
 
 const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
+  const t = useTranslation('home.generalFaq');
   const transitionRef = useRef<TransitionHandle>(null);
   const [containerRef, setContainerRef] = useState<HTMLSpanElement | null>(null);
 
@@ -33,7 +35,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
         fullwidth
         onClick={() => transitionRef.current?.toggle()}
       >
-        {props.faq.question}
+        {t(props.faq.question)}
       </StyledButton>
       <Transition
         ref={transitionRef}
@@ -50,7 +52,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
         }}
       >
         <Text ref={setContainerRef} fontSize="lg">
-          {props.faq.answer}
+          {t(props.faq.answer)}
         </Text>
       </Transition>
     </Container>
@@ -58,6 +60,8 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
 };
 
 const FAQ: React.FC = () => {
+  const t = useTranslation('home.generalFaq');
+
   return (
     <Container
       xs="1400px"
@@ -72,8 +76,8 @@ const FAQ: React.FC = () => {
       <Container xs={12} lg={6}>
         <Title
           fontSize={{ title: '2xl', description: 'lg' }}
-          title="General FAQs"
-          description="Check out in our frequently asked questions that we have ready for you"
+          title={t('title')}
+          description={t('description')}
           gap="2rem"
         />
       </Container>

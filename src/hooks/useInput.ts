@@ -1,6 +1,18 @@
 import { ChangeEventHandler, FocusEventHandler, useEffect, useState } from 'react';
 import { Validator } from 'validators';
 
+export type FormFieldState = {
+  error?: string;
+  touched?: boolean;
+  validating?: boolean;
+  visited?: boolean;
+  modified?: boolean;
+  active?: boolean;
+  dirty?: boolean;
+  valid: boolean;
+  initial: string | number | readonly string[] | undefined;
+};
+
 const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
   defaultValue?: string | number | readonly string[] | undefined,
   onChange1?: ChangeEventHandler<T>,
@@ -8,7 +20,6 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
   onBlur1?: FocusEventHandler<T>,
   validate?: Validator
 ) => {
-  // const [value, setValue] = useState<string | undefined>(defaultValue?.toString()); // value
   const [error, setError] = useState<string>(); // error message
   const [touched, setTouched] = useState<boolean>(); // whether element has been ever blured (defocused)
   const [visited, setVisited] = useState<boolean>(); // whether element has been ever focused
@@ -56,12 +67,14 @@ const useInput = <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectE
     setActive(false);
   };
 
+  const state: FormFieldState = { error, touched, validating, visited, modified, active, dirty, valid, initial };
+
   return {
     onChange,
     onFocus,
     onBlur,
     changeValue,
-    state: { error, touched, validating, visited, modified, active, dirty, valid, initial },
+    state,
   };
 };
 export default useInput;

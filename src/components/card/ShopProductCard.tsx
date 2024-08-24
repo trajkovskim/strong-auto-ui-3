@@ -10,6 +10,7 @@ import Ribbon from 'components/card/Ribbon';
 import { ribbons } from 'components/card/constants';
 import { Props } from 'components/card/types';
 import Text from 'components/typography/Text';
+import { useTranslation } from 'hooks';
 import React, { useState } from 'react';
 import { BsFuelPumpFill } from 'react-icons/bs';
 import { FaRoad } from 'react-icons/fa';
@@ -72,6 +73,7 @@ const ProductCardTitleWrapper = styled(Container)`
 `;
 
 const ShopProductCard: React.FC<Props> = (props) => {
+  const t = useTranslation();
   const [imageCarouselRef, setImageCarouselRef] = useState<CarouselHandle | null>(null);
 
   const price = (
@@ -141,19 +143,19 @@ const ShopProductCard: React.FC<Props> = (props) => {
         {props.fuelType && (
           <Container styleConfig={{ direction: 'row', gap: '0.3rem', padding: { bottom: 'sm' } }}>
             <StyledIcon size="md" icon={<BsFuelPumpFill />} />
-            <Text fontSize="md">{props.fuelType}</Text>
+            <Text fontSize="md">{t(`vehicleFuelType.${props.fuelType}`)}</Text>
           </Container>
         )}
         {props.transmission && (
           <Container styleConfig={{ direction: 'row', gap: '0.3rem', padding: { bottom: 'sm' } }}>
             <StyledIcon size="md" icon={<TbManualGearbox />} />
-            <Text fontSize="md">{props.transmission}</Text>
+            <Text fontSize="md">{t(`vehicleTransmission.${props.transmission}`)}</Text>
           </Container>
         )}
         {props.mileage && (
           <Container styleConfig={{ direction: 'row', gap: '0.3rem', padding: { bottom: 'sm' } }}>
             <StyledIcon size="md" icon={<FaRoad />} />
-            <Text fontSize="md">{formatNumber(props.mileage)}km</Text>
+            <Text fontSize="md"> {t(`vehicleMileage`, { mileage: formatNumber(props.mileage) })}</Text>
           </Container>
         )}
       </List>

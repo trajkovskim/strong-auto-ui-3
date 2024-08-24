@@ -1,7 +1,9 @@
-import { BaseState } from 'context/base/types';
+import { BaseState } from 'context/base';
+import { VehiclesState } from 'context/vehicles';
 
 export type ApplicationContextState = {
   base: BaseState;
+  vehicles: VehiclesState;
 };
 
 export type Action = {

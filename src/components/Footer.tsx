@@ -7,6 +7,7 @@ import { Input } from 'components/form';
 import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
+import { useTranslation } from 'hooks';
 import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -36,6 +37,7 @@ const StyledNewsLetterFormContainer = styled(Container)`
 `;
 
 const Footer: React.FC = () => {
+  const t = useTranslation('footer');
   const navigate = useNavigate();
   const socialMedias = useSocialMedias();
 
@@ -56,11 +58,7 @@ const Footer: React.FC = () => {
           }}
         >
           <Container xs={12} lg="max-content">
-            <Title
-              title="Join our newletter"
-              fontSize="md"
-              description="Receive pricing updates, shopping tips & more!"
-            />
+            <Title title={t('newsLetter.title')} description={t('newsLetter.description')} fontSize="md" />
           </Container>
           <StyledNewsLetterFormContainer
             xs={12}
@@ -72,9 +70,9 @@ const Footer: React.FC = () => {
               gap: '0.5rem',
             }}
           >
-            <Input fullwidth size="md" placeholder="Your email address" noBorder />
+            <Input fullwidth size="md" placeholder={t('newsLetter.emailInput.placeholder')} noBorder />
             <Button size="md" maxContent>
-              Subscribe
+              {t('newsLetter.subscribeButton')}
             </Button>
           </StyledNewsLetterFormContainer>
         </Container>
@@ -82,26 +80,17 @@ const Footer: React.FC = () => {
         <Container styleConfig={{ gap: '3rem', wrap: true, direction: 'row' }}>
           <Container xs={12} lg={3.5} styleConfig={{ gap: '2rem', itemsCentered: true }}>
             <Image alt="Logo" shadow objectFit="contain" width="200px" src={Logo} />
-            <Text>
-              Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto
-              is a auto is a Strong auto is a
-            </Text>
+            <Text>{t('description')}</Text>
           </Container>
           <Container sm={4} lg={3} styleConfig={{ gap: '2rem' }}>
             <Text type="sub" bold fontSize="sm">
-              Find us
+              {t('findUs.title')}
             </Text>
+            <Text fontSize="md">{t('findUs.location')}</Text>
             <Text fontSize="md">
-              15 Somewhere in strumica
+              {t('findUs.openHours.title')}
               <br />
-              North Macedonia, MK
-              <br />
-              Strumica 2400
-            </Text>
-            <Text fontSize="md">
-              Open hours:
-              <br />
-              {OPEN_HOURS}
+              {t('findUs.openHours.label')}
             </Text>
             <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row' }}>
               {socialMedias.map((socialMedia, index) => (
@@ -119,35 +108,35 @@ const Footer: React.FC = () => {
           </Container>
           <Container sm={4} lg={3} styleConfig={{ gap: '2rem' }}>
             <Text type="sub" bold fontSize="sm">
-              Contacts
+              {t('contacts.title')}
             </Text>
             <Button size="md" maxContent themeType="link" onClick={() => call(TELEPHONE)}>
-              General:
+              {t('contacts.general.title')}
               <br />
-              {TELEPHONE}
+              {t('contacts.general.value')}
             </Button>
             <Button size="md" maxContent themeType="link" onClick={() => mailTo(EMAIL)}>
-              Email:
+              {t('contacts.email.title')}
               <br />
-              {EMAIL}
+              {t('contacts.email.value')}
             </Button>
           </Container>
           <Container sm={4} lg={2.5} styleConfig={{ gap: '2rem' }}>
             <Text type="sub" bold fontSize="sm">
-              Useful links:
+              {t('usefulLinks.title')}
             </Text>
             <Container styleConfig={{ gap: '0.5rem' }}>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.INDEX)}>
-                Home
+                {t('usefulLinks.home')}
               </Button>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.SHOP)}>
-                Shop
+                {t('usefulLinks.shop')}
               </Button>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.ABOUT_US)}>
-                About us
+                {t('usefulLinks.aboutUs')}
               </Button>
               <Button size="md" maxContent themeType="link" onClick={() => navigate(Routes.CONTACT)}>
-                Contact
+                {t('usefulLinks.contact')}
               </Button>
             </Container>
           </Container>

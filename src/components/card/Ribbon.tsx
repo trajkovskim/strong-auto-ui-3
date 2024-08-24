@@ -1,6 +1,7 @@
 import Container from 'components/Container';
 import { RibbonProps, StyledRibbonProps } from 'components/card/types';
 import Text from 'components/typography/Text';
+import { useTranslation } from 'hooks';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -15,6 +16,7 @@ const StyledRibbon = styled(Container)<StyledRibbonProps>`
 `;
 
 const Ribbon: React.FC<Props> = ({ className, ...props }) => {
+  const t = useTranslation();
   return (
     <StyledRibbon
       className={className}
@@ -27,9 +29,11 @@ const Ribbon: React.FC<Props> = ({ className, ...props }) => {
       color={props.color}
       xs="max-content"
     >
-      <Text bold fontSize="sm">
-        {props.label}
-      </Text>
+      {props.label && (
+        <Text bold fontSize="sm">
+          {t(props.label)}
+        </Text>
+      )}
     </StyledRibbon>
   );
 };

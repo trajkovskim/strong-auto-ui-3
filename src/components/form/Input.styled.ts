@@ -1,43 +1,23 @@
-import Container from 'components/Container';
 import Spinner from 'components/Spinner';
+import { fontSize, inputSize } from 'components/form/constants';
 import { Size } from 'components/form/types';
-import { textFontSize } from 'components/typography/constants';
 import { FontSize } from 'components/typography/types';
 import { BiErrorCircle } from 'react-icons/bi';
 import { GiCheckMark } from 'react-icons/gi';
 import styled, { css } from 'styled-components';
+
+export const getCalcInputHeightCss = (size: FontSize, includeLabelSize = false) =>
+  includeLabelSize ? `calc(${inputSize[size]} + ${fontSize[size]} / 2)` : inputSize[size];
 
 export type StyledInputProps = {
   size?: Size;
   noBorder?: boolean;
 };
 
-export const fontSize: Record<FontSize, string> = {
-  sm: textFontSize.sm,
-  md: textFontSize.md,
-  lg: textFontSize.md,
-  xl: textFontSize.md,
-  '2xl': textFontSize.lg,
-  '3xl': textFontSize.xl,
-  default: 'inherit',
-};
+export type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWidth?: number };
 
-export const inputSize: Record<Size, string> = {
-  sm: `calc(${textFontSize.sm} + 25px)`,
-  md: `calc(${textFontSize.md} + 30px)`,
-  lg: `calc(${textFontSize.lg} + 35px)`,
-  xl: `calc(${textFontSize.xl} + 40px)`,
-  '2xl': `calc(${textFontSize['2xl']} + 45px)`,
-  '3xl': `calc(${textFontSize['2xl']} + 50px)`,
-  default: 'auto',
-};
-
-export const getCalcInputHeightCss = (size: FontSize, includeLabelSize = false) =>
-  includeLabelSize ? `calc(${inputSize[size]} + ${fontSize[size]} / 2)` : inputSize[size];
-
-type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWidth?: number };
-
-const inputCss = css<StyledInputWithRightContainerProps>`
+export const inputCss = css<StyledInputWithRightContainerProps>`
+  box-sizing: border-box;
   width: 100%;
   padding: 10px;
   font-size: inherit;
@@ -70,7 +50,7 @@ export const StyledTextarea = styled.textarea<StyledInputWithRightContainerProps
   padding-left: 8px;
 `;
 
-export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize }>`
+export const StyledFormFieldContainer = styled.div<{ label?: string; size?: FontSize }>`
   height: ${(props) => props.size && getCalcInputHeightCss(props.size, false)};
   font-size: ${(props) => props.size && fontSize[props.size]};
   position: relative;
@@ -95,7 +75,7 @@ export const InputWrapper = styled(Container)<{ label?: string; size?: FontSize 
     `}
 `;
 
-export const TextareaWrapper = styled(InputWrapper)`
+export const TextareaWrapper = styled(StyledFormFieldContainer)`
   height: unset !important;
 `;
 

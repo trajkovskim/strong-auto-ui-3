@@ -6,6 +6,7 @@ import Line from 'components/Line';
 import List from 'components/List';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
+import { useTranslation } from 'hooks';
 import { reviews } from 'pages/constants';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useMemo } from 'react';
@@ -21,6 +22,8 @@ type ReviewProps = {
 };
 
 const Review: React.FC<ReviewProps> = (props) => {
+  const t = useTranslation('home.reviews');
+
   const createdStars = useMemo(
     () => (
       <Container styleConfig={{ gap: '0.5rem', direction: 'row' }}>
@@ -51,7 +54,7 @@ const Review: React.FC<ReviewProps> = (props) => {
         </Container>
         <Container styleConfig={{ gap: '0.5rem' }}>
           <StarsWrapper sm="max-content">{createdStars}</StarsWrapper>
-          <Text fontSize="sm">{props.review.rating}-star rating</Text>
+          <Text fontSize="sm">{t('starRating', { stars: props.review.rating })}</Text>
         </Container>
       </Container>
       <Container styleConfig={{ gap: '1rem' }}>
@@ -60,7 +63,7 @@ const Review: React.FC<ReviewProps> = (props) => {
             // eslint-disable-next-line max-len
             'Wanted to say how amazing my experience was at [CarShop]. We did everything online, and the truck was delivered to my door... Awesome!'}
         </Text>
-        <Text>via {props.review.platform}</Text>
+        <Text>{t('via', { platform: props.review.platform })}</Text>
       </Container>
     </List>
   );
@@ -73,6 +76,8 @@ const StyledLine = styled(Line)`
 `;
 
 const Reviews: React.FC = () => {
+  const t = useTranslation('home.reviews');
+
   return (
     <>
       <WhiteBackgroundContainer>
@@ -82,7 +87,7 @@ const Reviews: React.FC = () => {
           lgStyle={{ gap: '6rem' }}
         >
           <BoxAnimation>
-            <Title centered fontSize="2xl" title="What our clients say about us" />
+            <Title centered fontSize="2xl" title={t('title')} />
           </BoxAnimation>
           <BoxAnimation>
             <Carousel noArrows noChangeOptions>
