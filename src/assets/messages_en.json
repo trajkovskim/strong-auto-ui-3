@@ -419,7 +419,8 @@
         "title": "Featured products"
       },
       "offer": "Our offer:",
-      "sendMessageButton": "Send message"
+      "sendMessageButton": "Send message",
+      "saving": "Saving: {{saving}}"
     },
     "breadcrumb": {
       "home": "Home",

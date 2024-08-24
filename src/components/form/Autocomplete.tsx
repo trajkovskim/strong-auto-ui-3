@@ -7,7 +7,7 @@ import useForm from 'components/form/hooks/useForm';
 import { AutocompleteOption, FormFieldProps } from 'components/form/types';
 import { parseInputValue } from 'components/form/utils';
 import useInput from 'hooks/useInput';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 type Props = FormFieldProps<'input'> & {
   options: AutocompleteOption[];
@@ -27,12 +27,13 @@ const Autocomplete: React.FC<Props> = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const rightContainerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<TransitionHandle>(null);
+  const [search, setSearch] = useState<string>();
 
   const { change, getValue } = useForm();
   const name = props.name as string;
   const value = getValue(name);
 
-  if (!value && inputRef.current) {
+  if ((!search || !search.length) && inputRef.current) {
     inputRef.current.value = '';
   }
 
@@ -42,6 +43,13 @@ const Autocomplete: React.FC<Props> = ({
     props.onFocus,
     props.onBlur,
     validate
+  );
+
+  const filteredOptions = options.filter(
+    (option) =>
+      !search ||
+      option.label?.toString().toLowerCase().startsWith(search.toLowerCase()) ||
+      option.value?.toString().toLowerCase().startsWith(search.toLowerCase())
   );
 
   const handleClickOutsideEvent = useCallback((event: MouseEvent) => {
@@ -60,7 +68,17 @@ const Autocomplete: React.FC<Props> = ({
   } = {
     onChange: (event) => {
       onChange(event);
-      change(name, parseInputValue(event.target));
+      setSearch(event.target.value);
+      if (filteredOptions.length === 1) {
+        change(name, filteredOptions[0].value);
+      } else if (!filteredOptions.length) {
+        change(name, parseInputValue(event.target));
+      }
+
+      if (!event.target.value.length) {
+        change(name, undefined);
+        setSearch(undefined);
+      }
     },
     onBlur,
     onFocus: (event) => {
@@ -71,18 +89,16 @@ const Autocomplete: React.FC<Props> = ({
   };
 
   const clear = () => {
+    setSearch(undefined);
     change(name, undefined);
   };
 
   const handleOnOptionClick = (option: AutocompleteOption) => {
     change(name, option.value);
     changeValue(option.value);
+    setSearch(option.label?.toString() ?? option.value);
     animationRef.current?.gotoInitialState();
   };
-
-  const filteredOptions = options.filter(
-    (option) => !value || option.value.toLowerCase().startsWith(value.toString().toLowerCase())
-  );
 
   const rightContainerProps = {
     state,
@@ -100,7 +116,7 @@ const Autocomplete: React.FC<Props> = ({
         <StyledInput
           {...props}
           {...events}
-          {...{ value: value?.toString() }}
+          {...{ value: search }}
           autoComplete="off"
           rightContainerWidth={rightContainerRef.current?.offsetWidth}
           ref={inputRef}

@@ -137,7 +137,7 @@ const Shop: React.FC = () => {
             size="md"
           >
             <Container xs={0} sm="max-content">
-              Filters
+              {t('filters.header')}
             </Container>
           </Button>
           <Line type="vertical" />
