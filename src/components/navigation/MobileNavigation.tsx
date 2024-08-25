@@ -1,6 +1,7 @@
 import { css } from '@emotion/css';
 import Button from 'components/Button';
 import Container from 'components/Container';
+import Line from 'components/Line';
 import Transition, { TransitionHandle } from 'components/Transition';
 import LanguageChanger from 'components/navigation/LanguageChanger';
 import LogoImage from 'components/navigation/LogoImage';
@@ -81,6 +82,7 @@ const MobileNavigation: React.FC = () => {
           >
             <Container styleConfig={{ gap: '3rem' }}>
               <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
+                <Container xs={1} />
                 <LogoImage />
                 <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
               </Container>
