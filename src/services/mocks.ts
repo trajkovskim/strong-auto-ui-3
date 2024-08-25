@@ -81,7 +81,7 @@ export const makes: VehicleMake[] = [
 export const vehicles: Vehicle[] = [
   {
     id: '0',
-    make: 'audi',
+    make: 'AUDI',
     model: 'b8',
     state: VehicleState.Sold,
     images: [Car1Image, Car2Image, ToyotaCamryImage, BMWDriftSoilImage],
@@ -131,7 +131,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '1',
-    make: 'audi',
+    make: 'AUDI',
     model: 'b8',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage, Car2Image, Car1Image],
@@ -179,7 +179,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '2',
-    make: 'audi',
+    make: 'AUDI',
     model: 'b9',
     state: VehicleState.Sold,
     images: [Car1Image],
@@ -225,7 +225,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '3',
-    make: 'bmw',
+    make: 'BMW',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
     amount: {
@@ -270,7 +270,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '4',
-    make: 'bmw',
+    make: 'BMW',
     state: VehicleState.Sold,
     images: [BMWDriftSoilImage],
     amount: {
@@ -317,7 +317,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '5',
-    make: 'bmw',
+    make: 'BMW',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
     amount: {
@@ -362,7 +362,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '6',
-    make: 'bmw',
+    make: 'TOYOTA',
     state: VehicleState.Sold,
     images: [Car2Image],
     amount: {
@@ -409,7 +409,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '7',
-    make: 'bmw',
+    make: 'TOYOTA',
     state: VehicleState.Featured,
     images: [BMWDriftSoilImage],
     amount: {
@@ -454,7 +454,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '8',
-    make: 'bmw',
+    make: 'TOYOTA',
     state: VehicleState.Sold,
     images: [Car1Image],
     amount: {
@@ -499,7 +499,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '9',
-    make: 'bmw',
+    make: 'TOYOTA',
     state: VehicleState.Featured,
     images: [Car2Image],
     amount: {
@@ -544,7 +544,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: '10',
-    make: 'audi',
+    make: 'TOYOTA',
     model: 'b9',
     state: VehicleState.Sold,
     images: [Car1Image],
