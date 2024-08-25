@@ -95,7 +95,7 @@ const SearchBox: React.FC = () => {
                     fullwidth
                     placeholder={t('modelInput.placeholder')}
                     size="xl"
-                    disabled={!(values.make && makes?.[values.make].models)}
+                    disabled={!(values.make && makes?.[values.make]?.models)}
                     rightContainer={loadingGetVehicleMakeEntryRequest && <StyledSpinner />}
                     options={convertMakeModelsToOptions(makes, values)}
                   />

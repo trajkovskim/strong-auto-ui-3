@@ -114,7 +114,7 @@ const Filters: React.FC<Props> = (props) => {
                     placeholder={t('basic.modelInput.placeholder')}
                     label={t('basic.modelInput.label')}
                     size="md"
-                    disabled={!(values.make && makes?.[values.make].models)}
+                    disabled={!(values.make && makes?.[values.make]?.models)}
                     rightContainer={loadingGetVehicleMakeEntryRequest && <StyledSpinner />}
                     options={convertMakeModelsToOptions(makes, values)}
                   />
