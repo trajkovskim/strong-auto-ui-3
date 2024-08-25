@@ -48,7 +48,8 @@ const Autocomplete: React.FC<Props> = ({
         change(name, undefined);
       }
     }
-  }, [change, name, options, search, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   const { state, changeValue, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -58,12 +59,15 @@ const Autocomplete: React.FC<Props> = ({
     validate
   );
 
-  const filteredOptions = options.filter(
-    (option) =>
-      !search ||
-      option.label?.toString().toLowerCase().startsWith(search.toLowerCase()) ||
-      option.value?.toString().toLowerCase().startsWith(search.toLowerCase())
-  );
+  const filterFunction = (filterOptions: AutocompleteOption[], searchValue: string | undefined) =>
+    filterOptions.filter(
+      (option) =>
+        !searchValue ||
+        option.label?.toString().toLowerCase().startsWith(searchValue.toLowerCase()) ||
+        option.value?.toString().toLowerCase().startsWith(searchValue.toLowerCase())
+    );
+
+  const filteredOptions = filterFunction(options, search);
 
   const handleClickOutsideEvent = useCallback((event: MouseEvent) => {
     const isClickInside = inputWrapperRef.current?.contains(event.target as Node);
@@ -81,14 +85,10 @@ const Autocomplete: React.FC<Props> = ({
   } = {
     onChange: (event) => {
       onChange(event);
-      setSearch(event.target.value);
-      if (filteredOptions.length === 1) {
-        change(name, filteredOptions[0].value);
-      } else if (!filteredOptions.length) {
+      if (event.target.value.length) {
+        setSearch(event.target.value);
         change(name, parseInputValue(event.target));
-      }
-
-      if (!event.target.value.length) {
+      } else {
         change(name, undefined);
         setSearch(undefined);
       }
@@ -122,7 +122,7 @@ const Autocomplete: React.FC<Props> = ({
     validate: !!validate,
     size: props.size,
     onClear: clear,
-    value: value?.toString(),
+    value: search?.toString(),
   };
 
   return (

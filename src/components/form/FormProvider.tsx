@@ -25,7 +25,7 @@ type Props = React.PropsWithChildren;
 const FormContextProvider = <T extends Record<string, FormFieldValue>>(props: Props) => {
   const [state, setState] = useState<T>({} as T);
 
-  const getValue: FormContextType<T>['getValue'] = useCallback((name) => state[name], [state]);
+  const getValue: FormContextType<T>['getValue'] = (name) => state[name];
   const change: FormContextType<T>['change'] = useCallback(
     (name, value) => setState((prev) => ({ ...prev, [name]: value })),
     []
