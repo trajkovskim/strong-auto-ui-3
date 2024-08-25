@@ -553,7 +553,11 @@ export const MOCK_VEHICLE_API: VehicleApi = {
 
     const filteredVehicles = vehicles.filter((vehicle) => {
       for (const key of Object.keys(filters)) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const filter = filters[key];
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         const v = vehicle[key] ?? vehicle[key.substring(0, key.length - 1)];
 
         if (!filter || (Array.isArray(filter) && filter.includes(v)) || filter === v) {
