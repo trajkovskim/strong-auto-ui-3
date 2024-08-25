@@ -17,7 +17,6 @@ import theme from 'theme';
 
 const SearchBoxWrapper = styled(Container)`
   @media (min-width: ${theme.breakpoints.minWidth.lg}) {
-    padding: ${theme.padding.lg};
     box-shadow: rgba(79, 139, 173, 0.12) 0px 4px 20px;
   }
 `;
@@ -40,9 +39,21 @@ const SearchBox: React.FC = () => {
   };
 
   return (
-    <SearchBoxWrapper xs={12} styleConfig={{ gap: '2rem', direction: 'row', wrap: true, rounded: true, padding: 'md' }}>
+    <SearchBoxWrapper
+      xs="1400px"
+      styleConfig={{
+        gap: '2rem',
+        padding: 'md',
+      }}
+      lgStyle={{
+        padding: 'lg',
+        centered: true,
+        itemsCentered: true,
+        rounded: true,
+      }}
+    >
       <Container xs={12}>
-        <Title title={t('title')} bold fontSize="md" />
+        <Title title={t('title')} bold fontSize="lg" />
       </Container>
       <Form onSubmit={handleSubmit}>
         <Container xs={12} styleConfig={{ centered: true, gap: '2rem', direction: 'row', wrap: true }}>

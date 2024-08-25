@@ -5,46 +5,46 @@ export const EMAIL = 'vane.stamenov@gmail.com';
 export const OPEN_HOURS = 'Mon-Sun: 08:00 - 20:00';
 
 export const bodyTypes = [
-  { id: 0, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
-  { id: 1, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
-  { id: 2, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
-  { id: 3, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
-  { id: 4, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
-  { id: 5, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
-  { id: 6, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
-  { id: 7, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
-  { id: 8, inStock: 24, label: 'SUV', imageSrc: SUVBodyTypeImage },
-  { id: 9, inStock: 24, label: 'Sedan', imageSrc: SUVBodyTypeImage },
-  { id: 10, inStock: 24, label: 'Convertible', imageSrc: SUVBodyTypeImage },
-  { id: 11, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
-  { id: 12, inStock: 24, label: 'Limousine', imageSrc: SUVBodyTypeImage },
+  { id: 0, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 1, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 2, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 3, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 4, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 5, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 6, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 7, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 8, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 9, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 10, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 11, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 12, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
 ];
 
 export const faqQuestions = [
   {
     id: 0,
-    question: 'questions.0.question',
-    answer: 'questions.0.answer',
+    question: 'strongauto.home.generalFaq.questions.0.question',
+    answer: 'strongauto.home.generalFaq.questions.0.answer',
   },
   {
     id: 1,
-    question: 'questions.1.question',
-    answer: 'questions.1.answer',
+    question: 'strongauto.home.generalFaq.questions.1.question',
+    answer: 'strongauto.home.generalFaq.questions.1.answer',
   },
   {
     id: 2,
-    question: 'questions.2.question',
-    answer: 'questions.2.answer',
+    question: 'strongauto.home.generalFaq.questions.2.question',
+    answer: 'strongauto.home.generalFaq.questions.2.answer',
   },
   {
     id: 3,
-    question: 'questions.3.question',
-    answer: 'questions.3.answer',
+    question: 'strongauto.home.generalFaq.questions.3.question',
+    answer: 'strongauto.home.generalFaq.questions.3.answer',
   },
   {
     id: 4,
-    question: 'questions.4.question',
-    answer: 'questions.4.answer',
+    question: 'strongauto.home.generalFaq.questions.4.question',
+    answer: 'strongauto.home.generalFaq.questions.4.answer',
   },
 ];
 

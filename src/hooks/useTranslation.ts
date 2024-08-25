@@ -28,14 +28,16 @@ const getDataByPath = (data: any, path: string, discriminator: string): string =
   return data;
 };
 
+const ROOT_PREFIX = 'strongauto';
+
 const useTranslation = (prefix = '', discriminator = '.') => {
   const { language } = useLanguage();
-  const basePrefix = prefix.length == 0 ? 'strongauto' : `strongauto.${prefix}`;
+  const basePrefix = prefix.length == 0 ? ROOT_PREFIX : `${ROOT_PREFIX}.${prefix}`;
 
   return useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (key: string, params?: Record<string, any>): string => {
-      const path = `${basePrefix}.${key}`;
+      const path = key.startsWith(basePrefix) ? key : `${basePrefix}.${key}`;
       let message = getDataByPath(messages[language], path, discriminator);
 
       if (message && params) {

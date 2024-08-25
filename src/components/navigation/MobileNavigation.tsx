@@ -126,17 +126,15 @@ const MobileNavigation: React.FC = () => {
         </Transition>,
         portalsElement
       )}
-      <Container xs="max-content" lg={0} styleConfig={{ alignSelf: 'end' }}>
-        <Button
-          maxContent
-          themeType="link"
-          icon={<BiMenu />}
-          iconSize="3xl"
-          onClick={() => {
-            transitionRef.current?.toggle();
-          }}
-        />
-      </Container>
+      <Button
+        maxContent
+        themeType="link"
+        icon={<BiMenu />}
+        iconSize="3xl"
+        onClick={() => {
+          transitionRef.current?.toggle();
+        }}
+      />
     </>
   );
 };

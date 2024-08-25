@@ -10,15 +10,10 @@ type Props = FormFieldProps<'input'>;
 
 const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, clearButton, validate, ...props }) => {
   const rightContainerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const { change, getValue } = useForm();
   const name = props.name as string;
   const value = getValue(name);
-
-  if (!value && inputRef.current) {
-    inputRef.current.value = '';
-  }
 
   const { state, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -61,9 +56,8 @@ const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, clearButton,
         <StyledInput
           {...props}
           {...events}
-          {...{ value: value?.toString() }}
+          value={value ? value.toString() : ''}
           rightContainerWidth={rightContainerRef.current?.offsetWidth}
-          ref={inputRef}
         />
       </StyledFormFieldContainer>
       <FormFieldRightContainer ref={rightContainerRef} {...rightContainerProps} />

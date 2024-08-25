@@ -13,6 +13,7 @@ import { useApplicationContext, useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
 import Filters from 'pages/shop/Filters';
 import Sidebar from 'pages/shop/Sidebar';
+import { pageSizes, SortBy } from 'pages/shop/constants';
 import React, { useEffect, useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
@@ -77,13 +78,10 @@ const Shop: React.FC = () => {
         fullwidth={fullwidth}
         value={sortBy}
         onChange={(event) => setSortBy(event.target.value)}
-        options={[
-          { value: 'unsorted', label: 'Default' },
-          { value: 'price_asc', label: 'Price (Ascending)' },
-          { value: 'price_desc', label: 'Price (Descending)' },
-          { value: 'popularity_asc', label: 'Newest' },
-          { value: 'popularity_desc', label: 'Oldest' },
-        ]}
+        options={Object.values(SortBy).map((sortBy) => ({
+          value: sortBy,
+          label: t(`pagination.sortByInput.${sortBy}`),
+        }))}
       />
       <Dropdown
         name="size"
@@ -93,13 +91,10 @@ const Shop: React.FC = () => {
         fullwidth={fullwidth}
         value={pageSize}
         onChange={(event) => setPageSize(Number(event.target.value))}
-        options={[
-          { value: '10', label: '10' },
-          { value: '20', label: '20' },
-          { value: '40', label: '40' },
-          { value: '60', label: '60' },
-          { value: '100', label: '100' },
-        ]}
+        options={pageSizes.map((pageSize) => ({
+          value: pageSize.toString(),
+          label: t(`pagination.resultSizeInput.${pageSize}`),
+        }))}
       />
     </>
   );

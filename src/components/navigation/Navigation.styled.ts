@@ -12,7 +12,7 @@ export const MobileContainer = styled(Container)`
   top: 0;
   width: 100%;
   color: black;
-  height: 100vh;
+  height: 100dvh;
   z-index: 100;
   background-color: rgba(35, 35, 35, 0.95);
   color: #fff;

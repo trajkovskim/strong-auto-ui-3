@@ -37,12 +37,14 @@ const Navbar: React.FC<Props> = (props) => {
           alignItems: 'center',
         }}
       >
+        <Container xs={1} lg={0} />
         <LogoImage />
         <Container xs={0} lg="max-content" styleConfig={{ alignItems: 'center' }}>
           <Navigation />
         </Container>
+
         <Container
-          xs="max-content"
+          xs={1}
           lg={0}
           styleConfig={{
             direction: 'row',

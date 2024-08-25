@@ -29,8 +29,8 @@ const Home: React.FC = () => {
 
   return (
     <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: '2xl' } }} lgStyle={{ gap: '9rem' }}>
-      <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100vh' }}>
-        <Carousel absolute minHeight="800px" maxHeight="100vh" noChangeOptions noArrows>
+      <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100dvh' }}>
+        <Carousel absolute minHeight="800px" maxHeight="100dvh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />
           <Image src={MasserattiMountainsImage} objectFit="cover" objectPosition="center" height="100%" />
         </Carousel>
@@ -70,21 +70,9 @@ const Home: React.FC = () => {
       </CarouselWrapper>
 
       <WhiteBackgroundContainer ref={secondElement}>
-        <Container
-          xs="1400px"
-          styleConfig={{
-            gap: '2rem',
-            direction: 'row',
-            wrap: true,
-            centered: true,
-            itemsCentered: true,
-            // padding: { top: 'xl', bottom: 'xl' },
-          }}
-        >
-          <BoxAnimation>
-            <SearchBox />
-          </BoxAnimation>
-        </Container>
+        <BoxAnimation>
+          <SearchBox />
+        </BoxAnimation>
       </WhiteBackgroundContainer>
 
       <ProductsSection />

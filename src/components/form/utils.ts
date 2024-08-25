@@ -19,15 +19,11 @@ export const parseInputValue = (input: HTMLInputElement) => {
 };
 
 export const parseCheckboxValue = (checkbox: HTMLInputElement) => {
-  const allCheckboxesByName = checkbox.form?.querySelectorAll(`input[type=checkbox][name=${checkbox.name}]:checked`);
-
-  const mapToValue = (element: HTMLInputElement) => (element.getAttribute('value') ? element.value : element.checked);
-
-  if (allCheckboxesByName && allCheckboxesByName?.length > 1) {
-    return Array.from(allCheckboxesByName.values()).map((checkbox) => mapToValue(checkbox as HTMLInputElement));
-  } else if (allCheckboxesByName?.length === 1) {
-    return mapToValue(checkbox);
-  }
+  // if (allCheckboxesByName && allCheckboxesByName?.length > 1) {
+  //   return Array.from(allCheckboxesByName.values()).map((checkbox) => mapToValue(checkbox as HTMLInputElement));
+  // } else if (allCheckboxesByName?.length === 1) {
+  //   return mapToValue(checkbox);
+  // }
 
   return undefined;
 };

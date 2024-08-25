@@ -4,6 +4,7 @@ import Container from 'components/Container';
 import styled from 'styled-components';
 import Text from 'components/typography/Text';
 import Image from 'components/Image';
+import { useTranslation } from 'hooks';
 
 const Tile = styled(Container)`
   border-radius: 10px;
@@ -29,16 +30,20 @@ type Props = {
 };
 
 const BodyTypeTile: React.FC<Props> = (props) => {
+  const t = useTranslation('home.vehiclesSection');
+  const tBase = useTranslation();
+
+  const label = tBase(props.label);
   return (
     <Tile
       styleConfig={{ textCentered: true, padding: 'md', gap: '0.5rem', alignItems: 'center' }}
       onClick={props.onClick}
     >
-      <Image src={props.imageSrc} alt={props.label} objectFit="contain" centered />
+      <Image src={props.imageSrc} alt={label} objectFit="contain" centered />
       <Container>
-        <Text fontSize="md">{props.label}</Text>
+        <Text fontSize="md">{label}</Text>
         <Text fontSize="sm" type="sub">
-          {props.inStock} available
+          {t('available', { n: props.inStock })}
         </Text>
       </Container>
     </Tile>

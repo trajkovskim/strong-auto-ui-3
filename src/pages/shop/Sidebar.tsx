@@ -15,7 +15,7 @@ const StyledSidebar = styled(Container)`
 const GrayedContainer = styled.div`
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   background-color: #faf8f886;
   top: 0;
   left: 0;

@@ -7,7 +7,7 @@ import useForm from 'components/form/hooks/useForm';
 import { AutocompleteOption, FormFieldProps } from 'components/form/types';
 import { parseInputValue } from 'components/form/utils';
 import useInput from 'hooks/useInput';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 type Props = FormFieldProps<'input'> & {
   options: AutocompleteOption[];
@@ -33,9 +33,21 @@ const Autocomplete: React.FC<Props> = ({
   const name = props.name as string;
   const value = getValue(name);
 
-  if ((!search || !search.length) && inputRef.current) {
-    inputRef.current.value = '';
-  }
+  useEffect(() => {
+    if (!value) {
+      setSearch(undefined);
+    }
+
+    if (!search && value) {
+      const currentValueOption = options.find((option) => option.value === value);
+
+      if (currentValueOption) {
+        setSearch(currentValueOption?.label?.toString() ?? currentValueOption?.value);
+      } else {
+        change(name, undefined);
+      }
+    }
+  }, [change, name, options, search, value]);
 
   const { state, changeValue, onChange, onBlur, onFocus } = useInput(
     props.defaultValue,
@@ -116,7 +128,7 @@ const Autocomplete: React.FC<Props> = ({
         <StyledInput
           {...props}
           {...events}
-          {...{ value: search }}
+          value={search ?? ''}
           autoComplete="off"
           rightContainerWidth={rightContainerRef.current?.offsetWidth}
           ref={inputRef}

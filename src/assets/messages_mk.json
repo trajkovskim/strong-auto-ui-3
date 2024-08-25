@@ -182,7 +182,9 @@
     "vehicleBodyType": {
       "SEDAN": "Sedan",
       "COUPE": "Coupe",
-      "SUV": "SUV"
+      "SUV": "SUV",
+      "CONVERTIBLE": "Convertible",
+      "LIMOUSINE": "Limousine"
     },
     "vehicleTransmission": {
       "AUTOMATIC": "Автоматски",
@@ -273,10 +275,20 @@
       },
       "pagination": {
         "sortByInput": {
-          "label": "Сортирај по"
+          "label": "Сортирај по",
+          "UNSORTED": "Стандард",
+          "PRICE_ASC": "Цена (растечка)",
+          "PRICE_DESC": "Цена (опаѓачка)",
+          "ID_ASC": "Најнови",
+          "ID_DESC": "Најстари"
         },
         "resultSizeInput": {
-          "label": "Резултати"
+          "label": "Резултати",
+          "10": "10",
+          "20": "20",
+          "40": "40",
+          "60": "60",
+          "100": "100"
         },
         "resultsShown": "Прикажани резултати {{results}} од {{totalResults}}"
       }
