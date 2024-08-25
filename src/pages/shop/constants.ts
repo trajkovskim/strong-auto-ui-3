@@ -7,3 +7,14 @@ export enum SortBy {
 }
 
 export const pageSizes = [10, 20, 40, 60, 100];
+
+export const priceOptions = [
+  {
+    value: '0-3000',
+  },
+  { value: '3000-10000' },
+  { value: '10000-20000' },
+  { value: '20000-50000' },
+  { value: '50000-100000' },
+  { value: '100000-any' },
+];

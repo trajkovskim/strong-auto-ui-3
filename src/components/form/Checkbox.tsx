@@ -35,6 +35,8 @@ const Checkbox: React.FC<Props> = ({ label, ...props }) => {
     if (Array.isArray(fieldValue)) {
       if (targetChecked) {
         change(name, [...fieldValue, checkboxValue] as FormFieldValue);
+      } else if (fieldValue.length === 1) {
+        change(name, undefined);
       } else {
         fieldValue.splice(fieldValue.indexOf(checkboxValue as never), 1);
         change(name, [...fieldValue] as FormFieldValue);

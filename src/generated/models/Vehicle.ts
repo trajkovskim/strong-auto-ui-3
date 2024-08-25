@@ -88,6 +88,18 @@ export interface Vehicle {
     images?: Array<string>;
     /**
      * 
+     * @type {string}
+     * @memberof Vehicle
+     */
+    make?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Vehicle
+     */
+    model?: string;
+    /**
+     * 
      * @type {VehicleAmount}
      * @memberof Vehicle
      */
@@ -204,6 +216,8 @@ export function VehicleFromJSONTyped(json: any, ignoreDiscriminator: boolean): V
         'id': json['id'],
         'state': VehicleStateFromJSON(json['state']),
         'images': json['images'] == null ? undefined : json['images'],
+        'make': json['make'] == null ? undefined : json['make'],
+        'model': json['model'] == null ? undefined : json['model'],
         'amount': VehicleAmountFromJSON(json['amount']),
         'title': json['title'],
         'description': json['description'] == null ? undefined : json['description'],
@@ -231,6 +245,8 @@ export function VehicleToJSON(value?: Vehicle | null): any {
         'id': value['id'],
         'state': VehicleStateToJSON(value['state']),
         'images': value['images'],
+        'make': value['make'],
+        'model': value['model'],
         'amount': VehicleAmountToJSON(value['amount']),
         'title': value['title'],
         'description': value['description'],

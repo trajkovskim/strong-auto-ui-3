@@ -1,23 +1,40 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable max-len */
 import SUVBodyTypeImage from 'assets/SUV.png';
+import { RibbonType } from 'components/card/types';
+import { VehicleBodyType, VehicleState } from 'generated';
 
 export const TELEPHONE = '+38977648648';
 export const EMAIL = 'vane.stamenov@gmail.com';
 export const OPEN_HOURS = 'Mon-Sun: 08:00 - 20:00';
 
-export const bodyTypes = [
-  { id: 0, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
-  { id: 1, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
-  { id: 2, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
-  { id: 3, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
-  { id: 4, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
-  { id: 5, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
-  { id: 6, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
-  { id: 7, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
-  { id: 8, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
-  { id: 9, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
-  { id: 10, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
-  { id: 11, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
-  { id: 12, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+export const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
+  [VehicleState.Featured]: 'featured',
+  [VehicleState.Sold]: 'sold',
+};
+
+type BodyType = {
+  id: number;
+  bodyType: VehicleBodyType;
+  inStock: number;
+  label: string;
+  imageSrc: string;
+}
+
+export const bodyTypes: BodyType[] = [
+  { id: 0, bodyType: VehicleBodyType.Suv, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 1, bodyType: VehicleBodyType.Sedan, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 2, bodyType: VehicleBodyType.Convertible, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 3, bodyType: VehicleBodyType.Limousine, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 4, bodyType: VehicleBodyType.Suv, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 5, bodyType: VehicleBodyType.Sedan, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 6, bodyType: VehicleBodyType.Convertible, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 7, bodyType: VehicleBodyType.Limousine, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 8, bodyType: VehicleBodyType.Suv, inStock: 24, label: 'strongauto.vehicleBodyType.SUV', imageSrc: SUVBodyTypeImage },
+  { id: 9, bodyType: VehicleBodyType.Sedan, inStock: 24, label: 'strongauto.vehicleBodyType.SEDAN', imageSrc: SUVBodyTypeImage },
+  { id: 10, bodyType: VehicleBodyType.Convertible, inStock: 24, label: 'strongauto.vehicleBodyType.CONVERTIBLE', imageSrc: SUVBodyTypeImage },
+  { id: 11, bodyType: VehicleBodyType.Limousine, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
+  { id: 12, bodyType: VehicleBodyType.Coupe, inStock: 24, label: 'strongauto.vehicleBodyType.LIMOUSINE', imageSrc: SUVBodyTypeImage },
 ];
 
 export const faqQuestions = [

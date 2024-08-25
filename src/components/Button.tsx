@@ -75,7 +75,6 @@ const themes: Record<ThemeType, Record<string, string>> = {
   },
   success: {
     'background-color': 'transparent',
-    color: '#08bb08',
     'color-hover': '#08ad08',
     'color-active': '#08a108',
     border: '0px',
@@ -168,7 +167,7 @@ const StyledButton = styled.button<StyledProps>`
     text-align: ${textAlign};
 
     transition: all 200ms;
-    cursor: ${!!props.onClick && 'pointer'};
+    cursor: ${(!!props.onClick || props.type === 'submit') && 'pointer'};
     position: relative;
     user-select: none;
 
@@ -198,14 +197,17 @@ const StyledButton = styled.button<StyledProps>`
     }
 
     &:hover {
-      background-color: ${themes[themeType]['background-color-hover']};
-      color: ${themes[themeType]['color-hover']};
+      ${Object.entries(themes[themeType])
+        .filter(([key]) => key.endsWith('-hover'))
+        .map(([property, value]) => `${property.substring(0, property.length - 6)}: ${value}`)
+        .join(';')};
     }
 
     &:active {
-      color: ${themes[themeType]['color-hover']};
-      background-color: ${themes[themeType]['background-color-active']};
-      box-shadow: ${themes[themeType]['box-shadow-active']};
+      ${Object.entries(themes[themeType])
+        .filter(([key]) => key.endsWith('-active'))
+        .map(([property, value]) => `${property.substring(0, property.length - 7)}: ${value}`)
+        .join(';')};
     }
   `}
 `;

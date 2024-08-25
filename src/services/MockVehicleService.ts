@@ -18,9 +18,11 @@ import {
 } from 'generated';
 import { createMockResponse } from 'services/api';
 
-export const products: Vehicle[] = [
+export const vehicles: Vehicle[] = [
   {
     id: '0',
+    make: 'audi',
+    model: 'b8',
     state: VehicleState.Sold,
     images: [Car1Image, Car2Image, ToyotaCamryImage, BMWDriftSoilImage],
     amount: {
@@ -69,6 +71,8 @@ export const products: Vehicle[] = [
   },
   {
     id: '1',
+    make: 'audi',
+    model: 'b8',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage, Car2Image, Car1Image],
     amount: {
@@ -115,6 +119,8 @@ export const products: Vehicle[] = [
   },
   {
     id: '2',
+    make: 'audi',
+    model: 'b9',
     state: VehicleState.Sold,
     images: [Car1Image],
     amount: {
@@ -159,6 +165,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '3',
+    make: 'bmw',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
     amount: {
@@ -203,6 +210,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '4',
+    make: 'bmw',
     state: VehicleState.Sold,
     images: [BMWDriftSoilImage],
     amount: {
@@ -249,6 +257,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '5',
+    make: 'bmw',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
     amount: {
@@ -293,6 +302,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '6',
+    make: 'bmw',
     state: VehicleState.Sold,
     images: [Car2Image],
     amount: {
@@ -339,6 +349,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '7',
+    make: 'bmw',
     state: VehicleState.Featured,
     images: [BMWDriftSoilImage],
     amount: {
@@ -383,6 +394,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '8',
+    make: 'bmw',
     state: VehicleState.Sold,
     images: [Car1Image],
     amount: {
@@ -427,6 +439,7 @@ export const products: Vehicle[] = [
   },
   {
     id: '9',
+    make: 'bmw',
     state: VehicleState.Featured,
     images: [Car2Image],
     amount: {
@@ -471,6 +484,8 @@ export const products: Vehicle[] = [
   },
   {
     id: '10',
+    make: 'audi',
+    model: 'b9',
     state: VehicleState.Sold,
     images: [Car1Image],
     amount: {
@@ -516,7 +531,60 @@ export const products: Vehicle[] = [
 ];
 
 export const MOCK_VEHICLE_API: VehicleApi = {
-  searchVehicleEntries: () => createMockResponse<VehiclesResponse>({ vehicles: products } as VehiclesResponse, 1500),
+  searchVehicleEntries: (...[request]: Parameters<VehicleApi['searchVehicleEntries']>) => {
+    const { page, size } = request;
+    const filters = { ...request.vehicleFilters };
+
+    const mileageInterval = { from: filters.mileageFrom, to: filters.mileageTo };
+    const yearInterval = { from: filters.yearFrom, to: filters.yearTo };
+
+    const priceSplit = filters.price?.split('-');
+    const priceInterval = { from: priceSplit?.[0], to: priceSplit?.[1] !== 'any' ? undefined : priceSplit?.[1] };
+    const sold = filters.sold;
+    const featured = filters.featured;
+
+    delete filters.mileageFrom;
+    delete filters.mileageTo;
+    delete filters.yearFrom;
+    delete filters.yearFrom;
+    delete filters.featured;
+    delete filters.sold;
+    delete filters.price;
+
+    const filteredVehicles = vehicles.filter((vehicle) => {
+      for (const key of Object.keys(filters)) {
+        const filter = filters[key];
+        const v = vehicle[key] ?? vehicle[key.substring(0, key.length - 1)];
+
+        if (!filter || (Array.isArray(filter) && filter.includes(v)) || filter === v) {
+          continue;
+        }
+
+        return false;
+      }
+
+      const mileage = vehicle.mileage ?? 0;
+      const year = vehicle.mileage ?? 0;
+      const vehicleAmount = vehicle.amount.totalPromo ?? vehicle.amount.total;
+
+      if (
+        (mileageInterval.from && mileage < mileageInterval.from) ||
+        (mileageInterval.to && mileage > mileageInterval.to) ||
+        (yearInterval.from && year < yearInterval.from) ||
+        (yearInterval.to && year > yearInterval.to) ||
+        (priceInterval.from && vehicleAmount < priceInterval.from) ||
+        (priceInterval.to && vehicleAmount > priceInterval.to) ||
+        (featured && vehicle.state !== VehicleState.Featured) ||
+        (sold && vehicle.state !== VehicleState.Sold)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+    return createMockResponse<VehiclesResponse>({ vehicles: filteredVehicles } as VehiclesResponse, 1500);
+  },
   getVehicleEntry: ({ id }: { id: string }) =>
-    createMockResponse<Vehicle>(products.find((product) => product.id === id) as Vehicle, 1500),
+    createMockResponse<Vehicle>(vehicles.find((product) => product.id === id) as Vehicle, 1500),
 } as never;

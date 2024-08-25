@@ -70,6 +70,18 @@ export interface VehicleEmbedded {
     images?: Array<string>;
     /**
      * 
+     * @type {string}
+     * @memberof VehicleEmbedded
+     */
+    make?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof VehicleEmbedded
+     */
+    model?: string;
+    /**
+     * 
      * @type {VehicleAmount}
      * @memberof VehicleEmbedded
      */
@@ -150,6 +162,8 @@ export function VehicleEmbeddedFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': json['id'],
         'state': VehicleStateFromJSON(json['state']),
         'images': json['images'] == null ? undefined : json['images'],
+        'make': json['make'] == null ? undefined : json['make'],
+        'model': json['model'] == null ? undefined : json['model'],
         'amount': VehicleAmountFromJSON(json['amount']),
         'title': json['title'],
         'description': json['description'] == null ? undefined : json['description'],
@@ -171,6 +185,8 @@ export function VehicleEmbeddedToJSON(value?: VehicleEmbedded | null): any {
         'id': value['id'],
         'state': VehicleStateToJSON(value['state']),
         'images': value['images'],
+        'make': value['make'],
+        'model': value['model'],
         'amount': VehicleAmountToJSON(value['amount']),
         'title': value['title'],
         'description': value['description'],

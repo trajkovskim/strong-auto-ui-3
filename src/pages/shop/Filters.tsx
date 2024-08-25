@@ -16,6 +16,7 @@ import {
   VehicleTransmission,
 } from 'generated';
 import { useTranslation } from 'hooks';
+import { priceOptions } from 'pages/shop/constants';
 import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
@@ -67,7 +68,7 @@ const Filters: React.FC<Props> = (props) => {
           <Text fontSize="md">{t('header')}</Text>
           <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
             <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={props.onReset} />
-            <Button type="submit" size="md" disabled fullwidth themeType="success" icon={<MdCheck />} maxContent />
+            <Button type="submit" size="md" fullwidth themeType="success" icon={<MdCheck />} maxContent />
             {!props.noCloseButton && (
               <Button size="md" fullwidth themeType="link" icon={<MdClose />} maxContent onClick={props.onClose} />
             )}
@@ -97,7 +98,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder={t('basic.priceInput.placeholder')}
               label={t('basic.priceInput.label')}
               size="md"
-              options={[{ value: '0-1000' }, { value: '1000-2000' }, { value: '2000-3000' }]}
+              options={priceOptions}
             />
             <Container styleConfig={{ gap: '0.5rem' }}>
               {Object.values(VehicleState).map((checkbox) => (
@@ -128,7 +129,7 @@ const Filters: React.FC<Props> = (props) => {
               <Text fontSize="md">Body Type</Text>
               {Object.values(VehicleBodyType).map((bodyType) => (
                 <Checkbox
-                  name="bodyType"
+                  name="bodyTypes"
                   key={bodyType}
                   label={baseT(`vehicleBodyType.${bodyType}`)}
                   value={bodyType}

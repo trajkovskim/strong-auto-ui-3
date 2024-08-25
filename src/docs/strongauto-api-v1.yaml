@@ -91,6 +91,8 @@ components:
         - SEDAN
         - COUPE
         - SUV
+        - CONVERTIBLE
+        - LIMOUSINE
       example: "SEDAN"
     VehicleTransmission:
       type: string
@@ -121,7 +123,6 @@ components:
         - GREEN
       example: "BLACK"
 
-
     VehicleFilters:
       type: object
       properties:
@@ -142,8 +143,10 @@ components:
           example: true
         condition:
           $ref: "#/components/schemas/VehicleCondition"
-        bodyType:
-          $ref: "#/components/schemas/VehicleBodyType"
+        bodyTypes:
+          type: array
+          items:
+            $ref: "#/components/schemas/VehicleBodyType"
         transmission:
           $ref: "#/components/schemas/VehicleTransmission"
         yearFrom:
@@ -207,6 +210,12 @@ components:
           items:
             type: string
             example: 'image'
+        make:
+          type: string
+          example: "Audi"
+        model:
+          type: string
+          example: "B8"
         amount:
           $ref: "#/components/schemas/VehicleAmount"
         title:

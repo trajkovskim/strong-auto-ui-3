@@ -88,10 +88,10 @@ export interface VehicleFilters {
     condition?: VehicleCondition;
     /**
      * 
-     * @type {VehicleBodyType}
+     * @type {Array<VehicleBodyType>}
      * @memberof VehicleFilters
      */
-    bodyType?: VehicleBodyType;
+    bodyTypes?: Array<VehicleBodyType>;
     /**
      * 
      * @type {VehicleTransmission}
@@ -167,7 +167,7 @@ export function VehicleFiltersFromJSONTyped(json: any, ignoreDiscriminator: bool
         'sold': json['sold'] == null ? undefined : json['sold'],
         'featured': json['featured'] == null ? undefined : json['featured'],
         'condition': json['condition'] == null ? undefined : VehicleConditionFromJSON(json['condition']),
-        'bodyType': json['bodyType'] == null ? undefined : VehicleBodyTypeFromJSON(json['bodyType']),
+        'bodyTypes': json['bodyTypes'] == null ? undefined : ((json['bodyTypes'] as Array<any>).map(VehicleBodyTypeFromJSON)),
         'transmission': json['transmission'] == null ? undefined : VehicleTransmissionFromJSON(json['transmission']),
         'yearFrom': json['yearFrom'] == null ? undefined : json['yearFrom'],
         'yearTo': json['yearTo'] == null ? undefined : json['yearTo'],
@@ -191,7 +191,7 @@ export function VehicleFiltersToJSON(value?: VehicleFilters | null): any {
         'sold': value['sold'],
         'featured': value['featured'],
         'condition': VehicleConditionToJSON(value['condition']),
-        'bodyType': VehicleBodyTypeToJSON(value['bodyType']),
+        'bodyTypes': value['bodyTypes'] == null ? undefined : ((value['bodyTypes'] as Array<any>).map(VehicleBodyTypeToJSON)),
         'transmission': VehicleTransmissionToJSON(value['transmission']),
         'yearFrom': value['yearFrom'],
         'yearTo': value['yearTo'],

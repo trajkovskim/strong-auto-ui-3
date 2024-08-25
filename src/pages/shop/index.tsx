@@ -4,13 +4,13 @@ import Container from 'components/Container';
 import Line from 'components/Line';
 import StyledSpinner from 'components/Spinner';
 import ShopProductCard from 'components/card/ShopProductCard';
-import { RibbonType } from 'components/card/types';
 import { Dropdown } from 'components/form';
 import Text from 'components/typography/Text';
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters, VehiclesResponse } from 'generated';
 import { useApplicationContext, useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
+import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import Filters from 'pages/shop/Filters';
 import Sidebar from 'pages/shop/Sidebar';
 import { pageSizes, SortBy } from 'pages/shop/constants';
@@ -60,6 +60,7 @@ const Shop: React.FC = () => {
   const setFilters = useCallback((filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters)), [dispatch]);
 
   useEffect(() => {
+    console.log(filters);
     send(
       searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
         setVehiclesResponse
@@ -171,20 +172,22 @@ const Shop: React.FC = () => {
           <Container xs={0} lg={12}>
             {listHeaderComponent}
           </Container>
-          <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
-            {vehiclesResponse?.vehicles.map((product) => (
-              <Container xs={12} lg={6} xl={4} key={product.id}>
-                <ShopProductCard
-                  key={product.id}
-                  onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                  ribbon={product.state as RibbonType}
-                  fullwidth
-                  {...product}
-                />
-              </Container>
-            ))}
-          </Container>
           {loading && <StyledSpinner centered />}
+          {!loading && (
+            <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
+              {vehiclesResponse?.vehicles.map((product) => (
+                <Container xs={12} lg={6} xl={4} key={product.id}>
+                  <ShopProductCard
+                    key={product.id}
+                    onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
+                    ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
+                    fullwidth
+                    {...product}
+                  />
+                </Container>
+              ))}
+            </Container>
+          )}
           {!loading && page === totalPages && (
             <Container styleConfig={{ itemsCentered: true }}>
               <Text fontSize="sm" type="sub">

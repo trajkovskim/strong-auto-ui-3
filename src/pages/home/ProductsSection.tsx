@@ -1,24 +1,19 @@
 import BoxAnimation from 'components/BoxAnimation';
+import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
 import ProductCard from 'components/card/ProductCard';
-import { RibbonType } from 'components/card/types';
 import Container from 'components/Container';
 import HorizontalList from 'components/horizontalList/HorizontalList';
-import { VehiclesResponse, VehicleState } from 'generated';
+import StyledSpinner from 'components/Spinner';
+import { VehiclesResponse } from 'generated';
+import { useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
+import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import BodyTypes from 'pages/home/BodyTypes';
-import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useEffect, useState } from 'react';
-import { searchVehicles } from 'services/VehicleService';
-import StyledSpinner from 'components/Spinner';
-import { Routes } from 'routes';
 import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'hooks';
-
-const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
-  [VehicleState.Featured]: 'featured',
-  [VehicleState.Sold]: 'sold',
-};
+import { Routes } from 'routes';
+import { searchVehicles } from 'services/VehicleService';
 
 const ProductsSection: React.FC = () => {
   const t = useTranslation('home.vehiclesSection');

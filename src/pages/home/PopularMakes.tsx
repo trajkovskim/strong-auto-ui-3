@@ -3,12 +3,12 @@ import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
 import Container from 'components/Container';
 import StyledSpinner from 'components/Spinner';
 import MiniProductCard from 'components/card/MiniProductCard';
-import { RibbonType } from 'components/card/types';
 import HorizontalList from 'components/horizontalList/HorizontalList';
 import Title from 'components/typography/Title';
 import { VehicleEmbedded } from 'generated';
 import { useTranslation } from 'hooks';
 import useRequest from 'hooks/useRequest';
+import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -79,7 +79,7 @@ const PopularMakes: React.FC = () => {
             {vehiclesByMake[activeTab].map((product) => (
               <MiniProductCard
                 {...product}
-                ribbon={product.state as RibbonType}
+                ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
                 key={product.id}
                 onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
               />
