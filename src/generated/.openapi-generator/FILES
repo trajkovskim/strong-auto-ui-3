@@ -13,6 +13,10 @@ models/VehicleDriveType.ts
 models/VehicleEmbedded.ts
 models/VehicleFilters.ts
 models/VehicleFuelType.ts
+models/VehicleMake.ts
+models/VehicleMakeEmbedded.ts
+models/VehicleMakesResponse.ts
+models/VehicleModel.ts
 models/VehicleState.ts
 models/VehicleTransmission.ts
 models/VehiclesResponse.ts

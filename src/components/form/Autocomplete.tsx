@@ -10,6 +10,7 @@ import useInput from 'hooks/useInput';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 type Props = FormFieldProps<'input'> & {
+  onOptionChange?: (option?: AutocompleteOption) => void;
   options: AutocompleteOption[];
   clearButton?: boolean;
 };
@@ -103,6 +104,7 @@ const Autocomplete: React.FC<Props> = ({
   const clear = () => {
     setSearch(undefined);
     change(name, undefined);
+    props.onOptionChange && props.onOptionChange();
   };
 
   const handleOnOptionClick = (option: AutocompleteOption) => {
@@ -110,6 +112,7 @@ const Autocomplete: React.FC<Props> = ({
     changeValue(option.value);
     setSearch(option.label?.toString() ?? option.value);
     animationRef.current?.gotoInitialState();
+    props.onOptionChange && props.onOptionChange(option);
   };
 
   const rightContainerProps = {

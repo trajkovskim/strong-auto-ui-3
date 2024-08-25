@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   Vehicle,
   VehicleFilters,
+  VehicleMake,
+  VehicleMakesResponse,
   VehiclesResponse,
 } from '../models/index';
 import {
@@ -24,12 +26,25 @@ import {
     VehicleToJSON,
     VehicleFiltersFromJSON,
     VehicleFiltersToJSON,
+    VehicleMakeFromJSON,
+    VehicleMakeToJSON,
+    VehicleMakesResponseFromJSON,
+    VehicleMakesResponseToJSON,
     VehiclesResponseFromJSON,
     VehiclesResponseToJSON,
 } from '../models/index';
 
 export interface GetVehicleEntryRequest {
     id: string;
+    acceptLanguage?: string;
+}
+
+export interface GetVehicleMakeEntriesRequest {
+    acceptLanguage?: string;
+}
+
+export interface GetVehicleMakeEntryRequest {
+    make: string;
     acceptLanguage?: string;
 }
 
@@ -80,6 +95,73 @@ export class VehicleApi extends runtime.BaseAPI {
      */
     async getVehicleEntry(requestParameters: GetVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Vehicle> {
         const response = await this.getVehicleEntryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get all vehicle makes
+     */
+    async getVehicleMakeEntriesRaw(requestParameters: GetVehicleMakeEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleMakesResponse>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['acceptLanguage'] != null) {
+            headerParameters['Accept-Language'] = String(requestParameters['acceptLanguage']);
+        }
+
+        const response = await this.request({
+            path: `/vehicle-makes`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleMakesResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Get all vehicle makes
+     */
+    async getVehicleMakeEntries(requestParameters: GetVehicleMakeEntriesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleMakesResponse> {
+        const response = await this.getVehicleMakeEntriesRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get vehicle make with models
+     */
+    async getVehicleMakeEntryRaw(requestParameters: GetVehicleMakeEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleMake>> {
+        if (requestParameters['make'] == null) {
+            throw new runtime.RequiredError(
+                'make',
+                'Required parameter "make" was null or undefined when calling getVehicleMakeEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['acceptLanguage'] != null) {
+            headerParameters['Accept-Language'] = String(requestParameters['acceptLanguage']);
+        }
+
+        const response = await this.request({
+            path: `/vehicle-makes/{make}`.replace(`{${"make"}}`, encodeURIComponent(String(requestParameters['make']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleMakeFromJSON(jsonValue));
+    }
+
+    /**
+     * Get vehicle make with models
+     */
+    async getVehicleMakeEntry(requestParameters: GetVehicleMakeEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleMake> {
+        const response = await this.getVehicleMakeEntryRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

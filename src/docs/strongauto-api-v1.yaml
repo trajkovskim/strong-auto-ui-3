@@ -48,6 +48,34 @@ paths:
         200:
           $ref: "#/components/responses/VehicleResponse"
 
+  /vehicle-makes:
+    get:
+      operationId: getVehicleMakeEntries
+      tags:
+        - Vehicle
+      description: Get all vehicle makes
+      parameters:
+        - $ref: "#/components/parameters/Accept-Language"
+      responses:
+        200:
+          $ref: "#/components/responses/VehicleMakesResponse"
+  /vehicle-makes/{make}:
+    get:
+      operationId: getVehicleMakeEntry
+      tags:
+        - Vehicle
+      description: Get vehicle make with models
+      parameters:
+        - $ref: "#/components/parameters/Accept-Language"
+        - in: path
+          name: make
+          required: true
+          schema:
+            $ref: "#/components/schemas/VehicleMakeValue"
+      responses:
+        200:
+          $ref: "#/components/responses/VehicleMakeResponse"
+
 components:
   schemas:
     Decimal:
@@ -74,11 +102,17 @@ components:
         currency:
           $ref: "#/components/schemas/Currency"
 
+    VehicleMakeValue:
+      type: string
+      example: 'Audi'
+    VehicleModelValue:
+      type: string
+      example: 'B8'
+
     Id:
       type: string
       description: Primary key
       example: "0"
-
     VehicleCondition:
       type: string
       enum:
@@ -122,16 +156,76 @@ components:
         - BLUE
         - GREEN
       example: "BLACK"
+#    VehicleMake:
+#      type: string
+#      enum:
+#        - ABARTH
+#        - ACURA
+#        - ALFA ROMEO
+#        - ASTON MARTIN
+#        - AUDI
+#        - BENTLEY
+#        - BMW
+#        - BUICK
+#        - CADILLAC
+#        - CHEVROLET
+#        - CHRYSLER
+#        - CITROEN
+#        - DACIA
+#        - DODGE
+#        - FERRARI
+#        - FIAT
+#        - FORD
+#        - GMC
+#        - HONDA
+#        - HUMMER
+#        - HYUNDAI
+#        - INFINITI
+#        - ISUZU
+#        - JAGUAR
+#        - JEEP
+#        - KIA
+#        - LAMBORGHINI
+#        - LANCIA
+#        - LAND ROVER
+#        - LEXUS
+#        - LINCOLN
+#        - LOTUS
+#        - MASERATI
+#        - MAZDA
+#        - MERCEDES_BENZ
+#        - MERCURY
+#        - MINI
+#        - MITSUBISHI
+#        - NISSAN
+#        - OPEL
+#        - PEUGEOT
+#        - PONTIAC
+#        - PORSCHE
+#        - RAM
+#        - RENAULT
+#        - SAAB
+#        - SATURN
+#        - SCION
+#        - SEAT
+#        - SKODA
+#        - SMART
+#        - SSANGYONG
+#        - SUBARU
+#        - SUZUKI
+#        - TESLA
+#        - TOYOTA
+#        - VOLKSWAGEN
+#        - VOLVO
+#        - WIESMANN
 
     VehicleFilters:
       type: object
       properties:
         make:
-          type: string
-          example: "Audi"
+          $ref: "#/components/schemas/VehicleMakeValue"
         model:
-          type: string
-          example: "B8"
+          $ref: "#/components/schemas/VehicleModelValue"
         price:
           type: string
           example: "0-1000"
@@ -274,6 +368,43 @@ components:
                 type: string
                 example: "air_conditioner"
 
+    VehicleModel:
+      type: object
+      required:
+        - model
+      properties:
+        model:
+          $ref: "#/components/schemas/VehicleModelValue"
+    VehicleMakeEmbedded:
+      type: object
+      required:
+        - make
+      properties:
+        make:
+          $ref: "#/components/schemas/VehicleMakeValue"
+    VehicleMake:
+      allOf:
+        - $ref: "#/components/schemas/VehicleMakeEmbedded"
+        - type: object
+          required:
+            - models
+          properties:
+            models:
+              type: array
+              items:
+                $ref: "#/components/schemas/VehicleModel"
+    VehicleMakesResponse:
+      type: object
+      required:
+        - makes
+      properties:
+        makes:
+          type: array
+          items:
+            $ref: "#/components/schemas/VehicleMakeEmbedded"
+    VehicleMakeResponse:
+      $ref: '#/components/schemas/VehicleMake'
+
     VehiclesResponse:
       type: object
       required:
@@ -309,13 +440,24 @@ components:
           example: 10
 
   responses:
+    VehicleMakesResponse:
+      description: List of vehicle makes entries
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleMakesResponse"
+    VehicleMakeResponse:
+      description: Vehicle make info
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/VehicleMakeResponse"
     VehiclesResponse:
       description: A list of pageable vehicle entries
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/VehiclesResponse"
-
     VehicleResponse:
       description: Vehicle info
       content:

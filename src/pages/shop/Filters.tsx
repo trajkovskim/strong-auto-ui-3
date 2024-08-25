@@ -4,6 +4,9 @@ import Container from 'components/Container';
 import { Checkbox } from 'components/form';
 import Autocomplete from 'components/form/Autocomplete';
 import Form from 'components/form/Form';
+import { FormContext, FormContextType } from 'components/form/FormProvider';
+import { StyledSpinner } from 'components/form/Input.styled';
+import { AutocompleteOption } from 'components/form/types';
 import Text from 'components/typography/Text';
 import {
   VehicleBodyType,
@@ -12,14 +15,18 @@ import {
   VehicleDriveType,
   VehicleFilters,
   VehicleFuelType,
+  VehicleMake,
+  VehicleMakesResponse,
   VehicleState,
   VehicleTransmission,
 } from 'generated';
 import { useTranslation } from 'hooks';
+import useRequest from 'hooks/useRequest';
 import { priceOptions } from 'pages/shop/constants';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
+import { getVehicleMakeEntries, getVehicleMakeEntry } from 'services/VehicleService';
 import styled from 'styled-components';
 
 const FiltersWrapper = styled(Container)`
@@ -54,6 +61,35 @@ const Filters: React.FC<Props> = (props) => {
   const baseT = useTranslation();
   const yearNow = new Date().getFullYear();
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
+  const { send: sendGetVehicleMakesEntriesRequest, loading: loadingGetVehicleMakesEntriesRequest } = useRequest();
+  const { send: sendGetVehicleMakeEntryRequest, loading: loadingGetVehicleMakeEntryRequest } = useRequest();
+
+  const [makesResponse, setMakesResponse] = useState<VehicleMakesResponse>();
+  const [makeResponse, setMakeResponse] = useState<VehicleMake>();
+  const { current: fetchedMakes } = useRef(new Map<string, VehicleMake>());
+
+  useEffect(() => {
+    sendGetVehicleMakesEntriesRequest(getVehicleMakeEntries().then(setMakesResponse));
+  }, [sendGetVehicleMakesEntriesRequest]);
+
+  const handleMakeChange = (
+    option: AutocompleteOption | undefined,
+    change: FormContextType<VehicleFilters>['change']
+  ) => {
+    if (!option?.value) {
+      change('model', undefined);
+      setMakeResponse(undefined);
+    } else if (fetchedMakes.has(option.value)) {
+      setMakeResponse(fetchedMakes.get(option.value));
+    } else {
+      sendGetVehicleMakeEntryRequest(
+        getVehicleMakeEntry({ make: option.value }).then((makesResponse) => {
+          setMakeResponse(makesResponse);
+          fetchedMakes.set(option.value, makesResponse);
+        })
+      );
+    }
+  };
 
   return (
     <Form
@@ -76,22 +112,34 @@ const Filters: React.FC<Props> = (props) => {
         </FiltersHeader>
         <StyledFilterAccordion defaultState="open" header={<Text>{t('basic.title')}</Text>}>
           <Container styleConfig={{ gap: '1rem' }}>
-            <Autocomplete
-              fullwidth
-              name="make"
-              placeholder={t('basic.makeInput.placeholder')}
-              label={t('basic.makeInput.label')}
-              size="md"
-              options={[{ value: 'audi' }, { value: 'bmw' }]}
-            />
-            <Autocomplete
-              fullwidth
-              name="model"
-              placeholder={t('basic.modelInput.placeholder')}
-              label={t('basic.modelInput.label')}
-              size="md"
-              options={[{ value: 'b8' }, { value: 'b9' }]}
-            />
+            <FormContext.Consumer>
+              {({ change, values }) => (
+                <>
+                  <Autocomplete
+                    fullwidth
+                    name="make"
+                    placeholder={t('basic.makeInput.placeholder')}
+                    label={t('basic.makeInput.label')}
+                    size="md"
+                    onOptionChange={(option) => handleMakeChange(option, change)}
+                    disabled={!makesResponse}
+                    rightContainer={loadingGetVehicleMakesEntriesRequest && <StyledSpinner />}
+                    options={makesResponse?.makes.map((make) => ({ value: make.make, label: make.make })) ?? []}
+                  />
+
+                  <Autocomplete
+                    fullwidth
+                    name="model"
+                    placeholder={t('basic.modelInput.placeholder')}
+                    label={t('basic.modelInput.label')}
+                    size="md"
+                    disabled={!(values.make && makeResponse)}
+                    rightContainer={loadingGetVehicleMakeEntryRequest && <StyledSpinner />}
+                    options={makeResponse?.models.map((model) => ({ value: model.model, label: model.model })) ?? []}
+                  />
+                </>
+              )}
+            </FormContext.Consumer>
             <Autocomplete
               fullwidth
               name="price"

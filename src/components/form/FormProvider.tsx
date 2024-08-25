@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useCallback, useState } from 'react';
 
 export type FormFieldValue = string | string[] | boolean | boolean[] | number | undefined | null;
 
@@ -25,9 +25,15 @@ type Props = React.PropsWithChildren;
 const FormContextProvider = <T extends Record<string, FormFieldValue>>(props: Props) => {
   const [state, setState] = useState<T>({} as T);
 
+  const getValue: FormContextType<T>['getValue'] = useCallback((name) => state[name], [state]);
+  const change: FormContextType<T>['change'] = useCallback(
+    (name, value) => setState((prev) => ({ ...prev, [name]: value })),
+    []
+  );
+
   const value: FormContextType<T> = {
-    getValue: (name) => state[name],
-    change: (name, value) => setState({ ...state, [name]: value }),
+    getValue,
+    change,
     setValues: setState,
     values: state,
   };
