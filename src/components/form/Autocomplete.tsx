@@ -69,14 +69,23 @@ const Autocomplete: React.FC<Props> = ({
 
   const filteredOptions = filterFunction(options, search);
 
+  const closeDropdownOptions = () => {
+    animationRef.current?.gotoInitialState();
+  };
+
   const handleClickOutsideEvent = useCallback((event: MouseEvent) => {
     const isClickInside = inputWrapperRef.current?.contains(event.target as Node);
 
     if (!isClickInside) {
-      animationRef.current?.gotoInitialState();
+      closeDropdownOptions();
       document.removeEventListener('click', handleClickOutsideEvent);
     }
   }, []);
+
+  const closeDropdownOptionsAndClearEvent = () => {
+    closeDropdownOptions();
+    document.removeEventListener('click', handleClickOutsideEvent);
+  };
 
   const events: {
     onChange: typeof onChange;
@@ -111,7 +120,7 @@ const Autocomplete: React.FC<Props> = ({
     change(name, option.value);
     changeValue(option.value);
     setSearch(option.label?.toString() ?? option.value);
-    animationRef.current?.gotoInitialState();
+    closeDropdownOptionsAndClearEvent();
     props.onOptionChange && props.onOptionChange(option);
   };
 

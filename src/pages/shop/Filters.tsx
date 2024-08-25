@@ -8,25 +8,22 @@ import { FormContext, FormContextType } from 'components/form/FormProvider';
 import { StyledSpinner } from 'components/form/Input.styled';
 import { AutocompleteOption } from 'components/form/types';
 import Text from 'components/typography/Text';
-import {
-  VehicleBodyType,
-  VehicleColor,
-  VehicleCondition,
-  VehicleDriveType,
-  VehicleFilters,
-  VehicleFuelType,
-  VehicleMake,
-  VehicleMakesResponse,
-  VehicleState,
-  VehicleTransmission,
-} from 'generated';
+import { VehicleBodyType, VehicleFilters, VehicleState } from 'generated';
 import { useTranslation } from 'hooks';
-import useRequest from 'hooks/useRequest';
-import { priceOptions } from 'pages/shop/constants';
-import React, { useEffect, useRef, useState } from 'react';
+import useFetchMakes from 'hooks/useFetchMakes';
+import { priceOptions } from 'pages/constants';
+import {
+  convertMakeModelsToOptions,
+  convertMakesToOptions,
+  convertVehicleColorsToOptions,
+  convertVehicleConditionsToOptions,
+  convertVehicleDriveTypesToOptions,
+  convertVehicleFuelTypesToOptions,
+  convertVehicleTransmissionsToOptions,
+} from 'pages/utils';
+import React from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
-import { getVehicleMakeEntries, getVehicleMakeEntry } from 'services/VehicleService';
 import styled from 'styled-components';
 
 const FiltersWrapper = styled(Container)`
@@ -61,16 +58,8 @@ const Filters: React.FC<Props> = (props) => {
   const baseT = useTranslation();
   const yearNow = new Date().getFullYear();
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
-  const { send: sendGetVehicleMakesEntriesRequest, loading: loadingGetVehicleMakesEntriesRequest } = useRequest();
-  const { send: sendGetVehicleMakeEntryRequest, loading: loadingGetVehicleMakeEntryRequest } = useRequest();
-
-  const [makesResponse, setMakesResponse] = useState<VehicleMakesResponse>();
-  const [makeResponse, setMakeResponse] = useState<VehicleMake>();
-  const { current: fetchedMakes } = useRef(new Map<string, VehicleMake>());
-
-  useEffect(() => {
-    sendGetVehicleMakesEntriesRequest(getVehicleMakeEntries().then(setMakesResponse));
-  }, [sendGetVehicleMakesEntriesRequest]);
+  const { fetchModels, loadingGetVehicleMakeEntryRequest, loadingGetVehicleMakesEntriesRequest, makes } =
+    useFetchMakes();
 
   const handleMakeChange = (
     option: AutocompleteOption | undefined,
@@ -78,16 +67,8 @@ const Filters: React.FC<Props> = (props) => {
   ) => {
     if (!option?.value) {
       change('model', undefined);
-      setMakeResponse(undefined);
-    } else if (fetchedMakes.has(option.value)) {
-      setMakeResponse(fetchedMakes.get(option.value));
     } else {
-      sendGetVehicleMakeEntryRequest(
-        getVehicleMakeEntry({ make: option.value }).then((makesResponse) => {
-          setMakeResponse(makesResponse);
-          fetchedMakes.set(option.value, makesResponse);
-        })
-      );
+      fetchModels(option.value);
     }
   };
 
@@ -122,9 +103,9 @@ const Filters: React.FC<Props> = (props) => {
                     label={t('basic.makeInput.label')}
                     size="md"
                     onOptionChange={(option) => handleMakeChange(option, change)}
-                    disabled={!makesResponse}
+                    disabled={!makes}
                     rightContainer={loadingGetVehicleMakesEntriesRequest && <StyledSpinner />}
-                    options={makesResponse?.makes.map((make) => ({ value: make.make, label: make.make })) ?? []}
+                    options={convertMakesToOptions(makes)}
                   />
 
                   <Autocomplete
@@ -133,9 +114,9 @@ const Filters: React.FC<Props> = (props) => {
                     placeholder={t('basic.modelInput.placeholder')}
                     label={t('basic.modelInput.label')}
                     size="md"
-                    disabled={!(values.make && makeResponse)}
+                    disabled={!(values.make && makes?.[values.make].models)}
                     rightContainer={loadingGetVehicleMakeEntryRequest && <StyledSpinner />}
-                    options={makeResponse?.models.map((model) => ({ value: model.model, label: model.model })) ?? []}
+                    options={convertMakeModelsToOptions(makes, values)}
                   />
                 </>
               )}
@@ -168,10 +149,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder={t('technical.conditionInput.placeholder')}
               label={t('technical.conditionInput.label')}
               size="md"
-              options={Object.values(VehicleCondition).map((condition) => ({
-                value: condition,
-                label: baseT(`vehicleCondition.${condition}`),
-              }))}
+              options={convertVehicleConditionsToOptions(baseT)}
             />
             <Container styleConfig={{ gap: '0.5rem' }}>
               <Text fontSize="md">Body Type</Text>
@@ -191,10 +169,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder={t('technical.transmissionInput.placeholder')}
               label={t('technical.transmissionInput.label')}
               size="md"
-              options={Object.values(VehicleTransmission).map((transmission) => ({
-                value: transmission,
-                label: baseT(`vehicleTransmission.${transmission}`),
-              }))}
+              options={convertVehicleTransmissionsToOptions(baseT)}
             />
             <Autocomplete
               fullwidth
@@ -202,10 +177,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder={t('technical.driveTypeInput.placeholder')}
               label={t('technical.driveTypeInput.label')}
               size="md"
-              options={Object.values(VehicleDriveType).map((driveType) => ({
-                value: driveType,
-                label: baseT(`vehicleDriveType.${driveType}`),
-              }))}
+              options={convertVehicleDriveTypesToOptions(baseT)}
             />
             <Container styleConfig={{ gap: '3px', direction: 'row', alignItems: 'center' }}>
               <Autocomplete
@@ -245,10 +217,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder={t('technical.fuelTypeInput.placeholder')}
               label={t('technical.fuelTypeInput.label')}
               size="md"
-              options={Object.values(VehicleFuelType).map((fuelType) => ({
-                value: fuelType,
-                label: baseT(`vehicleFuelType.${fuelType}`),
-              }))}
+              options={convertVehicleFuelTypesToOptions(baseT)}
             />
             <Autocomplete
               name="color"
@@ -256,10 +225,7 @@ const Filters: React.FC<Props> = (props) => {
               placeholder="Color"
               label="Color"
               size="md"
-              options={Object.values(VehicleColor).map((color) => ({
-                value: color,
-                label: baseT(`color.${color}`),
-              }))}
+              options={convertVehicleColorsToOptions(baseT)}
             />
           </Container>
         </StyledFilterAccordion>

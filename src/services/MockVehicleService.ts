@@ -64,7 +64,14 @@ export const MOCK_VEHICLE_API: VehicleApi = {
   getVehicleEntry: (...[request]: Parameters<VehicleApi['getVehicleEntry']>) =>
     createMockResponse<Vehicle>(vehicles.find((vehicle) => vehicle.id === request.id) as Vehicle, 1500),
   getVehicleMakeEntries: (...[request]: Parameters<VehicleApi['getVehicleMakeEntries']>) =>
-    createMockResponse<VehicleMakesResponse>({ makes }, 1500),
+    createMockResponse<VehicleMakesResponse>(
+      {
+        makes: makes.map((make) => ({
+          make: make.make,
+        })),
+      },
+      1500
+    ),
   getVehicleMakeEntry: (...[request]: Parameters<VehicleApi['getVehicleMakeEntry']>) =>
     createMockResponse<VehicleMake>(makes.find((make) => make.make === request.make) as VehicleMake, 1500),
 } as never;

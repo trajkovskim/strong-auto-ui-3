@@ -30,13 +30,16 @@ const getDataByPath = (data: any, path: string, discriminator: string): string =
 
 const ROOT_PREFIX = 'strongauto';
 
-const useTranslation = (prefix = '', discriminator = '.') => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type TranslationFunction = (key: string, params?: Record<string, any>) => string;
+
+const useTranslation = (prefix = '', discriminator = '.'): TranslationFunction => {
   const { language } = useLanguage();
   const basePrefix = prefix.length == 0 ? ROOT_PREFIX : `${ROOT_PREFIX}.${prefix}`;
 
   return useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (key: string, params?: Record<string, any>): string => {
+    (key, params) => {
       const path = key.startsWith(basePrefix) ? key : `${basePrefix}.${key}`;
       let message = getDataByPath(messages[language], path, discriminator);
 

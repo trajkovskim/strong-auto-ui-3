@@ -13,6 +13,17 @@ export const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
   [VehicleState.Sold]: 'sold',
 };
 
+export const priceOptions = [
+  {
+    value: '0-3000',
+  },
+  { value: '3000-10000' },
+  { value: '10000-20000' },
+  { value: '20000-50000' },
+  { value: '50000-100000' },
+  { value: '100000-any' },
+];
+
 type BodyType = {
   id: number;
   bodyType: VehicleBodyType;
