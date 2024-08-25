@@ -84,17 +84,17 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
         }}
         onTransitionEnd={() => {
           clearInterval(interval.current);
+
+          if (!transitionRef.current?.isInInitialState()) {
+            return;
+          }
+
           interval.current = setInterval(() => {
-            console.log(
-              'initial state',
-              transitionRef.current?.isInInitialState(),
-              transitionRef.current?.isFinished()
-            );
             if (transitionRef.current?.isInInitialState() && transitionRef.current.isFinished()) {
               onClose && onClose();
               clearInterval(interval.current);
             }
-          }, 0);
+          }, 20);
         }}
       >
         <GrayedContainer>

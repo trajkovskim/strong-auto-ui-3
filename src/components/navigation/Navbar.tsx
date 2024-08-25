@@ -7,6 +7,7 @@ import LogoImage from 'components/navigation/LogoImage';
 import MobileNavigation from 'components/navigation/MobileNavigation';
 import Navigation from 'components/navigation/Navigation';
 import TelephoneButton from 'components/navigation/TelephoneButton';
+import Line from 'components/Line';
 
 type WrapperProps = {
   transparent?: boolean;
@@ -39,9 +40,9 @@ const Navbar: React.FC<Props> = (props) => {
           alignItems: 'center',
         }}
       >
-        <Container xs="max-content" lg={0} styleConfig={{ direction: 'row', gap: '0.5rem' }}>
-          <TelephoneButton />
-          <EmailButton />
+        <Container xs={1} lg={0} styleConfig={{ direction: 'row', gap: '0.5rem' }}>
+          {/* <TelephoneButton />
+          <EmailButton /> */}
         </Container>
         <LogoImage />
         <Container xs={0} lg="max-content" styleConfig={{ alignItems: 'center' }}>
@@ -55,9 +56,10 @@ const Navbar: React.FC<Props> = (props) => {
             direction: 'row',
             padding: { right: 'md' },
             gap: '1rem',
-            alignItems: 'center',
+            alignItems: 'stretch',
           }}
         >
+          <Line type="vertical" />
           <MobileNavigation />
         </Container>
       </StyledContainer>
