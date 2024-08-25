@@ -1,7 +1,7 @@
 import { css } from '@emotion/css';
 import Container from 'components/Container';
 import Transition, { TransitionHandle } from 'components/Transition';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';
 
@@ -31,7 +31,8 @@ type Props = React.PropsWithChildren &
 const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   const portalsElement = document.getElementById('portals') as Element;
   const transitionRef = useRef<TransitionHandle>(null);
-  const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const interval = useRef<number>(0);
 
   const close = useCallback(() => {
     transitionRef.current?.gotoInitialState();
@@ -39,21 +40,32 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
 
   const handleClickOutsideEvent = useCallback(
     (event: MouseEvent) => {
-      const isClickInside = containerRef?.contains(event.target as Node);
+      const isClickInside = containerRef.current?.contains(event.target as Node);
       if (!isClickInside) {
         close();
+        document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
       }
     },
-    [close, containerRef]
+    [close]
   );
 
-  if (!open) {
-    document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
-    return null;
-  }
+  useEffect(() => {
+    let interval: number;
 
-  if (open) {
-    transitionRef.current?.gotoFinalState();
+    if (open) {
+      transitionRef.current?.gotoFinalState();
+      document.addEventListener('click', handleClickOutsideEvent, { capture: true });
+    } else {
+      close();
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [close, handleClickOutsideEvent, onClose, open]);
+
+  if (!open) {
+    return null;
   }
 
   return createPortal(
@@ -71,16 +83,22 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
           `,
         }}
         onTransitionEnd={() => {
-          if (transitionRef.current?.isInFinalState()) {
-            document.addEventListener('click', handleClickOutsideEvent, { capture: true });
-          } else {
-            document.removeEventListener('click', handleClickOutsideEvent, { capture: true });
-            onClose && onClose();
-          }
+          clearInterval(interval.current);
+          interval.current = setInterval(() => {
+            console.log(
+              'initial state',
+              transitionRef.current?.isInInitialState(),
+              transitionRef.current?.isFinished()
+            );
+            if (transitionRef.current?.isInInitialState() && transitionRef.current.isFinished()) {
+              onClose && onClose();
+              clearInterval(interval.current);
+            }
+          }, 0);
         }}
       >
         <GrayedContainer>
-          <StyledSidebar {...props} ref={setContainerRef}>
+          <StyledSidebar {...props} ref={containerRef}>
             {children}
           </StyledSidebar>
         </GrayedContainer>
@@ -92,4 +110,4 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
 
 Sidebar.displayName = 'Sidebar';
 
-export default React.memo(Sidebar);
+export default Sidebar;

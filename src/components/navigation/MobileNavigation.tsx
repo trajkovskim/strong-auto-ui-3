@@ -7,15 +7,16 @@ import LogoImage from 'components/navigation/LogoImage';
 import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'components/navigation/Navigation.styled';
 import useNavigationOptions from 'components/navigation/useNavigationOptions';
 import useSocialMedias from 'components/navigation/useSocialMedias';
-import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
+import { useTranslation } from 'hooks';
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { BiMenu } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa';
-import { MdClear, MdEmail, MdOutlinePhoneIphone } from 'react-icons/md';
-import { call, goto, mailTo } from 'utils';
+import { MdClear } from 'react-icons/md';
+import { goto } from 'utils';
 
 const MobileNavigation: React.FC = () => {
+  const t = useTranslation();
   const transitionRef = useRef<TransitionHandle>(null);
   const navOptions = useNavigationOptions();
   const socialMedias = useSocialMedias();
@@ -28,7 +29,7 @@ const MobileNavigation: React.FC = () => {
     <StyledNavigationWrapper>
       <Container styleConfig={{ gap: '1rem' }}>
         {Object.values(navOptions).map((option) => (
-          <Container key={option.label} xs={12} lg="max-content">
+          <Container key={option.label} xs={12}>
             <StyledButton
               fullwidth
               size="xl"
@@ -89,24 +90,8 @@ const MobileNavigation: React.FC = () => {
             <Container styleConfig={{ gap: '0.8rem', alignItems: 'center' }}>
               <LanguageChanger />
               <Container>
-                <Button
-                  maxContent
-                  themeType="link"
-                  size="lg"
-                  icon={<MdOutlinePhoneIphone />}
-                  onClick={() => call(TELEPHONE)}
-                >
-                  {TELEPHONE}
-                </Button>
-              </Container>
-              <Container>
-                <Button maxContent themeType="link" size="lg" icon={<MdEmail />} onClick={() => mailTo(EMAIL)}>
-                  {EMAIL}
-                </Button>
-              </Container>
-              <Container>
                 <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
-                  {OPEN_HOURS}
+                  {t('openHours')}
                 </Button>
               </Container>
               <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>

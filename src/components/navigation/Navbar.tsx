@@ -2,9 +2,11 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import Container from 'components/Container';
+import EmailButton from 'components/navigation/EmailButton';
 import LogoImage from 'components/navigation/LogoImage';
 import MobileNavigation from 'components/navigation/MobileNavigation';
 import Navigation from 'components/navigation/Navigation';
+import TelephoneButton from 'components/navigation/TelephoneButton';
 
 type WrapperProps = {
   transparent?: boolean;
@@ -37,14 +39,17 @@ const Navbar: React.FC<Props> = (props) => {
           alignItems: 'center',
         }}
       >
-        <Container xs={1} lg={0} />
+        <Container xs="max-content" lg={0} styleConfig={{ direction: 'row', gap: '0.5rem' }}>
+          <TelephoneButton />
+          <EmailButton />
+        </Container>
         <LogoImage />
         <Container xs={0} lg="max-content" styleConfig={{ alignItems: 'center' }}>
           <Navigation />
         </Container>
 
         <Container
-          xs={1}
+          xs="max-content"
           lg={0}
           styleConfig={{
             direction: 'row',

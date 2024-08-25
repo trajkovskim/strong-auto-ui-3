@@ -38,6 +38,7 @@ const StyledNewsLetterFormContainer = styled(Container)`
 
 const Footer: React.FC = () => {
   const t = useTranslation('footer');
+  const tBase = useTranslation();
   const navigate = useNavigate();
   const socialMedias = useSocialMedias();
 
@@ -74,8 +75,8 @@ const Footer: React.FC = () => {
                   gap: '0.5rem',
                 }}
               >
-                <Input fullwidth size="md" type="email" placeholder={t('newsLetter.emailInput.placeholder')} noBorder />
-                <Button type="submit" size="md" maxContent>
+                <Input fullwidth size="sm" type="email" placeholder={t('newsLetter.emailInput.placeholder')} noBorder />
+                <Button type="submit" size="sm" maxContent>
                   {t('newsLetter.subscribeButton')}
                 </Button>
               </StyledNewsLetterFormContainer>
@@ -96,7 +97,7 @@ const Footer: React.FC = () => {
             <Text fontSize="md">
               {t('findUs.openHours.title')}
               <br />
-              {t('findUs.openHours.label')}
+              {tBase('openHours')}
             </Text>
             <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row' }}>
               {socialMedias.map((socialMedia, index) => (
@@ -119,12 +120,12 @@ const Footer: React.FC = () => {
             <Button size="md" maxContent themeType="link" onClick={() => call(TELEPHONE)}>
               {t('contacts.general.title')}
               <br />
-              {t('contacts.general.value')}
+              {tBase('telephone')}
             </Button>
             <Button size="md" maxContent themeType="link" onClick={() => mailTo(EMAIL)}>
               {t('contacts.email.title')}
               <br />
-              {t('contacts.email.value')}
+              {tBase('email')}
             </Button>
           </Container>
           <Container sm={4} lg={2.5} styleConfig={{ gap: '2rem' }}>

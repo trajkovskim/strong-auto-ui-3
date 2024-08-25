@@ -45,9 +45,9 @@ const NewsLetterSubscription: React.FC = () => {
         </BoxAnimation>
         <BoxAnimation>
           <Form onSubmit={handleSubmit}>
-            <Container styleConfig={{ gap: '1rem' }} lgStyle={{ direction: 'row' }}>
+            <Container styleConfig={{ gap: '1rem', alignItems: 'end' }} lgStyle={{ direction: 'row' }}>
               <Input size="md" type="email" fullwidth placeholder={t('emailInput.placeholder')} />
-              <Button size="sm">{t('subscribeButton')}</Button>
+              <Button size="md">{t('subscribeButton')}</Button>
             </Container>
           </Form>
         </BoxAnimation>

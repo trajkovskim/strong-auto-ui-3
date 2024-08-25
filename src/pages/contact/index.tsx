@@ -11,7 +11,6 @@ import useSocialMedias from 'components/navigation/useSocialMedias';
 import Text from 'components/typography/Text';
 import Title from 'components/typography/Title';
 import { useTranslation } from 'hooks';
-import { EMAIL, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
@@ -19,11 +18,16 @@ import { call, goto, mailTo } from 'utils';
 
 const Contact: React.FC = () => {
   const t = useTranslation('contact');
+  const tBase = useTranslation();
   const socialMedias = useSocialMedias();
 
   const handleSend = (values: unknown) => {
     console.log(values);
   };
+
+  const telephone = tBase('telephone');
+  const email = tBase('email');
+  const openHours = tBase('openHours');
 
   return (
     <Container styleConfig={{ gap: '2rem' }} lgStyle={{ gap: '10rem' }}>
@@ -107,11 +111,11 @@ const Contact: React.FC = () => {
               icon={<BiPhoneCall />}
               size="md"
               iconSize="lg"
-              onClick={() => call(TELEPHONE)}
+              onClick={() => call(telephone)}
             >
               <Container styleConfig={{ gap: '0.2rem' }}>
                 <Text fontSize="lg">{t('callUs.title')}</Text>
-                {t('callUs.telephone')}
+                {telephone}
               </Container>
             </Button>
             <Button
@@ -120,11 +124,11 @@ const Contact: React.FC = () => {
               icon={<MdEmail />}
               size="md"
               iconSize="lg"
-              onClick={() => mailTo(EMAIL)}
+              onClick={() => mailTo(email)}
             >
               <Container styleConfig={{ gap: '0.2rem' }}>
                 <Text fontSize="lg">{t('sendUsAnEmail.title')}</Text>
-                {t('sendUsAnEmail.telephone')}
+                {email}
               </Container>
             </Button>
             <Container styleConfig={{ gap: '1rem' }}>
@@ -149,7 +153,7 @@ const Contact: React.FC = () => {
               <Text fontSize="lg" bold>
                 {t('openHours.title')}
               </Text>
-              <Text fontSize="md">{t('openHours.label')}</Text>
+              <Text fontSize="md">{openHours}</Text>
             </Container>
           </Container>
         </Container>

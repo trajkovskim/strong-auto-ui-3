@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { css } from '@emotion/css';
-import React, { useCallback, useImperativeHandle, useReducer } from 'react';
+import React, { useCallback, useEffect, useImperativeHandle, useReducer } from 'react';
 
 type StyledAnimatedProps = {
   transition: { initial?: string; final: string };
@@ -169,6 +169,7 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
           ${isInFinalState() ? transition.final : ''}`;
             // passing all other props to be able to pass parentGap property
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            // console.log('child render');
             return React.cloneElement<any>(child, {
               ...props,
               ...child.props,

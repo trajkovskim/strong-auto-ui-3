@@ -1,5 +1,8 @@
 {
   "strongauto": {
+    "telephone": "+38977648648",
+    "email": "vane.stamenov@gmail.com",
+    "openHours": "Mon-Sun: 08:00 - 20:00",
     "languages": {
       "title": "Language",
       "mk": "Macedonian",
@@ -10,11 +13,6 @@
       "shop": "Inventory",
       "aboutUs": "About Us",
       "contact": "Contact"
-    },
-    "header": {
-      "phone": "+38977648648",
-      "email": "vane.stamenov@gmail.com",
-      "openHours": "Mon-Sun: 08:00 - 20:00"
     },
     "footer": {
       "description": "Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto is a auto is a Strong auto is a",
@@ -29,12 +27,10 @@
       "contacts": {
         "title": "Contacts",
         "general": {
-          "title": "General:",
-          "value": "+38977648648"
+          "title": "General:"
         },
         "email": {
-          "title": "Email:",
-          "value": "vane.stamenov@gmail.com"
+          "title": "Email:"
         }
       },
       "usefulLinks": {
@@ -392,19 +388,16 @@
         "description": "15 Somewhere in strumica\nNorth Macedonia, MK\nStrumica 2400"
       },
       "callUs": {
-        "title": "Call us:",
-        "telephone": "+38977648648"
+        "title": "Call us:"
       },
       "sendUsAnEmail": {
-        "title": "Send us an email:",
-        "telephone": "vane.stamenov@gmail.com"
+        "title": "Send us an email:"
       },
       "socialMedia": {
         "title": "Social media"
       },
       "openHours": {
-        "title": "Open hours:",
-        "label": "Mon-Sun: 08:00 - 20:00"
+        "title": "Open hours:"
       }
     },
     "viewDetails": {

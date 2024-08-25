@@ -14,7 +14,7 @@ import useRequest from 'hooks/useRequest';
 import Filters from 'pages/shop/Filters';
 import Sidebar from 'pages/shop/Sidebar';
 import { pageSizes, SortBy } from 'pages/shop/constants';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { HiFilter, HiOutlineFilter } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
@@ -49,7 +49,7 @@ const Shop: React.FC = () => {
   const totalContentNumber = 34792;
   const [page] = useState<number>(0);
   const [totalPages] = useState<number>();
-  const [filtersSidebarShow, setFiltersSidebarShow] = useState<boolean>(false);
+  const [filtersSidebarShow, setFiltersSidebarShow] = useState<boolean>();
   const [sortAndSizeSidebarShow, setSortAndSizeSidebarShow] = useState<boolean>(false);
 
   const { send, loading } = useRequest();
@@ -57,10 +57,9 @@ const Shop: React.FC = () => {
   const { getState, dispatch } = useApplicationContext();
 
   const filters = getState().vehicles.filters;
-  const setFilters = (filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters));
+  const setFilters = useCallback((filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters)), [dispatch]);
 
   useEffect(() => {
-    console.log(filters);
     send(
       searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
         setVehiclesResponse
@@ -100,15 +99,6 @@ const Shop: React.FC = () => {
   );
 
   const handleCloseSortAndSizeSidebar = () => setSortAndSizeSidebarShow(false);
-  const sidebarSortAndSize = (
-    <Sidebar xs={12} sm="400px" open={sortAndSizeSidebarShow} onClose={handleCloseSortAndSizeSidebar}>
-      <Container styleConfig={{ gap: '0.5rem', padding: 'md', alignItems: 'end', bordered: true, minHeight: '100%' }}>
-        <Button size="md" themeType="link" icon={<MdClose />} maxContent onClick={handleCloseSortAndSizeSidebar} />
-        {createSortAndSizeDropdowns(true)}
-      </Container>
-    </Sidebar>
-  );
-
   const listHeaderComponent = (
     <ListHeader
       styleConfig={{ padding: 'md', gap: '1.5rem', bordered: true, rounded: true }}
@@ -151,18 +141,20 @@ const Shop: React.FC = () => {
     </ListHeader>
   );
 
-  const handleCloseFiltersSidebar = () => setFiltersSidebarShow(false);
-  const clearFilters = () => setFilters({});
-  const sidebarMobile = (
-    <Sidebar xs={12} md="400px" open={filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
-      <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} onReset={clearFilters} />
-    </Sidebar>
-  );
+  const handleCloseFiltersSidebar = useCallback(() => setFiltersSidebarShow(false), []);
+  const clearFilters = useCallback(() => setFilters({}), [setFilters]);
 
   return (
     <>
-      {sidebarSortAndSize}
-      {sidebarMobile}
+      <Sidebar xs={12} sm="400px" open={sortAndSizeSidebarShow} onClose={handleCloseSortAndSizeSidebar}>
+        <Container styleConfig={{ gap: '0.5rem', padding: 'md', alignItems: 'end', bordered: true, minHeight: '100%' }}>
+          <Button size="md" themeType="link" icon={<MdClose />} maxContent onClick={handleCloseSortAndSizeSidebar} />
+          {createSortAndSizeDropdowns(true)}
+        </Container>
+      </Sidebar>
+      <Sidebar xs={12} md="400px" open={!!filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
+        <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} onReset={clearFilters} />
+      </Sidebar>
       <ListActionsMobileWrapper xs={12} lg={0}>
         {listHeaderComponent}
       </ListActionsMobileWrapper>

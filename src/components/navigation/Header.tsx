@@ -15,7 +15,7 @@ const StyledHeader = styled.header`
 `;
 
 const Header: React.FC = () => {
-  const t = useTranslation('header');
+  const t = useTranslation();
   const socialMedias = useSocialMedias();
 
   const telephone = t('telephone');

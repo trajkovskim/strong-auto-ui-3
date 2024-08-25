@@ -6,7 +6,7 @@ import React from 'react';
 const Navigation: React.FC = () => {
   const navOptions = useNavigationOptions();
 
-  const navigation = (
+  return (
     <StyledNavigationWrapper>
       <Container
         styleConfig={{
@@ -34,8 +34,6 @@ const Navigation: React.FC = () => {
       </Container>
     </StyledNavigationWrapper>
   );
-
-  return <div>{navigation}</div>;
 };
 
 export default Navigation;

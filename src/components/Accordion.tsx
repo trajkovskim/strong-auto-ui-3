@@ -5,7 +5,6 @@ import Transition, { TransitionHandle } from 'components/Transition';
 import React, { useEffect, useRef, useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
-import { getElementHeight } from 'utils';
 
 const StyledButton = styled(Button)`
   justify-content: space-between;
