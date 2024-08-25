@@ -19,6 +19,6 @@ export type SetVehicleFiltersActionType = Action & {
 export type SetVehicleFiltersAction = (vehicleFilters?: VehicleFilters) => SetVehicleFiltersActionType;
 
 export type SetVehicleMakesActionType = Action & {
-  makes?: Record<VehicleMake['make'], VehicleMake>;
+  makes?: Record<VehicleMake['make'], MakesValue>;
 };
 export type SetVehicleMakesAction = (makes?: Record<VehicleMake['make'], MakesValue>) => SetVehicleMakesActionType;
