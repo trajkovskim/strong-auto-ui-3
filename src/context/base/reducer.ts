@@ -2,7 +2,9 @@ import { SET_LANGUAGE_ACTION } from 'context/base/action';
 import { BaseReduceFunction, BaseState, Language, SetLanguageActionType } from 'context/base/types';
 import { mapToAction } from 'context/utils';
 
-export const initialState: BaseState = { language: Language.MK };
+export const initialState: BaseState = {
+  language: (localStorage.getItem('language') as Language | null) ?? Language.MK,
+};
 
 export const setLanguage: BaseReduceFunction<SetLanguageActionType> = (state, action) => ({
   ...state,

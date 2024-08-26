@@ -72,7 +72,7 @@ const Accordion = React.forwardRef<AccordionHandle, Props>(({ defaultState = 'cl
         onTransitionEnd={() => {
           if (transitionRef.current?.isInFinalState()) {
             containerRef.current?.style.setProperty('overflow', 'visible');
-            containerRef.current?.style.setProperty('max-height', 'fit-content');
+            // containerRef.current?.style.setProperty('max-height', 'fit-content');
           }
         }}
       >

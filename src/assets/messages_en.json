@@ -78,12 +78,12 @@
       },
       "buyingACar": {
         "title": "Buying a car?",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "description": "At StrongAUTO, we make buying a car an exciting and stress-free experience. Whether you’re looking for a brand-new vehicle or a reliable pre-owned option, our dedicated team is here to help you every step of the way.",
         "visitButton": "Visit our cars shop"
       },
       "rentingACar": {
         "title": "Renting a car?",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        "description": "Whether you need a vehicle for a day, a week, or longer, StrongAUTO offers a comprehensive range of rental options to meet your needs. Our fleet of well-maintained, reliable vehicles is ready to get you where you need to go, whether you're traveling for business, vacationing, or just need a temporary ride.",
         "visitButton": "Visit our cars shop"
       },
       "popularMakes": {
@@ -109,7 +109,7 @@
       },
       "whyChooseUs": {
         "title": "Why choose our services",
-        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer.",
+        "description": "Choosing StrongAUTO means choosing a dealership that values your time and investment. We are committed to providing an exceptional experience from start to finish, with a focus on personalized service and genuine care.",
         "point1": {
           "title": "Trusted Car Dealership",
           "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
@@ -293,7 +293,11 @@
       "title": "About Us",
       "whoWeAre": {
         "title": "Who we are",
-        "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages."
+        "description": "Welcome to StrongAUTO, where our passion for automobiles meets a commitment to exceptional customer service. Since 2010, we’ve been dedicated to providing our community with a superior car-buying and rental experience."
+      },
+      "ourMission": {
+        "title": "Our mission",
+        "description": "At StrongAUTO, our mission is simple: to deliver an unparalleled automotive experience through integrity, innovation, and dedication. We strive to exceed your expectations by offering a diverse selection of vehicles, personalized service, and a seamless process whether you're purchasing or renting a car."
       },
       "services": {
         "towingService": {
@@ -427,11 +431,20 @@
       "sendMessageButton": "Send message",
       "saving": "Saving: {{saving}}"
     },
+    "services": {
+      "towingService": {
+        "header": "Towing Service",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      }
+    },
     "breadcrumb": {
       "home": "Home",
       "shop": "Inventory",
       "aboutUs": "About Us",
-      "contact": "Contact"
+      "contact": "Contact",
+      "services": "Services",
+      "towingService": "Towing Service"
     }
   }
 }

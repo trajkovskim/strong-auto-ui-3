@@ -1,7 +1,6 @@
 import { MiniProductCard } from 'components/card';
 import {
   BoxAnimation,
-  Breadcrumb,
   Button,
   Carousel,
   CarouselHandle,
@@ -16,6 +15,7 @@ import {
   Text,
   Title,
 } from 'components/common';
+import PageHeader from 'components/PageHeader';
 import { Vehicle, VehiclesResponse } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import React, { useEffect, useRef, useState } from 'react';
@@ -39,27 +39,6 @@ const StyledButton = styled(Button)`
 const CarouselWrapper = styled(Container)`
   border-radius: 5px;
   overflow: hidden;
-`;
-
-const ViewDetailTitleWrapper = styled(Container)<{ image: string }>`
-  background-image: url(${(props) => props.image});
-  background-size: cover;
-  background-position: center center;
-  transition: 200ms;
-  min-height: 300px;
-  position: relative;
-  color: #fff;
-
-  &::before {
-    content: '';
-    background-color: #232323;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-    top: 0;
-    left: 0;
-  }
 `;
 
 const ViewDetails: React.FC = () => {
@@ -137,56 +116,46 @@ const ViewDetails: React.FC = () => {
 
   return (
     <>
-      <ViewDetailTitleWrapper image={product.images?.length ? product.images[0] : ''}>
-        <Container
-          xs="1400px"
-          styleConfig={{
-            centered: true,
-            padding: { left: 'md', right: 'md' },
-            gap: '2rem',
-          }}
-          lgStyle={{
-            direction: 'row-reverse',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Breadcrumb />
-          <Container styleConfig={{ gap: '2rem' }}>
-            <BoxAnimation>
-              <Title
-                title={product.title}
-                description={product.summary}
-                fontSize={{ title: 'xl', description: 'md' }}
-                bold={{ title: true }}
-              />
-            </BoxAnimation>
-            <BoxAnimation>
-              <Container styleConfig={{ wrap: true, direction: 'row', gap: '1rem' }}>
-                {product.year && (
-                  <Button maxContent size="md" themeType="link" icon={<BiCalendar />} iconSize="lg">
-                    {product.year}
-                  </Button>
-                )}
-                {product.transmission && (
-                  <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
-                    {tBase(`vehicleTransmission.${product.transmission}`)}
-                  </Button>
-                )}
-                {product.fuelType && (
-                  <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
-                    {tBase(`vehicleFuelType.${product.fuelType}`)}
-                  </Button>
-                )}
-                {product.mileage && (
-                  <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
-                    {tBase('vehicleMileage', { mileage: formatNumber(product.mileage) })}
-                  </Button>
-                )}
-              </Container>
-            </BoxAnimation>
-          </Container>
+      <PageHeader
+        imageSrc={product.images?.length ? product.images[0] : ''}
+        styleConfig={{ textAlign: 'center' }}
+        lgStyle={{ textAlign: 'left' }}
+      >
+        <Container styleConfig={{ gap: '2rem' }}>
+          <BoxAnimation>
+            <Title
+              title={product.title}
+              description={product.summary}
+              fontSize={{ title: 'xl', description: 'md' }}
+              bold={{ title: true }}
+            />
+          </BoxAnimation>
+          <BoxAnimation>
+            <Container styleConfig={{ wrap: true, direction: 'row', gap: '1rem' }}>
+              {product.year && (
+                <Button maxContent size="md" themeType="link" icon={<BiCalendar />} iconSize="lg">
+                  {product.year}
+                </Button>
+              )}
+              {product.transmission && (
+                <Button maxContent size="md" themeType="link" icon={<TbManualGearbox />} iconSize="lg">
+                  {tBase(`vehicleTransmission.${product.transmission}`)}
+                </Button>
+              )}
+              {product.fuelType && (
+                <Button maxContent size="md" themeType="link" icon={<BsFuelPump />} iconSize="lg">
+                  {tBase(`vehicleFuelType.${product.fuelType}`)}
+                </Button>
+              )}
+              {product.mileage && (
+                <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
+                  {tBase('vehicleMileage', { mileage: formatNumber(product.mileage) })}
+                </Button>
+              )}
+            </Container>
+          </BoxAnimation>
         </Container>
-      </ViewDetailTitleWrapper>
+      </PageHeader>
       <Container
         xs="1400px"
         styleConfig={{
@@ -326,14 +295,14 @@ const ViewDetails: React.FC = () => {
               <Container styleConfig={{ gap: '0.3rem' }}>
                 <Text fontSize="lg">{t('offer')}</Text>
                 {product.amount?.totalPromo && (
-                  <div>
+                  <Container styleConfig={{ gap: '0.5rem', direction: 'row', alignItems: 'end' }}>
                     <Text fontSize="lg" textDecoration="line-through">
                       {formatNumber(product.amount.total)}
                     </Text>
                     <Text fontSize="3xl" bold>
                       {formatNumber(product.amount.totalPromo)}
                     </Text>
-                  </div>
+                  </Container>
                 )}
                 {!product.amount?.totalPromo && (
                   <div>

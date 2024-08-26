@@ -4,8 +4,11 @@ import { BoxAnimation, Button, Container, List, ServiceCard, Title } from 'compo
 import { useTranslation } from 'hooks';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 
 const Services: React.FC = () => {
+  const navigate = useNavigate();
   const t = useTranslation('home.ourServices');
 
   return (
@@ -37,6 +40,7 @@ const Services: React.FC = () => {
               image={CarServiceMechanicImage}
               title={t('towingService.title')}
               description={t('towingService.description')}
+              onClick={() => navigate(Routes.TOWING_SERVICE)}
             />
           </BoxAnimation>
           <BoxAnimation duration="750ms">

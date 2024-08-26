@@ -431,7 +431,9 @@
       "home": "Дома",
       "shop": "Салон",
       "aboutUs": "За нас",
-      "contact": "Контакт"
+      "contact": "Контакт",
+      "services": "Сервиси",
+      "towingService": "Шлеп служба"
     }
   }
 }

@@ -1,5 +1,5 @@
 import StrongAutoApp from 'StrongAutoApp';
-import { AboutUs, Contact, Home, Parts, Shop, ViewDetails } from 'pages';
+import { AboutUs, Contact, Home, Parts, Shop, TowingService, ViewDetails } from 'pages';
 import { Layout } from 'components/layout';
 import React from 'react';
 import { Route } from 'react-router-dom';
@@ -11,6 +11,8 @@ export enum Routes {
   SHOP_VIEW_DETAILS = '/shop/:id',
   CONTACT = '/contact',
   ABOUT_US = '/about-us',
+  SERVICES = '/services',
+  TOWING_SERVICE = '/services/towing-service',
   PARTS = '/parts',
 }
 
@@ -35,6 +37,12 @@ const routes: RouteOptions = {
           },
           [Routes.SHOP_VIEW_DETAILS]: {
             element: <ViewDetails />,
+          },
+          [Routes.SERVICES]: {
+            element: <TowingService />,
+          },
+          [Routes.TOWING_SERVICE]: {
+            element: <TowingService />,
           },
           [Routes.CONTACT]: {
             element: <Contact />,

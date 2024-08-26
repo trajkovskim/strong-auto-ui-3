@@ -1,7 +1,8 @@
 /* eslint-disable max-len */
 import AudiHeadlightsImage from 'assets/audi-headlights.jpg';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
-import { BoxAnimation, Breadcrumb, Container, Image, Line, List, Text, Title } from 'components/common';
+import { BoxAnimation, Container, Image, Line, List, Text, Title } from 'components/common';
+import PageHeader from 'components/PageHeader';
 import { useTranslation } from 'hooks';
 import Services from 'pages/about-us/Services';
 import FAQ from 'pages/home/Faq';
@@ -9,27 +10,6 @@ import Reviews from 'pages/home/Reviews';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import styled from 'styled-components';
-
-const AboutUsTitleWrapper = styled(Container)`
-  background-image: url(${AudiHeadlightsImage});
-  background-size: cover;
-  background-position: center center;
-  transition: 200ms;
-  min-height: 300px;
-  position: relative;
-  color: #fff;
-
-  &::before {
-    content: '';
-    background-color: #232323;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-    top: 0;
-    left: 0;
-  }
-`;
 
 const WelcomeIntroWrapper = styled(Container)`
   /* background-color: #232323;
@@ -53,24 +33,9 @@ const AboutUs: React.FC = () => {
 
   return (
     <Container styleConfig={{ gap: '4rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
-      <AboutUsTitleWrapper>
-        <Container
-          xs="1400px"
-          styleConfig={{
-            gap: '3rem',
-            padding: { left: 'md', right: 'md' },
-            alignItems: 'center',
-            centered: true,
-          }}
-          lgStyle={{
-            direction: 'row-reverse',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Breadcrumb />
-          <Title fontSize="3xl" title={t('title')} />
-        </Container>
-      </AboutUsTitleWrapper>
+      <PageHeader imageSrc={AudiHeadlightsImage}>
+        <Title fontSize="3xl" title={t('title')} />
+      </PageHeader>
       <WelcomeIntroWrapper
         xs={12}
         styleConfig={{
@@ -82,13 +47,21 @@ const AboutUs: React.FC = () => {
           padding: { left: 'md', right: 'md' },
         }}
       >
-        <Container xs={12} lg={6} xl={5}>
+        <Container xs={12} lg={6} xl={5} styleConfig={{ gap: '2rem' }}>
           <BoxAnimation>
             <Title
               gap="2rem"
               fontSize={{ title: '2xl', description: 'lg' }}
               title={t('whoWeAre.title')}
               description={t('whoWeAre.description')}
+            />
+          </BoxAnimation>
+          <BoxAnimation>
+            <Title
+              gap="2rem"
+              fontSize={{ title: 'lg', description: 'lg' }}
+              title={t('ourMission.title')}
+              description={t('ourMission.description')}
             />
           </BoxAnimation>
         </Container>
