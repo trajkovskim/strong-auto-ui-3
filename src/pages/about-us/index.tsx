@@ -4,7 +4,7 @@ import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import { BoxAnimation, Container, Image, Line, List, Text, Title } from 'components/common';
 import PageHeader from 'components/PageHeader';
 import { useTranslation } from 'hooks';
-import Services from 'pages/about-us/Services';
+import Services from 'components/Services';
 import FAQ from 'pages/home/Faq';
 import Reviews from 'pages/home/Reviews';
 import WhyChooseUs from 'pages/home/WhyChooseUs';

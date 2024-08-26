@@ -295,70 +295,9 @@
         "title": "Кој сме ние",
         "description": "Кој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ниеКој сме ние"
       },
-      "services": {
-        "towingService": {
-          "title": "БРЗА И НЕ МНОГУ СКАПА ВЛЕЧНА СЛУЖБА ",
-          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
-        },
-        "dpfCleaning": {
-          "title": "DPF ЧИСТЕЊЕ",
-          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
-        },
-        "carService": {
-          "title": "СЕРВИС НА ВАШИОТ АВТОМОБИЛ",
-          "description": "Кога не е возможно да го поправите вашиот автомобил на лице место ние можеме да ви помогнеме."
-        }
-      },
-      "whyChooseUs": {
-        "title": "Зошто би ги избрале нашите сервиси",
-        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
-        "point1": {
-          "title": "Доверлив салон за автомобили",
-          "description": "Широк асортиман на возила – од нови модели до добро одржувани класични автомобили, пронајдете го вашето совршено возило."
-        },
-        "point2": {
-          "title": "Доверлив салон за автомобили",
-          "description": "Широк асортиман на возила – од нови модели до добро одржувани класични автомобили, пронајдете го вашето совршено возило."
-        },
-        "point3": {
-          "title": "Доверлив салон за автомобили",
-          "description": "Широк асортиман на возила – од нови модели до добро одржувани класични автомобили, пронајдете го вашето совршено возило."
-        },
-        "point4": {
-          "title": "Доверлив салон за автомобили",
-          "description": "Широк асортиман на возила – од нови модели до добро одржувани класични автомобили, пронајдете го вашето совршено возило."
-        }
-      },
-      "reviews": {
-        "title": "Што велат нашите клиенти за нас",
-        "via": "од {{platform}}",
-        "starRating": "{{stars}}-оценка"
-      },
-      "generalFaq": {
-        "title": "Генерални чести прашања",
-        "description": "Погледнете ги нашите често поставувани прашања кои ги имаме спремено за вас кои се често поставувани од нашите клиенти",
-        "questions": {
-          "0": {
-            "question": "Прашање 1?",
-            "answer": "Одговор 1"
-          },
-          "2": {
-            "question": "Прашање 2?",
-            "answer": "Одговор 2"
-          },
-          "3": {
-            "question": "Прашање 3?",
-            "answer": "Одговор 3"
-          },
-          "4": {
-            "question": "Прашање 4?",
-            "answer": "Одговор 4"
-          },
-          "5": {
-            "question": "Прашање 5?",
-            "answer": "Одговор 5"
-          }
-        }
+      "ourMission": {
+        "title": "Our mission",
+        "description": "At StrongAUTO, our mission is simple: to deliver an unparalleled automotive experience through integrity, innovation, and dedication. We strive to exceed your expectations by offering a diverse selection of vehicles, personalized service, and a seamless process whether you're purchasing or renting a car."
       }
     },
     "contact": {
@@ -427,13 +366,42 @@
       "offer": "Нашата понуда:",
       "sendMessageButton": "Прати порака"
     },
+    "services": {
+      "header": "Сервиси",
+      "viewAllCard": {
+        "title": "Наши сервиси",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "viewAllButton": "Види ги сите сервиси"
+      },
+      "cards": {
+        "0": {
+          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "1": {
+          "title": "DPF CLEANING",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "2": {
+          "title": "CAR SERVICE",
+          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
+        }
+      },
+      "towingService": {
+        "header": "Towing Service",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      }
+    },
     "breadcrumb": {
       "home": "Дома",
       "shop": "Салон",
       "aboutUs": "За нас",
       "contact": "Контакт",
       "services": "Сервиси",
-      "towingService": "Шлеп служба"
+      "towingService": "Шлеп служба",
+      "dpfCleaningService": "DPF чистење",
+      "carService": "Сервис на визило"
     }
   }
 }

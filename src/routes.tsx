@@ -1,6 +1,17 @@
 import StrongAutoApp from 'StrongAutoApp';
-import { AboutUs, Contact, Home, Parts, Shop, TowingService, ViewDetails } from 'pages';
 import { Layout } from 'components/layout';
+import {
+  AboutUs,
+  CarService,
+  Contact,
+  DpfCleaningService,
+  Home,
+  Parts,
+  Services,
+  Shop,
+  TowingService,
+  ViewDetails,
+} from 'pages';
 import React from 'react';
 import { Route } from 'react-router-dom';
 
@@ -13,6 +24,8 @@ export enum Routes {
   ABOUT_US = '/about-us',
   SERVICES = '/services',
   TOWING_SERVICE = '/services/towing-service',
+  CAR_SERVICE = '/services/car-service',
+  DPF_CLEANING_SERVICE = '/services/dpf-cleaning-service',
   PARTS = '/parts',
 }
 
@@ -39,10 +52,16 @@ const routes: RouteOptions = {
             element: <ViewDetails />,
           },
           [Routes.SERVICES]: {
-            element: <TowingService />,
+            element: <Services />,
           },
           [Routes.TOWING_SERVICE]: {
             element: <TowingService />,
+          },
+          [Routes.CAR_SERVICE]: {
+            element: <CarService />,
+          },
+          [Routes.DPF_CLEANING_SERVICE]: {
+            element: <DpfCleaningService />,
           },
           [Routes.CONTACT]: {
             element: <Contact />,

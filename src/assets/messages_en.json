@@ -90,23 +90,6 @@
         "title": "Popular makes",
         "viewAllButton": "View all"
       },
-      "ourServices": {
-        "title": "Our services",
-        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer",
-        "viewAllButton": "View all our services",
-        "towingService": {
-          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
-          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
-        },
-        "dpfCleaning": {
-          "title": "DPF CLEANING",
-          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
-        },
-        "carService": {
-          "title": "CAR SERVICE",
-          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
-        }
-      },
       "whyChooseUs": {
         "title": "Why choose our services",
         "description": "Choosing StrongAUTO means choosing a dealership that values your time and investment. We are committed to providing an exceptional experience from start to finish, with a focus on personalized service and genuine care.",
@@ -298,71 +281,6 @@
       "ourMission": {
         "title": "Our mission",
         "description": "At StrongAUTO, our mission is simple: to deliver an unparalleled automotive experience through integrity, innovation, and dedication. We strive to exceed your expectations by offering a diverse selection of vehicles, personalized service, and a seamless process whether you're purchasing or renting a car."
-      },
-      "services": {
-        "towingService": {
-          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
-          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
-        },
-        "dpfCleaning": {
-          "title": "DPF CLEANING",
-          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
-        },
-        "carService": {
-          "title": "CAR SERVICE",
-          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
-        }
-      },
-      "whyChooseUs": {
-        "title": "Why choose our services",
-        "description": "Strong auto is the most enticing, creative, modern and multipurpose auto dealer.",
-        "point1": {
-          "title": "Trusted Car Dealership",
-          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
-        },
-        "point2": {
-          "title": "Trusted Car Dealership",
-          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
-        },
-        "point3": {
-          "title": "Trusted Car Dealership",
-          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
-        },
-        "point4": {
-          "title": "Trusted Car Dealership",
-          "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout."
-        }
-      },
-      "reviews": {
-        "title": "What our clients say about us",
-        "via": "via",
-        "starRating": "{{stars}}-star rating"
-      },
-      "generalFaq": {
-        "title": "General FAQs",
-        "description": "Check out in our frequently asked questions that we have ready for you",
-        "questions": {
-          "0": {
-            "question": "Question 1?",
-            "answer": "Answer 1"
-          },
-          "1": {
-            "question": "Question 2?",
-            "answer": "Answer 2"
-          },
-          "2": {
-            "question": "Question 3?",
-            "answer": "Answer 3"
-          },
-          "3": {
-            "question": "Question 4?",
-            "answer": "Answer 4"
-          },
-          "4": {
-            "question": "Question 5?",
-            "answer": "Answer 5"
-          }
-        }
       }
     },
     "contact": {
@@ -432,8 +350,38 @@
       "saving": "Saving: {{saving}}"
     },
     "services": {
+      "header": "Services",
+      "viewAllCard": {
+        "title": "Наши сервиси",
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
+        "viewAllButton": "Види ги сите сервиси"
+      },
+      "cards": {
+        "0": {
+          "title": "FAST AND INEXPENSIVE TOWING SERVICES",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "1": {
+          "title": "DPF CLEANING",
+          "description": "When it is not possible to fix a vehicle on-site, we utilise our extensive network of l."
+        },
+        "2": {
+          "title": "CAR SERVICE",
+          "description": "mply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever It has survived not only five centuries, but"
+        }
+      },
       "towingService": {
         "header": "Towing Service",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      },
+      "dpfCleaningService": {
+        "header": "DPF Cleaning",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      },
+      "carService": {
+        "header": "Car Service",
         "title": "Dependable Towing, Anytime, Anywhere",
         "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
       }
@@ -444,7 +392,9 @@
       "aboutUs": "About Us",
       "contact": "Contact",
       "services": "Services",
-      "towingService": "Towing Service"
+      "towingService": "Towing Service",
+      "dpfCleaningService": "DPF Cleaning",
+      "carService": "Car Service"
     }
   }
 }

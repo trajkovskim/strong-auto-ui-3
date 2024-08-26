@@ -10,7 +10,7 @@ import PopularMakes from 'pages/home/PopularMakes';
 import ProductsSection from 'pages/home/ProductsSection';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
-import Services from 'pages/home/Services';
+import Services from 'components/Services';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import { CarouselWrapper, HomeWrapper, WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React, { useRef } from 'react';

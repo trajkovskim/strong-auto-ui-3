@@ -45,6 +45,14 @@ const Breadcrumb: React.FC = () => {
     paths.push({ label: t('towingService'), pathname: Routes.TOWING_SERVICE });
   }
 
+  if (location.pathname.startsWith(Routes.DPF_CLEANING_SERVICE)) {
+    paths.push({ label: t('dpfCleaningService'), pathname: Routes.DPF_CLEANING_SERVICE });
+  }
+
+  if (location.pathname.startsWith(Routes.CAR_SERVICE)) {
+    paths.push({ label: t('carService'), pathname: Routes.CAR_SERVICE });
+  }
+
   if (id) {
     paths.push({ label: id });
   }
