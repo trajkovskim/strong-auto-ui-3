@@ -1,17 +1,16 @@
-import Button from 'components/Button';
+import BoxAnimation from 'components/common/BoxAnimation';
+import Card from 'components/common/card/Card';
+import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
+import Ribbon from 'components/common/card/Ribbon';
+import Container from 'components/common/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
-import Card from 'components/card/Card';
-import { OnImageContainer, PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
 import { ribbons } from 'components/card/constants';
-import { Props } from 'components/card/types';
-import Container from 'components/Container';
-import Text from 'components/typography/Text';
-import BoxAnimation from 'components/BoxAnimation';
+import ProductCardPrice from 'components/card/ProductCardPrice';
+import ProductTitle from 'components/card/ProductTitle';
+import { ProductProps } from 'components/card/types';
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import { formatNumber } from 'utils';
-import Ribbon from 'components/card/Ribbon';
 
 const StyledCard = styled(Card)`
   transition: all 200ms;
@@ -55,37 +54,11 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const MiniProductCard: React.FC<Props> = (props) => {
-  const price = (
-    <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm' } }}>
-      {props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
-          <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.amount.total)}
-          </Text>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.totalPromo)}
-          </Text>
-        </Container>
-      )}
-      {!props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end' }}>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.total)}
-          </Text>
-        </Container>
-      )}
-    </PriceWrapper>
-  );
-
+const MiniProductCard: React.FC<ProductProps> = (props) => {
   const productCardTitlePrice = (
-    <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-      <Container styleConfig={{ overflow: 'hidden', padding: { top: 'sm' } }}>
-        <Button size="lg" maxContent themeType="link" onClick={props.onView}>
-          <div>{props.title}</div>
-        </Button>
-      </Container>
-      <Container styleConfig={{ direction: 'row' }}>{price}</Container>
+    <Container styleConfig={{ direction: 'row', gap: '0.5rem', justifyContent: 'space-between', alignItems: 'end' }}>
+      <ProductTitle title={props.title} onView={props.onView} />
+      <ProductCardPrice amount={props.amount} />
     </Container>
   );
 

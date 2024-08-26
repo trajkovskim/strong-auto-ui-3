@@ -1,12 +1,7 @@
-import BoxAnimation from 'components/BoxAnimation';
-import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
-import ProductCard from 'components/card/ProductCard';
-import Container from 'components/Container';
-import HorizontalList from 'components/horizontalList/HorizontalList';
-import StyledSpinner from 'components/Spinner';
+import { ProductCard } from 'components/card';
+import { BoxAnimation, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpinner } from 'components/common';
 import { VehiclesResponse } from 'generated';
-import { useTranslation } from 'hooks';
-import useRequest from 'hooks/useRequest';
+import { useRequest, useTranslation } from 'hooks';
 import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import BodyTypes from 'pages/home/BodyTypes';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
@@ -53,7 +48,7 @@ const ProductsSection: React.FC = () => {
       }}
     >
       <BoxAnimation threshold={0.2}>
-        <TabButtonsGroup
+        <ButtonsGroup
           buttons={tabs}
           onChange={(tab) => setExploreVehiclesActiveTab(tab.value)}
           active={exploreVehiclesActiveTab}

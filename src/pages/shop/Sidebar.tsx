@@ -1,6 +1,5 @@
 import { css } from '@emotion/css';
-import Container from 'components/Container';
-import Transition, { TransitionHandle } from 'components/Transition';
+import { Container, Transition, TransitionHandle } from 'components/common';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import styled from 'styled-components';

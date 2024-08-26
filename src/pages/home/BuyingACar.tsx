@@ -1,14 +1,9 @@
-import BoxAnimation from 'components/BoxAnimation';
-import Container from 'components/Container';
-import React from 'react';
 import RentCarImage from 'assets/rent-car-image.jpg';
-import Title from 'components/typography/Title';
-import Text from 'components/typography/Text';
-import Button from 'components/Button';
+import { BoxAnimation, Button, Container, Image, Text, Title } from 'components/common';
+import { useTranslation } from 'hooks';
+import React from 'react';
 import { HiArrowRight } from 'react-icons/hi';
 import styled from 'styled-components';
-import Image from 'components/Image';
-import { useTranslation } from 'hooks';
 
 const StyledBuyCarImage = styled(Image)`
   border-bottom-right-radius: 150px;

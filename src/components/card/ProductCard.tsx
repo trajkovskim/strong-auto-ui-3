@@ -1,18 +1,17 @@
-import BoxAnimation from 'components/BoxAnimation';
-import Button from 'components/Button';
-import { CarouselHandle } from 'components/Carousel';
-import Container from 'components/Container';
+import BoxAnimation from 'components/common/BoxAnimation';
+import { CarouselHandle } from 'components/common/Carousel';
+import Container from 'components/common/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
-import Card from 'components/card/Card';
-import { OnImageContainer, PriceWrapper, StyledCarousel, StyledImage } from 'components/card/Card.styled';
-import Ribbon from 'components/card/Ribbon';
+import Card from 'components/common/card/Card';
+import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
+import ProductCardPrice from 'components/card/ProductCardPrice';
+import ProductTitle from 'components/card/ProductTitle';
+import Ribbon from 'components/common/card/Ribbon';
 import { ribbons } from 'components/card/constants';
-import { Props } from 'components/card/types';
-import Text from 'components/typography/Text';
+import { ProductProps } from 'components/card/types';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
-import { formatNumber } from 'utils';
 
 const StyledCard = styled(Card)`
   transition: all 200ms;
@@ -56,61 +55,13 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const ProductCardTitleWrapper = styled(Container)`
-  button {
-    display: block;
-  }
-
-  span {
-    white-space: nowrap;
-    display: block;
-    text-overflow: ellipsis;
-  }
-`;
-
-const ProductCard: React.FC<Props> = (props) => {
-  const [imageCarouselRef, setImageCarouselRef] = useState<CarouselHandle | null>(null);
-
-  const price = (
-    <PriceWrapper>
-      {props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
-          <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.amount.total)}
-          </Text>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.totalPromo)}
-          </Text>
-        </Container>
-      )}
-      {!props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end' }}>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.total)}
-          </Text>
-        </Container>
-      )}
-    </PriceWrapper>
-  );
+const ProductCard: React.FC<ProductProps> = (props) => {
+  const [, setImageCarouselRef] = useState<CarouselHandle | null>(null);
 
   const productCardTitlePrice = (
-    <Container
-      xs={12}
-      styleConfig={{ alignItems: 'end', gap: '1rem', direction: 'row', justifyContent: 'space-between' }}
-    >
-      <ProductCardTitleWrapper styleConfig={{ overflow: 'hidden' }}>
-        <Button maxContent textAlign="left" themeType="link" onClick={props.onView} size="lg">
-          <Text fontSize="md" title={props.title}>
-            {props.title}
-          </Text>
-          {props.summary && (
-            <Text fontSize="md" title={props.summary}>
-              {props.summary}
-            </Text>
-          )}
-        </Button>
-      </ProductCardTitleWrapper>
-      {price}
+    <Container styleConfig={{ gap: '0.5rem', direction: 'row', justifyContent: 'space-between', alignItems: 'end' }}>
+      <ProductTitle title={props.title} summary={props.summary} onView={props.onView} />
+      <ProductCardPrice amount={props.amount} />
     </Container>
   );
 

@@ -1,16 +1,8 @@
 import { Vehicle } from 'generated';
 
-export type RibbonProps = {
-  label?: string;
-  background: React.CSSProperties['background'];
-  color?: React.CSSProperties['color'];
-};
-
 export type RibbonType = 'sold' | 'featured';
 
-export type StyledRibbonProps = Omit<RibbonProps, 'label'>;
-
-export type Props = {
+export type ProductProps = {
   rating?: number;
   title: Vehicle['title'];
   summary?: Vehicle['summary'];

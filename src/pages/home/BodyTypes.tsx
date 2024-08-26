@@ -1,5 +1,4 @@
-import Container from 'components/Container';
-import HorizontalList from 'components/horizontalList/HorizontalList';
+import { Container, HorizontalList } from 'components/common';
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleBodyType } from 'generated';
 import { useApplicationContext } from 'hooks';

@@ -1,14 +1,9 @@
 import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
 import TowTruckImage from 'assets/tow-truck.jpg';
-import BoxAnimation from 'components/BoxAnimation';
-import Button from 'components/Button';
-import Container from 'components/Container';
-import List from 'components/List';
-import Title from 'components/typography/Title';
-import ServiceCard from 'components/card/ServiceCard';
+import { BoxAnimation, Button, Container, List, ServiceCard, Title } from 'components/common';
+import { useTranslation } from 'hooks';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';
 import React from 'react';
-import { useTranslation } from 'hooks';
 
 const Services: React.FC = () => {
   const t = useTranslation('home.ourServices');

@@ -1,14 +1,16 @@
-import Button from 'components/Button';
-import Carousel from 'components/Carousel';
-import Container from 'components/Container';
-import List from 'components/List';
-import Card from 'components/card/Card';
-import { PriceWrapper, StyledIcon, StyledImage } from 'components/card/Card.styled';
-import Ribbon from 'components/card/Ribbon';
-import { ribbons } from 'components/card/constants';
-import { Props as ProductCardProps } from 'components/card/types';
-import Text from 'components/typography/Text';
+import Button from 'components/common/Button';
+import Carousel from 'components/common/Carousel';
+import Container from 'components/common/Container';
+import List from 'components/common/List';
+import Card from 'components/common/card/Card';
+import { StyledIcon, StyledImage } from 'components/common/card/Card.styled';
+import Ribbon from 'components/common/card/Ribbon';
+import Text from 'components/common/typography/Text';
 import { Vehicle } from 'generated';
+import ProductCardPrice from 'components/card/ProductCardPrice';
+import ProductTitle from 'components/card/ProductTitle';
+import { ribbons } from 'components/card/constants';
+import { ProductProps as ProductCardProps } from 'components/card/types';
 import React from 'react';
 import { BiCalendar, BiShare } from 'react-icons/bi';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';
@@ -23,28 +25,6 @@ type Props = ProductCardProps & {
 };
 
 const ListProductCard: React.FC<Props> = (props) => {
-  const price = (
-    <PriceWrapper styleConfig={{ padding: { left: 'lg', right: 'sm', top: 'sm', bottom: 'sm' } }}>
-      {props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'flex-end', gap: '0.3rem' }}>
-          <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.amount.total)}
-          </Text>{' '}
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.totalPromo)}
-          </Text>
-        </Container>
-      )}
-      {!props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'flex-end' }}>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.total)}
-          </Text>
-        </Container>
-      )}
-    </PriceWrapper>
-  );
-
   const attributeStyleConfig = { gap: '5px', alignItems: 'flex-start', padding: 'sm', direction: 'row' } as never;
   const productAttributes = (
     <List gap="1rem" sm={2} md={2} lg={2} xl={3} {...{ '2xl': 5 }} justifyContent="flex-start">
@@ -110,17 +90,8 @@ const ListProductCard: React.FC<Props> = (props) => {
     <Container styleConfig={{ gap: '0.5rem', justifyContent: 'space-between' }} style={{ flex: '1 0 100%' }}>
       <Container>
         <Container styleConfig={{ direction: 'row', padding: { left: 'md' }, justifyContent: 'space-between' }}>
-          <Container styleConfig={{ overflow: 'hidden', alignItems: 'center', padding: { top: 'sm' } }}>
-            <Button maxContent themeType="link" onClick={props.onView} size="lg">
-              <div>{props.title}</div>
-              {props.summary && (
-                <Text fontSize="md" title={props.summary}>
-                  {props.summary}
-                </Text>
-              )}
-            </Button>
-          </Container>
-          <Container styleConfig={{ direction: 'row' }}>{price}</Container>
+          <ProductTitle title={props.title} summary={props.summary} onView={props.onView} />
+          <ProductCardPrice amount={props.amount} />
         </Container>
         <Container styleConfig={{ padding: { left: 'md' } }} xs="max-content">
           {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}

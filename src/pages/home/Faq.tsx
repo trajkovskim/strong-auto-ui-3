@@ -1,16 +1,10 @@
 import { css } from '@emotion/css';
-import Button from 'components/Button';
-import Container from 'components/Container';
-import Line from 'components/Line';
-import Transition, { TransitionHandle } from 'components/Transition';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import { BoxAnimation, Button, Container, Line, Text, Title, Transition, TransitionHandle } from 'components/common';
+import { useTranslation } from 'hooks';
 import { faqQuestions } from 'pages/constants';
-import BoxAnimation from 'components/BoxAnimation';
 import React, { useRef, useState } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
-import { useTranslation } from 'hooks';
 
 const StyledButton = styled(Button)`
   justify-content: space-between;

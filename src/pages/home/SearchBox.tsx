@@ -1,17 +1,19 @@
-import Button from 'components/Button';
-import Container from 'components/Container';
-import List from 'components/List';
-import { Form } from 'components/form';
-import Autocomplete from 'components/form/Autocomplete';
-import { FormContext, FormContextType } from 'components/form/FormProvider';
-import { StyledSpinner } from 'components/form/Input.styled';
-import { AutocompleteOption } from 'components/form/types';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import {
+  Autocomplete,
+  AutocompleteOption,
+  Button,
+  Container,
+  Form,
+  FormContext,
+  FormContextType,
+  List,
+  StyledSpinner,
+  Text,
+  Title,
+} from 'components/common';
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters } from 'generated';
-import { useApplicationContext, useTranslation } from 'hooks';
-import useFetchMakes from 'hooks/useFetchMakes';
+import { useApplicationContext, useFetchMakes, useTranslation } from 'hooks';
 import { priceOptions } from 'pages/constants';
 import { convertMakeModelsToOptions, convertMakesToOptions } from 'pages/utils';
 import React from 'react';
@@ -114,7 +116,7 @@ const SearchBox: React.FC = () => {
             xs={12}
             styleConfig={{ justifyContent: 'flex-end', alignItems: 'center', direction: 'row', gap: '1rem' }}
           >
-            <Button themeType="link" maxContent size="md" icon={<BiFilter />} onClick={() => navigate(Routes.SHOP)}>
+            <Button type="submit" themeType="link" maxContent size="md" icon={<BiFilter />}>
               {t('advancedButton')}
             </Button>
             <StyledSearchButton type="submit" maxContent size="md" iconSize="md" icon={<BiSearch />}>

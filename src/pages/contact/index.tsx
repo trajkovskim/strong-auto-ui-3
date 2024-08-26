@@ -1,16 +1,18 @@
 import MapLocationImage from 'assets/map-location.jpg';
-import BoxAnimation from 'components/BoxAnimation';
-import Breadcrumb from 'components/Breadcrumb';
-import Button from 'components/Button';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import List from 'components/List';
-import { Form, Input } from 'components/form';
-import Textarea from 'components/form/Textarea';
-import useSocialMedias from 'components/navigation/useSocialMedias';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
-import { useTranslation } from 'hooks';
+import {
+  BoxAnimation,
+  Breadcrumb,
+  Button,
+  Container,
+  Form,
+  Image,
+  Input,
+  List,
+  Text,
+  Textarea,
+  Title,
+} from 'components/common';
+import { useSocialMedias, useTranslation } from 'hooks';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';

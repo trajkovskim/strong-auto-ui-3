@@ -1,13 +1,8 @@
-import Button from 'components/Button';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import { Form, Input } from 'components/form';
-import Title from 'components/typography/Title';
-import React from 'react';
 import CarInEnvelope from 'assets/car-in-envelope.png';
-import BoxAnimation from 'components/BoxAnimation';
-import styled from 'styled-components';
+import { BoxAnimation, Button, Container, Form, Image, Input, Title } from 'components/common';
 import { useTranslation } from 'hooks';
+import React from 'react';
+import styled from 'styled-components';
 
 const StyledCarInEnvelopeImage = styled(Image)`
   border-top-right-radius: 150px;

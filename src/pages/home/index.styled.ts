@@ -1,4 +1,4 @@
-import Container from 'components/Container';
+import { Container } from 'components/common';
 import styled from 'styled-components';
 
 export const HomeWrapper = styled(Container)``;

@@ -39,6 +39,8 @@ export const formatNumber = (num: string | number, separator = ',') => {
   return result.substring(0, result.length - 1);
 };
 
+export const formatMoney = (num: string | number, separator = ',') => '$' + formatNumber(num, separator);
+
 export const getElementHeight = (el: HTMLElement) => {
   const list = [
     'margin-top',

@@ -1,11 +1,4 @@
-import BoxAnimation from 'components/BoxAnimation';
-import Carousel from 'components/Carousel';
-import Container from 'components/Container';
-import Icon from 'components/Icon';
-import Line from 'components/Line';
-import List from 'components/List';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import { BoxAnimation, Carousel, Container, Icon, Line, List, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
 import { reviews } from 'pages/constants';
 import { WhiteBackgroundContainer } from 'pages/home/index.styled';

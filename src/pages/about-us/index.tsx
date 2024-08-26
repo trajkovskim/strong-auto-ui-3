@@ -1,22 +1,14 @@
 /* eslint-disable max-len */
+import AudiHeadlightsImage from 'assets/audi-headlights.jpg';
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
-import BoxAnimation from 'components/BoxAnimation';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import Line from 'components/Line';
-import List from 'components/List';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import { BoxAnimation, Breadcrumb, Container, Image, Line, List, Text, Title } from 'components/common';
+import { useTranslation } from 'hooks';
 import Services from 'pages/about-us/Services';
 import FAQ from 'pages/home/Faq';
 import Reviews from 'pages/home/Reviews';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import styled from 'styled-components';
-
-import AudiHeadlightsImage from 'assets/audi-headlights.jpg';
-import Breadcrumb from 'components/Breadcrumb';
-import { useTranslation } from 'hooks';
 
 const AboutUsTitleWrapper = styled(Container)`
   background-image: url(${AudiHeadlightsImage});

@@ -1,10 +1,8 @@
 import React from 'react';
 
-import Container from 'components/Container';
-import styled from 'styled-components';
-import Text from 'components/typography/Text';
-import Image from 'components/Image';
+import { Container, Image, Text } from 'components/common';
 import { useTranslation } from 'hooks';
+import styled from 'styled-components';
 
 const Tile = styled(Container)`
   border-radius: 10px;

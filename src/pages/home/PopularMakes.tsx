@@ -1,13 +1,7 @@
-import Button from 'components/Button';
-import TabButtonsGroup, { ButtonProps } from 'components/ButtonsGroup';
-import Container from 'components/Container';
-import StyledSpinner from 'components/Spinner';
-import MiniProductCard from 'components/card/MiniProductCard';
-import HorizontalList from 'components/horizontalList/HorizontalList';
-import Title from 'components/typography/Title';
+import { MiniProductCard } from 'components/card';
+import { Button, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpinner, Title } from 'components/common';
 import { VehicleEmbedded } from 'generated';
-import { useTranslation } from 'hooks';
-import useRequest from 'hooks/useRequest';
+import { useRequest, useTranslation } from 'hooks';
 import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
@@ -71,7 +65,7 @@ const PopularMakes: React.FC = () => {
               </Button>
             </Container>
           </Container>
-          <TabButtonsGroup buttons={tabs} active={activeTab} onChange={(tab) => setActiveTab(tab.value)} />
+          <ButtonsGroup buttons={tabs} active={activeTab} onChange={(tab) => setActiveTab(tab.value)} />
         </Container>
         {loading && <StyledSpinner centered />}
         {!loading && vehiclesByMake[activeTab] && (

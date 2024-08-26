@@ -1,4 +1,5 @@
-import type { RibbonProps, RibbonType } from 'components/card/types';
+import { RibbonProps } from 'components/common/card/Ribbon';
+import type { RibbonType } from 'components/card/types';
 
 export const ribbons: Record<RibbonType, RibbonProps> = {
   sold: {

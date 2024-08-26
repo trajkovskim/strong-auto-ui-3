@@ -4,9 +4,9 @@ import SUVBodyTypeImage from 'assets/SUV.png';
 import { RibbonType } from 'components/card/types';
 import { VehicleBodyType, VehicleState } from 'generated';
 
-export const TELEPHONE = '+38977648648';
-export const EMAIL = 'vane.stamenov@gmail.com';
-export const OPEN_HOURS = 'Mon-Sun: 08:00 - 20:00';
+export const TELEPHONE = 'strongauto.telephone';
+export const EMAIL = 'strongauto.email';
+export const OPEN_HOURS = 'strongauto.openHours';
 
 export const VEHICLE_STATE_TO_RIBBON_TYPE: Record<VehicleState, RibbonType> = {
   [VehicleState.Featured]: 'featured',

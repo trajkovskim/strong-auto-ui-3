@@ -1,15 +1,16 @@
-import BoxAnimation from 'components/BoxAnimation';
-import Button from 'components/Button';
-import { CarouselHandle } from 'components/Carousel';
-import Container from 'components/Container';
-import List from 'components/List';
+import BoxAnimation from 'components/common/BoxAnimation';
+import { CarouselHandle } from 'components/common/Carousel';
+import Container from 'components/common/Container';
+import List from 'components/common/List';
 import BookmarkedButton from 'components/card/BookmarkedButton';
-import Card from 'components/card/Card';
-import { OnImageContainer, PriceWrapper, StyledCarousel, StyledIcon, StyledImage } from 'components/card/Card.styled';
-import Ribbon from 'components/card/Ribbon';
+import Card from 'components/common/card/Card';
+import { OnImageContainer, StyledCarousel, StyledIcon, StyledImage } from 'components/common/card/Card.styled';
+import ProductCardPrice from 'components/card/ProductCardPrice';
+import ProductTitle from 'components/card/ProductTitle';
+import Ribbon from 'components/common/card/Ribbon';
 import { ribbons } from 'components/card/constants';
-import { Props } from 'components/card/types';
-import Text from 'components/typography/Text';
+import { ProductProps } from 'components/card/types';
+import Text from 'components/common/typography/Text';
 import { useTranslation } from 'hooks';
 import React, { useState } from 'react';
 import { BsFuelPumpFill } from 'react-icons/bs';
@@ -59,58 +60,14 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const ProductCardTitleWrapper = styled(Container)`
-  button {
-    overflow: hidden;
-  }
-
-  span {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-`;
-
-const ShopProductCard: React.FC<Props> = (props) => {
+const ShopProductCard: React.FC<ProductProps> = (props) => {
   const t = useTranslation();
-  const [imageCarouselRef, setImageCarouselRef] = useState<CarouselHandle | null>(null);
-
-  const price = (
-    <PriceWrapper>
-      {props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end', gap: '0.3rem' }}>
-          <Text fontSize="md" textDecoration="line-through">
-            ${formatNumber(props.amount.total)}
-          </Text>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.totalPromo)}
-          </Text>
-        </Container>
-      )}
-      {!props.amount?.totalPromo && (
-        <Container styleConfig={{ alignItems: 'end' }}>
-          <Text fontSize="lg" bold>
-            ${formatNumber(props.amount.total)}
-          </Text>
-        </Container>
-      )}
-    </PriceWrapper>
-  );
+  const [, setImageCarouselRef] = useState<CarouselHandle | null>(null);
 
   const productCardTitlePrice = (
-    <Container styleConfig={{ gap: '1rem', direction: 'row', justifyContent: 'space-between', alignItems: 'end' }}>
-      <ProductCardTitleWrapper styleConfig={{ overflow: 'hidden' }}>
-        <Button fullwidth textAlign="left" themeType="link" onClick={props.onView} size="lg">
-          {props.title}
-          {props.summary && (
-            <Text fontSize="md" title={props.summary}>
-              {props.summary}
-            </Text>
-          )}
-        </Button>
-      </ProductCardTitleWrapper>
-      {price}
+    <Container styleConfig={{ direction: 'row', justifyContent: 'space-between', alignItems: 'end' }}>
+      <ProductTitle title={props.title} summary={props.summary} onView={props.onView} />
+      <ProductCardPrice amount={props.amount} />
     </Container>
   );
 
@@ -139,7 +96,7 @@ const ShopProductCard: React.FC<Props> = (props) => {
   const body = (
     <Container styleConfig={{ gap: '1rem', relative: true, padding: 'md' }}>
       {productCardTitlePrice}
-      <List gap="2rem" xs={4} justifyContent="start" elementWidth="auto" style={{ overflow: 'scroll' }}>
+      <List gap="1rem" xs={4} justifyContent="start" elementWidth="auto" style={{ overflow: 'scroll' }}>
         {props.fuelType && (
           <Container styleConfig={{ direction: 'row', gap: '0.3rem', padding: { bottom: 'sm' } }}>
             <StyledIcon size="md" icon={<BsFuelPumpFill />} />
@@ -170,7 +127,6 @@ const ShopProductCard: React.FC<Props> = (props) => {
         image={image}
         onImageContainer={onImageContainer}
         onClick={props.onView}
-        // footer={footer}
         styleConfig={{ bordered: true }}
       />
     </BoxAnimation>

@@ -1,16 +1,18 @@
-import Accordion from 'components/Accordion';
-import Button from 'components/Button';
-import Container from 'components/Container';
-import { Checkbox } from 'components/form';
-import Autocomplete from 'components/form/Autocomplete';
-import Form from 'components/form/Form';
-import { FormContext, FormContextType } from 'components/form/FormProvider';
-import { StyledSpinner } from 'components/form/Input.styled';
-import { AutocompleteOption } from 'components/form/types';
-import Text from 'components/typography/Text';
+import {
+  Accordion,
+  Autocomplete,
+  AutocompleteOption,
+  Button,
+  Checkbox,
+  Container,
+  Form,
+  FormContext,
+  FormContextType,
+  StyledSpinner,
+  Text,
+} from 'components/common';
 import { VehicleBodyType, VehicleFilters, VehicleState } from 'generated';
-import { useTranslation } from 'hooks';
-import useFetchMakes from 'hooks/useFetchMakes';
+import { useFetchMakes, useTranslation } from 'hooks';
 import { priceOptions } from 'pages/constants';
 import {
   convertMakeModelsToOptions,

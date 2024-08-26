@@ -1,12 +1,8 @@
-import Container from 'components/Container';
-import List from 'components/List';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import AudiA4Image from 'assets/audi-a4.png';
+import AudiLogo from 'assets/audi-logo.png';
+import { Button, Container, List, Text, Title } from 'components/common';
 import Tile from 'pages/parts/Tile';
 import React, { useState } from 'react';
-import AudiLogo from 'assets/audi-logo.png';
-import AudiA4Image from 'assets/audi-a4.png';
-import Button from 'components/Button';
 import { MdArrowBackIos } from 'react-icons/md';
 
 type GenericTileOption = {

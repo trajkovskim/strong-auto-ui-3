@@ -1,6 +1,6 @@
 import StrongAutoApp from 'StrongAutoApp';
 import { AboutUs, Contact, Home, Parts, Shop, ViewDetails } from 'pages';
-import Layout from 'pages/Layout';
+import { Layout } from 'components/layout';
 import React from 'react';
 import { Route } from 'react-router-dom';
 

@@ -1,10 +1,5 @@
 import CarLot from 'assets/car-lot.jpg';
-import BoxAnimation from 'components/BoxAnimation';
-import Container from 'components/Container';
-import Icon from 'components/Icon';
-import Image from 'components/Image';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
+import { BoxAnimation, Container, Icon, Image, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
 import React from 'react';
 import { VscWorkspaceTrusted } from 'react-icons/vsc';

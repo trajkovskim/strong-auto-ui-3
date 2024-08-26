@@ -1,9 +1,6 @@
 import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
 import TowTruckImage from 'assets/tow-truck.jpg';
-import BoxAnimation from 'components/BoxAnimation';
-import Container from 'components/Container';
-import List from 'components/List';
-import ServiceCard from 'components/card/ServiceCard';
+import { BoxAnimation, Container, List, ServiceCard } from 'components/common';
 import { useTranslation } from 'hooks';
 import React from 'react';
 

@@ -1,35 +1,36 @@
-import Button from 'components/Button';
-import Carousel, { CarouselHandle } from 'components/Carousel';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import Text from 'components/typography/Text';
-import Title from 'components/typography/Title';
-import React, { useEffect, useRef, useState } from 'react';
-import { MdEmail } from 'react-icons/md';
-import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
-
-import BoxAnimation from 'components/BoxAnimation';
-import Breadcrumb from 'components/Breadcrumb';
-import Icon from 'components/Icon';
-import Line from 'components/Line';
-import List from 'components/List';
-import SimpleTable from 'components/SimpleTable';
-import MiniProductCard from 'components/card/MiniProductCard';
-import HorizontalList from 'components/horizontalList/HorizontalList';
+import { MiniProductCard } from 'components/card';
+import {
+  BoxAnimation,
+  Breadcrumb,
+  Button,
+  Carousel,
+  CarouselHandle,
+  Container,
+  HorizontalList,
+  Icon,
+  Image,
+  Line,
+  List,
+  SimpleTable,
+  StyledSpinner,
+  Text,
+  Title,
+} from 'components/common';
 import { Vehicle, VehiclesResponse } from 'generated';
-import useRequest from 'hooks/useRequest';
+import { useRequest, useTranslation } from 'hooks';
+import React, { useEffect, useRef, useState } from 'react';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
 import { FaCar } from 'react-icons/fa';
 import { GiSteeringWheel } from 'react-icons/gi';
+import { MdEmail } from 'react-icons/md';
 import { SlSpeedometer } from 'react-icons/sl';
 import { TbDoor, TbEngine, TbManualGearbox } from 'react-icons/tb';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'routes';
 import { getVehicleEntry, searchVehicles } from 'services/VehicleService';
+import styled from 'styled-components';
 import { call, formatNumber, mailTo } from 'utils';
-import StyledSpinner from 'components/Spinner';
-import { useTranslation } from 'hooks';
 
 const StyledButton = styled(Button)`
   border-radius: 5px;

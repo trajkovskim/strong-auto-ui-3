@@ -1,7 +1,5 @@
+import { Container, Image, Text } from 'components/common';
 import React from 'react';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import Text from 'components/typography/Text';
 import styled from 'styled-components';
 
 const TileWrapper = styled(Container)`

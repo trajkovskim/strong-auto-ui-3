@@ -1,12 +1,7 @@
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 
-import BoxAnimation from 'components/BoxAnimation';
-import Button from 'components/Button';
-import Carousel from 'components/Carousel';
-import Container from 'components/Container';
-import Image from 'components/Image';
-import Title from 'components/typography/Title';
+import { BoxAnimation, Button, Carousel, Container, Image, Title } from 'components/common';
 import { useTranslation } from 'hooks';
 import BuyingACar from 'pages/home/BuyingACar';
 import FAQ from 'pages/home/Faq';
