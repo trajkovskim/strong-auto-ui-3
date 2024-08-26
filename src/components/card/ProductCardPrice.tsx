@@ -13,7 +13,7 @@ const ProductCardPrice: React.FC<Props> = (props) => {
         <Text fontSize="sm" textDecoration="line-through">
           {formatMoney(props.amount.total)}
         </Text>
-        <Text fontSize="md" bold>
+        <Text fontSize="lg" bold>
           {formatMoney(props.amount.totalPromo)}
         </Text>
       </Container>
@@ -22,7 +22,7 @@ const ProductCardPrice: React.FC<Props> = (props) => {
 
   return (
     <Container styleConfig={{ alignItems: 'end' }}>
-      <Text fontSize="md" bold>
+      <Text fontSize="lg" bold>
         {formatMoney(props.amount.total)}
       </Text>
     </Container>

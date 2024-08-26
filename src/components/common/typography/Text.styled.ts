@@ -30,31 +30,6 @@ const textCss = css<StyledTextProps & { hasOnClick: boolean }>`
   cursor: ${(props) => props.hasOnClick && 'pointer'};
   white-space: ${(props) => props.nowrap && 'nowrap'};
   text-decoration: ${(props) => props.textDecoration};
-
-  ${(props) =>
-    createMedia(
-      'xs',
-      css`
-        font-size: ${textFontSizeMobile[props.fontSize ?? 'default']};
-      `
-    )};
-  ${(props) =>
-    createMedia(
-      'sm',
-      css`
-        font-size: ${textFontSizeMobile[props.fontSize ?? 'default']};
-      `
-    )};
-  ${(props) =>
-    createMedia(
-      'md',
-      css`
-        font-size: ${textFontSizeTablet[props.fontSize ?? 'default']};
-      `
-    )};
-  ${createMedia('lg')};
-  ${createMedia('xl')};
-  ${createMedia('2xl')};
 `;
 
 export const StyledText = styled.span<StyledTextProps & { hasOnClick: boolean }>`

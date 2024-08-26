@@ -51,5 +51,9 @@ export default {
     carouselChangeOptionsBorderHover: '#075ebb',
     carouselChangeOptionsFillBorderHover: '#075ebb',
     carouselChangeOptionsFillColorHover: '#075ebb',
+    hoverColor: '#075ebb',
+  },
+  serviceCard: {
+    hoverColor: '#075ebb',
   },
 };

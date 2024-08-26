@@ -26,7 +26,7 @@ const useNavigationOptions = () => {
     },
     [Routes.SHOP]: {
       label: t('shop'),
-      navigate: () => navigate(Routes.SHOP),
+      navigate: () => navigate(Routes.SHOP, { state: { resetFilters: true } }),
       active: location.pathname === Routes.SHOP,
       icon: React.createElement(FaCar),
     },

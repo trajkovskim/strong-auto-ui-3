@@ -10,7 +10,7 @@ import Sidebar from 'pages/shop/Sidebar';
 import SortAndSizeDropdowns from 'pages/shop/SortAndSizeDropdowns';
 import React, { useCallback, useEffect, useState } from 'react';
 import { MdClose } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import { searchVehicles } from 'services/VehicleService';
 import styled from 'styled-components';
@@ -34,6 +34,7 @@ const FiltersContainer = styled(Container)`
 `;
 
 const Shop: React.FC = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [pageSize, setPageSize] = useState<number>(10);
   const [sortBy, setSortBy] = useState<string>();
@@ -42,7 +43,6 @@ const Shop: React.FC = () => {
   const [totalPages] = useState<number>();
   const [filtersSidebarShow, setFiltersSidebarShow] = useState<boolean>(false);
   const [sortAndSizeSidebarShow, setSortAndSizeSidebarShow] = useState<boolean>(false);
-
   const { send, loading } = useRequest();
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
   const { getState, dispatch } = useApplicationContext();
@@ -51,13 +51,19 @@ const Shop: React.FC = () => {
   const setFilters = useCallback((filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters)), [dispatch]);
 
   useEffect(() => {
+    if (location.state?.resetFilters) {
+      setFilters({});
+      delete location.state?.resetFilters;
+      return;
+    }
+
     console.log(filters);
     send(
       searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
         setVehiclesResponse
       )
     );
-  }, [filters, page, pageSize, send, sortBy]);
+  }, [filters, location.state?.resetFilters, page, pageSize, send, setFilters, sortBy]);
 
   const listHeaderComponent = (
     <ListHeader
@@ -66,6 +72,8 @@ const Shop: React.FC = () => {
       onPaginationClick={() => setSortAndSizeSidebarShow(true)}
       page={page}
       pageSize={pageSize}
+      onPageSizeChange={setPageSize}
+      onSortByChange={setSortBy}
       totalContentNumber={totalContentNumber}
     />
   );
@@ -102,7 +110,7 @@ const Shop: React.FC = () => {
         {listHeaderComponent}
       </ListActionsMobileWrapper>
 
-      <Container xs={12} styleConfig={{ direction: 'row', alignItems: 'flex-start', padding: { bottom: 'md' } }}>
+      <Container xs={12} styleConfig={{ direction: 'row', alignItems: 'flex-start', padding: { bottom: 'xl' } }}>
         <FiltersContainer xs={0} lg={3} xl={2.5}>
           <Filters noCloseButton filters={filters} onSubmit={setFilters} onReset={clearFilters} />
         </FiltersContainer>

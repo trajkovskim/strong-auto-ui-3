@@ -216,7 +216,7 @@ const ViewDetails: React.FC = () => {
             </CarouselWrapper>
           </BoxAnimation>
 
-          <Container xs={12} lg={0}>
+          <Container xs={12} lg={0} styleConfig={{ padding: { left: 'md', right: 'md' } }}>
             {imagesHorizontalList}
           </Container>
 

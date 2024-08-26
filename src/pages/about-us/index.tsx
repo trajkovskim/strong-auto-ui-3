@@ -86,7 +86,7 @@ const AboutUs: React.FC = () => {
           <BoxAnimation>
             <Title
               gap="2rem"
-              fontSize={{ title: '2xl', description: 'md' }}
+              fontSize={{ title: '2xl', description: 'lg' }}
               title={t('whoWeAre.title')}
               description={t('whoWeAre.description')}
             />

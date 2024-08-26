@@ -1,14 +1,7 @@
-import { css } from '@emotion/css';
-import { BoxAnimation, Button, Container, Line, Text, Title, Transition, TransitionHandle } from 'components/common';
+import { Accordion, BoxAnimation, Container, Line, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
 import { faqQuestions } from 'pages/constants';
-import React, { useRef, useState } from 'react';
-import { BiPlus } from 'react-icons/bi';
-import styled from 'styled-components';
-
-const StyledButton = styled(Button)`
-  justify-content: space-between;
-`;
+import React from 'react';
 
 type FAQAccordionProps = {
   faq: (typeof faqQuestions)[number];
@@ -16,41 +9,45 @@ type FAQAccordionProps = {
 
 const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
   const t = useTranslation('home.generalFaq');
-  const transitionRef = useRef<TransitionHandle>(null);
-  const [containerRef, setContainerRef] = useState<HTMLSpanElement | null>(null);
 
   return (
     <Container styleConfig={{ padding: { top: 'md', bottom: 'md' }, gap: '0.3rem' }}>
-      <StyledButton
-        themeType="link"
-        key={props.faq.id}
-        iconRight={<BiPlus />}
-        size="xl"
-        fullwidth
-        onClick={() => transitionRef.current?.toggle()}
-      >
-        {t(props.faq.question)}
-      </StyledButton>
-      <Transition
-        ref={transitionRef}
-        duration="200ms"
-        timingFunction="ease-in-out"
-        transition={{
-          initial: css`
-            overflow: hidden;
-            max-height: 0;
-          `,
-          final: css`
-            max-height: ${containerRef?.scrollHeight}px;
-          `,
-        }}
-      >
-        <Text ref={setContainerRef} fontSize="lg">
-          {t(props.faq.answer)}
-        </Text>
-      </Transition>
+      <Accordion header={<Text fontSize="lg">{t(props.faq.question)}</Text>}>
+        <Text fontSize="lg">{t(props.faq.answer)}</Text>
+      </Accordion>
     </Container>
   );
+  // (
+  //   <Container styleConfig={{ padding: { top: 'md', bottom: 'md' }, gap: '0.3rem' }}>
+  //     <StyledButton
+  //       themeType="link"
+  //       key={props.faq.id}
+  //       iconRight={<BiPlus />}
+  //       size="xl"
+  //       fullwidth
+  //       onClick={() => transitionRef.current?.toggle()}
+  //     >
+  //       {t(props.faq.question)}
+  //     </StyledButton>
+  //     <Transition
+  //       ref={transitionRef}
+  //       duration="200ms"
+  //       timingFunction="ease-in-out"
+  //       transition={{
+  //         initial: css`
+  //           overflow: hidden;
+  //           max-height: 0;
+  //         `,
+  //         final: css`
+  //           max-height: ${containerRef?.scrollHeight}px;
+  //         `,
+  //       }}
+  //     >
+  //       <Text ref={setContainerRef} fontSize="lg">
+  //       </Text>
+  //     </Transition>
+  //   </Container>
+  // );
 };
 
 const FAQ: React.FC = () => {

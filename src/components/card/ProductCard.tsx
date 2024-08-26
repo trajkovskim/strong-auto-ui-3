@@ -39,7 +39,7 @@ const StyledCard = styled(Card)`
   }
 
   &:hover {
-    color: #075ebb;
+    color: ${theme.productCard.hoverColor};
 
     .carousel_change-options > *::before {
       border-color: ${theme.productCard.carouselChangeOptionsBorderHover} !important;

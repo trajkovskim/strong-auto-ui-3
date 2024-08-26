@@ -24,7 +24,7 @@ const ProductTitle: React.FC<Props> = (props) => {
       <Button maxContent themeType="link" onClick={props.onView} size="lg">
         <div>{props.title}</div>
         {props.summary && (
-          <Text fontSize="md" title={props.summary}>
+          <Text fontSize="sm" title={props.summary}>
             {props.summary}
           </Text>
         )}

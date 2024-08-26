@@ -22,6 +22,8 @@ const arrowCss = css`
   justify-content: center;
   position: absolute;
 
+  color: white;
+
   top: 50%;
   transform: translateY(-50%);
 

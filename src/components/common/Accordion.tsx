@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import Button from 'components/common/Button';
 import Container from 'components/common/Container';
 import Transition, { TransitionHandle } from 'components/common/Transition';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
 
@@ -17,7 +17,7 @@ type Props = React.PropsWithChildren & {
 
 const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...props }) => {
   const transitionRef = useRef<TransitionHandle>(null);
-  const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (defaultState === 'open') {
@@ -26,7 +26,7 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
   }, [defaultState]);
 
   return (
-    <Container styleConfig={{ padding: { left: 'md', right: 'md', bottom: 'sm', top: 'sm' } }}>
+    <>
       <StyledButton
         themeType="link"
         iconRight={<BiPlus />}
@@ -34,7 +34,8 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
         fullwidth
         onClick={() => {
           if (transitionRef.current?.isInFinalState()) {
-            containerRef?.style.setProperty('overflow', 'hidden');
+            containerRef.current?.style.setProperty('overflow', 'hidden');
+            containerRef.current?.style.removeProperty('max-height');
           }
           transitionRef.current?.toggle();
         }}
@@ -51,21 +52,23 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
             max-height: 0;
           `,
           final: css`
-            padding-top: 1rem;
-            max-height: calc(
-              ${Math.max(containerRef?.scrollHeight ?? 0, containerRef?.children.item(0)?.scrollHeight ?? 0)}px
-            );
+            padding-top: 0.5rem;
+            max-height: ${Math.max(
+              containerRef.current?.scrollHeight ?? 0,
+              containerRef.current?.children.item(0)?.scrollHeight ?? 0
+            )}px;
           `,
         }}
         onTransitionEnd={() => {
           if (transitionRef.current?.isInFinalState()) {
-            containerRef?.style.setProperty('overflow', 'visible');
+            containerRef.current?.style.setProperty('overflow', 'visible');
+            containerRef.current?.style.setProperty('max-height', 'fit-content');
           }
         }}
       >
-        <Container ref={setContainerRef}>{children}</Container>
+        <Container ref={containerRef}>{children}</Container>
       </Transition>
-    </Container>
+    </>
   );
 };
 

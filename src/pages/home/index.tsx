@@ -23,7 +23,7 @@ const Home: React.FC = () => {
   const t = useTranslation('home');
 
   return (
-    <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: '2xl' } }} lgStyle={{ gap: '9rem' }}>
+    <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
       <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100dvh' }}>
         <Carousel absolute minHeight="800px" maxHeight="100dvh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />
