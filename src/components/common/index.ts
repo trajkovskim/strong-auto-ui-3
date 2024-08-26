@@ -1,4 +1,4 @@
-export { default as Accordion } from 'components/common/Accordion';
+export { default as Accordion, type AccordionHandle } from 'components/common/Accordion';
 export { default as BoxAnimation } from 'components/common/BoxAnimation';
 export { default as Breadcrumb } from 'components/common/Breadcrumb';
 export { default as Button } from 'components/common/Button';

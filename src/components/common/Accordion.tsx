@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import Button from 'components/common/Button';
 import Container from 'components/common/Container';
 import Transition, { TransitionHandle } from 'components/common/Transition';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import { BiPlus } from 'react-icons/bi';
 import styled from 'styled-components';
 
@@ -15,7 +15,14 @@ type Props = React.PropsWithChildren & {
   defaultState?: 'open' | 'closed';
 };
 
-const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...props }) => {
+export type AccordionHandle = {
+  transition: TransitionHandle | null;
+  container: HTMLDivElement | null;
+  toggle: () => void;
+  isOpened: () => boolean;
+};
+
+const Accordion = React.forwardRef<AccordionHandle, Props>(({ defaultState = 'closed', children, ...props }, ref) => {
   const transitionRef = useRef<TransitionHandle>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -25,21 +32,24 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
     }
   }, [defaultState]);
 
+  const toggle = () => {
+    if (transitionRef.current?.isInFinalState()) {
+      containerRef.current?.style.setProperty('overflow', 'hidden');
+      containerRef.current?.style.removeProperty('max-height');
+    }
+    transitionRef.current?.toggle();
+  };
+
+  useImperativeHandle(ref, () => ({
+    container: containerRef.current,
+    transition: transitionRef.current,
+    toggle,
+    isOpened: () => !!transitionRef.current?.isInFinalState(),
+  }));
+
   return (
     <>
-      <StyledButton
-        themeType="link"
-        iconRight={<BiPlus />}
-        size="lg"
-        fullwidth
-        onClick={() => {
-          if (transitionRef.current?.isInFinalState()) {
-            containerRef.current?.style.setProperty('overflow', 'hidden');
-            containerRef.current?.style.removeProperty('max-height');
-          }
-          transitionRef.current?.toggle();
-        }}
-      >
+      <StyledButton themeType="link" iconRight={<BiPlus />} size="lg" fullwidth onClick={toggle}>
         {props.header}
       </StyledButton>
       <Transition
@@ -70,6 +80,8 @@ const Accordion: React.FC<Props> = ({ defaultState = 'closed', children, ...prop
       </Transition>
     </>
   );
-};
+});
+
+Accordion.displayName = 'Accordion';
 
 export default Accordion;

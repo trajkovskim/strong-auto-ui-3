@@ -179,7 +179,7 @@ const ViewDetails: React.FC = () => {
                 )}
                 {product.mileage && (
                   <Button maxContent size="md" themeType="link" icon={<SlSpeedometer />} iconSize="lg">
-                    {tBase('vehicleMileage', { mileage: product.mileage })}
+                    {tBase('vehicleMileage', { mileage: formatNumber(product.mileage) })}
                   </Button>
                 )}
               </Container>

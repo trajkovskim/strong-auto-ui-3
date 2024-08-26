@@ -1,5 +1,6 @@
 import {
   Accordion,
+  AccordionHandle,
   Autocomplete,
   AutocompleteOption,
   Button,
@@ -23,7 +24,7 @@ import {
   convertVehicleFuelTypesToOptions,
   convertVehicleTransmissionsToOptions,
 } from 'pages/utils';
-import React from 'react';
+import React, { useRef } from 'react';
 import { BiSearch } from 'react-icons/bi';
 import { MdCheck, MdClose, MdRestore } from 'react-icons/md';
 import styled from 'styled-components';
@@ -58,6 +59,9 @@ const Filters: React.FC<Props> = (props) => {
   const years = new Array(30).fill(0).map((_, index) => yearNow - index);
   const { fetchModels, loadingGetVehicleMakeEntryRequest, loadingGetVehicleMakesEntriesRequest, makes } =
     useFetchMakes();
+  const accordionBasicRef = useRef<AccordionHandle>(null);
+  const accordionTechnicalRef = useRef<AccordionHandle>(null);
+  const accordionFeaturesRef = useRef<AccordionHandle>(null);
 
   const handleMakeChange = (
     option: AutocompleteOption | undefined,
@@ -79,8 +83,20 @@ const Filters: React.FC<Props> = (props) => {
       }}
     >
       <Container styleConfig={{ bordered: { right: true, bottom: true } }}>
-        <FiltersHeader styleConfig={{ justifyContent: 'space-between', direction: 'row', padding: 'md' }}>
-          <Text fontSize="md">{t('header')}</Text>
+        <FiltersHeader
+          styleConfig={{ justifyContent: 'space-between', direction: 'row', padding: 'md', userSelect: 'none' }}
+        >
+          <Text
+            fontSize="md"
+            onClick={() => {
+              const accordions = [accordionBasicRef, accordionTechnicalRef, accordionFeaturesRef];
+              const notOpened = accordions.filter((accordion) => !accordion.current?.isOpened());
+
+              (notOpened.length ? notOpened : accordions).forEach((accordion) => accordion.current?.toggle());
+            }}
+          >
+            {t('header')}
+          </Text>
           <Container styleConfig={{ gap: '1rem', direction: 'row' }}>
             <Button size="md" fullwidth themeType="delete" icon={<MdRestore />} maxContent onClick={props.onReset} />
             <Button type="submit" size="md" fullwidth themeType="success" icon={<MdCheck />} maxContent />
@@ -90,7 +106,7 @@ const Filters: React.FC<Props> = (props) => {
           </Container>
         </FiltersHeader>
         <Container styleConfig={{ padding: 'md', gap: '1rem' }}>
-          <StyledFilterAccordion defaultState="open" header={<Text>{t('basic.title')}</Text>}>
+          <StyledFilterAccordion ref={accordionBasicRef} defaultState="open" header={<Text>{t('basic.title')}</Text>}>
             <Container styleConfig={{ gap: '1rem' }}>
               <FormContext.Consumer>
                 {({ change, values }) => (
@@ -140,7 +156,7 @@ const Filters: React.FC<Props> = (props) => {
               </Container>
             </Container>
           </StyledFilterAccordion>
-          <StyledFilterAccordion header={<Text>{t('technical.title')}</Text>}>
+          <StyledFilterAccordion ref={accordionTechnicalRef} header={<Text>{t('technical.title')}</Text>}>
             <Container styleConfig={{ gap: '1rem' }}>
               <Autocomplete
                 fullwidth
@@ -228,7 +244,7 @@ const Filters: React.FC<Props> = (props) => {
               />
             </Container>
           </StyledFilterAccordion>
-          <StyledFilterAccordion header={<Text>{t('features.title')}</Text>}>
+          <StyledFilterAccordion ref={accordionFeaturesRef} header={<Text>{t('features.title')}</Text>}>
             <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
               {[
                 { value: 'Air conditioner' },
