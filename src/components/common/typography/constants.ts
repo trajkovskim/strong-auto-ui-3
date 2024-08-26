@@ -1,5 +1,7 @@
 import { FontSize } from 'components/common/typography/types';
 
+export const NEW_LINE_DELIMITER = '\n';
+
 export const titleFontSize: Record<FontSize, string> = {
   sm: 'var(--title-fs-0)',
   md: 'var(--title-fs-1)',

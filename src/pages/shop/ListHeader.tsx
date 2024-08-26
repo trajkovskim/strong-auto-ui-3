@@ -57,7 +57,8 @@ const ListHeader: React.FC<Props> = (props) => {
           <Line type="vertical" />
         </Container>
         <Container xs="max-content" lg={0} styleConfig={{ gap: '1rem', direction: 'row' }}>
-          <Button maxContent icon={<BiMenu />} size="md" themeType="link" onClick={props.onPaginationClick} />
+          <Line type="vertical" />
+          <Button maxContent icon={<BiMenu />} size="xl" themeType="link" onClick={props.onPaginationClick} />
         </Container>
       </Container>
     </Wrapper>

@@ -1,5 +1,5 @@
-import { getCalcInputHeightCss } from 'components/common/form/Input.styled';
 import { Size } from 'components/common/form/types';
+import { getCalcInputHeightCss } from 'components/common/form/utils';
 import styled from 'styled-components';
 
 export const StyledOptionsWrapper = styled.div`

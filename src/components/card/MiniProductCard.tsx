@@ -1,13 +1,11 @@
-import BoxAnimation from 'components/common/BoxAnimation';
-import Card from 'components/common/card/Card';
-import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
-import Ribbon from 'components/common/card/Ribbon';
-import Container from 'components/common/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
 import { ribbons } from 'components/card/constants';
 import ProductCardPrice from 'components/card/ProductCardPrice';
 import ProductTitle from 'components/card/ProductTitle';
 import { ProductProps } from 'components/card/types';
+import { BoxAnimation, Container, Ribbon } from 'components/common';
+import Card from 'components/common/card/Card';
+import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
@@ -56,7 +54,7 @@ const StyledCard = styled(Card)`
 
 const MiniProductCard: React.FC<ProductProps> = (props) => {
   const productCardTitlePrice = (
-    <Container styleConfig={{ direction: 'row', gap: '0.5rem', justifyContent: 'space-between', alignItems: 'end' }}>
+    <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between', alignItems: 'end' }}>
       <ProductTitle title={props.title} onView={props.onView} />
       <ProductCardPrice amount={props.amount} />
     </Container>

@@ -28,7 +28,7 @@ const Header: React.FC = () => {
           alignItems: 'center',
           direction: 'row',
           gap: '1.5rem',
-          padding: { top: 'xs', bottom: 'xs', left: 'md', right: 'md' },
+          padding: { top: 'md', bottom: 'md', left: 'md', right: 'md' },
         }}
       >
         <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>

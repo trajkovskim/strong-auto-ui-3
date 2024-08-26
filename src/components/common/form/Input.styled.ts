@@ -1,13 +1,11 @@
 import Spinner from 'components/common/Spinner';
-import { fontSize, inputSize } from 'components/common/form/constants';
+import { fontSize } from 'components/common/form/constants';
 import { Size } from 'components/common/form/types';
+import { getCalcInputHeightCss } from 'components/common/form/utils';
 import { FontSize } from 'components/common/typography';
 import { BiErrorCircle } from 'react-icons/bi';
 import { GiCheckMark } from 'react-icons/gi';
 import styled, { css } from 'styled-components';
-
-export const getCalcInputHeightCss = (size: FontSize, includeLabelSize = false) =>
-  includeLabelSize ? `calc(${inputSize[size]} + ${fontSize[size]} / 2)` : inputSize[size];
 
 export type StyledInputProps = {
   size?: Size;
@@ -19,7 +17,6 @@ export type StyledInputWithRightContainerProps = StyledInputProps & { rightConta
 export const inputCss = css<StyledInputWithRightContainerProps>`
   box-sizing: border-box;
   width: 100%;
-  padding: 10px;
   font-size: inherit;
   line-height: 20px;
   outline: none;
@@ -41,26 +38,31 @@ export const inputCss = css<StyledInputWithRightContainerProps>`
 
 export const StyledInput = styled.input<StyledInputWithRightContainerProps>`
   ${inputCss}
-  height: 100%;
-  padding-left: 10px;
+  &:not([type='checkbox']) {
+    height: ${(props) => props.size && getCalcInputHeightCss(props.size, false)};
+    padding: 10px;
+  }
 `;
 
 export const StyledTextarea = styled.textarea<StyledInputWithRightContainerProps>`
   ${inputCss}
+  padding: 10px;
   padding-left: 8px;
 `;
 
-export const StyledFormFieldContainer = styled.div<{ label?: string; size?: FontSize }>`
-  height: ${(props) => props.size && getCalcInputHeightCss(props.size, false)};
+type StyledFormFieldContainerProps = { label?: string; size?: FontSize };
+
+export const StyledFormFieldContainer = styled.div<StyledFormFieldContainerProps>`
   font-size: ${(props) => props.size && fontSize[props.size]};
+
   position: relative;
 
   ${(props) =>
     props.label &&
     css`
-      height: ${props.size && getCalcInputHeightCss(props.size, true)};
-      > input,
-      textarea {
+      > input:not(input[type='checkbox']),
+      > input:not(input[type='radio']) {
+        height: ${props.size && getCalcInputHeightCss(props.size, true)};
         padding-top: ${props.size && `calc(${props.size && fontSize[props.size]} + 10px)`};
       }
 
@@ -75,9 +77,9 @@ export const StyledFormFieldContainer = styled.div<{ label?: string; size?: Font
     `}
 `;
 
-export const TextareaWrapper = styled(StyledFormFieldContainer)`
-  height: unset !important;
-`;
+export const TextareaWrapper = styled(StyledFormFieldContainer)``;
+
+export const SelectWrapper = styled(StyledFormFieldContainer)``;
 
 export const StyledRightContainer = styled.span`
   position: absolute;

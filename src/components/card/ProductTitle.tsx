@@ -1,7 +1,5 @@
-import Button from 'components/common/Button';
 import { ProductProps } from 'components/card/types';
-import Container from 'components/common/Container';
-import Text from 'components/common/typography/Text';
+import { Button, Container, Text } from 'components/common';
 import React from 'react';
 import styled from 'styled-components';
 

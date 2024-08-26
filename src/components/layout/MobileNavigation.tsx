@@ -1,124 +1,178 @@
-import { css } from '@emotion/css';
-import { Button, Container, Transition, TransitionHandle } from 'components/common';
+import { Button, Container, Line } from 'components/common';
 import LanguageChanger from 'components/LanguageChanger';
+import EmailButton from 'components/layout/EmailButton';
 import LogoImage from 'components/layout/LogoImage';
-import { MobileContainer, StyledButton, StyledNavigationWrapper } from 'components/layout/Navigation.styled';
+import { StyledButton, StyledNavigationWrapper } from 'components/layout/Navigation.styled';
+import TelephoneButton from 'components/layout/TelephoneButton';
 import { useNavigationOptions, useSocialMedias, useTranslation } from 'hooks';
-import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
+import { OPEN_HOURS } from 'pages/constants';
+import Sidebar from 'pages/shop/Sidebar';
+import React, { useState } from 'react';
 import { BiMenu } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa';
-import { MdClear } from 'react-icons/md';
+import { MdClose } from 'react-icons/md';
+import styled from 'styled-components';
 import { goto } from 'utils';
+
+const StyledContainer = styled(Container)`
+  background-color: #232628;
+  color: white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+`;
 
 const MobileNavigation: React.FC = () => {
   const t = useTranslation();
-  const transitionRef = useRef<TransitionHandle>(null);
+  const [open, setOpen] = useState(false);
+
   const navOptions = useNavigationOptions();
   const socialMedias = useSocialMedias();
 
-  const portalsElement = document.querySelector('#portals') as Element;
-
-  const close = () => transitionRef.current?.gotoInitialState();
-
-  const navigation = (
-    <StyledNavigationWrapper>
-      <Container styleConfig={{ gap: '1rem' }}>
-        {Object.values(navOptions).map((option) => (
-          <Container key={option.label} xs={12}>
-            <StyledButton
-              fullwidth
-              size="xl"
-              iconSize="lg"
-              themeType="link"
-              icon={option.icon}
-              active={option.active}
-              onClick={() => {
-                close();
-                option.navigate();
-              }}
-            >
-              {option.label}
-            </StyledButton>
-          </Container>
-        ))}
-      </Container>
-    </StyledNavigationWrapper>
-  );
+  const close = () => setOpen(false);
 
   return (
     <>
-      {createPortal(
-        <Transition
-          ref={transitionRef}
-          duration="300ms"
-          timingFunction="ease-in-out"
-          transition={{
-            initial: css`
-              overflow: hidden;
-              opacity: 0;
-              z-index: -99;
-              /* transform: translateY(-100%); */
-            `,
-            final: css`
-              /* transform: translateY(0); */
-              opacity: 1;
-              z-index: 99;
-              overflow: auto;
-            `,
+      <Sidebar xs="330px" open={open} onClose={() => setOpen(false)}>
+        <StyledContainer
+          styleConfig={{
+            minHeight: '100%',
+            padding: { top: 'sm', bottom: 'sm' },
+            justifyContent: 'space-between',
           }}
         >
-          <MobileContainer
-            styleConfig={{
-              gap: '1rem',
-              padding: 'md',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Container styleConfig={{ gap: '3rem' }}>
-              <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
-                <Container xs={1} />
-                <LogoImage />
-                <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
-              </Container>
-              <div>{navigation}</div>
+          <Container styleConfig={{ gap: '1rem' }}>
+            <Container
+              styleConfig={{
+                direction: 'row',
+                padding: { left: 'sm', right: 'md' },
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Container />
+              <LogoImage />
+              <Button size="lg" themeType="link" icon={<MdClose />} maxContent onClick={close} />
             </Container>
-
-            <Container styleConfig={{ gap: '0.8rem', alignItems: 'center' }}>
+            <Line />
+            <Container styleConfig={{ padding: { left: 'sm', right: 'sm' } }}>
               <LanguageChanger />
-              <Container>
-                <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
-                  {t('openHours')}
-                </Button>
-              </Container>
-              <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
-                {socialMedias.map((socialMedia, index) => (
-                  <Button
-                    key={index}
-                    themeType="link"
-                    maxContent
-                    icon={socialMedia.icon}
-                    size="lg"
-                    onClick={() => goto(socialMedia.href)}
-                  />
+            </Container>
+            <Line />
+            <StyledNavigationWrapper>
+              <Container styleConfig={{ gap: '1rem' }}>
+                {Object.values(navOptions).map((option) => (
+                  <Container key={option.label} xs={12}>
+                    <StyledButton
+                      padding={{ left: 'sm', right: 'sm', top: 'sm', bottom: 'sm' }}
+                      fullwidth
+                      size="md"
+                      iconSize="lg"
+                      themeType="link"
+                      icon={option.icon}
+                      active={option.active}
+                      onClick={() => {
+                        close();
+                        option.navigate();
+                      }}
+                    >
+                      {option.label}
+                    </StyledButton>
+                  </Container>
                 ))}
               </Container>
+            </StyledNavigationWrapper>
+            <Line />
+            <Container styleConfig={{ gap: '1rem', padding: { left: 'sm', right: 'sm' } }}>
+              <TelephoneButton label size="md" />
+              <EmailButton label size="md" />
+              <Button maxContent themeType="link" size="md" icon={<FaClock />}>
+                {t(OPEN_HOURS)}
+              </Button>
             </Container>
-          </MobileContainer>
-        </Transition>,
-        portalsElement
-      )}
-      <Button
-        maxContent
-        themeType="link"
-        icon={<BiMenu />}
-        iconSize="3xl"
-        onClick={() => {
-          transitionRef.current?.toggle();
-        }}
-      />
+          </Container>
+          <Container styleConfig={{ gap: '1rem' }}>
+            <Line />
+            <Container styleConfig={{ gap: '1.2rem', direction: 'row', padding: { left: 'sm', right: 'sm' } }}>
+              {socialMedias.map((socialMedia, index) => (
+                <Button
+                  key={index}
+                  themeType="link"
+                  maxContent
+                  icon={socialMedia.icon}
+                  size="xl"
+                  onClick={() => goto(socialMedia.href)}
+                />
+              ))}
+            </Container>
+          </Container>
+        </StyledContainer>
+      </Sidebar>
+
+      <Button maxContent themeType="link" icon={<BiMenu />} iconSize="3xl" onClick={() => setOpen(true)} />
     </>
   );
 };
 
 export default MobileNavigation;
+
+// {
+//   createPortal(
+//     <Transition
+//       ref={transitionRef}
+//       duration="300ms"
+//       timingFunction="ease-in-out"
+//       transition={{
+//         initial: css`
+//           overflow: hidden;
+//           opacity: 0;
+//           z-index: -99;
+//           /* transform: translateY(-100%); */
+//         `,
+//         final: css`
+//           /* transform: translateY(0); */
+//           opacity: 1;
+//           z-index: 99;
+//           overflow: auto;
+//         `,
+//       }}
+//     >
+//       <MobileContainer
+//         styleConfig={{
+//           gap: '1rem',
+//           padding: 'md',
+//           justifyContent: 'space-between',
+//         }}
+//       >
+//         <Container styleConfig={{ gap: '3rem' }}>
+//           <Container xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between' }}>
+//             <Container xs={1} />
+//             <LogoImage />
+//             <Button maxContent icon={<MdClear />} themeType="link" onClick={close} size="3xl" />
+//           </Container>
+//           <div>{navigation}</div>
+//         </Container>
+
+//         <Container styleConfig={{ gap: '0.8rem', alignItems: 'center' }}>
+//           <LanguageChanger />
+//           <Container>
+//             <Button maxContent themeType="link" size="lg" icon={<FaClock />}>
+//               {t('openHours')}
+//             </Button>
+//           </Container>
+//           <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+//             {socialMedias.map((socialMedia, index) => (
+//               <Button
+//                 key={index}
+//                 themeType="link"
+//                 maxContent
+//                 icon={socialMedia.icon}
+//                 size="lg"
+//                 onClick={() => goto(socialMedia.href)}
+//               />
+//             ))}
+//           </Container>
+//         </Container>
+//       </MobileContainer>
+//     </Transition>,
+//     portalsElement
+//   );
+// }

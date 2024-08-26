@@ -103,7 +103,7 @@ const Filters: React.FC<Props> = (props) => {
                     name="make"
                     placeholder={t('basic.makeInput.placeholder')}
                     label={t('basic.makeInput.label')}
-                    size="md"
+                    size="sm"
                     onOptionChange={(option) => handleMakeChange(option, change)}
                     disabled={!makes}
                     rightContainer={loadingGetVehicleMakesEntriesRequest && <StyledSpinner />}
@@ -115,7 +115,7 @@ const Filters: React.FC<Props> = (props) => {
                     name="model"
                     placeholder={t('basic.modelInput.placeholder')}
                     label={t('basic.modelInput.label')}
-                    size="md"
+                    size="sm"
                     disabled={!(values.make && makes?.[values.make]?.models)}
                     rightContainer={loadingGetVehicleMakeEntryRequest && <StyledSpinner />}
                     options={convertMakeModelsToOptions(makes, values)}
@@ -128,7 +128,7 @@ const Filters: React.FC<Props> = (props) => {
               name="price"
               placeholder={t('basic.priceInput.placeholder')}
               label={t('basic.priceInput.label')}
-              size="md"
+              size="sm"
               options={priceOptions}
             />
             <Container styleConfig={{ gap: '0.5rem' }}>

@@ -1,5 +1,5 @@
 import ShopProductCard from 'components/card/ShopProductCard';
-import { Button, Container, StyledSpinner, Text } from 'components/common';
+import { Button, Container, Spinner, Text } from 'components/common';
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters, VehiclesResponse } from 'generated';
 import { useApplicationContext, useRequest } from 'hooks';
@@ -76,23 +76,25 @@ const Shop: React.FC = () => {
 
   return (
     <>
-      <Sidebar xs={12} sm="400px" open={sortAndSizeSidebarShow} onClose={handleCloseSortAndSizeSidebar}>
-        <Container styleConfig={{ gap: '0.5rem', padding: 'md', alignItems: 'end', bordered: true, minHeight: '100%' }}>
-          <PaginationHeader styleConfig={{ justifyContent: 'space-between' }}>
+      <Sidebar xs="350px" sm="400px" open={sortAndSizeSidebarShow} onClose={handleCloseSortAndSizeSidebar}>
+        <Container styleConfig={{ gap: '0.5rem', alignItems: 'end', minHeight: '100dvh' }}>
+          <PaginationHeader xs={12} styleConfig={{ direction: 'row', justifyContent: 'space-between', padding: 'md' }}>
             <Text fontSize="md">Pagination</Text>
             <Button size="md" themeType="link" icon={<MdClose />} maxContent onClick={handleCloseSortAndSizeSidebar} />
           </PaginationHeader>
-          <SortAndSizeDropdowns
-            fullwidth
-            pageSize={pageSize}
-            sortBy={sortBy}
-            onSortByChange={setSortBy}
-            onPageSizeChange={setPageSize}
-          />
+          <Container xs={12} styleConfig={{ padding: 'md' }}>
+            <SortAndSizeDropdowns
+              fullwidth
+              pageSize={pageSize}
+              sortBy={sortBy}
+              onSortByChange={setSortBy}
+              onPageSizeChange={setPageSize}
+            />
+          </Container>
         </Container>
       </Sidebar>
 
-      <Sidebar xs={12} md="400px" open={filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
+      <Sidebar xs="350px" sm="400px" open={filtersSidebarShow} onClose={handleCloseFiltersSidebar}>
         <Filters filters={filters} onSubmit={setFilters} onClose={handleCloseFiltersSidebar} onReset={clearFilters} />
       </Sidebar>
 
@@ -113,7 +115,7 @@ const Shop: React.FC = () => {
           <Container xs={0} lg={12}>
             {listHeaderComponent}
           </Container>
-          {loading && <StyledSpinner centered />}
+          {loading && <Spinner centered />}
           {!loading && (
             <Container styleConfig={{ gap: '1rem', direction: 'row', wrap: true }}>
               {vehiclesResponse?.vehicles.map((product) => (

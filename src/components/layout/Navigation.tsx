@@ -19,6 +19,7 @@ const Navigation: React.FC = () => {
         {Object.values(navOptions).map((option) => (
           <Container key={option.label} xs={12} lg="max-content">
             <StyledButton
+              padding="sm"
               themeType="link"
               size="md"
               iconSize="sm"

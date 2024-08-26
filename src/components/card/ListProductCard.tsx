@@ -1,16 +1,9 @@
-import Button from 'components/common/Button';
-import Carousel from 'components/common/Carousel';
-import Container from 'components/common/Container';
-import List from 'components/common/List';
-import Card from 'components/common/card/Card';
-import { StyledIcon, StyledImage } from 'components/common/card/Card.styled';
-import Ribbon from 'components/common/card/Ribbon';
-import Text from 'components/common/typography/Text';
-import { Vehicle } from 'generated';
 import ProductCardPrice from 'components/card/ProductCardPrice';
 import ProductTitle from 'components/card/ProductTitle';
 import { ribbons } from 'components/card/constants';
 import { ProductProps as ProductCardProps } from 'components/card/types';
+import { Button, Card, Carousel, Container, List, Ribbon, StyledIcon, StyledImage, Text } from 'components/common';
+import { Vehicle } from 'generated';
 import React from 'react';
 import { BiCalendar, BiShare } from 'react-icons/bi';
 import { BsBookmark, BsBookmarkCheckFill, BsFuelPumpFill } from 'react-icons/bs';

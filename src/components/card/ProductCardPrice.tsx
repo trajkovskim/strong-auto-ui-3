@@ -1,6 +1,6 @@
 import { ProductProps } from 'components/card/types';
-import Container from 'components/common/Container';
-import Text from 'components/common/typography/Text';
+import { Container } from 'components/common';
+import { Text } from 'components/common';
 import React from 'react';
 import { formatMoney } from 'utils';
 

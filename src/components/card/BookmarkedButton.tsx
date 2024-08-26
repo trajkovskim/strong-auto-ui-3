@@ -1,4 +1,4 @@
-import Button from 'components/common/Button';
+import { Button } from 'components/common';
 import React from 'react';
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 

@@ -8,8 +8,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const CheckboxWrapper = styled(StyledFormFieldContainer)`
-  width: ${(props) => props.size && checkboxSize[props.size]};
-  height: ${(props) => props.size && checkboxSize[props.size]};
+  & > input {
+    width: ${(props) => props.size && checkboxSize[props.size]};
+    height: ${(props) => props.size && checkboxSize[props.size]};
+  }
 
   &:has(> input:checked) + label {
     transition: 100ms all;

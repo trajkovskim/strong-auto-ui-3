@@ -1,6 +1,6 @@
 import { Dropdown } from 'components/common/form';
 import { useTranslation } from 'hooks';
-import { convertPageSizeToOptions, convertSortByToOptions } from 'pages/shop/utils';
+import { convertPageSizeToOptions, convertSortByToOptions } from 'pages/utils';
 import React from 'react';
 
 type Props = {

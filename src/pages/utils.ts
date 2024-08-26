@@ -1,6 +1,7 @@
 import { VehiclesState } from 'context/vehicles';
 import { VehicleColor, VehicleCondition, VehicleDriveType, VehicleFuelType, VehicleTransmission } from 'generated';
 import { TranslationFunction } from 'hooks/useTranslation';
+import { pageSizes, SortBy } from 'pages/shop/constants';
 
 export const convertMakesToOptions = (makes: VehiclesState['makes']) => {
   return Object.entries(makes ?? {}).map(([, make]) => ({ value: make.make, label: make.make })) ?? [];
@@ -39,4 +40,16 @@ export const convertVehicleColorsToOptions = (t: TranslationFunction) =>
   Object.values(VehicleColor).map((color) => ({
     value: color,
     label: t(`color.${color}`),
+  }));
+
+export const convertSortByToOptions = (t: TranslationFunction) =>
+  Object.values(SortBy).map((sortBy) => ({
+    value: sortBy,
+    label: t(`strongauto.inventory.pagination.sortByInput.${sortBy}`),
+  }));
+
+export const convertPageSizeToOptions = (t: TranslationFunction) =>
+  pageSizes.map((pageSize) => ({
+    value: pageSize.toString(),
+    label: t(`strongauto.inventory.pagination.resultSizeInput.${pageSize}`),
   }));

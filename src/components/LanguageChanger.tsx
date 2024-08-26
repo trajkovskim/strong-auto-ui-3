@@ -28,7 +28,7 @@ const LanguageChanger: React.FC = () => {
       <Icon icon={<CiGlobe />} size="sm" />
       <StyledDropdown
         noBorder
-        size="sm"
+        size="default"
         name="lang"
         value={language}
         onChange={(event) => {

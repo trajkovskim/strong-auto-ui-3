@@ -1,10 +1,9 @@
 import Container from 'components/common/Container';
 import Text from 'components/common/typography/Text';
-import { titleFontSize, titleFontSizeMobile, titleFontSizeTablet } from 'components/common/typography/constants';
+import { NEW_LINE_DELIMITER, titleFontSize } from 'components/common/typography/constants';
 import { FontSize, TitleAndDescription } from 'components/common/typography/types';
 import React from 'react';
 import { css, styled } from 'styled-components';
-import { createMedia } from 'utils';
 
 type StyledTitleProps = {
   centered?: boolean;
@@ -34,28 +33,6 @@ export const StyledTitle = styled.span<StyledTitleProps>`
         transform: translateX(${props.centered ? '-50%' : '0'});
       }
     `}
-
-  ${(props) =>
-    createMedia(
-      'xs',
-      css`
-        font-size: ${titleFontSizeMobile[props.fontSize ?? 'default']};
-      `
-    )};
-  ${(props) =>
-    createMedia(
-      'sm',
-      css`
-        font-size: ${titleFontSizeMobile[props.fontSize ?? 'default']};
-      `
-    )};
-  ${(props) =>
-    createMedia(
-      'md',
-      css`
-        font-size: ${titleFontSizeTablet[props.fontSize ?? 'default']};
-      `
-    )};
 `;
 
 type Props = Omit<StyledTitleProps, 'bold' | 'fontSize' | 'textAlign'> & {
@@ -99,7 +76,7 @@ const Title: React.FC<Props> = (props) => {
             fontSize={typeof props.fontSize === 'object' ? props.fontSize?.description : props.fontSize}
             bold={typeof props.bold === 'object' ? props.bold?.description : props.bold}
           >
-            {props.description.split('\n').map((line, index) => (
+            {props.description.split(NEW_LINE_DELIMITER).map((line, index) => (
               <div key={index}>{line}</div>
             ))}
           </Text>

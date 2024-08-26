@@ -12,7 +12,7 @@ import {
   Line,
   List,
   SimpleTable,
-  StyledSpinner,
+  Spinner,
   Text,
   Title,
 } from 'components/common';
@@ -84,7 +84,7 @@ const ViewDetails: React.FC = () => {
   }, [id, send]);
 
   if (loading) {
-    return <StyledSpinner centered />;
+    return <Spinner centered />;
   }
 
   if (!product) {

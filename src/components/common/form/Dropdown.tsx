@@ -1,9 +1,9 @@
 import Container from 'components/common/Container';
 import { StyledOption, StyledSelect } from 'components/common/form/Dropdown.styled';
 import {
+  SelectWrapper,
   StyledBiErrorCircle,
   StyledContainer,
-  StyledFormFieldContainer,
   StyledGiCheckMark,
   StyledRightContainer,
   StyledSpinner,
@@ -39,7 +39,7 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, ...pro
             {props.label}
           </Label>
         )}
-        <StyledFormFieldContainer size={props.size}>
+        <SelectWrapper size={props.size}>
           <StyledSelect {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth}>
             {props.options.map((option) => (
               <StyledOption key={option.value} value={option.value}>
@@ -61,7 +61,7 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, ...pro
             )}
             {rightContainer}
           </StyledRightContainer>
-        </StyledFormFieldContainer>
+        </SelectWrapper>
       </Container>
       {!state.valid && <div>{state.error}</div>}
     </StyledContainer>

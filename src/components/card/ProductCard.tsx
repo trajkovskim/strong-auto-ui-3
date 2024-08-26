@@ -1,14 +1,11 @@
-import BoxAnimation from 'components/common/BoxAnimation';
-import { CarouselHandle } from 'components/common/Carousel';
-import Container from 'components/common/Container';
 import BookmarkedButton from 'components/card/BookmarkedButton';
-import Card from 'components/common/card/Card';
-import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
+import { ribbons } from 'components/card/constants';
 import ProductCardPrice from 'components/card/ProductCardPrice';
 import ProductTitle from 'components/card/ProductTitle';
-import Ribbon from 'components/common/card/Ribbon';
-import { ribbons } from 'components/card/constants';
 import { ProductProps } from 'components/card/types';
+import { BoxAnimation, Card, CarouselHandle, Container } from 'components/common';
+import { OnImageContainer, StyledCarousel, StyledImage } from 'components/common/card/Card.styled';
+import Ribbon from 'components/common/card/Ribbon';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from 'theme';
@@ -59,7 +56,7 @@ const ProductCard: React.FC<ProductProps> = (props) => {
   const [, setImageCarouselRef] = useState<CarouselHandle | null>(null);
 
   const productCardTitlePrice = (
-    <Container styleConfig={{ gap: '0.5rem', direction: 'row', justifyContent: 'space-between', alignItems: 'end' }}>
+    <Container styleConfig={{ gap: '1rem', direction: 'row', justifyContent: 'space-between', alignItems: 'end' }}>
       <ProductTitle title={props.title} summary={props.summary} onView={props.onView} />
       <ProductCardPrice amount={props.amount} />
     </Container>
