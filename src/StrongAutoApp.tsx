@@ -1,5 +1,5 @@
 import { Button } from 'components/common';
-import { Footer, Header, Navbar } from 'components/layout';
+import { Footer } from 'components/layout';
 import ApplicationContextProvider from 'context';
 import React, { useEffect } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
@@ -40,8 +40,6 @@ const StrongAutoApp: React.FC = () => {
     <ApplicationContextProvider>
       <div>
         <StyledLayout>
-          <Header />
-          <Navbar />
           <main>
             <Outlet />
           </main>
