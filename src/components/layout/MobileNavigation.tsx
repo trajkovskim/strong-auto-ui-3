@@ -81,7 +81,7 @@ const MobileNavigation: React.FC = () => {
               </Container>
             </StyledNavigationWrapper>
             <Line />
-            <Container styleConfig={{ gap: '1rem', padding: { left: 'sm', right: 'sm' } }}>
+            <Container styleConfig={{ gap: '1.5rem', padding: { left: 'sm', right: 'sm' } }}>
               <TelephoneButton label size="md" />
               <EmailButton label size="md" />
               <Button maxContent themeType="link" size="md" icon={<FaClock />}>
