@@ -96,7 +96,8 @@ const Footer: React.FC = () => {
               <br />
               {openHours}
             </Text>
-            <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+            <SocialMedias styleConfig={{ gap: '1.5rem', direction: 'row', alignItems: 'center' }}>
+              <Text fontSize="sm">{tBase('followUs')}</Text>
               {socialMedias.map((socialMedia, index) => (
                 <Button
                   key={index}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaInstagram, FaLinkedin, FaTelegram } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 
 enum SocialMedia {
   FACEBOOK = 'facebook',
@@ -13,22 +13,12 @@ const useSocialMedias = () => {
     {
       type: SocialMedia.FACEBOOK,
       icon: React.createElement(FaFacebook),
-      href: 'https://www.facebook.com',
+      href: 'https://www.facebook.com/p/Strong-AUTO-100032330904215/',
     },
     {
       type: SocialMedia.INSTAGRAM,
       icon: React.createElement(FaInstagram),
-      href: 'https://www.facebook.com',
-    },
-    {
-      type: SocialMedia.TELEGRAM,
-      icon: React.createElement(FaTelegram),
-      href: 'https://www.facebook.com',
-    },
-    {
-      type: SocialMedia.LINKEDIN,
-      icon: React.createElement(FaLinkedin),
-      href: 'https://www.facebook.com',
+      href: 'https://www.instagram.com/strongautostrumica/',
     },
   ];
 };

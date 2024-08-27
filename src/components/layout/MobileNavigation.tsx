@@ -1,4 +1,4 @@
-import { Accordion, Button, Container, Line } from 'components/common';
+import { Accordion, Button, Container, Line, Text } from 'components/common';
 import LanguageChanger from 'components/LanguageChanger';
 import EmailButton from 'components/layout/EmailButton';
 import LogoImage from 'components/layout/LogoImage';
@@ -134,7 +134,15 @@ const MobileNavigation: React.FC = () => {
           </Container>
           <Container styleConfig={{ gap: '1rem' }}>
             <Line />
-            <Container styleConfig={{ gap: '1.2rem', direction: 'row', padding: { left: 'sm', right: 'sm' } }}>
+            <Container
+              styleConfig={{
+                gap: '1.2rem',
+                direction: 'row',
+                padding: { left: 'sm', right: 'sm' },
+                alignItems: 'center',
+              }}
+            >
+              <Text fontSize="sm">{t('followUs')}</Text>
               {socialMedias.map((socialMedia, index) => (
                 <Button
                   key={index}

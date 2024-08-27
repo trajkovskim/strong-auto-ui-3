@@ -1,4 +1,4 @@
-import { Button, Container } from 'components/common';
+import { Button, Container, Text } from 'components/common';
 import LanguageChanger from 'components/LanguageChanger';
 import EmailButton from 'components/layout/EmailButton';
 import TelephoneButton from 'components/layout/TelephoneButton';
@@ -31,7 +31,8 @@ const Header: React.FC = () => {
           padding: { top: 'md', bottom: 'md', left: 'md', right: 'md' },
         }}
       >
-        <Container styleConfig={{ gap: '1.5rem', direction: 'row' }}>
+        <Container styleConfig={{ gap: '1.5rem', direction: 'row', alignItems: 'center' }}>
+          <Text fontSize="sm">{t('followUs')}</Text>
           {socialMedias.map((socialMedia, index) => (
             <Button
               key={index}
