@@ -76,9 +76,7 @@ const Title: React.FC<Props> = (props) => {
             fontSize={typeof props.fontSize === 'object' ? props.fontSize?.description : props.fontSize}
             bold={typeof props.bold === 'object' ? props.bold?.description : props.bold}
           >
-            {props.description.split(NEW_LINE_DELIMITER).map((line, index) => (
-              <div key={index}>{line}</div>
-            ))}
+            {props.description}
           </Text>
         </Container>
       )}

@@ -8,11 +8,18 @@
       "mk": "Macedonian",
       "en": "English"
     },
+    "notFound": {
+      "backToHomePageButton": "Back to home page"
+    },
     "nav": {
       "home": "Home",
       "shop": "Inventory",
       "aboutUs": "About Us",
-      "contact": "Contact"
+      "contact": "Contact",
+      "services": "Services",
+      "towingService": "Towing Service",
+      "dpfCleaningService": "DPF Cleaning",
+      "carService": "Car Service"
     },
     "footer": {
       "description": "Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto is a auto is a Strong auto is a",
@@ -351,10 +358,12 @@
     },
     "services": {
       "header": "Services",
-      "viewAllCard": {
+      "introCard": {
         "title": "Наши сервиси",
-        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
-        "viewAllButton": "Види ги сите сервиси"
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили"
+      },
+      "servicesList": {
+        "title": "We Provide Best Vehicles Solution & Awesome Services"
       },
       "cards": {
         "0": {
@@ -373,17 +382,65 @@
       "towingService": {
         "header": "Towing Service",
         "title": "Dependable Towing, Anytime, Anywhere",
-        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+        "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!",
+        "whyChooseOurTowingServices": {
+          "title": "Why Choose Our Towing Services?",
+          "list": {
+            "0": {
+              "title": "Rapid Response Time",
+              "items": {
+                "0": "We offer 24/7 towing services, ensuring that help is always available when you need it. Our quick response times mean you’re never left waiting long, no matter the hour."
+              }
+            },
+            "1": {
+              "title": "Affordable Pricing",
+              "items": {
+                "0": "Our towing services are designed to be budget-friendly. We provide clear, upfront pricing with no hidden fees, so you can get the assistance you need without breaking the bank."
+              }
+            },
+            "2": {
+              "title": "Professional & Experienced Team",
+              "items": {
+                "0": "Our tow truck operators are highly trained and experienced. They handle all types of vehicles with care, from small cars to larger SUVs, ensuring safe and efficient transport."
+              }
+            },
+            "3": {
+              "title": "Local & Long-Distance Coverage",
+              "items": {
+                "0": "Whether you’re stuck in a nearby parking lot or need a tow across town or further, our fleet is equipped to handle both local and long-distance towing. We offer flexible solutions tailored to your needs."
+              }
+            },
+            "4": {
+              "title": "Comprehensive Towing Services",
+              "items": {
+                "0": "Emergency Towing: Quick and reliable service for unexpected roadside emergencies.",
+                "1": "Flatbed Towing: Safe transport for vehicles that require extra care, such as luxury or modified vehicles.",
+                "2": "Winch Outs: Assistance with vehicles that are stuck in difficult conditions like mud, snow, or ditches."
+              }
+            },
+            "5": {
+              "title": "Door-to-Door Service",
+              "items": {
+                "0": "We provide door-to-door towing, picking up your vehicle from its current location and delivering it directly to your chosen destination, whether it’s our service center, your home, or another repair shop."
+              }
+            }
+          }
+        }
       },
       "dpfCleaningService": {
         "header": "DPF Cleaning",
         "title": "Dependable Towing, Anytime, Anywhere",
-        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+        "description": "At Wight Tyres we professionally clean all diesel particulate filters (DPF’s), Euro 4, 5 & 6 with our industrial off car DPF machine.\n\nAll we need is the DPF to be removed from the vehicle.\n\nCut open the DPF, Weld the DPF, Bake the DPF, Use Aerosols or Ultrasonic Tanks. The DPF needs to be completely removed from the vehicle to professionally remove ash as well as soot. Once the DPF is blocked to the point that either the vehicle or a technician cannot force a regeneration, only our cleaning processes will effectively return the unit to correct operating efficiency.\n\nFeaturing the latest Nano-Catalyst technology to keep your DPF cleaner for longer. Following the treatment, the dried DPF is slowly fed the Power Protect fluid through the exhaust intake and rotated to ensure an even coating of protection. The fluid is absorbed by the DPF leaving a Nano-Catalytic coating on the surface of the filter. The Nano-Catalytic coating causes soot to combust at lower temperatures (400°C rather than 650°C) slowing the build-up of impurities blocking the DPF and increasing the effectiveness of the vehicle’s built-in ‘regeneration’ burn-off.  "
       },
       "carService": {
         "header": "Car Service",
         "title": "Dependable Towing, Anytime, Anywhere",
-        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+        "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      },
+      "contactUs": {
+        "title": "Contact Us",
+        "description": "For fast, reliable, and affordable towing services, look no further than StrongAUTO. We’re here to assist you with all your towing needs, ensuring you get back on the road with minimal hassle.",
+        "callUsNowButton": "Call us now:"
       }
     },
     "breadcrumb": {

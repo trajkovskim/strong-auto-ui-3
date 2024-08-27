@@ -23,6 +23,11 @@ const StyledContainer = styled(Container)`
   height: 80px;
 `;
 
+const StyledLineContainer = styled(Container)`
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+`;
+
 type Props = WrapperProps;
 
 const Navbar: React.FC<Props> = (props) => {
@@ -33,8 +38,12 @@ const Navbar: React.FC<Props> = (props) => {
           padding: { left: 'xs', right: 'xs' },
           relative: true,
           direction: 'row',
-          justifyContent: 'space-between',
           alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+        lgStyle={{
+          justifyContent: 'start',
+          gap: '2rem',
         }}
       >
         <Container xs={1} lg={0} styleConfig={{ direction: 'row', gap: '0.5rem' }}>
@@ -42,6 +51,9 @@ const Navbar: React.FC<Props> = (props) => {
           <EmailButton /> */}
         </Container>
         <LogoImage />
+        <StyledLineContainer xs={0} lg="max-content" styleConfig={{ alignSelf: 'stretch' }}>
+          <Line type="vertical" />
+        </StyledLineContainer>
         <Container xs={0} lg="max-content" styleConfig={{ alignItems: 'center' }}>
           <Navigation />
         </Container>

@@ -1,10 +1,10 @@
-import { Button, Container, Line } from 'components/common';
+import { Accordion, Button, Container, Line } from 'components/common';
 import LanguageChanger from 'components/LanguageChanger';
 import EmailButton from 'components/layout/EmailButton';
 import LogoImage from 'components/layout/LogoImage';
 import { StyledButton, StyledNavigationWrapper } from 'components/layout/Navigation.styled';
 import TelephoneButton from 'components/layout/TelephoneButton';
-import { useNavigationOptions, useSocialMedias, useTranslation } from 'hooks';
+import { NavigationOption, useNavigationOptions, useSocialMedias, useTranslation } from 'hooks';
 import { OPEN_HOURS } from 'pages/constants';
 import Sidebar from 'pages/shop/Sidebar';
 import React, { useState } from 'react';
@@ -12,13 +12,70 @@ import { BiMenu } from 'react-icons/bi';
 import { FaClock } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
 import styled from 'styled-components';
+import theme from 'theme';
 import { goto } from 'utils';
 
 const StyledContainer = styled(Container)`
-  background-color: #232628;
-  color: white;
+  background-color: ${theme.navigation.mobile.backgroundColor};
+  color: ${theme.navigation.mobile.color};
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 `;
+
+const StyledInnerContainer = styled(Accordion)<{ opened?: boolean }>`
+  background-color: ${(props) =>
+    props.opened
+      ? theme.navigation.mobile.innerOptionsBackgroundColorOpened
+      : theme.navigation.mobile.innerOptionsBackgroundColor};
+`;
+
+type InnerOptionsProps = {
+  option: NavigationOption;
+  close: () => void;
+};
+
+const NavigationOptionCreator: React.FC<InnerOptionsProps> = (props) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  if (!props.option.options) {
+    return (
+      <StyledButton
+        padding="sm"
+        fullwidth
+        size="md"
+        iconSize="lg"
+        themeType="link"
+        icon={props.option.icon}
+        active={props.option.active}
+        onClick={() => {
+          props.option.navigate?.();
+          props.close();
+        }}
+      >
+        {props.option.label}
+      </StyledButton>
+    );
+  }
+
+  return (
+    <StyledInnerContainer
+      opened={open}
+      onOpen={() => setOpen(true)}
+      onClose={() => setOpen(false)}
+      header={props.option.label}
+      buttonProps={{
+        padding: { left: 'sm', right: 'sm', top: 'sm', bottom: 'sm' },
+        icon: props.option.icon,
+        size: 'md',
+        style: { color: props.option.active ? theme.navigation.activeColor : undefined },
+      }}
+      gap="0.5rem"
+    >
+      {Object.values(props.option.options).map((option) => (
+        <NavigationOptionCreator key={option.label} close={props.close} option={option} />
+      ))}
+    </StyledInnerContainer>
+  );
+};
 
 const MobileNavigation: React.FC = () => {
   const t = useTranslation();
@@ -60,22 +117,8 @@ const MobileNavigation: React.FC = () => {
             <StyledNavigationWrapper>
               <Container styleConfig={{ gap: '1rem' }}>
                 {Object.values(navOptions).map((option) => (
-                  <Container key={option.label} xs={12}>
-                    <StyledButton
-                      padding={{ left: 'sm', right: 'sm', top: 'sm', bottom: 'sm' }}
-                      fullwidth
-                      size="md"
-                      iconSize="lg"
-                      themeType="link"
-                      icon={option.icon}
-                      active={option.active}
-                      onClick={() => {
-                        close();
-                        option.navigate();
-                      }}
-                    >
-                      {option.label}
-                    </StyledButton>
+                  <Container key={option.label}>
+                    <NavigationOptionCreator close={close} option={option} />
                   </Container>
                 ))}
               </Container>

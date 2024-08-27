@@ -12,7 +12,7 @@ const FAQAccordion: React.FC<FAQAccordionProps> = (props) => {
 
   return (
     <Container styleConfig={{ padding: { top: 'md', bottom: 'md' }, gap: '0.3rem' }}>
-      <Accordion header={<Text fontSize="lg">{t(props.faq.question)}</Text>}>
+      <Accordion header={<Text fontSize="lg">{t(props.faq.question)}</Text>} gap="0.5rem">
         <Text fontSize="lg">{t(props.faq.answer)}</Text>
       </Accordion>
     </Container>

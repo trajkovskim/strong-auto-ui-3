@@ -31,11 +31,11 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   const portalsElement = document.getElementById('portals') as Element;
   const transitionRef = useRef<TransitionHandle>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const interval = useRef<number>(0);
 
   const close = useCallback(() => {
     transitionRef.current?.gotoInitialState();
-  }, []);
+    onClose && onClose();
+  }, [onClose]);
 
   const handleClickOutsideEvent = useCallback(
     (event: MouseEvent) => {
@@ -49,19 +49,11 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
   );
 
   useEffect(() => {
-    let interval: number;
-
     if (open) {
       transitionRef.current?.gotoFinalState();
       document.addEventListener('click', handleClickOutsideEvent, { capture: true });
-    } else {
-      close();
     }
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [close, handleClickOutsideEvent, onClose, open]);
+  }, [handleClickOutsideEvent, open]);
 
   if (!open) {
     return null;
@@ -71,7 +63,7 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
     <>
       <Transition
         ref={transitionRef}
-        duration="300ms"
+        duration="200ms"
         timingFunction="ease-in-out"
         transition={{
           initial: css`
@@ -80,20 +72,6 @@ const Sidebar: React.FC<Props> = ({ open, onClose, children, ...props }) => {
           final: css`
             opacity: 1;
           `,
-        }}
-        onTransitionEnd={() => {
-          clearInterval(interval.current);
-
-          if (!transitionRef.current?.isInInitialState()) {
-            return;
-          }
-
-          interval.current = setInterval(() => {
-            if (transitionRef.current?.isInInitialState() && transitionRef.current.isFinished()) {
-              onClose && onClose();
-              clearInterval(interval.current);
-            }
-          }, 20);
         }}
       >
         <GrayedContainer>

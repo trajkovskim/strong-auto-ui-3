@@ -4,7 +4,7 @@ import { VehiclesResponse } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import BodyTypes from 'pages/home/BodyTypes';
-import { WhiteBackgroundContainer } from 'pages/home/index.styled';
+import { WhiteBackgroundContainer } from 'pages/common.styled';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';

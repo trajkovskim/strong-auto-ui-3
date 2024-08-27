@@ -6,8 +6,8 @@ import {
   Contact,
   DpfCleaningService,
   Home,
+  NotFound,
   Parts,
-  Services,
   Shop,
   TowingService,
   ViewDetails,
@@ -22,11 +22,11 @@ export enum Routes {
   SHOP_VIEW_DETAILS = '/shop/:id',
   CONTACT = '/contact',
   ABOUT_US = '/about-us',
-  SERVICES = '/services',
   TOWING_SERVICE = '/services/towing-service',
   CAR_SERVICE = '/services/car-service',
   DPF_CLEANING_SERVICE = '/services/dpf-cleaning-service',
   PARTS = '/parts',
+  ANY_OTHER = '*',
 }
 
 export type RouteOption = Omit<React.ComponentProps<typeof Route>, 'children'> & {
@@ -51,9 +51,6 @@ const routes: RouteOptions = {
           [Routes.SHOP_VIEW_DETAILS]: {
             element: <ViewDetails />,
           },
-          [Routes.SERVICES]: {
-            element: <Services />,
-          },
           [Routes.TOWING_SERVICE]: {
             element: <TowingService />,
           },
@@ -71,6 +68,9 @@ const routes: RouteOptions = {
           },
           [Routes.PARTS]: {
             element: <Parts />,
+          },
+          [Routes.ANY_OTHER]: {
+            element: <NotFound />,
           },
         },
       },

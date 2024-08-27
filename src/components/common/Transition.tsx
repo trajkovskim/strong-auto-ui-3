@@ -1,15 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { css } from '@emotion/css';
-import React, { useCallback, useImperativeHandle, useReducer } from 'react';
-
-type StyledAnimatedProps = {
-  transition: { initial?: string; final: string };
-  property?: React.CSSProperties['transitionProperty'];
-  duration?: React.CSSProperties['transitionDuration'];
-  delay?: React.CSSProperties['transitionDelay'];
-  timingFunction?: React.CSSProperties['transitionTimingFunction'];
-  onTransitionEnd?: (event?: React.TransitionEvent<unknown>) => void;
-};
+import React, { useCallback, useEffect, useImperativeHandle, useReducer } from 'react';
 
 export enum TransitionState {
   RUNNING,
@@ -20,21 +11,6 @@ export enum ComponentState {
   INITIAL,
   FINAL,
 }
-
-export type TransitionHandle = {
-  state: TransitionState;
-  componentState: ComponentState;
-  gotoFinalState: () => void;
-  gotoInitialState: () => void;
-  toggle: () => void;
-  reset: () => void;
-  isInInitialState: () => boolean;
-  isInFinalState: () => boolean;
-  isRunning: () => boolean;
-  isFinished: () => boolean;
-};
-
-type Props = React.PropsWithChildren<StyledAnimatedProps>;
 
 type TransitionStateReducer = {
   componentState: ComponentState;
@@ -103,12 +79,42 @@ const initialTransitionReducerState: TransitionStateReducer = {
   transitionState: TransitionState.FINISHED,
 };
 
+export type TransitionHandle = {
+  state: TransitionState;
+  componentState: ComponentState;
+  gotoFinalState: () => void;
+  gotoInitialState: () => void;
+  toggle: () => void;
+  reset: () => void;
+  isInInitialState: () => boolean;
+  isInFinalState: () => boolean;
+  isRunning: () => boolean;
+  isFinished: () => boolean;
+};
+
+type AnimationEventFunction = () => void;
+
+type StyledAnimatedProps = {
+  transition: { initial?: string; final: string };
+  property?: React.CSSProperties['transitionProperty'];
+  duration?: React.CSSProperties['transitionDuration'];
+  delay?: React.CSSProperties['transitionDelay'];
+  timingFunction?: React.CSSProperties['transitionTimingFunction'];
+  onInitalEnd?: AnimationEventFunction;
+  onFinalEnd?: AnimationEventFunction;
+  onTransitionEnd?: AnimationEventFunction;
+};
+
+type Props = React.PropsWithChildren<StyledAnimatedProps>;
+
 const Transition = React.forwardRef<TransitionHandle, Props>(
   (
     {
       children,
       delay,
       transition,
+      onInitalEnd,
+      onFinalEnd,
       onTransitionEnd,
       duration = '1s',
       timingFunction = 'linear',
@@ -119,12 +125,23 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
   ) => {
     const [state, dispatch] = useReducer(reducer, initialTransitionReducerState);
 
-    const isRunning: TransitionHandle['isRunning'] = () => state.transitionState === TransitionState.RUNNING;
-    const isFinished: TransitionHandle['isFinished'] = () => state.transitionState === TransitionState.FINISHED;
+    const isRunning: TransitionHandle['isRunning'] = useCallback(
+      () => state.transitionState === TransitionState.RUNNING,
+      [state.transitionState]
+    );
+    const isFinished: TransitionHandle['isFinished'] = useCallback(
+      () => state.transitionState === TransitionState.FINISHED,
+      [state.transitionState]
+    );
 
-    const isInInitialState: TransitionHandle['isInInitialState'] = () =>
-      state.componentState === ComponentState.INITIAL;
-    const isInFinalState: TransitionHandle['isInFinalState'] = () => state.componentState === ComponentState.FINAL;
+    const isInInitialState: TransitionHandle['isInInitialState'] = useCallback(
+      () => state.componentState === ComponentState.INITIAL,
+      [state.componentState]
+    );
+    const isInFinalState: TransitionHandle['isInFinalState'] = useCallback(
+      () => state.componentState === ComponentState.FINAL,
+      [state.componentState]
+    );
 
     const reset: TransitionHandle['reset'] = useCallback(() => dispatch(resetAction()), []);
 
@@ -136,6 +153,17 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
     const gotoFinalState: TransitionHandle['gotoFinalState'] = useCallback(() => dispatch(gotoFinalStateAction()), []);
 
     const toggle: TransitionHandle['toggle'] = useCallback(() => dispatch(toggleAction()), []);
+
+    useEffect(() => {
+      if (isFinished()) {
+        if (isInFinalState()) {
+          onFinalEnd && onFinalEnd();
+        } else {
+          onInitalEnd && onInitalEnd();
+        }
+        onTransitionEnd && onTransitionEnd();
+      }
+    }, [isFinished, isInFinalState, onFinalEnd, onInitalEnd, onTransitionEnd]);
 
     useImperativeHandle(ref, () => ({
       state: state.transitionState,
@@ -175,7 +203,6 @@ const Transition = React.forwardRef<TransitionHandle, Props>(
               className,
               onTransitionEnd: (event?: React.TransitionEvent<unknown>) => {
                 dispatch(finishAction());
-                onTransitionEnd && onTransitionEnd(event);
                 child.props.onTransitionEnd && child.props.onTransitionEnd(event);
               },
             });

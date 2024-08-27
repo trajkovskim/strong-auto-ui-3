@@ -56,4 +56,15 @@ export default {
   serviceCard: {
     hoverColor: '#075ebb',
   },
+  navigation: {
+    hoverColor: '#075ebb',
+    activeColor: '#075ebb',
+    mobile: {
+      color: '#fff',
+      activeColor: '#075ebb',
+      backgroundColor: '#2b2f31',
+      innerOptionsBackgroundColor: '#2b2f31',
+      innerOptionsBackgroundColorOpened: 'hsl(200, calc(6.521739130434781% + 10%), 18.039215686274513%)',
+    },
+  },
 };

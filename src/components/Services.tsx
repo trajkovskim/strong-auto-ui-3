@@ -1,13 +1,10 @@
-import { BoxAnimation, Button, Container, List, ServiceCard, Title } from 'components/common';
+import { BoxAnimation, Container, List, ServiceCard, Title } from 'components/common';
 import { useTranslation } from 'hooks';
 import useServices from 'hooks/useServices';
-import { WhiteBackgroundContainer } from 'pages/home/index.styled';
+import { WhiteBackgroundContainer } from 'pages/common.styled';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Routes } from 'routes';
 
 const Services: React.FC = () => {
-  const navigate = useNavigate();
   const t = useTranslation('services');
   const services = useServices();
 
@@ -25,14 +22,11 @@ const Services: React.FC = () => {
           <BoxAnimation>
             <Container styleConfig={{ gap: '3rem' }}>
               <Title
-                title={t('viewAllCard.title')}
-                fontSize={{ title: 'xl', description: 'md' }}
-                description={t('viewAllCard.description')}
+                title={t('introCard.title')}
+                fontSize={{ title: 'xl', description: 'lg' }}
+                description={t('introCard.description')}
                 gap="2rem"
               />
-              <Button maxContent size="lg" onClick={() => navigate(Routes.SERVICES)}>
-                {t('viewAllCard.viewAllButton')}
-              </Button>
             </Container>
           </BoxAnimation>
           {services.map((card, index) => (

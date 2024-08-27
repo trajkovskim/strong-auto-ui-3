@@ -1,8 +1,10 @@
 import BMWDriftSoilImage from 'assets/bwm-drift-soil.jpg';
 import MasserattiMountainsImage from 'assets/masseratti-mountains.jpg';
 
+import Services from 'components/Services';
 import { BoxAnimation, Button, Carousel, Container, Image, Title } from 'components/common';
 import { useTranslation } from 'hooks';
+import { WhiteBackgroundContainer } from 'pages/common.styled';
 import BuyingACar from 'pages/home/BuyingACar';
 import FAQ from 'pages/home/Faq';
 import NewsLetterSubscription from 'pages/home/NewsLetterSubscription';
@@ -10,9 +12,8 @@ import PopularMakes from 'pages/home/PopularMakes';
 import ProductsSection from 'pages/home/ProductsSection';
 import Reviews from 'pages/home/Reviews';
 import SearchBox from 'pages/home/SearchBox';
-import Services from 'components/Services';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
-import { CarouselWrapper, HomeWrapper, WhiteBackgroundContainer } from 'pages/home/index.styled';
+import { CarouselWrapper } from 'pages/home/index.styled';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
   const t = useTranslation('home');
 
   return (
-    <HomeWrapper styleConfig={{ gap: '3rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
+    <Container styleConfig={{ gap: '3rem', padding: { bottom: 'xl' } }} lgStyle={{ gap: '9rem' }}>
       <CarouselWrapper styleConfig={{ minHeight: '800px', maxHeight: '100dvh' }}>
         <Carousel absolute minHeight="800px" maxHeight="100dvh" noChangeOptions noArrows>
           <Image src={BMWDriftSoilImage} objectFit="cover" objectPosition="center" height="100%" />
@@ -92,7 +93,7 @@ const Home: React.FC = () => {
           <FAQ />
         </BoxAnimation>
       </WhiteBackgroundContainer>
-    </HomeWrapper>
+    </Container>
   );
 };
 

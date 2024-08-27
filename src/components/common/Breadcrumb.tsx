@@ -37,10 +37,6 @@ const Breadcrumb: React.FC = () => {
     paths.push({ label: t('aboutUs'), pathname: Routes.ABOUT_US });
   }
 
-  if (location.pathname.startsWith(Routes.SERVICES)) {
-    paths.push({ label: t('services'), pathname: Routes.SERVICES });
-  }
-
   if (location.pathname.startsWith(Routes.TOWING_SERVICE)) {
     paths.push({ label: t('towingService'), pathname: Routes.TOWING_SERVICE });
   }

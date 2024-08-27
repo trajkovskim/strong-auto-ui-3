@@ -2,18 +2,13 @@ import { MiniProductCard } from 'components/card';
 import { Button, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpinner, Title } from 'components/common';
 import { VehicleEmbedded } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
+import { DarkBackgroundContainer } from 'pages/common.styled';
 import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
 import { searchVehicles } from 'services/VehicleService';
-import styled from 'styled-components';
-
-export const PopularMakesWrapper = styled(Container)`
-  background-color: #232323;
-  color: #fff;
-`;
 
 const PopularMakes: React.FC = () => {
   const tabs: ButtonProps[] = [
@@ -41,7 +36,7 @@ const PopularMakes: React.FC = () => {
   }, [send, activeTab, vehiclesByMake]);
 
   return (
-    <PopularMakesWrapper xs={12}>
+    <DarkBackgroundContainer xs={12}>
       <Container
         styleConfig={{ gap: '2rem', padding: { top: 'xl', bottom: 'xl', left: 'md', right: 'md' } }}
         lgStyle={{ padding: { top: 'xl', bottom: '2xl' } }}
@@ -81,7 +76,7 @@ const PopularMakes: React.FC = () => {
           </HorizontalList>
         )}
       </Container>
-    </PopularMakesWrapper>
+    </DarkBackgroundContainer>
   );
 };
 

@@ -28,7 +28,7 @@ const ServiceCard: React.FC<Props> = (props) => {
       <Text fontSize="2xl" bold>
         {props.title}
       </Text>
-      <Text fontSize="md">{props.description}</Text>
+      <Text fontSize="lg">{props.description}</Text>
     </Container>
   );
 

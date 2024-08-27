@@ -8,11 +8,18 @@
       "mk": "Македонски",
       "en": "Англиски"
     },
+    "notFound": {
+      "backToHomePageButton": "Back to home page"
+    },
     "nav": {
       "home": "Дома",
       "shop": "Салон",
       "aboutUs": "За нас",
-      "contact": "Контакт"
+      "contact": "Контакт",
+      "services": "Сервиси",
+      "towingService": "Шлеп служба",
+      "dpfCleaningService": "DPF чистење",
+      "carService": "Сервис на визило"
     },
     "footer": {
       "description": "Strong auto is a Strong auto is a Strong auto is a Strong auto is a Strong auto is a auto is a Strong auto is a auto is a Strong auto is a",
@@ -349,7 +356,7 @@
         "mileage": "Километри",
         "fuelType": "Гориво",
         "year": "Година",
-        "transmission": "Менуваш",
+        "transmission": "Менувач",
         "driveType": "Погон",
         "condition": "Состојба",
         "engineSize": "Големина на мотор",
@@ -368,10 +375,12 @@
     },
     "services": {
       "header": "Сервиси",
-      "viewAllCard": {
+      "introCard": {
         "title": "Наши сервиси",
-        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили",
-        "viewAllButton": "Види ги сите сервиси"
+        "description": "StrongAUTO е најпримамливиот, креативен, модерен и повеќенаменски продавач на автомобили"
+      },
+      "servicesList": {
+        "title": "We Provide Best Vehicles Solution & Awesome Services"
       },
       "cards": {
         "0": {
@@ -390,7 +399,65 @@
       "towingService": {
         "header": "Towing Service",
         "title": "Dependable Towing, Anytime, Anywhere",
-        "description": "When you’re stranded, you need quick and reliable help. At [Your Dealership Name], our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+        "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!",
+        "whyChooseOurTowingServices": {
+          "title": "Why Choose Our Towing Services?",
+          "list": {
+            "0": {
+              "title": "Rapid Response Time",
+              "items": {
+                "0": "We offer 24/7 towing services, ensuring that help is always available when you need it. Our quick response times mean you’re never left waiting long, no matter the hour."
+              }
+            },
+            "1": {
+              "title": "Affordable Pricing",
+              "items": {
+                "0": "Our towing services are designed to be budget-friendly. We provide clear, upfront pricing with no hidden fees, so you can get the assistance you need without breaking the bank."
+              }
+            },
+            "2": {
+              "title": "Professional & Experienced Team",
+              "items": {
+                "0": "Our tow truck operators are highly trained and experienced. They handle all types of vehicles with care, from small cars to larger SUVs, ensuring safe and efficient transport."
+              }
+            },
+            "3": {
+              "title": "Local & Long-Distance Coverage",
+              "items": {
+                "0": "Whether you’re stuck in a nearby parking lot or need a tow across town or further, our fleet is equipped to handle both local and long-distance towing. We offer flexible solutions tailored to your needs."
+              }
+            },
+            "4": {
+              "title": "Comprehensive Towing Services",
+              "items": {
+                "0": "Emergency Towing: Quick and reliable service for unexpected roadside emergencies.",
+                "1": "Flatbed Towing: Safe transport for vehicles that require extra care, such as luxury or modified vehicles.",
+                "2": "Winch Outs: Assistance with vehicles that are stuck in difficult conditions like mud, snow, or ditches."
+              }
+            },
+            "5": {
+              "title": "Door-to-Door Service",
+              "items": {
+                "0": "We provide door-to-door towing, picking up your vehicle from its current location and delivering it directly to your chosen destination, whether it’s our service center, your home, or another repair shop."
+              }
+            }
+          }
+        }
+      },
+      "carService": {
+        "header": "Car service",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      },
+      "dpfCleaningService": {
+        "header": "DPF Cleaning Service",
+        "title": "Dependable Towing, Anytime, Anywhere",
+        "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!"
+      },
+      "contactUs": {
+        "title": "Contact Us",
+        "description": "For fast, reliable, and affordable towing services, look no further than StrongAUTO. We’re here to assist you with all your towing needs, ensuring you get back on the road with minimal hassle.",
+        "callUsNowButton": "Call us now:"
       }
     },
     "breadcrumb": {

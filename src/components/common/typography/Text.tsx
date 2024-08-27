@@ -7,7 +7,12 @@ const Text = React.forwardRef<HTMLSpanElement | HTMLLabelElement, Props>(({ chil
   return (
     <StyledText ref={ref} {...props} hasOnClick={!!props.onClick}>
       {typeof children === 'string' && children.includes(NEW_LINE_DELIMITER)
-        ? children.split(NEW_LINE_DELIMITER).map((line, index) => <div key={index}>{line}</div>)
+        ? children.split(NEW_LINE_DELIMITER).map((line, index, allLines) => (
+            <span key={index}>
+              {line}
+              {index !== allLines.length - 1 && <br />}
+            </span>
+          ))
         : children}
     </StyledText>
   );

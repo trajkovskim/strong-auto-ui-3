@@ -3,6 +3,8 @@ import { BoxAnimation, Button, Container, Image, Text, Title } from 'components/
 import { useTranslation } from 'hooks';
 import React from 'react';
 import { HiArrowRight } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'routes';
 import styled from 'styled-components';
 
 const StyledBuyCarImage = styled(Image)`
@@ -27,8 +29,10 @@ const StyledRightImage = styled(Image)`
 `;
 
 const BuyingACar: React.FC = () => {
+  const navigate = useNavigate();
   const tbuyingACar = useTranslation('home.buyingACar');
   const tRentingACar = useTranslation('home.rentingACar');
+
   return (
     // <Container xs={12} styleConfig={{ padding: { top: 'xl', bottom: '2xl' }, gap: '2rem' }}>
     <>
@@ -46,7 +50,13 @@ const BuyingACar: React.FC = () => {
           <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }} lgStyle={{ order: 2, alignItems: 'end' }}>
             <Title fontSize="2xl" bold title={tbuyingACar('title')} />
             <Text fontSize="lg">{tbuyingACar('description')}</Text>
-            <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
+            <Button
+              size="xl"
+              iconRight={<HiArrowRight />}
+              maxContent
+              themeType="link"
+              onClick={() => navigate(Routes.SHOP)}
+            >
               {tbuyingACar('visitButton')}
             </Button>
           </Container>
@@ -69,7 +79,13 @@ const BuyingACar: React.FC = () => {
           <Container xs={12} lg={5} xl={5} styleConfig={{ gap: '1rem' }}>
             <Title fontSize="2xl" bold title={tRentingACar('title')} />
             <Text fontSize="lg">{tRentingACar('description')}</Text>
-            <Button size="xl" iconRight={<HiArrowRight />} maxContent themeType="link">
+            <Button
+              size="xl"
+              iconRight={<HiArrowRight />}
+              maxContent
+              themeType="link"
+              onClick={() => navigate(Routes.SHOP)}
+            >
               {tRentingACar('visitButton')}
             </Button>
           </Container>

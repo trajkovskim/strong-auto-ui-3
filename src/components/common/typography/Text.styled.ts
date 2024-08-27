@@ -1,7 +1,6 @@
-import { textFontSize, textFontSizeMobile, textFontSizeTablet } from 'components/common/typography/constants';
+import { textFontSize } from 'components/common/typography/constants';
 import { FontSize, TextType } from 'components/common/typography/types';
 import styled, { css } from 'styled-components';
-import { createMedia } from 'utils';
 
 export type StyledTextProps = {
   type?: TextType;

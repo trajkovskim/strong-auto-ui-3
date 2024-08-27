@@ -1,8 +1,6 @@
 import { Container } from 'components/common';
 import styled from 'styled-components';
 
-export const HomeWrapper = styled(Container)``;
-
 export const CarouselWrapper = styled(Container)`
   color: white;
 
@@ -20,9 +18,4 @@ export const CarouselWrapper = styled(Container)`
   > * {
     z-index: 3;
   }
-`;
-
-export const WhiteBackgroundContainer = styled(Container)`
-  background-color: white;
-  color: black;
 `;

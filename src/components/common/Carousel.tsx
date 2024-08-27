@@ -321,13 +321,14 @@ const Carousel = React.forwardRef<CarouselHandle, Props>(
           <Transition
             key={index}
             ref={(ref) => (transitionRefs.current[index] = ref)}
-            property="opacity"
             transition={{
               initial: emitionCss`
                 opacity: 0;
+                visibility: hidden;
               `,
               final: emitionCss`
                 opacity: 1;
+                visibility: visible;
               `,
             }}
           >

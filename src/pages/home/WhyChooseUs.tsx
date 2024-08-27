@@ -1,17 +1,13 @@
 import CarLot from 'assets/car-lot.jpg';
 import { BoxAnimation, Container, Icon, Image, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
+import { DarkBackgroundContainer } from 'pages/common.styled';
 import React from 'react';
 import { VscWorkspaceTrusted } from 'react-icons/vsc';
 import styled from 'styled-components';
 
 const StyledIcon = styled(Icon)`
   width: max-content;
-`;
-
-const Wrapper = styled(Container)`
-  background-color: #232323;
-  color: #fff;
 `;
 
 const StyledCarLotImage = styled(Image)`
@@ -26,7 +22,7 @@ const WhyChooseUs: React.FC = () => {
   const t = useTranslation('home.whyChooseUs');
 
   return (
-    <Wrapper>
+    <DarkBackgroundContainer>
       <BoxAnimation>
         <Container
           styleConfig={{
@@ -44,7 +40,7 @@ const WhyChooseUs: React.FC = () => {
               title={t('title')}
               description={t('description')}
               gap="1rem"
-              fontSize={{ title: 'xl', description: 'md' }}
+              fontSize={{ title: 'xl', description: 'lg' }}
             />
             <BoxAnimation>
               <Container styleConfig={{ gap: '2rem', direction: 'row' }}>
@@ -106,7 +102,7 @@ const WhyChooseUs: React.FC = () => {
           </Container>
         </Container>
       </BoxAnimation>
-    </Wrapper>
+    </DarkBackgroundContainer>
   );
 };
 

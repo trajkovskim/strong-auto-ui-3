@@ -40,8 +40,8 @@ const FiltersHeader = styled(Container)`
 `;
 
 const StyledFilterAccordion = styled(Accordion)`
-  background-color: #075ebb;
-  color: white;
+  /* background-color: #075ebb;
+  color: white; */
 `;
 
 type Props = {
@@ -106,7 +106,12 @@ const Filters: React.FC<Props> = (props) => {
           </Container>
         </FiltersHeader>
         <Container styleConfig={{ padding: 'md', gap: '1rem' }}>
-          <StyledFilterAccordion ref={accordionBasicRef} defaultState="open" header={<Text>{t('basic.title')}</Text>}>
+          <StyledFilterAccordion
+            styleConfig={{ gap: '0.5rem' }}
+            ref={accordionBasicRef}
+            defaultState="open"
+            header={<Text>{t('basic.title')}</Text>}
+          >
             <Container styleConfig={{ gap: '1rem' }}>
               <FormContext.Consumer>
                 {({ change, values }) => (
@@ -156,7 +161,11 @@ const Filters: React.FC<Props> = (props) => {
               </Container>
             </Container>
           </StyledFilterAccordion>
-          <StyledFilterAccordion ref={accordionTechnicalRef} header={<Text>{t('technical.title')}</Text>}>
+          <StyledFilterAccordion
+            styleConfig={{ gap: '0.5rem' }}
+            ref={accordionTechnicalRef}
+            header={<Text>{t('technical.title')}</Text>}
+          >
             <Container styleConfig={{ gap: '1rem' }}>
               <Autocomplete
                 fullwidth
@@ -244,7 +253,11 @@ const Filters: React.FC<Props> = (props) => {
               />
             </Container>
           </StyledFilterAccordion>
-          <StyledFilterAccordion ref={accordionFeaturesRef} header={<Text>{t('features.title')}</Text>}>
+          <StyledFilterAccordion
+            styleConfig={{ gap: '0.5rem' }}
+            ref={accordionFeaturesRef}
+            header={<Text>{t('features.title')}</Text>}
+          >
             <CheckboxWrapper styleConfig={{ gap: '0.5rem' }}>
               {[
                 { value: 'Air conditioner' },

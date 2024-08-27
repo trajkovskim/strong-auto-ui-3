@@ -1,5 +1,6 @@
 import { Button } from 'components/common';
 import styled from 'styled-components';
+import theme from 'theme';
 
 export const StyledNavigationWrapper = styled.nav`
   position: relative;
@@ -23,7 +24,7 @@ export const StyledButton = styled(Button)<{ active?: boolean }>`
 
   justify-content: start;
 
-  color: ${(props) => props.active && '#075ebb'};
+  color: ${(props) => props.active && theme.navigation.activeColor};
 
   &:hover {
     border-bottom-color: #075ebb;
