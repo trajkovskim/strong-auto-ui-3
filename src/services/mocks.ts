@@ -78,56 +78,76 @@ export const makes: VehicleMake[] = [
   { make: 'WIESMANN', models: [{ model: 'B8' }, { model: 'B9' }] },
 ];
 
+import Passat1Image from 'assets/passat/passat1.jpg';
+import Passat2Image from 'assets/passat/passat2.jpg';
+import Passat3Image from 'assets/passat/passat3.jpg';
+import Passat4Image from 'assets/passat/passat4.jpg';
+import Passat5Image from 'assets/passat/passat5.jpg';
+import Passat6Image from 'assets/passat/passat6.jpg';
+import Passat7Image from 'assets/passat/passat7.jpg';
+import Passat8Image from 'assets/passat/passat8.jpg';
+import Passat9Image from 'assets/passat/passat9.jpg';
+import Passat10Image from 'assets/passat/passat10.jpg';
+import Passat11Image from 'assets/passat/passat11.jpg';
+
 export const vehicles: Vehicle[] = [
   {
     id: '0',
-    make: 'AUDI',
-    model: 'b8',
-    state: VehicleState.Sold,
-    images: [Car1Image, Car2Image, ToyotaCamryImage, BMWDriftSoilImage],
+    make: 'VOLKSWAGEN',
+    model: 'PASSAT',
+    // state: VehicleState.Sold,
+    images: [
+      Passat1Image,
+      Passat2Image,
+      Passat3Image,
+      Passat4Image,
+      Passat5Image,
+      Passat6Image,
+      Passat7Image,
+      Passat8Image,
+      Passat9Image,
+      Passat10Image,
+      Passat11Image,
+    ],
     amount: {
-      total: '10000',
-      totalPromo: '165000',
-      saving: '1000',
-      currency: Currency.Mkd,
+      total: '14000',
+      currency: Currency.Eur,
     },
-    title: 'Toyota Camry New',
-    description:
-      // eslint-disable-next-line max-len
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially ',
-    summary: '3.5D Power pulse Momentum 5dr RWD',
-    year: 2020,
-    engineSize: '4.0',
+    title: 'Passat 2.0 TDI Automatic',
+    description: 'Paid fees until registration',
+    summary: '2.0 TDI Automatic',
+    year: 2014,
+    engineSize: '2.0',
     doors: 4,
-    transmission: VehicleTransmission.Manual,
+    transmission: VehicleTransmission.Automatic,
     fuelType: VehicleFuelType.Diesel,
-    mileage: 250000,
+    mileage: 158000,
     bodyType: VehicleBodyType.Sedan,
     driveType: VehicleDriveType._2WdRwd,
     condition: VehicleCondition.Used,
     color: VehicleColor.Black,
-    features: [
-      'interior:airConditioner',
-      'interior:digitalOdometer',
-      'interior:heater',
-      'interior:leatherSeats',
-      'interior:panoramicMoonroof panoramicMoonroof panoramicMoonroof',
-      'interior:tachometer',
-      'safety:anti-lock Braking',
-      'safety:brake Assist',
-      'safety:child Safety Locks',
-      'safety:driver Air Bag',
-      'safety:power Door Locks',
-      'exterior:fogLightsFront',
-      'exterior:rainSensingWiper',
-      'exterior:rearSpoiler',
-      'exterior:windowsElectric',
-      'comfortAndConvenience:androidAuto',
-      'comfortAndConvenience:appleCarPlay',
-      'comfortAndConvenience:bluetooth',
-      'comfortAndConvenience:homeLink',
-      'comfortAndConvenience:powerSteering',
-    ],
+    // features: [
+    //   'interior:airConditioner',
+    //   'interior:digitalOdometer',
+    //   'interior:heater',
+    //   'interior:leatherSeats',
+    //   'interior:panoramicMoonroof panoramicMoonroof panoramicMoonroof',
+    //   'interior:tachometer',
+    //   'safety:anti-lock Braking',
+    //   'safety:brake Assist',
+    //   'safety:child Safety Locks',
+    //   'safety:driver Air Bag',
+    //   'safety:power Door Locks',
+    //   'exterior:fogLightsFront',
+    //   'exterior:rainSensingWiper',
+    //   'exterior:rearSpoiler',
+    //   'exterior:windowsElectric',
+    //   'comfortAndConvenience:androidAuto',
+    //   'comfortAndConvenience:appleCarPlay',
+    //   'comfortAndConvenience:bluetooth',
+    //   'comfortAndConvenience:homeLink',
+    //   'comfortAndConvenience:powerSteering',
+    // ],
   },
   {
     id: '1',

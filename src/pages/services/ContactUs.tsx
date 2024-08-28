@@ -1,5 +1,6 @@
 import { BoxAnimation, Button, Container, Line, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React from 'react';
 import { BsTelephone } from 'react-icons/bs';
 import { call } from 'utils';
@@ -12,7 +13,7 @@ const ContactUs: React.FC = () => {
 
   return (
     <Container
-      xs="1400px"
+      xs={PAGE_MAX_WIDTH}
       styleConfig={{
         centered: true,
         direction: 'row',

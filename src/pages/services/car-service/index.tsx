@@ -2,6 +2,7 @@ import CarServiceMechanicImage from 'assets/car-service-mechanic.jpg';
 import { BoxAnimation, Container, Image, Title } from 'components/common';
 import PageHeader from 'components/PageHeader';
 import { useTranslation } from 'hooks';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import ContactUs from 'pages/services/ContactUs';
 import React from 'react';
 
@@ -16,7 +17,7 @@ const CarService: React.FC = () => {
         </BoxAnimation>
       </PageHeader>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{
           padding: { left: 'md', right: 'md' },
           centered: true,

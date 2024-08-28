@@ -13,6 +13,7 @@ import {
   Title,
 } from 'components/common';
 import { useSocialMedias, useTranslation } from 'hooks';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React from 'react';
 import { BiPhoneCall } from 'react-icons/bi';
 import { MdEmail } from 'react-icons/md';
@@ -34,7 +35,7 @@ const Contact: React.FC = () => {
   return (
     <Container styleConfig={{ gap: '2rem' }} lgStyle={{ gap: '10rem' }}>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{ centered: true, gap: '2rem', padding: { top: 'xl', left: 'md', right: 'md' } }}
         lgStyle={{ gap: '3rem' }}
       >

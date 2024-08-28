@@ -1,4 +1,5 @@
 import { Breadcrumb, Container } from 'components/common';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -25,6 +26,9 @@ const StyledPageHeader = styled(Container)<StyledPageHeaderProps>`
     top: 0;
     left: 0;
   }
+  & > * {
+    z-index: 1;
+  }
 `;
 
 type Props = React.PropsWithChildren & StyledPageHeaderProps & React.ComponentProps<typeof Container>;
@@ -34,7 +38,7 @@ const PageHeader: React.FC<Props> = ({ children, imageSrc, ...props }) => {
     <StyledPageHeader imageSrc={imageSrc}>
       <Container
         {...props}
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{
           gap: '3rem',
           padding: { left: 'md', right: 'md' },

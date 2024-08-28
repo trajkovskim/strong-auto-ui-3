@@ -40,7 +40,7 @@ const Dropdown: React.FC<Props> = ({ fullwidth, rightContainer, validate, ...pro
           </Label>
         )}
         <SelectWrapper size={props.size}>
-          <StyledSelect {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth}>
+          <StyledSelect {...props} {...events} rightcontainerwidth={rightContainerRef.current?.offsetWidth}>
             {props.options.map((option) => (
               <StyledOption key={option.value} value={option.value}>
                 <Text fontSize={props.size}>{option.label ?? option.value}</Text>

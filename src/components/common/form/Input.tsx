@@ -56,7 +56,7 @@ const Input: React.FC<Props> = ({ label, fullwidth, rightContainer, clearButton,
           {...props}
           {...events}
           value={value ? value.toString() : ''}
-          rightContainerWidth={rightContainerRef.current?.offsetWidth}
+          rightcontainerwidth={rightContainerRef.current?.offsetWidth}
         />
       </StyledFormFieldContainer>
       <FormFieldRightContainer ref={rightContainerRef} {...rightContainerProps} />

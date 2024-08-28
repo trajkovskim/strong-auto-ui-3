@@ -1,6 +1,6 @@
 import { BoxAnimation, Carousel, Container, Icon, Line, List, Text, Title } from 'components/common';
 import { useTranslation } from 'hooks';
-import { reviews } from 'pages/constants';
+import { PAGE_MAX_WIDTH, reviews } from 'pages/constants';
 import { WhiteBackgroundContainer } from 'pages/common.styled';
 import React, { useMemo } from 'react';
 import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
@@ -75,7 +75,7 @@ const Reviews: React.FC = () => {
     <>
       <WhiteBackgroundContainer>
         <Container
-          xs="1400px"
+          xs={PAGE_MAX_WIDTH}
           styleConfig={{ gap: '3rem', padding: { left: 'md', right: 'md' }, centered: true }}
           lgStyle={{ gap: '6rem' }}
         >

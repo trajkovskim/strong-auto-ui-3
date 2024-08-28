@@ -61,7 +61,7 @@ export interface VehicleEmbedded {
      * @type {VehicleState}
      * @memberof VehicleEmbedded
      */
-    state: VehicleState;
+    state?: VehicleState;
     /**
      * 
      * @type {Array<string>}
@@ -143,7 +143,6 @@ export interface VehicleEmbedded {
  */
 export function instanceOfVehicleEmbedded(value: object): value is VehicleEmbedded {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('state' in value) || value['state'] === undefined) return false;
     if (!('amount' in value) || value['amount'] === undefined) return false;
     if (!('title' in value) || value['title'] === undefined) return false;
     return true;
@@ -160,7 +159,7 @@ export function VehicleEmbeddedFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'id': json['id'],
-        'state': VehicleStateFromJSON(json['state']),
+        'state': json['state'] == null ? undefined : VehicleStateFromJSON(json['state']),
         'images': json['images'] == null ? undefined : json['images'],
         'make': json['make'] == null ? undefined : json['make'],
         'model': json['model'] == null ? undefined : json['model'],

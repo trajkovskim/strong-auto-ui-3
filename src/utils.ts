@@ -1,3 +1,4 @@
+import { TranslationFunction } from 'hooks';
 import { css } from 'styled-components';
 import theme, { Breakpoints, LARGEST_BREAKPOINT } from 'theme';
 
@@ -97,4 +98,28 @@ export const getCssPropertyAsNumber = (el: HTMLElement | null, property: string)
 
 export const scrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+};
+
+export const createListFromTranslations = (prefixKey: string, t: TranslationFunction) => {
+  const items = [];
+  const listPrefix = `${prefixKey}`;
+  const title = t(`${listPrefix}.title`);
+
+  const itemsPrefix = `${listPrefix}.items`;
+  for (let i = 0; !t(`${itemsPrefix}.${i}`).toString().endsWith(`${itemsPrefix}.${i}`); i++) {
+    items.push(t(`${itemsPrefix}.${i}`));
+  }
+
+  return { title, items };
+};
+
+export const createMatrixFromTranslations = (prefixKey: string, t: TranslationFunction) => {
+  const matrix = [];
+  const listPrefix = `${prefixKey}.matrix`;
+
+  for (let i = 0; !t(`${listPrefix}.${i}`).toString().endsWith(`${listPrefix}.${i}`); i++) {
+    matrix.push(createListFromTranslations(`${listPrefix}.${i}`, t));
+  }
+
+  return matrix;
 };

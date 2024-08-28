@@ -2,6 +2,7 @@ import { BoxAnimation, Container, List, ServiceCard, Title } from 'components/co
 import { useTranslation } from 'hooks';
 import useServices from 'hooks/useServices';
 import { WhiteBackgroundContainer } from 'pages/common.styled';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React from 'react';
 
 const Services: React.FC = () => {
@@ -11,7 +12,7 @@ const Services: React.FC = () => {
   return (
     <WhiteBackgroundContainer>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{
           centered: true,
           itemsCentered: true,

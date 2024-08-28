@@ -10,6 +10,7 @@ import Reviews from 'pages/home/Reviews';
 import WhyChooseUs from 'pages/home/WhyChooseUs';
 import React from 'react';
 import styled from 'styled-components';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 
 const WelcomeIntroWrapper = styled(Container)`
   /* background-color: #232323;
@@ -73,7 +74,7 @@ const AboutUs: React.FC = () => {
       </WelcomeIntroWrapper>
       <Container styleConfig={{ gap: '1rem' }}>
         <Line />
-        <Container xs="1400px" styleConfig={{ centered: true }}>
+        <Container xs={PAGE_MAX_WIDTH} styleConfig={{ centered: true }}>
           <BoxAnimation>
             <List xs={2} md={4} justifyContent="center" gap="1rem">
               <Container styleConfig={{ padding: 'md', rounded: true }}>

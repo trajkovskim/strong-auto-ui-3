@@ -4,6 +4,8 @@ import SUVBodyTypeImage from 'assets/SUV.png';
 import { RibbonType } from 'components/card/types';
 import { VehicleBodyType, VehicleState } from 'generated';
 
+export const PAGE_MAX_WIDTH = "1400px";
+
 export const TELEPHONE = 'strongauto.telephone';
 export const EMAIL = 'strongauto.email';
 export const OPEN_HOURS = 'strongauto.openHours';

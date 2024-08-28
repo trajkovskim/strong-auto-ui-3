@@ -1,7 +1,7 @@
 import Logo from 'assets/logo.png';
 import { Button, Container, Form, Image, Input, Line, Text, Title } from 'components/common';
 import { useSocialMedias, useTranslation } from 'hooks';
-import { EMAIL, OPEN_HOURS, TELEPHONE } from 'pages/constants';
+import { EMAIL, OPEN_HOURS, PAGE_MAX_WIDTH, TELEPHONE } from 'pages/constants';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'routes';
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
   return (
     <StyledFooter>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{ centered: true, gap: '2rem', padding: { left: 'md', right: 'md', top: 'lg', bottom: 'lg' } }}
       >
         <Container

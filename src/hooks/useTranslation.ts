@@ -33,7 +33,7 @@ const ROOT_PREFIX = 'strongauto';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TranslationFunction = (key: string, params?: Record<string, any>) => string;
 
-const useTranslation = (prefix = '', discriminator = '.'): TranslationFunction => {
+const useTranslation = (prefix = '', fallbackValue?: string, discriminator = '.'): TranslationFunction => {
   const { language } = useLanguage();
   const basePrefix = prefix.length == 0 ? ROOT_PREFIX : `${ROOT_PREFIX}.${prefix}`;
 
@@ -54,9 +54,9 @@ const useTranslation = (prefix = '', discriminator = '.'): TranslationFunction =
         }
       }
 
-      return message ?? path;
+      return message ?? fallbackValue ?? path;
     },
-    [basePrefix, discriminator, language]
+    [basePrefix, discriminator, fallbackValue, language]
   );
 };
 

@@ -386,7 +386,7 @@
         "description": "When you’re stranded, you need quick and reliable help. At StrongAUTO, our Fast and Inexpensive Towing Services ensure you’re never left waiting. With our 24/7 availability and budget-friendly rates, you can trust us to get your vehicle safely to its destination without breaking the bank. Let us take the stress out of your roadside emergency – call us anytime!",
         "whyChooseOurTowingServices": {
           "title": "Why Choose Our Towing Services?",
-          "list": {
+          "matrix": {
             "0": {
               "title": "Rapid Response Time",
               "items": {
@@ -430,8 +430,43 @@
       },
       "dpfCleaningService": {
         "header": "DPF Cleaning",
-        "title": "Dependable Towing, Anytime, Anywhere",
-        "description": "At Wight Tyres we professionally clean all diesel particulate filters (DPF’s), Euro 4, 5 & 6 with our industrial off car DPF machine.\n\nAll we need is the DPF to be removed from the vehicle.\n\nCut open the DPF, Weld the DPF, Bake the DPF, Use Aerosols or Ultrasonic Tanks. The DPF needs to be completely removed from the vehicle to professionally remove ash as well as soot. Once the DPF is blocked to the point that either the vehicle or a technician cannot force a regeneration, only our cleaning processes will effectively return the unit to correct operating efficiency.\n\nFeaturing the latest Nano-Catalyst technology to keep your DPF cleaner for longer. Following the treatment, the dried DPF is slowly fed the Power Protect fluid through the exhaust intake and rotated to ensure an even coating of protection. The fluid is absorbed by the DPF leaving a Nano-Catalytic coating on the surface of the filter. The Nano-Catalytic coating causes soot to combust at lower temperatures (400°C rather than 650°C) slowing the build-up of impurities blocking the DPF and increasing the effectiveness of the vehicle’s built-in ‘regeneration’ burn-off.  "
+        "title": "What are DPFs?",
+        "description": "Diesel particulate filters (DPFs) are an essential component of modern diesel engines. They help reduce harmful emissions and ensure that the engine runs efficiently. However, over time, these filters can become clogged with soot and other particles, reducing their effectiveness and potentially causing damage to the engine. In this article, we will discuss the importance of cleaning DPFs and the services offered by Aros Filter AB.",
+        "cleaningProcess": {
+          "title": "What is the process?",
+          "list": {
+            "items": {
+              "0": "Remove the DPF from your car",
+              "1": "We conduct a pre-clean air flow test to verify there is a blockage and note the reading.",
+              "2": "We then use our DPF cleaning solution and soak the DPF",
+              "3": "We then place the DPF on the machine and use high-pressured air and water to force all the carbon, soot & ash from the filter until only clean water runs freely.",
+              "4": "We then connect the freshly cleaned DPF to a blower and dry the filter.",
+              "5": "Finally, we carry out a post-clean air flow test to ensure the blockage has been removed and note the reading.",
+              "6": "We would always recommend that a carbon clean is carried out in conjunction with the DPF clean. This will clear any carbon build-up upstream of the DPF."
+            }
+          }
+        },
+        "whyCleaning": {
+          "title": "Why clean your DPF?",
+          "description": "Cleaning diesel particulate filters is crucial for maintaining the engine’s performance and reducing harmful emissions. When a DPF becomes clogged, the engine may experience reduced power, increased fuel consumption, and potential engine damage. Furthermore, a clogged DPF can cause the engine to produce higher levels of harmful pollutants, such as nitrogen oxides (NOx) and particulate matter (PM)."
+        },
+        "whatCausesDpfBlockage": {
+          "title": "What causes a dpf blockage?",
+          "description": "Short journeys at low speeds are the main cause of blocked diesel particulate filters.Other things that are bad for DPFs include poor servicing, clogged EGR valve & excessive carbon build-up."
+        },
+        "howDoIKnowitNeedsCleaning": {
+          "title": "How do I know if my DPF needs cleaning?",
+          "list": {
+            "title": "Several signs indicate that your DPF may need cleaning:",
+            "items": {
+              "0": "Warning Light: Most modern vehicles are equipped with a DPF warning light that illuminates when the filter is becoming clogged",
+              "1": "Reduced Engine Performance: If you experience a noticeable drop in power or acceleration, it may be a sign of a blocked DPF",
+              "2": "Increased Fuel Consumption: A clogged DPF can lead to decreased fuel efficiency, resulting in more frequent refuelling",
+              "3": "Exhaust Smoke: Dark smoke emitting from the exhaust, especially during acceleration, may indicate a clogged DPF."
+            }
+          },
+          "descriptionAfter": "If you notice any of these signs, it’s essential to have your DPF inspected and cleaned promptly."
+        }
       },
       "carService": {
         "header": "Car Service",

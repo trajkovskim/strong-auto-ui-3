@@ -1,6 +1,6 @@
 import Container from 'components/common/Container';
 import Text from 'components/common/typography/Text';
-import { NEW_LINE_DELIMITER, titleFontSize } from 'components/common/typography/constants';
+import { titleFontSize } from 'components/common/typography/constants';
 import { FontSize, TitleAndDescription } from 'components/common/typography/types';
 import React from 'react';
 import { css, styled } from 'styled-components';

@@ -18,6 +18,7 @@ import {
 import PageHeader from 'components/PageHeader';
 import { Vehicle, VehiclesResponse } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React, { useEffect, useRef, useState } from 'react';
 import { BiCalendar, BiCheckCircle, BiColorFill, BiPhoneCall } from 'react-icons/bi';
 import { BsFuelPump } from 'react-icons/bs';
@@ -30,7 +31,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'routes';
 import { getVehicleEntry, searchVehicles } from 'services/VehicleService';
 import styled from 'styled-components';
-import { call, formatNumber, mailTo } from 'utils';
+import { call, formatMoney, formatNumber, mailTo } from 'utils';
 
 const StyledButton = styled(Button)`
   border-radius: 5px;
@@ -157,7 +158,7 @@ const ViewDetails: React.FC = () => {
         </Container>
       </PageHeader>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{
           centered: true,
           gap: '3rem',
@@ -297,23 +298,23 @@ const ViewDetails: React.FC = () => {
                 {product.amount?.totalPromo && (
                   <Container styleConfig={{ gap: '0.5rem', direction: 'row', alignItems: 'end' }}>
                     <Text fontSize="lg" textDecoration="line-through">
-                      {formatNumber(product.amount.total)}
+                      {formatMoney(product.amount.total)}
                     </Text>
                     <Text fontSize="3xl" bold>
-                      {formatNumber(product.amount.totalPromo)}
+                      {formatMoney(product.amount.totalPromo)}
                     </Text>
                   </Container>
                 )}
                 {!product.amount?.totalPromo && (
                   <div>
                     <Text fontSize="3xl" bold>
-                      {formatNumber(product.amount.total)}
+                      {formatMoney(product.amount.total)}
                     </Text>
                   </div>
                 )}
                 {product.amount?.saving && (
                   <div>
-                    <Text fontSize="lg">{t('saving', { saving: formatNumber(product.amount.saving) })}</Text>
+                    <Text fontSize="lg">{t('saving', { saving: formatMoney(product.amount.saving) })}</Text>
                   </div>
                 )}
               </Container>
@@ -350,7 +351,7 @@ const ViewDetails: React.FC = () => {
         </Container>
       </Container>
       <Container
-        xs="1400px"
+        xs={PAGE_MAX_WIDTH}
         styleConfig={{ centered: true, gap: '3rem', padding: { left: 'md', right: 'md', bottom: 'xl' } }}
       >
         <Line />

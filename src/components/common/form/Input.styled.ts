@@ -12,7 +12,7 @@ export type StyledInputProps = {
   noBorder?: boolean;
 };
 
-export type StyledInputWithRightContainerProps = StyledInputProps & { rightContainerWidth?: number };
+export type StyledInputWithRightContainerProps = StyledInputProps & { rightcontainerwidth?: number };
 
 export const inputCss = css<StyledInputWithRightContainerProps>`
   box-sizing: border-box;
@@ -23,7 +23,7 @@ export const inputCss = css<StyledInputWithRightContainerProps>`
   border: ${(props) => (props.noBorder ? 'none' : '1px solid rgb(238, 238, 238)')};
   border-radius: 4px;
 
-  padding-right: ${(props) => `${props.rightContainerWidth}px`};
+  padding-right: ${(props) => `${props.rightcontainerwidth}px`};
   transition: 100ms all;
 
   &::placeholder {

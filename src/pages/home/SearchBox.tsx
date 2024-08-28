@@ -14,7 +14,7 @@ import {
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters } from 'generated';
 import { useApplicationContext, useFetchMakes, useTranslation } from 'hooks';
-import { priceOptions } from 'pages/constants';
+import { PAGE_MAX_WIDTH, priceOptions } from 'pages/constants';
 import { convertMakeModelsToOptions, convertMakesToOptions } from 'pages/utils';
 import React from 'react';
 import { BiFilter, BiSearch } from 'react-icons/bi';
@@ -61,7 +61,7 @@ const SearchBox: React.FC = () => {
 
   return (
     <SearchBoxWrapper
-      xs="1400px"
+      xs={PAGE_MAX_WIDTH}
       styleConfig={{
         gap: '2rem',
         padding: 'md',

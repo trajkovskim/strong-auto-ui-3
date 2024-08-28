@@ -1,6 +1,7 @@
 import CarInEnvelope from 'assets/car-in-envelope.png';
 import { BoxAnimation, Button, Container, Form, Image, Input, Title } from 'components/common';
 import { useTranslation } from 'hooks';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -20,7 +21,7 @@ const NewsLetterSubscription: React.FC = () => {
 
   return (
     <Container
-      xs="1400px"
+      xs={PAGE_MAX_WIDTH}
       styleConfig={{
         centered: true,
         direction: 'row',

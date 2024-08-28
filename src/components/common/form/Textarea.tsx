@@ -37,7 +37,7 @@ const Textarea: React.FC<Props> = ({ label, fullwidth, rightContainer, validate,
   return (
     <StyledContainer fullwidth={fullwidth}>
       <TextareaWrapper label={label} size={props.size}>
-        <StyledTextarea {...props} {...events} rightContainerWidth={rightContainerRef.current?.offsetWidth} />
+        <StyledTextarea {...props} {...events} rightcontainerwidth={rightContainerRef.current?.offsetWidth} />
         <StyledRightContainer ref={rightContainerRef}>
           {state.dirty && validate && (
             <span>

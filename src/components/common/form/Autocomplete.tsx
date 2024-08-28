@@ -141,7 +141,7 @@ const Autocomplete: React.FC<Props> = ({
           {...events}
           value={search ?? ''}
           autoComplete="off"
-          rightContainerWidth={rightContainerRef.current?.offsetWidth}
+          rightcontainerwidth={rightContainerRef.current?.offsetWidth}
           ref={inputRef}
         />
         <Transition

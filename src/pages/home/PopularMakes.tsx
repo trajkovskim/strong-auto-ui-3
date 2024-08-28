@@ -3,7 +3,7 @@ import { Button, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpi
 import { VehicleEmbedded } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import { DarkBackgroundContainer } from 'pages/common.styled';
-import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
+import { PAGE_MAX_WIDTH, VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +42,7 @@ const PopularMakes: React.FC = () => {
         lgStyle={{ padding: { top: 'xl', bottom: '2xl' } }}
       >
         <Container
-          xs="1400px"
+          xs={PAGE_MAX_WIDTH}
           styleConfig={{ centered: true, alignItems: 'center', gap: '2rem' }}
           lgStyle={{ gap: '3rem' }}
         >
