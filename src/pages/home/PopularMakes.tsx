@@ -3,7 +3,7 @@ import { Button, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpi
 import { VehicleEmbedded } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import { DarkBackgroundContainer } from 'pages/common.styled';
-import { PAGE_MAX_WIDTH, VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React, { useEffect, useState } from 'react';
 import { BsArrowUpRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -68,7 +68,6 @@ const PopularMakes: React.FC = () => {
             {vehiclesByMake[activeTab].map((product) => (
               <MiniProductCard
                 {...product}
-                ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
                 key={product.id}
                 onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
               />

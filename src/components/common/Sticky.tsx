@@ -19,6 +19,7 @@ type Props = React.PropsWithChildren & StickyWrapperProps;
 
 const Sticky: React.FC<Props> = (props) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     new IntersectionObserver(([entry]) => {
       // entry.target.toggleAttribute()
     });

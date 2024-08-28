@@ -4,7 +4,7 @@ import { makes, vehicles } from 'services/mocks';
 
 export const MOCK_VEHICLE_API: VehicleApi = {
   searchVehicleEntries: (...[request]: Parameters<VehicleApi['searchVehicleEntries']>) => {
-    const { page, size } = request;
+    // const { page, size } = request;
     const filters = { ...request.vehicleFilters };
 
     const mileageInterval = { from: filters.mileageFrom, to: filters.mileageTo };
@@ -63,6 +63,7 @@ export const MOCK_VEHICLE_API: VehicleApi = {
   },
   getVehicleEntry: (...[request]: Parameters<VehicleApi['getVehicleEntry']>) =>
     createMockResponse<Vehicle>(vehicles.find((vehicle) => vehicle.id === request.id) as Vehicle, 1500),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getVehicleMakeEntries: (...[request]: Parameters<VehicleApi['getVehicleMakeEntries']>) =>
     createMockResponse<VehicleMakesResponse>(
       {

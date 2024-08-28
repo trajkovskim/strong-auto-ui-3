@@ -2,7 +2,6 @@ import { ProductCard } from 'components/card';
 import { BoxAnimation, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpinner } from 'components/common';
 import { VehiclesResponse } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
-import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import BodyTypes from 'pages/home/BodyTypes';
 import { WhiteBackgroundContainer } from 'pages/common.styled';
 import React, { useEffect, useState } from 'react';
@@ -63,7 +62,6 @@ const ProductsSection: React.FC = () => {
                 <ProductCard
                   key={product.id}
                   onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                  ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
                   {...product}
                 />
               ))}

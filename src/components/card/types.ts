@@ -1,6 +1,6 @@
-import { Vehicle } from 'generated';
+import { Vehicle, VehicleState } from 'generated';
 
-export type RibbonType = 'sold' | 'featured';
+export type RibbonType = VehicleState;
 
 export type ProductProps = {
   rating?: number;
@@ -11,7 +11,7 @@ export type ProductProps = {
   images?: Vehicle['images'];
   onView?: () => void;
   inCart?: boolean;
-  ribbon?: RibbonType;
+  ribbon?: Vehicle['state'];
   fullwidth?: boolean;
   mileage?: Vehicle['mileage'];
   fuelType?: Vehicle['fuelType'];

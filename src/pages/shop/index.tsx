@@ -3,7 +3,6 @@ import { Button, Container, Spinner, Text } from 'components/common';
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters, VehiclesResponse } from 'generated';
 import { useApplicationContext, useRequest } from 'hooks';
-import { VEHICLE_STATE_TO_RIBBON_TYPE } from 'pages/constants';
 import Filters from 'pages/shop/Filters';
 import ListHeader from 'pages/shop/ListHeader';
 import Sidebar from 'pages/shop/Sidebar';
@@ -131,7 +130,6 @@ const Shop: React.FC = () => {
                   <ShopProductCard
                     key={product.id}
                     onView={() => navigate(Routes.SHOP_VIEW_DETAILS.replace(':id', product.id.toString()))}
-                    ribbon={VEHICLE_STATE_TO_RIBBON_TYPE[product.state]}
                     fullwidth
                     {...product}
                   />
