@@ -92,7 +92,7 @@ import Passat11Image from 'assets/passat/passat11.jpg';
 
 export const vehicles: Vehicle[] = [
   {
-    id: '0',
+    id: 0,
     make: 'VOLKSWAGEN',
     model: 'PASSAT',
     // state: VehicleState.Sold,
@@ -150,7 +150,7 @@ export const vehicles: Vehicle[] = [
     // ],
   },
   {
-    id: '1',
+    id: 1,
     make: 'AUDI',
     model: 'b8',
     state: VehicleState.Featured,
@@ -198,7 +198,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '2',
+    id: 2,
     make: 'AUDI',
     model: 'b9',
     state: VehicleState.Sold,
@@ -244,7 +244,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '3',
+    id: 3,
     make: 'BMW',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
@@ -289,7 +289,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '4',
+    id: 4,
     make: 'BMW',
     state: VehicleState.Sold,
     images: [BMWDriftSoilImage],
@@ -336,7 +336,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '5',
+    id: 5,
     make: 'BMW',
     state: VehicleState.Featured,
     images: [ToyotaCamryImage],
@@ -381,7 +381,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '6',
+    id: 6,
     make: 'TOYOTA',
     state: VehicleState.Sold,
     images: [Car2Image],
@@ -428,7 +428,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '7',
+    id: 7,
     make: 'TOYOTA',
     state: VehicleState.Featured,
     images: [BMWDriftSoilImage],
@@ -473,7 +473,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '8',
+    id: 8,
     make: 'TOYOTA',
     state: VehicleState.Sold,
     images: [Car1Image],
@@ -518,7 +518,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '9',
+    id: 9,
     make: 'TOYOTA',
     state: VehicleState.Featured,
     images: [Car2Image],
@@ -563,7 +563,7 @@ export const vehicles: Vehicle[] = [
     ],
   },
   {
-    id: '10',
+    id: 10,
     make: 'TOYOTA',
     model: 'b9',
     state: VehicleState.Sold,

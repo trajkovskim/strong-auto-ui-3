@@ -63,7 +63,7 @@ const MiniProductCard: React.FC<ProductProps> = (props) => {
   const onImageContainer = (
     <OnImageContainer styleConfig={{ justifyContent: 'space-between', padding: 'md' }}>
       <Container styleConfig={{ direction: 'row', justifyContent: 'space-between', gap: '1rem' }}>
-        {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
+        {props.state && <Ribbon {...ribbons[props.state]} />}
         <BookmarkedButton
           bookmarked={props.bookmarked}
           onClick={(event) => {

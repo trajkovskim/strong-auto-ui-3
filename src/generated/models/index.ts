@@ -2,6 +2,7 @@
 /* eslint-disable */
 export * from './Amount';
 export * from './Currency';
+export * from './ErrorResponse';
 export * from './PageInfo';
 export * from './Vehicle';
 export * from './VehicleAmount';

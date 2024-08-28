@@ -15,6 +15,7 @@
 
 import * as runtime from '../runtime';
 import type {
+  ErrorResponse,
   Vehicle,
   VehicleFilters,
   VehicleMake,
@@ -22,6 +23,8 @@ import type {
   VehiclesResponse,
 } from '../models/index';
 import {
+    ErrorResponseFromJSON,
+    ErrorResponseToJSON,
     VehicleFromJSON,
     VehicleToJSON,
     VehicleFiltersFromJSON,
@@ -35,7 +38,7 @@ import {
 } from '../models/index';
 
 export interface GetVehicleEntryRequest {
-    id: string;
+    id: number;
     acceptLanguage?: string;
 }
 

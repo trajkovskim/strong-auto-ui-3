@@ -87,7 +87,7 @@ const ListProductCard: React.FC<Props> = (props) => {
           <ProductCardPrice amount={props.amount} />
         </Container>
         <Container styleConfig={{ padding: { left: 'md' } }} xs="max-content">
-          {props.ribbon && <Ribbon {...ribbons[props.ribbon]} />}
+          {props.state && <Ribbon {...ribbons[props.state]} />}
         </Container>
       </Container>
       <Container styleConfig={{ direction: 'row', gap: '1rem', justifyContent: 'space-between' }}>

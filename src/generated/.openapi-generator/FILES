@@ -3,6 +3,7 @@ apis/index.ts
 index.ts
 models/Amount.ts
 models/Currency.ts
+models/ErrorResponse.ts
 models/PageInfo.ts
 models/Vehicle.ts
 models/VehicleAmount.ts

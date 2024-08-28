@@ -18,10 +18,12 @@
  * @export
  */
 export const VehicleBodyType = {
-    Sedan: 'SEDAN',
     Coupe: 'COUPE',
-    Suv: 'SUV',
+    Hatchback: 'HATCHBACK',
     Convertible: 'CONVERTIBLE',
+    Sedan: 'SEDAN',
+    Suv: 'SUV',
+    Saloon: 'SALOON',
     Limousine: 'LIMOUSINE'
 } as const;
 export type VehicleBodyType = typeof VehicleBodyType[keyof typeof VehicleBodyType];

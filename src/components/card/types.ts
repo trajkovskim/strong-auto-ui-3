@@ -11,7 +11,7 @@ export type ProductProps = {
   images?: Vehicle['images'];
   onView?: () => void;
   inCart?: boolean;
-  ribbon?: Vehicle['state'];
+  state?: Vehicle['state'];
   fullwidth?: boolean;
   mileage?: Vehicle['mileage'];
   fuelType?: Vehicle['fuelType'];

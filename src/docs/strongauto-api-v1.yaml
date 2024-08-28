@@ -30,6 +30,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/VehiclesResponse"
+        400:
+          $ref: "#/components/responses/BadRequestResponse"
 
   /vehicles/{id}:
     get:
@@ -47,6 +49,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/VehicleResponse"
+        404:
+          $ref: "#/components/responses/NotFoundResponse"
 
   /vehicle-makes:
     get:
@@ -75,6 +79,8 @@ paths:
       responses:
         200:
           $ref: "#/components/responses/VehicleMakeResponse"
+        404:
+          $ref: "#/components/responses/NotFoundResponse"
 
 components:
   schemas:
@@ -85,7 +91,6 @@ components:
       example: '5.25'
     Year:
       type: integer
-      format: int64
       description: year
       example: 2010
 
@@ -104,15 +109,16 @@ components:
 
     VehicleMakeValue:
       type: string
-      example: 'Audi'
+      example: 'AUDI'
     VehicleModelValue:
       type: string
       example: 'B8'
 
     Id:
-      type: string
+      type: integer
+      format: int64
       description: Primary key
-      example: "0"
+      example: 0
     VehicleCondition:
       type: string
       enum:
@@ -122,12 +128,14 @@ components:
     VehicleBodyType:
       type: string
       enum:
-        - SEDAN
         - COUPE
-        - SUV
+        - HATCHBACK
         - CONVERTIBLE
+        - SEDAN
+        - SUV
+        - SALOON
         - LIMOUSINE
-      example: "SEDAN"
+      example: "COUPE"
     VehicleTransmission:
       type: string
       enum:
@@ -152,72 +160,27 @@ components:
       type: string
       enum:
         - BLACK
+        - STEAL
+        - SILVER
+        - GRAY
+        - RED
+        - ORANGE
+        - GOLD
+        - YELLOW
+        - BRONZE
+        - LIME
+        - IVORY
+        - BROWN
+        - BEECHWOOD
+        - SAND
+        - ALUMINIUM
+        - CHROME
+        - PINK
+        - PURPLE
         - WHITE
         - BLUE
         - GREEN
       example: "BLACK"
-#    VehicleMake:
-#      type: string
-#      enum:
-#        - ABARTH
-#        - ACURA
-#        - ALFA ROMEO
-#        - ASTON MARTIN
-#        - AUDI
-#        - BENTLEY
-#        - BMW
-#        - BUICK
-#        - CADILLAC
-#        - CHEVROLET
-#        - CHRYSLER
-#        - CITROEN
-#        - DACIA
-#        - DODGE
-#        - FERRARI
-#        - FIAT
-#        - FORD
-#        - GMC
-#        - HONDA
-#        - HUMMER
-#        - HYUNDAI
-#        - INFINITI
-#        - ISUZU
-#        - JAGUAR
-#        - JEEP
-#        - KIA
-#        - LAMBORGHINI
-#        - LANCIA
-#        - LAND ROVER
-#        - LEXUS
-#        - LINCOLN
-#        - LOTUS
-#        - MASERATI
-#        - MAZDA
-#        - MERCEDES_BENZ
-#        - MERCURY
-#        - MINI
-#        - MITSUBISHI
-#        - NISSAN
-#        - OPEL
-#        - PEUGEOT
-#        - PONTIAC
-#        - PORSCHE
-#        - RAM
-#        - RENAULT
-#        - SAAB
-#        - SATURN
-#        - SCION
-#        - SEAT
-#        - SKODA
-#        - SMART
-#        - SSANGYONG
-#        - SUBARU
-#        - SUZUKI
-#        - TESLA
-#        - TOYOTA
-#        - VOLKSWAGEN
-#        - VOLVO
-#        - WIESMANN
 
     VehicleFilters:
       type: object
@@ -249,11 +212,9 @@ components:
           $ref: "#/components/schemas/Year"
         mileageFrom:
           type: integer
-          format: int64
           example: 100000
         mileageTo:
           type: integer
-          format: int64
           example: 200000
         fuelType:
           $ref: "#/components/schemas/VehicleFuelType"
@@ -438,6 +399,24 @@ components:
           type: number
           example: 10
 
+    ErrorResponse:
+      type: object
+      description: Error response
+      required:
+        - code
+        - message
+        - status
+      properties:
+        code:
+          type: string
+          example: "STRONGAUTO:0001"
+        message:
+          type: string
+          example: "An error happened"
+        status:
+          type: integer
+          example: 404
+
   responses:
     VehicleMakesResponse:
       description: List of vehicle makes entries
@@ -463,6 +442,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/VehicleResponse"
+    BadRequestResponse:
+      description: Bad request error info
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFoundResponse:
+      description: Not found error info
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
 
   parameters:
     Page:

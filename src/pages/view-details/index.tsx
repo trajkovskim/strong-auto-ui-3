@@ -58,7 +58,7 @@ const ViewDetails: React.FC = () => {
     }
 
     send(
-      getVehicleEntry({ id }).then(setProduct),
+      getVehicleEntry({ id: Number(id) }).then(setProduct),
       searchVehicles({ vehicleFilters: { featured: true } }).then(setVehiclesResponse)
     );
   }, [id, send]);
@@ -314,7 +314,7 @@ const ViewDetails: React.FC = () => {
                 )}
                 {product.amount?.saving && (
                   <div>
-                    <Text fontSize="lg">{t('saving', { saving: formatMoney(product.amount.saving) })}</Text>
+                    <Text fontSize="lg">{t('saving', { saving: formatNumber(product.amount.saving) })}</Text>
                   </div>
                 )}
               </Container>

@@ -70,10 +70,10 @@ import {
 export interface Vehicle {
     /**
      * Primary key
-     * @type {string}
+     * @type {number}
      * @memberof Vehicle
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {VehicleState}

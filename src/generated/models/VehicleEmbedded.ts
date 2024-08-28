@@ -52,10 +52,10 @@ import {
 export interface VehicleEmbedded {
     /**
      * Primary key
-     * @type {string}
+     * @type {number}
      * @memberof VehicleEmbedded
      */
-    id: string;
+    id: number;
     /**
      * 
      * @type {VehicleState}
