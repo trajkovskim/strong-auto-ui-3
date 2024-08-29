@@ -14,8 +14,8 @@ import {
 import { setVehicleFiltersAction } from 'context/vehicles';
 import { VehicleFilters } from 'generated';
 import { useApplicationContext, useFetchMakes, useTranslation } from 'hooks';
-import { PAGE_MAX_WIDTH, priceOptions } from 'pages/constants';
-import { convertMakeModelsToOptions, convertMakesToOptions } from 'pages/utils';
+import { PAGE_MAX_WIDTH } from 'pages/constants';
+import { convertMakeModelsToOptions, convertMakesToOptions, convertPricesToOptions } from 'pages/utils';
 import React from 'react';
 import { BiFilter, BiSearch } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
@@ -40,6 +40,7 @@ const SearchBox: React.FC = () => {
   const { dispatch } = useApplicationContext();
   const navigate = useNavigate();
   const t = useTranslation('home.searchBox');
+  const tBase = useTranslation();
   const { fetchModels, loadingGetVehicleMakeEntryRequest, loadingGetVehicleMakesEntriesRequest, makes } =
     useFetchMakes();
 
@@ -106,7 +107,7 @@ const SearchBox: React.FC = () => {
                     fullwidth
                     placeholder={t('priceInput.placeholder')}
                     size="xl"
-                    options={priceOptions}
+                    options={convertPricesToOptions(tBase)}
                   />
                 </List>
               </>

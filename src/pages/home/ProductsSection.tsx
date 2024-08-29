@@ -1,6 +1,6 @@
 import { ProductCard } from 'components/card';
 import { BoxAnimation, ButtonProps, ButtonsGroup, Container, HorizontalList, StyledSpinner } from 'components/common';
-import { VehiclesResponse } from 'generated';
+import { VehiclesResponse, VehicleState } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import BodyTypes from 'pages/home/BodyTypes';
 import { WhiteBackgroundContainer } from 'pages/common.styled';
@@ -28,7 +28,7 @@ const ProductsSection: React.FC = () => {
   const [vehiclesResponse, setVehiclesResponse] = useState<VehiclesResponse>();
 
   useEffect(() => {
-    send(searchVehicles({ vehicleFilters: { featured: true } }).then(setVehiclesResponse));
+    send(searchVehicles({ vehicleFilters: { states: [VehicleState.Featured] } }).then(setVehiclesResponse));
   }, [send]);
 
   if (loading) {
