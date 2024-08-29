@@ -13,18 +13,24 @@
  */
 
 import { mapValues } from '../runtime';
+import type { PaginationLinks } from './PaginationLinks';
+import {
+    PaginationLinksFromJSON,
+    PaginationLinksFromJSONTyped,
+    PaginationLinksToJSON,
+} from './PaginationLinks';
 import type { PageInfo } from './PageInfo';
 import {
     PageInfoFromJSON,
     PageInfoFromJSONTyped,
     PageInfoToJSON,
 } from './PageInfo';
-import type { VehicleEmbedded } from './VehicleEmbedded';
+import type { VehicleEmbeddedResponse } from './VehicleEmbeddedResponse';
 import {
-    VehicleEmbeddedFromJSON,
-    VehicleEmbeddedFromJSONTyped,
-    VehicleEmbeddedToJSON,
-} from './VehicleEmbedded';
+    VehicleEmbeddedResponseFromJSON,
+    VehicleEmbeddedResponseFromJSONTyped,
+    VehicleEmbeddedResponseToJSON,
+} from './VehicleEmbeddedResponse';
 
 /**
  * 
@@ -40,10 +46,16 @@ export interface VehiclesResponse {
     info?: PageInfo;
     /**
      * 
-     * @type {Array<VehicleEmbedded>}
+     * @type {Array<VehicleEmbeddedResponse>}
      * @memberof VehiclesResponse
      */
-    vehicles: Array<VehicleEmbedded>;
+    vehicles: Array<VehicleEmbeddedResponse>;
+    /**
+     * 
+     * @type {PaginationLinks}
+     * @memberof VehiclesResponse
+     */
+    links?: PaginationLinks;
 }
 
 /**
@@ -65,7 +77,8 @@ export function VehiclesResponseFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'info': json['info'] == null ? undefined : PageInfoFromJSON(json['info']),
-        'vehicles': ((json['vehicles'] as Array<any>).map(VehicleEmbeddedFromJSON)),
+        'vehicles': ((json['vehicles'] as Array<any>).map(VehicleEmbeddedResponseFromJSON)),
+        'links': json['links'] == null ? undefined : PaginationLinksFromJSON(json['links']),
     };
 }
 
@@ -76,7 +89,8 @@ export function VehiclesResponseToJSON(value?: VehiclesResponse | null): any {
     return {
         
         'info': PageInfoToJSON(value['info']),
-        'vehicles': ((value['vehicles'] as Array<any>).map(VehicleEmbeddedToJSON)),
+        'vehicles': ((value['vehicles'] as Array<any>).map(VehicleEmbeddedResponseToJSON)),
+        'links': PaginationLinksToJSON(value['links']),
     };
 }
 

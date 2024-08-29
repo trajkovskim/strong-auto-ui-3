@@ -12,12 +12,13 @@ import {
   StyledSpinner,
   Text,
 } from 'components/common';
-import { VehicleBodyType, VehicleFilters, VehicleState } from 'generated';
+import { VehicleFiltersForm } from 'context/vehicles';
+import { VehicleBodyType, VehicleState } from 'generated';
 import { useFetchMakes, useTranslation } from 'hooks';
-import { priceOptions } from 'pages/constants';
 import {
   convertMakeModelsToOptions,
   convertMakesToOptions,
+  convertPricesToOptions,
   convertVehicleColorsToOptions,
   convertVehicleConditionsToOptions,
   convertVehicleDriveTypesToOptions,
@@ -45,11 +46,11 @@ const StyledFilterAccordion = styled(Accordion)`
 `;
 
 type Props = {
-  onSubmit?: (values: VehicleFilters) => void;
+  onSubmit?: (values: VehicleFiltersForm) => void;
   onClose?: () => void;
   onReset?: () => void;
   noCloseButton?: boolean;
-  filters?: VehicleFilters;
+  filters?: VehicleFiltersForm;
 };
 
 const Filters: React.FC<Props> = (props) => {
@@ -65,7 +66,7 @@ const Filters: React.FC<Props> = (props) => {
 
   const handleMakeChange = (
     option: AutocompleteOption | undefined,
-    change: FormContextType<VehicleFilters>['change']
+    change: FormContextType<VehicleFiltersForm>['change']
   ) => {
     if (!option?.value) {
       change('model', undefined);
@@ -147,13 +148,14 @@ const Filters: React.FC<Props> = (props) => {
                 placeholder={t('basic.priceInput.placeholder')}
                 label={t('basic.priceInput.label')}
                 size="md"
-                options={priceOptions}
+                options={convertPricesToOptions(baseT)}
               />
               <Container styleConfig={{ gap: '0.5rem' }}>
                 {Object.values(VehicleState).map((checkbox) => (
                   <Checkbox
-                    name={checkbox.toLowerCase()}
                     key={checkbox}
+                    name="states"
+                    value={checkbox}
                     label={baseT(`vehicleState.${checkbox}`)}
                     size="sm"
                   />

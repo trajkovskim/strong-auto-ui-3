@@ -13,12 +13,12 @@
  */
 
 import { mapValues } from '../runtime';
-import type { VehicleMakeEmbedded } from './VehicleMakeEmbedded';
+import type { VehicleMakeEmbeddedResponse } from './VehicleMakeEmbeddedResponse';
 import {
-    VehicleMakeEmbeddedFromJSON,
-    VehicleMakeEmbeddedFromJSONTyped,
-    VehicleMakeEmbeddedToJSON,
-} from './VehicleMakeEmbedded';
+    VehicleMakeEmbeddedResponseFromJSON,
+    VehicleMakeEmbeddedResponseFromJSONTyped,
+    VehicleMakeEmbeddedResponseToJSON,
+} from './VehicleMakeEmbeddedResponse';
 
 /**
  * 
@@ -28,10 +28,10 @@ import {
 export interface VehicleMakesResponse {
     /**
      * 
-     * @type {Array<VehicleMakeEmbedded>}
+     * @type {Array<VehicleMakeEmbeddedResponse>}
      * @memberof VehicleMakesResponse
      */
-    makes: Array<VehicleMakeEmbedded>;
+    makes: Array<VehicleMakeEmbeddedResponse>;
 }
 
 /**
@@ -52,7 +52,7 @@ export function VehicleMakesResponseFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'makes': ((json['makes'] as Array<any>).map(VehicleMakeEmbeddedFromJSON)),
+        'makes': ((json['makes'] as Array<any>).map(VehicleMakeEmbeddedResponseFromJSON)),
     };
 }
 
@@ -62,7 +62,7 @@ export function VehicleMakesResponseToJSON(value?: VehicleMakesResponse | null):
     }
     return {
         
-        'makes': ((value['makes'] as Array<any>).map(VehicleMakeEmbeddedToJSON)),
+        'makes': ((value['makes'] as Array<any>).map(VehicleMakeEmbeddedResponseToJSON)),
     };
 }
 

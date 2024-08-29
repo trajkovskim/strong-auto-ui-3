@@ -93,12 +93,6 @@ export interface VehicleEmbedded {
      */
     title: string;
     /**
-     * Vehicle description
-     * @type {string}
-     * @memberof VehicleEmbedded
-     */
-    description?: string;
-    /**
      * Vehicle summary
      * @type {string}
      * @memberof VehicleEmbedded
@@ -165,7 +159,6 @@ export function VehicleEmbeddedFromJSONTyped(json: any, ignoreDiscriminator: boo
         'model': json['model'] == null ? undefined : json['model'],
         'amount': VehicleAmountFromJSON(json['amount']),
         'title': json['title'],
-        'description': json['description'] == null ? undefined : json['description'],
         'summary': json['summary'] == null ? undefined : json['summary'],
         'transmission': json['transmission'] == null ? undefined : VehicleTransmissionFromJSON(json['transmission']),
         'fuelType': json['fuelType'] == null ? undefined : VehicleFuelTypeFromJSON(json['fuelType']),
@@ -188,7 +181,6 @@ export function VehicleEmbeddedToJSON(value?: VehicleEmbedded | null): any {
         'model': value['model'],
         'amount': VehicleAmountToJSON(value['amount']),
         'title': value['title'],
-        'description': value['description'],
         'summary': value['summary'],
         'transmission': VehicleTransmissionToJSON(value['transmission']),
         'fuelType': VehicleFuelTypeToJSON(value['fuelType']),

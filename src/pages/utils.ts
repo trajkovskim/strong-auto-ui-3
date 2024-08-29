@@ -1,6 +1,7 @@
 import { VehiclesState } from 'context/vehicles';
 import { VehicleColor, VehicleCondition, VehicleDriveType, VehicleFuelType, VehicleTransmission } from 'generated';
 import { TranslationFunction } from 'hooks/useTranslation';
+import { priceOptions } from 'pages/constants';
 import { pageSizes, SortBy } from 'pages/shop/constants';
 
 export const convertMakesToOptions = (makes: VehiclesState['makes']) => {
@@ -52,4 +53,10 @@ export const convertPageSizeToOptions = (t: TranslationFunction) =>
   pageSizes.map((pageSize) => ({
     value: pageSize.toString(),
     label: t(`strongauto.inventory.pagination.resultSizeInput.${pageSize}`),
+  }));
+
+export const convertPricesToOptions = (t: TranslationFunction) =>
+  priceOptions.map((price) => ({
+    value: price.toString(),
+    label: t(`price.${price}`),
   }));

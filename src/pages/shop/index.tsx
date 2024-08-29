@@ -1,7 +1,7 @@
 import ShopProductCard from 'components/card/ShopProductCard';
 import { Button, Container, Spinner, Text } from 'components/common';
-import { setVehicleFiltersAction } from 'context/vehicles';
-import { VehicleFilters, VehiclesResponse } from 'generated';
+import { setVehicleFiltersAction, VehicleFiltersForm } from 'context/vehicles';
+import { VehiclesResponse } from 'generated';
 import { useApplicationContext, useRequest } from 'hooks';
 import Filters from 'pages/shop/Filters';
 import ListHeader from 'pages/shop/ListHeader';
@@ -47,7 +47,10 @@ const Shop: React.FC = () => {
   const { getState, dispatch } = useApplicationContext();
 
   const filters = getState().vehicles.filters;
-  const setFilters = useCallback((filters: VehicleFilters) => dispatch(setVehicleFiltersAction(filters)), [dispatch]);
+  const setFilters = useCallback(
+    (filters: VehicleFiltersForm) => dispatch(setVehicleFiltersAction(filters)),
+    [dispatch]
+  );
 
   useEffect(() => {
     if (location.state?.resetFilters) {
@@ -56,11 +59,19 @@ const Shop: React.FC = () => {
       return;
     }
 
-    console.log(filters);
+    const priceSplit = filters.price?.split('-');
+
     send(
-      searchVehicles({ vehicleFilters: filters, page, size: pageSize, sortBy: sortBy ? [sortBy] : undefined }).then(
-        setVehiclesResponse
-      )
+      searchVehicles({
+        vehicleFilters: {
+          ...filters,
+          priceFrom: priceSplit?.[0],
+          priceTo: priceSplit?.[1] === 'any' ? undefined : priceSplit?.[1],
+        },
+        page,
+        size: pageSize,
+        sortBy: sortBy ? [sortBy] : undefined,
+      }).then(setVehiclesResponse)
     );
   }, [filters, location.state?.resetFilters, page, pageSize, send, setFilters, sortBy]);
 

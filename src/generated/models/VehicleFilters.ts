@@ -25,6 +25,12 @@ import {
     VehicleConditionFromJSONTyped,
     VehicleConditionToJSON,
 } from './VehicleCondition';
+import type { VehicleState } from './VehicleState';
+import {
+    VehicleStateFromJSON,
+    VehicleStateFromJSONTyped,
+    VehicleStateToJSON,
+} from './VehicleState';
 import type { VehicleColor } from './VehicleColor';
 import {
     VehicleColorFromJSON,
@@ -63,23 +69,23 @@ export interface VehicleFilters {
      */
     model?: string;
     /**
-     * 
+     * Decimal value
      * @type {string}
      * @memberof VehicleFilters
      */
-    price?: string;
+    priceFrom?: string;
     /**
-     * 
-     * @type {boolean}
+     * Decimal value
+     * @type {string}
      * @memberof VehicleFilters
      */
-    sold?: boolean;
+    priceTo?: string;
     /**
      * 
-     * @type {boolean}
+     * @type {Array<VehicleState>}
      * @memberof VehicleFilters
      */
-    featured?: boolean;
+    states?: Array<VehicleState>;
     /**
      * 
      * @type {VehicleCondition}
@@ -163,9 +169,9 @@ export function VehicleFiltersFromJSONTyped(json: any, ignoreDiscriminator: bool
         
         'make': json['make'] == null ? undefined : json['make'],
         'model': json['model'] == null ? undefined : json['model'],
-        'price': json['price'] == null ? undefined : json['price'],
-        'sold': json['sold'] == null ? undefined : json['sold'],
-        'featured': json['featured'] == null ? undefined : json['featured'],
+        'priceFrom': json['priceFrom'] == null ? undefined : json['priceFrom'],
+        'priceTo': json['priceTo'] == null ? undefined : json['priceTo'],
+        'states': json['states'] == null ? undefined : ((json['states'] as Array<any>).map(VehicleStateFromJSON)),
         'condition': json['condition'] == null ? undefined : VehicleConditionFromJSON(json['condition']),
         'bodyTypes': json['bodyTypes'] == null ? undefined : ((json['bodyTypes'] as Array<any>).map(VehicleBodyTypeFromJSON)),
         'transmission': json['transmission'] == null ? undefined : VehicleTransmissionFromJSON(json['transmission']),
@@ -187,9 +193,9 @@ export function VehicleFiltersToJSON(value?: VehicleFilters | null): any {
         
         'make': value['make'],
         'model': value['model'],
-        'price': value['price'],
-        'sold': value['sold'],
-        'featured': value['featured'],
+        'priceFrom': value['priceFrom'],
+        'priceTo': value['priceTo'],
+        'states': value['states'] == null ? undefined : ((value['states'] as Array<any>).map(VehicleStateToJSON)),
         'condition': VehicleConditionToJSON(value['condition']),
         'bodyTypes': value['bodyTypes'] == null ? undefined : ((value['bodyTypes'] as Array<any>).map(VehicleBodyTypeToJSON)),
         'transmission': VehicleTransmissionToJSON(value['transmission']),

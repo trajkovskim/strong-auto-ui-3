@@ -111,12 +111,6 @@ export interface Vehicle {
      */
     title: string;
     /**
-     * Vehicle description
-     * @type {string}
-     * @memberof Vehicle
-     */
-    description?: string;
-    /**
      * Vehicle summary
      * @type {string}
      * @memberof Vehicle
@@ -152,6 +146,12 @@ export interface Vehicle {
      * @memberof Vehicle
      */
     driveType?: VehicleDriveType;
+    /**
+     * Vehicle description
+     * @type {string}
+     * @memberof Vehicle
+     */
+    description?: string;
     /**
      * 
      * @type {string}
@@ -219,13 +219,13 @@ export function VehicleFromJSONTyped(json: any, ignoreDiscriminator: boolean): V
         'model': json['model'] == null ? undefined : json['model'],
         'amount': VehicleAmountFromJSON(json['amount']),
         'title': json['title'],
-        'description': json['description'] == null ? undefined : json['description'],
         'summary': json['summary'] == null ? undefined : json['summary'],
         'transmission': json['transmission'] == null ? undefined : VehicleTransmissionFromJSON(json['transmission']),
         'fuelType': json['fuelType'] == null ? undefined : VehicleFuelTypeFromJSON(json['fuelType']),
         'mileage': json['mileage'] == null ? undefined : json['mileage'],
         'year': json['year'] == null ? undefined : json['year'],
         'driveType': json['driveType'] == null ? undefined : VehicleDriveTypeFromJSON(json['driveType']),
+        'description': json['description'] == null ? undefined : json['description'],
         'engineSize': json['engineSize'] == null ? undefined : json['engineSize'],
         'doors': json['doors'] == null ? undefined : json['doors'],
         'bodyType': json['bodyType'] == null ? undefined : VehicleBodyTypeFromJSON(json['bodyType']),
@@ -248,13 +248,13 @@ export function VehicleToJSON(value?: Vehicle | null): any {
         'model': value['model'],
         'amount': VehicleAmountToJSON(value['amount']),
         'title': value['title'],
-        'description': value['description'],
         'summary': value['summary'],
         'transmission': VehicleTransmissionToJSON(value['transmission']),
         'fuelType': VehicleFuelTypeToJSON(value['fuelType']),
         'mileage': value['mileage'],
         'year': value['year'],
         'driveType': VehicleDriveTypeToJSON(value['driveType']),
+        'description': value['description'],
         'engineSize': value['engineSize'],
         'doors': value['doors'],
         'bodyType': VehicleBodyTypeToJSON(value['bodyType']),

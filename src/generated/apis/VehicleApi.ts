@@ -15,39 +15,38 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreatedResponse,
   ErrorResponse,
-  Vehicle,
   VehicleFilters,
-  VehicleMake,
-  VehicleMakesResponse,
+  VehicleRequest,
+  VehicleResponse,
   VehiclesResponse,
 } from '../models/index';
 import {
+    CreatedResponseFromJSON,
+    CreatedResponseToJSON,
     ErrorResponseFromJSON,
     ErrorResponseToJSON,
-    VehicleFromJSON,
-    VehicleToJSON,
     VehicleFiltersFromJSON,
     VehicleFiltersToJSON,
-    VehicleMakeFromJSON,
-    VehicleMakeToJSON,
-    VehicleMakesResponseFromJSON,
-    VehicleMakesResponseToJSON,
+    VehicleRequestFromJSON,
+    VehicleRequestToJSON,
+    VehicleResponseFromJSON,
+    VehicleResponseToJSON,
     VehiclesResponseFromJSON,
     VehiclesResponseToJSON,
 } from '../models/index';
 
+export interface CreateVehicleEntryRequest {
+    vehicleRequest: VehicleRequest;
+}
+
+export interface DeleteVehicleEntryRequest {
+    id: number;
+}
+
 export interface GetVehicleEntryRequest {
     id: number;
-    acceptLanguage?: string;
-}
-
-export interface GetVehicleMakeEntriesRequest {
-    acceptLanguage?: string;
-}
-
-export interface GetVehicleMakeEntryRequest {
-    make: string;
     acceptLanguage?: string;
 }
 
@@ -59,15 +58,88 @@ export interface SearchVehicleEntriesRequest {
     sortBy?: Array<string>;
 }
 
+export interface UpdateVehicleEntryRequest {
+    id: number;
+    vehicleRequest: VehicleRequest;
+}
+
 /**
  * 
  */
 export class VehicleApi extends runtime.BaseAPI {
 
     /**
+     * Creates and saves vehicle entry
+     */
+    async createVehicleEntryRaw(requestParameters: CreateVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatedResponse>> {
+        if (requestParameters['vehicleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'vehicleRequest',
+                'Required parameter "vehicleRequest" was null or undefined when calling createVehicleEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/vehicles`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VehicleRequestToJSON(requestParameters['vehicleRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatedResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Creates and saves vehicle entry
+     */
+    async createVehicleEntry(requestParameters: CreateVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatedResponse> {
+        const response = await this.createVehicleEntryRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Deletes saved vehicle entry
+     */
+    async deleteVehicleEntryRaw(requestParameters: DeleteVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling deleteVehicleEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/vehicles/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Deletes saved vehicle entry
+     */
+    async deleteVehicleEntry(requestParameters: DeleteVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteVehicleEntryRaw(requestParameters, initOverrides);
+    }
+
+    /**
      * Get vehicle info
      */
-    async getVehicleEntryRaw(requestParameters: GetVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Vehicle>> {
+    async getVehicleEntryRaw(requestParameters: GetVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleResponse>> {
         if (requestParameters['id'] == null) {
             throw new runtime.RequiredError(
                 'id',
@@ -90,81 +162,14 @@ export class VehicleApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleResponseFromJSON(jsonValue));
     }
 
     /**
      * Get vehicle info
      */
-    async getVehicleEntry(requestParameters: GetVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Vehicle> {
+    async getVehicleEntry(requestParameters: GetVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleResponse> {
         const response = await this.getVehicleEntryRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get all vehicle makes
-     */
-    async getVehicleMakeEntriesRaw(requestParameters: GetVehicleMakeEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleMakesResponse>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters['acceptLanguage'] != null) {
-            headerParameters['Accept-Language'] = String(requestParameters['acceptLanguage']);
-        }
-
-        const response = await this.request({
-            path: `/vehicle-makes`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleMakesResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * Get all vehicle makes
-     */
-    async getVehicleMakeEntries(requestParameters: GetVehicleMakeEntriesRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleMakesResponse> {
-        const response = await this.getVehicleMakeEntriesRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get vehicle make with models
-     */
-    async getVehicleMakeEntryRaw(requestParameters: GetVehicleMakeEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleMake>> {
-        if (requestParameters['make'] == null) {
-            throw new runtime.RequiredError(
-                'make',
-                'Required parameter "make" was null or undefined when calling getVehicleMakeEntry().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (requestParameters['acceptLanguage'] != null) {
-            headerParameters['Accept-Language'] = String(requestParameters['acceptLanguage']);
-        }
-
-        const response = await this.request({
-            path: `/vehicle-makes/{make}`.replace(`{${"make"}}`, encodeURIComponent(String(requestParameters['make']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleMakeFromJSON(jsonValue));
-    }
-
-    /**
-     * Get vehicle make with models
-     */
-    async getVehicleMakeEntry(requestParameters: GetVehicleMakeEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleMake> {
-        const response = await this.getVehicleMakeEntryRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -218,6 +223,48 @@ export class VehicleApi extends runtime.BaseAPI {
     async searchVehicleEntries(requestParameters: SearchVehicleEntriesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehiclesResponse> {
         const response = await this.searchVehicleEntriesRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Updates saved vehicle entry
+     */
+    async updateVehicleEntryRaw(requestParameters: UpdateVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling updateVehicleEntry().'
+            );
+        }
+
+        if (requestParameters['vehicleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'vehicleRequest',
+                'Required parameter "vehicleRequest" was null or undefined when calling updateVehicleEntry().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/vehicles/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VehicleRequestToJSON(requestParameters['vehicleRequest']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Updates saved vehicle entry
+     */
+    async updateVehicleEntry(requestParameters: UpdateVehicleEntryRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.updateVehicleEntryRaw(requestParameters, initOverrides);
     }
 
 }

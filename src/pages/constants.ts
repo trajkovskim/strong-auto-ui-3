@@ -9,16 +9,7 @@ export const TELEPHONE = 'strongauto.telephone';
 export const EMAIL = 'strongauto.email';
 export const OPEN_HOURS = 'strongauto.openHours';
 
-export const priceOptions = [
-  {
-    value: '0-3000',
-  },
-  { value: '3000-10000' },
-  { value: '10000-20000' },
-  { value: '20000-50000' },
-  { value: '50000-100000' },
-  { value: '100000-any' },
-];
+export const priceOptions = ['0-3000', '3000-10000','10000-20000','20000-50000','100000-any']
 
 type BodyType = {
   id: number;

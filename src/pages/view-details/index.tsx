@@ -16,7 +16,7 @@ import {
   Title,
 } from 'components/common';
 import PageHeader from 'components/PageHeader';
-import { Vehicle, VehiclesResponse } from 'generated';
+import { Vehicle, VehiclesResponse, VehicleState } from 'generated';
 import { useRequest, useTranslation } from 'hooks';
 import { PAGE_MAX_WIDTH } from 'pages/constants';
 import React, { useEffect, useRef, useState } from 'react';
@@ -59,7 +59,7 @@ const ViewDetails: React.FC = () => {
 
     send(
       getVehicleEntry({ id: Number(id) }).then(setProduct),
-      searchVehicles({ vehicleFilters: { featured: true } }).then(setVehiclesResponse)
+      searchVehicles({ vehicleFilters: { states: [VehicleState.Featured] } }).then(setVehiclesResponse)
     );
   }, [id, send]);
 

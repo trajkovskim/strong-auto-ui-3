@@ -1,13 +1,17 @@
 import { Action } from 'context/types';
 import { VehicleFilters, VehicleMake } from 'generated';
 
+export type VehicleFiltersForm = Omit<VehicleFilters, 'priceFrom' | 'priceTo'> & {
+  price?: string;
+};
+
 type MakesValue = {
   make: VehicleMake['make'];
   models?: VehicleMake['models'];
 };
 
 export type VehiclesState = {
-  filters: VehicleFilters;
+  filters: VehicleFiltersForm;
   makes?: Record<VehicleMake['make'], MakesValue>;
 };
 
